@@ -104,9 +104,9 @@ four primary scalar types:
 |64-bits | i64    | u64      |
 |arch    | isize  | usize    |
 
-<blockquote>Remarque : isize et usize sont en fonction de l'architecture : 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.</blockquote>
+<blockquote>💡 isize et usize sont en fonction de l'architecture : 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.</blockquote>
 
-<blockquote>remarque : integer types default to i32: this type is generally the fastest</blockquote>
+<blockquote>💡 integer types default to i32: this type is generally the fastest</blockquote>
 
 https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 
