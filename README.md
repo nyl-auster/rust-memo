@@ -10,9 +10,11 @@ curl https://sh.rustup.rs -sSf | sh
 
 If the install is successful "rustup" will display its version and available commands.
 
-|Mettre à jour rustup|rustup update|
-| get Rust version | rustc --version |
-| open local doc | rustup doc |
+| Command | description |
+|---------|-------------|
+|rustup update|ettre à jour rustup|
+|rustc --version | get Rust version |
+| rustup doc | open local doc |
 
 ## Hello world
 
