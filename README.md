@@ -24,8 +24,8 @@ fn main() {
     println!("Hello, world!");
 }
 ```
-<blockquote>💡  The main function is special: it is always the first code that runs in every executable Rust program</blockquote>
-<blockquote>💡 println! is not a function, it is a macro; that's why there is a "!" at the end.</blockquote>
+> 💡  The main function is special: it is always the first code that runs in every executable Rust program</blockquote>
+> ⚠️ println! is not a function, it is a macro; that's why there is a "!" at the end.</blockquote>
 
 Compile and execute :
 ```sh
@@ -41,7 +41,8 @@ Create a new project named "hello_cargo" :
 cargo new hello_cargo --bin
 ```
 
-<blockquote>💡The --bin argument passed to cargo new makes an executable application (often just called a binary) as opposed to a library</blockquote>
+>> 💡The --bin argument passed to cargo new makes an executable application (often just called a binary) as opposed to a library
+
 In Rust, packages of code are referred to as **crates** : ( caisses / cageots in french)
 
 | command | description |
