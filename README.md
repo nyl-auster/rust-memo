@@ -46,7 +46,7 @@ rustc main.rs
 
 **Cargo** est le gestionnaire de paquet de Rust et permet aussi de compiler un projet Rust (commande "cargo build")
 Cargo est installé de base avec Rust.
-Créer un nouveau projet cargo :
+Créer un nouveau projet cargo nommé "hello_cargo" :
 ```sh
 # --bin indique que l'on créer un projet exécutable (binary) par opposition à une librairie
 cargo new hello_cargo --bin
@@ -56,6 +56,7 @@ les paquets installés par Cargo s'appelle des **crates** : caisses / cageots.
 Compiler avec cargo
 ```sh
 cargo build
+# le fichier exécutable se trouvera dans target/debug/hello_cargo
 ```
 
 
