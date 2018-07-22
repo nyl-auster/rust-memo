@@ -28,6 +28,7 @@ rustup doc
 
 ```rust
 // filnemae: main.rs
+// la fonction "main" est spéciale, c'est toujours la première exécutée dans un programme Rust
 fn main() {
     println!("Hello, world!");
 }
