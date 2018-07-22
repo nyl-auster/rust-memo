@@ -66,5 +66,9 @@ Vérifier des erreurs sans produire d'exécutable
 ```sh
 cargo check
 ```
+Compiler avec optimisation
+```
+cargo build --release
+
 
 
