@@ -56,7 +56,7 @@ les paquets installés par Cargo s'appelle des **crates** : caisses / cageots.
 Compiler avec cargo
 ```sh
 cargo build
-# le fichier exécutable se trouvera dans target/debug/hello_cargo
+# le fichier exécutable sera target/debug/hello_cargo
 ```
 Compiler et exécuter:
 ```sh
@@ -67,8 +67,10 @@ Vérifier des erreurs sans produire d'exécutable
 cargo check
 ```
 Compiler avec optimisation
-```
+```sh
 cargo build --release
+# le fichier exécutable sera target/release/hello_cargo
+```
 
 
 
