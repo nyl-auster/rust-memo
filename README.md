@@ -58,5 +58,9 @@ Compiler avec cargo
 cargo build
 # le fichier exécutable se trouvera dans target/debug/hello_cargo
 ```
+Compiler et exécuter:
+```sh
+cargo run
+```
 
 
