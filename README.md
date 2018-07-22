@@ -72,5 +72,10 @@ cargo build --release
 # le fichier exécutable sera target/release/hello_cargo
 ```
 
+## principes de bases
+
+Par défault, toutes les variables sont **immutables**
+
+
 
 
