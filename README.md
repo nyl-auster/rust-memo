@@ -1,3 +1,11 @@
-# learning-rust
+# Learning rust
 
-Learning rust
+# Installation
+
+Installer **rustup**, qui permet de gérer les différentes versions de Rust.
+Mac et linux :
+
+```sh
+curl https://sh.rustup.rs -sSf | sh
+```
+si tout est ok, taper "rustup" affiche la version et les commandes disponibles.
