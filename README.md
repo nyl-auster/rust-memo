@@ -1,6 +1,6 @@
 # MEMO RUST
 
-## Installation
+## INSTALLATION
 
 Installer **rustup**, qui permet de gérer les différentes versions de Rust.
 Mac et linux :
@@ -34,8 +34,12 @@ fn main() {
 }
 ```
 
+NOTE : println! n'est pas une fonction mais une **macro**.
+
 Compiler et exécuter pour afficher "Hello world"
 ```sh
 rustc main.rs
 ./main
 ```
+
+
