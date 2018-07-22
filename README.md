@@ -83,6 +83,8 @@ let my_var = 5;
 let my_var = 6;
 ```
 
+https://doc.rust-lang.org/book/second-edition/ch03-01-variables-and-mutability.html#shadowing
+
 
 
 
