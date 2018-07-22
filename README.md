@@ -104,6 +104,8 @@ four primary scalar types:
 |64-bits | i64    | u64      |
 |arch    | isize  | usize    |
 
+Note : isize et usize sont en fonction de l'architecture : 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
+
 
 
 
