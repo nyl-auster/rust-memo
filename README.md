@@ -26,7 +26,7 @@ fn main() {
 ```
 > 💡The main function is special: it is always the first code that runs in every executable Rust program
 
-> ⚠️println! is not a function, it is a macro; that's why there is a "!" at the end.
+> ⚠️ println! is not a function, it is a macro; that's why there is a "!" at the end.
 
 Compile and execute :
 ```sh
@@ -76,8 +76,7 @@ let my_var = 6;
 
 four primary scalar types: 
 - integers
-- floating-point 
-- numbers
+- floating-point numbers
 - Booleans
 - characters
 
