@@ -62,5 +62,9 @@ Compiler et exécuter:
 ```sh
 cargo run
 ```
+Vérifier des erreurs sans produire d'exécutable
+```sh
+cargo check
+```
 
 
