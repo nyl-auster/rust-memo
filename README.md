@@ -2,13 +2,13 @@
 
 ## INSTALLATION
 
-install **rustup**, a command line tool for managing Rust versions and associated tools
-Mac & linux :
+install **rustup**, a command line tool for managing Rust versions and associated tools. On Mac & linux :
+
 ```sh
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-If the install is successful "rustup" will display its version and available commands.
+If the install is successfull, *rustup* command will display its version and available commands.
 
 | Command | description |
 |---------|-------------|
