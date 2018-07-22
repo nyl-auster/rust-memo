@@ -95,9 +95,9 @@ let x: u8 = 142;
 |64-bits | i64    | u64      |
 |arch    | isize  | usize    |
 
-<blockquote>💡 isize et usize sont en fonction de l'architecture : 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.</blockquote>
+> 💡 the isize and usize types depend on the kind of computer your program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
 
-<blockquote>💡 integer types default to i32: this type is generally the fastest</blockquote>
+> 💡 integer types default to i32: this type is generally the fastest
 
 https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 
