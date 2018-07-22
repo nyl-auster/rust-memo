@@ -53,20 +53,25 @@ In Rust, packages of code are referred to as **crates** : ( caisses / cageots in
 |cargo build --release| compile with optimizations.create an executable in target/release instead of target/debug|
 
 
-## principes de bases
+## Common programming concepts
 
-https://doc.rust-lang.org/book/second-edition/ch03-01-variables-and-mutability.html#shadowing
+### variables and mutability
 
-<blockquote> 💡 Par défault, toutes les variables sont **immutables**</blockquote>
+by default variables are **immutable**. This code will throw en error :
+```rust
+fn main() {
+    let x = 5;
+    x = 6;
+}
+```
+Still, this is possible to "shadow" a variable by re-using "let" keyword: 
 
-## shadowing 
-on peut écraser la valeur d'une variable immutable en la redéclarant
 ```rust
 let my_var = 5;
 let my_var = 6;
 ```
 
-## DATA TYPES
+### DATA TYPES
 
 four primary scalar types: 
 - integers
@@ -75,7 +80,7 @@ four primary scalar types:
 - Booleans
 - characters
 
-### Integer types
+#### Integer types
 
 |length  | signed | unsigned |
 |--------|--------|----------|
@@ -91,7 +96,7 @@ four primary scalar types:
 
 https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 
-### Floating-point types (decimal points)
+#### Floating-point types (decimal points)
 
 <blockquote> 💡 default type is f64 because on modern CPUs it’s roughly the same speed as f32 but is capable of more precision.</blockquote>
 
