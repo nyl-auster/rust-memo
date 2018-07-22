@@ -25,7 +25,7 @@ fn main() {
     println!("Hello, world!");
 }
 ```
-
+<blockquote>💡  The main function is special: it is always the first code that runs in every executable Rust program</blockquote>
 <blockquote>💡 println! is not a function, it is a macro **macro**.</blockquote>
 
 Compile and execute :
