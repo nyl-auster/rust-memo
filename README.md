@@ -34,7 +34,7 @@ fn main() {
 }
 ```
 
-<blockquote>println! n'est pas une fonction mais une **macro**.</blockquote>
+<blockquote>remarque : println! n'est pas une fonction mais une **macro**.</blockquote>
 
 Compiler et exécuter pour afficher "Hello world"
 ```sh
