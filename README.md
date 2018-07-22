@@ -34,7 +34,7 @@ fn main() {
 }
 ```
 
-NOTE : println! n'est pas une fonction mais une **macro**.
+<blockquote>println! n'est pas une fonction mais une **macro**.</blockquote>
 
 Compiler et exécuter pour afficher "Hello world"
 ```sh
@@ -76,7 +76,7 @@ cargo build --release
 
 https://doc.rust-lang.org/book/second-edition/ch03-01-variables-and-mutability.html#shadowing
 
-Par défault, toutes les variables sont **immutables**
+<blockquote>Par défault, toutes les variables sont **immutables**</blockquote>
 
 ## shadowing 
 on peut écraser la valeur d'une variable immutable en la redéclarant
