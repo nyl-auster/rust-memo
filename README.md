@@ -19,8 +19,7 @@ If the install is successfull, *rustup* command will display its version and ava
 ## Hello world
 
 ```rust
-// filnemae: main.rs
-// la fonction "main" est spéciale, c'est toujours la première exécutée dans un programme Rust
+// filname: main.rs
 fn main() {
     println!("Hello, world!");
 }
