@@ -141,18 +141,16 @@ fn main() {
 #### Boolean type
 
 ```rust
-    let x = true;
-    let y: bool = false; // with explicit type annotation
+let x = true;
+let y: bool = false; // with explicit type annotation
 ```
 
 #### Character type
 
 ```rust
-fn main() {
-    let c = 'z';
-    let z = 'ℤ';
-    let heart_eyed_cat = '😻';
-}
+let c = 'z';
+let z = 'ℤ';
+let heart_eyed_cat = '😻';
 ```
 
 > ⚠️ Note that the char type is specified with single quotes, as opposed to strings, which use double quotes
