@@ -27,8 +27,14 @@ rustup doc
 ## Hello world
 
 ```rust
-// main.rs
+// filnemae: main.rs
 fn main() {
     println!("Hello, world!");
 }
+```
+
+Compiler et exécuter pour afficher "Hello world"
+```sh
+rustc main.rs
+./main
 ```
