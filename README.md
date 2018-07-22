@@ -82,6 +82,11 @@ four primary scalar types:
 
 #### Integer types
 
+example :
+```rust
+let x: u8 = 142;
+```
+
 |length  | signed | unsigned |
 |--------|--------|----------|
 |8-bits  | i8     | u8       |
