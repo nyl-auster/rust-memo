@@ -12,8 +12,8 @@ If the install is successful "rustup" will display its version and available com
 
 | Command | description |
 |---------|-------------|
-|rustup update|ettre à jour rustup|
-|rustc --version | get Rust version |
+|rustup update| update rustup|
+|rustc --version | display Rust version |
 | rustup doc | open local doc |
 
 ## Hello world
@@ -26,9 +26,9 @@ fn main() {
 }
 ```
 
-<blockquote>remarque : println! n'est pas une fonction mais une **macro**.</blockquote>
+<blockquote>💡 println! is not a function, it is a macro **macro**.</blockquote>
 
-Compiler et exécuter pour afficher "Hello world"
+Compile and execute :
 ```sh
 rustc main.rs
 ./main
