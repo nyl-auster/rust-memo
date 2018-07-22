@@ -94,6 +94,16 @@ four primary scalar types:
 - Booleans
 - characters
 
+### Integer types
+
+length  | signed | unsigned |
+8-bits  | i8     | u8       |
+16-bits | i16    | u16      |
+32-bits | i32    | u32      |
+64-bits | i64    | u64      |
+arch    | isize  | usize    |
+
+
 
 
 
