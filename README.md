@@ -8,8 +8,14 @@ Mac et linux :
 ```sh
 curl https://sh.rustup.rs -sSf | sh
 ```
-si tout est ok, taper "rustup" affiche la version et les commandes disponibles.
+Taper "rustup" doit afficher la version et les commandes disponibles.
+
 Mettre à jour rustup :
 ```sh
 rustup update
+```
+
+Connaître la version de Rust installée
+```sh
+rustc --version
 ```
