@@ -23,3 +23,12 @@ ouvrir la documentation local:
 ```sh
 rustup doc
 ```
+
+## Hello world
+
+```rust
+// main.rs
+fn main() {
+    println!("Hello, world!");
+}
+```
