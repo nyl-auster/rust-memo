@@ -36,7 +36,7 @@ rustc main.rs
 
 ## Package manager
 
-**Cargo** Cargo is Rust’s build system and package manager. Cargo comes installed with Rust.
+**Cargo** is Rust’s build system and package manager. Cargo comes installed with Rust.
 Create a new project named "hello_cargo" :
 ```sh
 cargo new hello_cargo --bin
