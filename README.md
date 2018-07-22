@@ -76,7 +76,7 @@ cargo build --release
 
 https://doc.rust-lang.org/book/second-edition/ch03-01-variables-and-mutability.html#shadowing
 
-<blockquote>Par défault, toutes les variables sont **immutables**</blockquote>
+<blockquote> 💡 Par défault, toutes les variables sont **immutables**</blockquote>
 
 ## shadowing 
 on peut écraser la valeur d'une variable immutable en la redéclarant
@@ -109,6 +109,10 @@ four primary scalar types:
 <blockquote>remarque : integer types default to i32: this type is generally the fastest</blockquote>
 
 https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
+
+### Floating-point types (decimal points)
+
+<blockquote> 💡 default type is f64 because on modern CPUs it’s roughly the same speed as f32 but is capable of more precision.</blockquote>
 
 
 
