@@ -19,3 +19,7 @@ Connaître la version de Rust installée
 ```sh
 rustc --version
 ```
+ouvrir la documentation local: 
+```sh
+rustup doc
+```
