@@ -84,7 +84,8 @@ four primary scalar types:
 
 example :
 ```rust
-let x: u8 = 142;
+let x = 142; // i32
+let y: u8 = 142;
 ```
 
 |length  | signed | unsigned |
@@ -105,7 +106,8 @@ https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 
 example :
 ```rust
-let x: f64 = 142.567890;
+let x = 2.0; // f64
+let y: f64 = 142.567890;
 ```
 
 |length  | primitive |
