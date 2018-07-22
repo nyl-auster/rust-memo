@@ -76,6 +76,14 @@ cargo build --release
 
 Par défault, toutes les variables sont **immutables**
 
+## shadowing 
+on peut écraser la valeur d'une variable immutable en la redéclarant
+```rust
+let my_var = 5;
+let my_var = 6;
+```
+
+
 
 
 
