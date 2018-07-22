@@ -1,6 +1,6 @@
-# Learning rust
+# MEMO RUST
 
-# Installation
+## Installation
 
 Installer **rustup**, qui permet de gérer les différentes versions de Rust.
 Mac et linux :
