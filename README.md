@@ -103,7 +103,17 @@ https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 
 #### Floating-point types (decimal points)
 
-<blockquote> 💡 default type is f64 because on modern CPUs it’s roughly the same speed as f32 but is capable of more precision.</blockquote>
+example :
+```rust
+let x: f64 = 142.567890;
+```
+
+|length  | primitive |
+|--------|--------|
+|32-bits | f32    |
+|64-bits | f64    |
+
+> 💡 default type is f64 because on modern CPUs it’s roughly the same speed as f32 but is capable of more precision.
 
 
 
