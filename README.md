@@ -138,6 +138,12 @@ fn main() {
 }
 ```
 
+#### Boolean type
+
+```rust
+    let x = true;
+    let y: bool = false; // with explicit type annotation
+```
 
 
 
