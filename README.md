@@ -36,33 +36,22 @@ rustc main.rs
 
 ## Package manager
 
-**Cargo** est le gestionnaire de paquet de Rust et permet aussi de compiler un projet Rust (commande "cargo build")
-Cargo est installé de base avec Rust.
-Créer un nouveau projet cargo nommé "hello_cargo" :
+**Cargo** Cargo is Rust’s build system and package manager. Cargo comes installed with Rust.
+Create a new project named "hello_cargo" :
 ```sh
-# --bin indique que l'on créer un projet exécutable (binary) par opposition à une librairie
 cargo new hello_cargo --bin
 ```
-les paquets installés par Cargo s'appelle des **crates** : caisses / cageots.
 
-Compiler avec cargo
-```sh
-cargo build
-# le fichier exécutable sera target/debug/hello_cargo
-```
-Compiler et exécuter:
-```sh
-cargo run
-```
-Vérifier des erreurs sans produire d'exécutable
-```sh
-cargo check
-```
-Compiler avec optimisation
-```sh
-cargo build --release
-# le fichier exécutable sera target/release/hello_cargo
-```
+<blockquote>💡The --bin argument passed to cargo new makes an executable application (often just called a binary) as opposed to a library</blockquote>
+In Rust, packages of code are referred to as **crates** : ( caisses / cageots in french)
+
+| command | description |
+|---------|-------------|
+|cargo build|compile. binary will be in target/debug/hello_cargo|
+|cargo run|compile and execute|
+|cargo check| check for errors but doesn’t produce an executable|
+|cargo build --release| compile with optimizations.create an executable in target/release instead of target/debug|
+
 
 ## principes de bases
 
