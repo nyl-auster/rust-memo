@@ -1,28 +1,18 @@
-# MEMO RUST
+# RUST MEMO
 
 ## INSTALLATION
 
-Installer **rustup**, qui permet de gérer les différentes versions de Rust.
-Mac et linux :
-
+install **rustup**, a command line tool for managing Rust versions and associated tools
+Mac & linux :
 ```sh
 curl https://sh.rustup.rs -sSf | sh
 ```
-Taper "rustup" doit afficher la version et les commandes disponibles.
 
-Mettre à jour rustup :
-```sh
-rustup update
-```
+If the install is successful "rustup" will display its version and available commands.
 
-Connaître la version de Rust installée
-```sh
-rustc --version
-```
-ouvrir la documentation local: 
-```sh
-rustup doc
-```
+|Mettre à jour rustup|rustup update|
+| get Rust version | rustc --version |
+| open local doc | rustup doc |
 
 ## Hello world
 
