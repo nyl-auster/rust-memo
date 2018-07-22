@@ -74,6 +74,8 @@ cargo build --release
 
 ## principes de bases
 
+https://doc.rust-lang.org/book/second-edition/ch03-01-variables-and-mutability.html#shadowing
+
 Par défault, toutes les variables sont **immutables**
 
 ## shadowing 
@@ -83,7 +85,16 @@ let my_var = 5;
 let my_var = 6;
 ```
 
-https://doc.rust-lang.org/book/second-edition/ch03-01-variables-and-mutability.html#shadowing
+## DATA TYPES
+
+four primary scalar types: 
+- integers
+- floating-point 
+- numbers
+- Booleans
+- characters
+
+
 
 
 
