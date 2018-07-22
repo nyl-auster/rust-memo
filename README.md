@@ -107,7 +107,7 @@ https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 example :
 ```rust
 let x = 2.0; // f64
-let y: f64 = 142.567890;
+let y: f32 = 142.567890;
 ```
 
 |length  | primitive |
