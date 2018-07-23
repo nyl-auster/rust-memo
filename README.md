@@ -1,7 +1,5 @@
 # RUST MEMO
 
-> 💡Do not copy-paste any code from this memo : the best way to learn code is to type it and type again
-
 ## Getting started
 
 ### installation
