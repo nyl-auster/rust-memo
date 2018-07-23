@@ -228,5 +228,5 @@ In function signatures, you **must** declare the type of each parameter
 Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
 
 > ⚠️ Rust is an expression-based language, this is an important distinction to understand
-- Statements do **not **return** values
+- Statements do **not return** values
 - Expressions **evaluate** to something and **return a value**
