@@ -93,8 +93,6 @@ let mut y: i64 = 27;
 let name = String::new();
 ```
 
-
-
 This is possible to "shadow" a variable by re-using "let" keyword: 
 
 ```rust
