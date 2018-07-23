@@ -237,6 +237,8 @@ fn main() {
 
 In function signatures, you **must** declare the type of each parameter
 
+#### difference between STATEMENTS and EXPRESSIONS
+
 Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
 
 > ⚠️ Rust is an expression-based language, this is an important distinction to understand
