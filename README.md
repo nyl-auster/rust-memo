@@ -60,7 +60,9 @@ In Rust, packages of code are referred to as **crates** : ( caisses / cageots in
 
 ### variables and mutability
 
-> ⚠️ by default variables are **immutable**. This code will throw en error :
+#### immutability
+
+> ⚠️ by default variables are **immutable**. So this code will throw en error :
 
 ```rust
 fn main() {
@@ -69,15 +71,28 @@ fn main() {
 }
 ```
 
-Declare a variable, example :
+Use **mut** keyword, if you need to mutate your variable
 ```rust
-// immutable variable ( unsigned 64 bits number )
-let x: u64 = 42;
-// immutable variable with default typing ( default is signed 32 bits number)
-let a = 42
-// mutable variable with explicit typing
-let mut y: i64 = 27;
+fn main() {
+    let mut x = 5;
+    x = 6;
+}
 ```
+
+#### examples
+
+```rust
+// declare an immutable variable ( unsigned 64 bits number )
+let x: u64 = 42;
+// declare an immutable variable with default typing ( default is "i32" : signed 32 bits number)
+let a = 42
+// declare a MUTABLE variable
+let mut y: i64 = 27;
+// declare an immutable string
+let name = String::new();
+```
+
+
 
 This is possible to "shadow" a variable by re-using "let" keyword: 
 
