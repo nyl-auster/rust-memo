@@ -234,13 +234,13 @@ fn my_function(x: i32, y: i32) {
 
 #### Beginners gotchas
 
-🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. **The default value for functions is expressed by (), the empty tuple.** .  Therefore, nothing is returned, which is not compatible with the return type which is i32. You can remove semi-column or add "return" and keep the semi-column to fix this error.
-
 ```rust
 fn multiply(x: i32, y: i32) -> i32 {
     x * y;
 }
 ```
+
+🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. **The default value for functions is expressed by (), the empty tuple.** .  Therefore, nothing is returned, which is not compatible with the return type which is i32. You can remove semi-column or add "return" and keep the semi-column to fix this error.
 
 because adding semi-column converts the expression to a statement, there is no more explicit returned value. "()", empty tuple, is returned by default, and this does not match with the declared return type "i32" : error at compile time.
 
@@ -269,23 +269,22 @@ fn main() {
 }
 ```
 
-#### difference between STATEMENTS and EXPRESSIONS
-
-Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
+#### DIFFERENCE BETWEEN STATEMENTS AND EXPRESSIONS
 
 > ⚠️ Rust is an expression-based language, this is an important distinction to understand
 
+Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
 - Statements do **not return** values
 - Expressions **evaluate** to something (it doest not necessarly return a value, like a function call that can print a message for exemple)
 
-statements :
+examples of statements :
 ```rust
 // creating a variable and assigning a value to it
 let y = 5;
 ```
 > 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5"
 
-expressions:
+examples of expressions:
 ```rust
 5 + 6 // evaluates to 11
 // calling a function
@@ -299,6 +298,6 @@ let y = {
 };
 ```
 
-> ⚠️ Please note that last expression of a *block* **do not end with a ";"** so that it can return a value. 
+> ⚠️ Please note again that last expression of a *block* **do not end with a ";"** so that it can return a value. 
 
-> 🚨Expressions do not include ending semicolons. If you add a semicolon to the end of an expression, you turn it into a **statement**, which will then not return a value. Keep this in mind as you explore function return values and expressions next.
+> 🚨Expressions do not include ending semicolons. If you add a semicolon to the end of an expression, you turn it into a **statement**, which will then not return a value. 
