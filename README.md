@@ -77,6 +77,8 @@ extern crate rand;
 use rand::Rng;
 ```
 
+> 💡 You won’t just know which traits to use and which methods and functions to call from a crate. Instructions for using a crate are in each crate’s documentation. run cargo doc --open and click rand in the sidebar on the left.
+
 ## Common programming concepts
 
 ### variables and mutability
