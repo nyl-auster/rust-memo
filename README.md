@@ -363,6 +363,8 @@ fn main() {
 
 #### loops
 
+##### loop
+
 The **loop** keyword creates an infinite loop. We need **break** keyword to exit a infinite loop.
 
 ```rust
@@ -378,4 +380,17 @@ fn main() {
     }
 }
 ```
+
+##### while
+
+```rust
+fn main() {
+    let max = 5;
+    let mut i = 0;
+    while i < max {
+        i = i + 1;
+        println!("loop {}", i);
+    }
+}
+
 
