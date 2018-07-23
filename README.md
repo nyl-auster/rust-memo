@@ -198,12 +198,9 @@ let remainder = 43 % 5;
 ### Functions 
 
 ```rust
-fn main() {
-    hello_world();
-}
-
-fn hello_world() {
-    println!("Hello world");
+fn my_function(x: i32, y: i32) {
+    println!("The value of x is: {}", x);
+    println!("The value of y is: {}", y);
 }
 ```
 
@@ -221,3 +218,5 @@ fn main() {
   hello_world(67)
 }
 ```
+
+In function signatures, you **must** declare the type of each parameter
