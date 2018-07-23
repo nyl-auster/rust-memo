@@ -205,8 +205,8 @@ fn get_x() -> i32 {
     76
 }
 ```
- You can return early from a function by using the return keyword and specifying a value, but most functions return the last expression implicitly
- ```
+ You can return early from a function by using the return keyword and specifying a value ( but most functions return the last expression implicitly )
+ ```rust
  fn get_x() -> i32 {
     return 76;
 }
@@ -216,7 +216,13 @@ with not value returned:
 ```rust
 fn my_function(x: i32, y: i32) {
     println!("The value of x is: {}", x);
-    println!("The value of y is: {}", y);
+}
+```
+
+🚨🚨🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. You can remove semi-column or add "return" and keep the semi-column
+```rust
+fn plus_one(x: i32) -> i32 {
+    x + 1;
 }
 ```
 
