@@ -219,7 +219,8 @@ fn my_function(x: i32, y: i32) {
 }
 ```
 
-🚨🚨🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. You can remove semi-column or add "return" and keep the semi-column
+🚨🚨🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. **The default value for functions is expressed by (), the empty tuple.** .  Therefore, nothing is returned, which is not compatible with the return type which is i32. You can remove semi-column or add "return" and keep the semi-column to fix this error.
+
 ```rust
 fn plus_one(x: i32) -> i32 {
     x + 1;
