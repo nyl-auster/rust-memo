@@ -236,6 +236,12 @@ statements :
 ```rust
 // creating a variable and assigning a value to it
 let y = 5;
+```
+> 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5"
+
+expressions:
+```rust
+5 + 6 // evaluates to 11
 // calling a function
 say_hello()
 // calling a macro
@@ -246,10 +252,5 @@ let y = {
     x + 1 
 };
 ```
-> 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5"
-> ⚠️ last expression of a block **do not end with a ";"** to return a value.
 
-expressions:
-```rust
-5 + 6 // evaluates to 11
-```
+> ⚠️ last expression of a block **do not end with a ";"** to return a value.
