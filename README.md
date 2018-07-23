@@ -199,6 +199,14 @@ let remainder = 43 % 5;
 
 #### examples
 
+Returning a value. You **must** declare return value type with an arrow:
+```rust
+fn get_x() -> i32 {
+    76
+}
+```
+
+with not value returned:
 ```rust
 fn my_function(x: i32, y: i32) {
     println!("The value of x is: {}", x);
