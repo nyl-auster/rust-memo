@@ -60,19 +60,33 @@ In Rust, packages of code are referred to as **crates** : ( caisses / cageots in
 
 ### variables and mutability
 
-by default variables are **immutable**. This code will throw en error :
+> ⚠️ by default variables are **immutable**. This code will throw en error :
+
 ```rust
 fn main() {
     let x = 5;
     x = 6;
 }
 ```
-Still, this is possible to "shadow" a variable by re-using "let" keyword: 
+
+Declare a variable, example :
+```rust
+// immutable variable ( unsigned 64 bits number )
+let x: u64 = 42;
+// immutable variable with default typing ( default is signed 32 bits number)
+let a = 42
+// mutable variable with explicit typing
+let mut y: i64 = 27;
+```
+
+This is possible to "shadow" a variable by re-using "let" keyword: 
 
 ```rust
 let my_var = 5;
 let my_var = 6;
 ```
+
+> 💡 Rust code uses snake case as the conventional style for function and variable names.
 
 ### DATA TYPES
 
@@ -181,5 +195,5 @@ let quotient = 56.7 / 32.2;
 // remainder
 let remainder = 43 % 5;
 ```
-
+### Functions 
 
