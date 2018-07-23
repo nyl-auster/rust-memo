@@ -155,6 +155,20 @@ let heart_eyed_cat = '😻';
 
 > ⚠️ Note that the char type is specified with single quotes, as opposed to strings, which use double quotes
 
+#### Compound Types
+
+Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.
+
+##### The Tuple Type
+
+Variety of types into one compound type.
+```rust
+// create a tuple
+let tup: (i32, f64, u8) = (500, 6.4, 1);
+// read values:
+let (x, y, z) = tup;
+println!("The value of y is: {}", y); // display 6.4
+```
 
 
 
