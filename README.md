@@ -350,3 +350,13 @@ fn main() {
 }
 
 ```
+
+> 🚨 this will throw en error : each arm of the if must be the same type.
+
+```rust
+fn main() {
+    let condition = true;
+    let number = if condition { 5 } else { "six" };
+    println!("The value of number is: {}", number);
+}
+```
