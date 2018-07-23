@@ -57,17 +57,17 @@ In Rust, packages of code are referred to as **crates** : ( caisses / cageots in
 
 ### Install a crate
 
-example to add "rand" crate to your project. Add rand to your dependencies :
+example to add "rand" crate to your project. Add rand to your dependencies in your Cargo.toml file.
 ```toml
 [dependencies]
 rand = "0.3.14"
 ```
-now run 
+now run :
 ```sh
 cargo build
 ```
 
-Example to use in your "rand" in your project, at the top of your file:
+Example on how tu use "Rgn" trait methods :
 ```rust
 extern crate rand;
 // put Rng trait in the scope to use its methods like "gen_range"
