@@ -89,7 +89,7 @@ let x: u64 = 42;
 let a = 42
 // declare a MUTABLE variable
 let mut y: i64 = 27;
-// declare an immutable string
+// declare an immutable "string" : a growable, UTF-8 encoded bit of text
 let name = String::new();
 ```
 
