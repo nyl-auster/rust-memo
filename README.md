@@ -197,6 +197,8 @@ let remainder = 43 % 5;
 ```
 ### Functions 
 
+#### examples
+
 ```rust
 fn my_function(x: i32, y: i32) {
     println!("The value of x is: {}", x);
@@ -220,3 +222,7 @@ fn main() {
 ```
 
 In function signatures, you **must** declare the type of each parameter
+
+#### statements
+
+Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
