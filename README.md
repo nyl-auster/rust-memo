@@ -197,3 +197,27 @@ let remainder = 43 % 5;
 ```
 ### Functions 
 
+```rust
+fn main() {
+    hello_world();
+}
+
+fn hello_world() {
+    println!("Hello world");
+}
+```
+
+> 💡Rust doesn’t care where you define your functions, only that they’re defined somewhere.
+
+>  ⚠️ **Parameters** are the special variables used in the function signature, **arguments** are the concrete values we pass to the function when we call it.
+
+```rust
+// x is a PARAMETER
+fn hello_world(x: i32) {
+    println!("Hello world");
+}
+fn main() {
+  // 67 is an ARGUMENT
+  hello_world(67)
+}
+```
