@@ -333,3 +333,14 @@ fn main() {
     }
 }
 ```
+
+>  💡 Because if is an expression, we can use it on the right side of a let statement.
+
+```rust
+fn main() {
+    let condition = true;
+    let result = if condition { 5 } else { 6 };
+    println!("{}", result); // display "5"
+}
+
+```
