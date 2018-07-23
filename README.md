@@ -36,6 +36,23 @@ rustc main.rs
 ./main
 ```
 
+### debug variables with println placeholders
+
+```rust
+let array = [1, 2, 3];
+
+println!("this is my variable : {:?}", array);
+// displays: "this is my variable : [1, 2, 3]"
+
+println!("this is my variable : {:#?}", array);
+// displays with formatting :
+// this is my variable : [
+//    1,
+//    2,
+//    3
+// ]
+```
+
 ### Package manager
 
 #### Cargo
