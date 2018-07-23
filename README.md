@@ -176,6 +176,9 @@ Unlike a tuple, every element of an array must have the same type.
 
 ```rust
 let a = [1, 2, 3, 4, 5];
+// access first and second value
+let first = a[0];
+let second = a[1];
 ```
 > ⚠️ arrays in Rust have a fixed length: once declared, they cannot grow or shrink in size. Only **vector** are allowed to grow or shrink in size.
 
