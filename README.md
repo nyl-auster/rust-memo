@@ -56,6 +56,7 @@ In Rust, packages of code are referred to as **crates** : ( caisses / cageots in
 |cargo run|compile and execute|
 |cargo check| check for errors but doesn’t produce an executable|
 |cargo build --release| compile with optimizations.create an executable in target/release instead of target/debug|
+|cargo update| update crates - only last number of the semantic versionning|
 
 #### Install a crate
 
