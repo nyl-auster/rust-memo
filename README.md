@@ -170,8 +170,15 @@ let (x, y, z) = tup;
 println!("The value of y is: {}", y); // display 6.4
 println!("{}", tup.1); // display also 6.4
 ```
+##### The Array Type
 
+Unlike a tuple, every element of an array must have the same type.
 
+> ⚠️ Arrays in Rust are different from arrays in some other languages because arrays in Rust have a fixed length: once declared, they cannot grow or shrink in size.
+
+```rust
+let a = [1, 2, 3, 4, 5];
+```
 
 
 
