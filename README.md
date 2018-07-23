@@ -408,5 +408,14 @@ fn main() {
     }
 }
 ```
+Using **Range**
+
+```rust
+fn main() {
+    for element in 1..6 {
+        println!("loop {}", element);
+    }
+}
+```
 
 
