@@ -280,16 +280,22 @@ examples of statements :
 // creating a variable and assigning a value to it
 let y = 5;
 ```
-> 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5"
-
+> 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5". 
 examples of expressions:
 ```rust
-5 + 6 // evaluates to 11
+// Numbers by themselves are also expressions.
+5
+
+// mathematics operations
+5 + 6 
+
 // calling a function
 say_hello()
+
 // calling a macro
 println! 
-// blocks : evaluates to 4
+
+// block ( evaluates to 4 )
 let y = {
     let x = 3;
     x + 1 
