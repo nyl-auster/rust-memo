@@ -199,7 +199,7 @@ let remainder = 43 % 5;
 
 #### examples
 
-You **must** declare return value type with an arrow. If you don't do it, Rust assumes that the value returned by the function MUST be of the type "()", an empty tuple.
+You **must** declare return value type with an arrow. If you don't do it, Rust assumes that the value returned by the function is of the type "()", which is an empty tuple.
 
 ```rust
 fn get_x() -> i32 {
@@ -207,9 +207,9 @@ fn get_x() -> i32 {
 }
 ```
 
-> ⚠️ We DID NOT put a semi-column, so that 76 is evaluated as an expression and its value returned implicity.
+> ⚠️ Please not that we DID NOT put a semi-column, so that 76 is evaluated as an expression and its value returned implicity.
 
-This is equivalent to :
+This is strictly equivalent to :
 
  ```rust
  fn get_x() -> i32 {
@@ -217,15 +217,14 @@ This is equivalent to :
 }
  ```
 
-with parameters.  In function signatures, you **must** declare the type of each parameter:
+Example with parameters. In function signatures, you **must** declare the type of each parameter:
 ```rust
 fn multiply(x: i32, y: i32) -> i32 {
     x * y
 }
 ```
 
-without returning a value (so it return "()" by default, which is the default return type for functions)
-
+Without returning any explicit value (so it will return an empty tuple "()" by default)
 ```rust
 fn my_function(x: i32, y: i32) {
     println!("The value of x is: {}", x);
@@ -240,7 +239,7 @@ fn multiply(x: i32, y: i32) -> i32 {
 }
 ```
 
-🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. **The default value for functions is expressed by (), the empty tuple.** Therefore, nothing is returned, which is not compatible with the return type which is i32. 
+🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. So an empty tuple is returned; which is not matching the declared return type ( i32 ). 
 
 To fix this error, simply remove the semi-column:
 
@@ -267,7 +266,7 @@ fn main() {
 }
 ```
 
-#### DIFFERENCE BETWEEN STATEMENTS AND EXPRESSIONS
+#### Differenc between statements and expressions
 
 > ⚠️ Rust is an expression-based language, this is an important distinction to understand
 
