@@ -62,6 +62,7 @@ In Rust, packages of code are referred to as **crates** : ( caisses / cageots in
 
 #### immutability
 
+> 💡 Rust code uses snake case as the conventional style for function and variable names.
 > ⚠️ by default variables are **immutable**. So this code will throw en error :
 
 ```rust
@@ -100,8 +101,6 @@ This is possible to "shadow" a variable by re-using "let" keyword:
 let my_var = 5;
 let my_var = 6;
 ```
-
-> 💡 Rust code uses snake case as the conventional style for function and variable names.
 
 ### DATA TYPES
 
