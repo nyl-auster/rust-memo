@@ -205,6 +205,12 @@ fn get_x() -> i32 {
     76
 }
 ```
+ You can return early from a function by using the return keyword and specifying a value, but most functions return the last expression implicitly
+ ```
+ fn get_x() -> i32 {
+    return 76;
+}
+ ```
 
 with not value returned:
 ```rust
@@ -230,8 +236,6 @@ fn main() {
 ```
 
 In function signatures, you **must** declare the type of each parameter
-
-#### statements
 
 Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
 
