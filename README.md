@@ -199,42 +199,60 @@ let remainder = 43 % 5;
 
 #### examples
 
-Returning a value. You **must** declare return value type with an arrow:
+You **must** declare return value type with an arrow. If you don't do it, Rust assumes that the value returned by the function MUST be of the type "()", an empty tuple.
+
 ```rust
 fn get_x() -> i32 {
     76
 }
 ```
- You can return early from a function by using the return keyword and specifying a value ( but most functions return the last expression implicitly )
+
+> ⚠️ We DID NOT put a semi-column, so that 76 is evaluated as an expression and its value returned implicity.
+
+This is equivalent to :
+
  ```rust
  fn get_x() -> i32 {
     return 76;
 }
  ```
 
-with not value returned:
+with parameters.  In function signatures, you **must** declare the type of each parameter:
+```rust
+fn multiply(x: i32, y: i32) -> i32 {
+    x * y
+}
+```
+
+without returning a value (so it return "()" by default, which is the default return type for functions)
+
 ```rust
 fn my_function(x: i32, y: i32) {
     println!("The value of x is: {}", x);
 }
 ```
 
+#### Beginners gotchas
+
 🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. **The default value for functions is expressed by (), the empty tuple.** .  Therefore, nothing is returned, which is not compatible with the return type which is i32. You can remove semi-column or add "return" and keep the semi-column to fix this error.
 
 ```rust
-fn plus_one(x: i32) -> i32 {
-    x + 1;
+fn multiply(x: i32, y: i32) -> i32 {
+    x * y;
 }
 ```
 
-this will also throw an error
+because adding semi-column converts the expression to a statement, there is no more explicit returned value. "()", empty tuple, is returned by default, and this does not match with the declared return type "i32" : error at compile time.
+
+To fix this error, simply remove the semi-column:
+
 ```rust
-fn get_x() {
-    return 1 + 1;
+fn multiply(x: i32, y: i32) -> i32 {
+    x * y
 }
 ```
 
-Return is not explicitly typed, so Rust assumes return is a empty tuple "()". And it infers that result of "1+1" is a integer, so it complains about a "mismatch" between returned value and returned value type.
+#### difference between ARGUMENTS and PARAMETERS
 
 > 💡Rust doesn’t care where you define your functions, only that they’re defined somewhere.
 
@@ -250,8 +268,6 @@ fn main() {
   hello_world(67)
 }
 ```
-
-In function signatures, you **must** declare the type of each parameter
 
 #### difference between STATEMENTS and EXPRESSIONS
 
