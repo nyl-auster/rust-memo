@@ -240,7 +240,7 @@ fn multiply(x: i32, y: i32) -> i32 {
 }
 ```
 
-🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. **The default value for functions is expressed by (), the empty tuple.** .  Therefore, nothing is returned, which is not compatible with the return type which is i32. 
+🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. **The default value for functions is expressed by (), the empty tuple.** Therefore, nothing is returned, which is not compatible with the return type which is i32. 
 
 To fix this error, simply remove the semi-column:
 
