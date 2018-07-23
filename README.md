@@ -38,6 +38,8 @@ rustc main.rs
 
 ### Package manager
 
+#### Cargo
+
 **Cargo** is Rust’s build system and package manager. Cargo comes installed with Rust.
 Create a new project named "hello_cargo" :
 ```sh
@@ -55,7 +57,7 @@ In Rust, packages of code are referred to as **crates** : ( caisses / cageots in
 |cargo check| check for errors but doesn’t produce an executable|
 |cargo build --release| compile with optimizations.create an executable in target/release instead of target/debug|
 
-### Install a crate
+#### Install a crate
 
 example to add "rand" crate to your project. Add rand to your dependencies in your Cargo.toml file.
 ```toml
