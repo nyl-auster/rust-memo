@@ -392,5 +392,21 @@ fn main() {
         println!("loop {}", i);
     }
 }
+```
+
+##### for
+
+> 💡The safety and conciseness of for loops make them the most commonly used loop construct in Rust. 
+
+Iterate on an array:
+
+```rust
+fn main() {
+    let loops = [1, 2, 3, 4, 5];
+    for element in loops.iter() {
+        println!("loop {}", element);
+    }
+}
+```
 
 
