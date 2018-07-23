@@ -168,6 +168,7 @@ let tup: (i32, f64, u8) = (500, 6.4, 1);
 // read values:
 let (x, y, z) = tup;
 println!("The value of y is: {}", y); // display 6.4
+println!("{}", tup.1); // display also 6.4
 ```
 
 
