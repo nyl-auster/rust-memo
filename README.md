@@ -299,3 +299,20 @@ let y = {
 > ⚠️ Please note again that last expression of a *block* **do not end with a ";"** so that it can return a value. 
 
 > 🚨Expressions do not include ending semicolons. If you add a semicolon to the end of an expression, you turn it into a **statement**, which will then not return a value. 
+
+### Control flow
+
+#### If expressions
+
+```rust
+fn main() {
+    let number = 3;
+    if number < 5 {
+        println!("condition was true");
+    } else {
+        println!("condition was false");
+    }
+}
+```
+
+> ⚠️ the condition must be a bool. If the condition isn’t a bool, we’ll get an error. Rust will **NOT** automatically try to convert non-Boolean types to a Boolean
