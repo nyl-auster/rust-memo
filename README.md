@@ -177,7 +177,7 @@ Unlike a tuple, every element of an array must have the same type.
 ```rust
 let a = [1, 2, 3, 4, 5];
 ```
-> ⚠️ Arrays in Rust are different from arrays in some other languages because arrays in Rust have a fixed length: once declared, they cannot grow or shrink in size.
+> ⚠️ arrays in Rust have a fixed length: once declared, they cannot grow or shrink in size.
 
 
 
