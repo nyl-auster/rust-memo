@@ -230,11 +230,12 @@ Function bodies are made up of a series of **statements** *optionally* ending in
 > ⚠️ Rust is an expression-based language, this is an important distinction to understand
 
 - Statements do **not return** values
-- Expressions **evaluate** to something and **return a value**
+- Expressions **evaluate** to something (it doest not necessarly return a value, like a function call that can print a message for exemple)
 
 statements :
 ```rust
 let y = 5;
+say_hello()
 ```
 > 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5"
 
