@@ -1,6 +1,8 @@
 # RUST MEMO
 
-## INSTALLATION
+## Getting started
+
+### installation
 
 install **rustup**, a command line tool for managing Rust versions and associated tools. On Mac & linux :
 
@@ -16,7 +18,7 @@ If the install is successfull, *rustup* command will display its version and ava
 |rustc --version | display Rust version |
 | rustup doc | open local doc |
 
-## Hello world
+### Hello world
 
 ```rust
 // filname: main.rs
@@ -34,7 +36,7 @@ rustc main.rs
 ./main
 ```
 
-## Package manager
+### Package manager
 
 **Cargo** is Rust’s build system and package manager. Cargo comes installed with Rust.
 Create a new project named "hello_cargo" :
@@ -117,27 +119,6 @@ let y: f32 = 142.567890;
 
 > 💡 default type is f64 because on modern CPUs it’s roughly the same speed as f32 but is capable of more precision.
 
-##### numeric operations
-
-```rust
-fn main() {
-    // addition
-    let sum = 5 + 10;
-
-    // subtraction
-    let difference = 95.5 - 4.3;
-
-    // multiplication
-    let product = 4 * 30;
-
-    // division
-    let quotient = 56.7 / 32.2;
-
-    // remainder
-    let remainder = 43 % 5;
-}
-```
-
 #### Boolean type
 
 ```rust
@@ -182,6 +163,23 @@ let second = a[1];
 ```
 > ⚠️ arrays in Rust have a fixed length: once declared, they cannot grow or shrink in size. Only **vector** are allowed to grow or shrink in size.
 
+#### Numeric operations
 
+```rust
+// addition
+let sum = 5 + 10;
+
+// subtraction
+let difference = 95.5 - 4.3;
+
+// multiplication
+let product = 4 * 30;
+
+// division
+let quotient = 56.7 / 32.2;
+
+// remainder
+let remainder = 43 % 5;
+```
 
 
