@@ -253,4 +253,6 @@ let y = {
 };
 ```
 
-> ⚠️ last expression of a block **do not end with a ";"** to return a value.
+> ⚠️ Please note that last expression of a *block* **do not end with a ";"** so that it can return a value. 
+
+> 🚨Expressions do not include ending semicolons. If you add a semicolon to the end of an expression, you turn it into a **statement**, which will then not return a value. Keep this in mind as you explore function return values and expressions next.
