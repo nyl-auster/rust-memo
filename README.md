@@ -1,6 +1,10 @@
 # RUST MEMO
 
-This is a summary of Rust book second edition. I'm a very beginner, please PR if you spotted any mistake / misunderstanding.
+This is a summary of Rust book second edition. I'm a very beginner, you can PR if you spotted any mistake / misunderstanding.
+
+Resources :
+- Rust book : https://doc.rust-lang.org/book/second-edition/index.html
+- Exercices : https://exercism.io/tracks/rust
 
 ## Getting started
 
