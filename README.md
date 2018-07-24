@@ -479,7 +479,7 @@ fn main() {
 
 ## Time for some practice ! 👩‍💻👨‍💻
 
-You learned about variables, scalar and compound data types, functions, comments, if expressions, and loops!
+You learned about variables, scalar and compound data types, functions, comments, if expressions, and loops! It's time to write some code to memorize those things. You can :
 - Programming a guessing game : https://doc.rust-lang.org/book/second-edition/ch02-00-guessing-game-tutorial.html
 - Convert temperatures between Fahrenheit and Celsius.
 - Generate the nth Fibonacci number.
