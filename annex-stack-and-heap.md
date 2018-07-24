@@ -31,6 +31,11 @@ The **stack** is attached to a thread, so when the thread exits the stack is rec
 
 The size of the **stack** is set when a thread is created. The size of the **heap** is set on application startup, but can grow as space is needed (the allocator requests more memory from the operating system).
 
+## Which one should I use – the stack or the heap?
+
+For people new to programming, it’s probably a good idea to use the stack since it’s easier.
+Because the stack is small, you would want to use it when you know exactly how much memory you will need for your data, or if you know the size of your data is very small. It’s better to use the heap when you know that you will need a lot of memory for your data, or you just are not sure how much memory you will need (like with a dynamic array).
+
 ## sources
 
 https://stackoverflow.com/questions/79923/what-and-where-are-the-stack-and-heap
