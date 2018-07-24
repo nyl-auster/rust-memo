@@ -208,7 +208,7 @@ let heart_eyed_cat = '😻';
 
 #### Compound Types
 
-Compound types can group multiple values into one type. Rust has two primitive compound types: tuples and arrays.
+Compound types can group multiple values into one type. Rust has two primitive compound types: **tuples** and **arrays**.
 
 ##### The Tuple Type
 
@@ -216,8 +216,10 @@ Variety of types into one compound type.
 ```rust
 // create a tuple
 let tup: (i32, f64, u8) = (500, 6.4, 1);
+
 // read values:
 let (x, y, z) = tup;
+
 println!("The value of y is: {}", y); // display 6.4
 println!("{}", tup.1); // display also 6.4
 ```
@@ -231,7 +233,7 @@ let a = [1, 2, 3, 4, 5];
 let first = a[0];
 let second = a[1];
 ```
-> ⚠️ arrays in Rust have a fixed length: once declared, they cannot grow or shrink in size. Only **vector** are allowed to grow or shrink in size.
+> ⚠️ **arrays in Rust have a fixed length**: once declared, they cannot grow or shrink in size. Only **vectors** are allowed to grow or shrink in size.
 
 #### Numeric operations
 
@@ -253,9 +255,11 @@ let remainder = 43 % 5;
 ```
 ### Functions 
 
+> 💡Rust doesn’t care where you define your functions, only that they’re defined somewhere.
+
 #### examples
 
-You **must** declare return value type with an arrow. If you don't do it, Rust assumes that the value returned by the function is of the type "()", which is an empty tuple.
+You **must** declare return value type with an arrow. If you don't do it, Rust assumes that the value returned by the function is of the type "()", which is an **empty tuple**.
 
 ```rust
 fn get_x() -> i32 {
@@ -263,7 +267,7 @@ fn get_x() -> i32 {
 }
 ```
 
-> ⚠️ Please not that we DID NOT put a semi-column, so that 76 is evaluated as an expression and its value returned implicity.
+> ⚠️ Please note that we DID NOT put a semi-column, so that 76 is evaluated as an **expression** and its value returned implicity.
 
 This is strictly equivalent to :
 
@@ -289,13 +293,14 @@ fn my_function(x: i32, y: i32) {
 
 #### Beginners gotchas
 
+🚨 this will throw an error:
 ```rust
 fn multiply(x: i32, y: i32) -> i32 {
     x * y;
 }
 ```
 
-🚨 this will throw an error because there is a semi-column : expression is turned into a **statement** and do not return the value. So an empty tuple is returned; which is not matching the declared return type ( i32 ). 
+There is a semi-column : **expression** is turned into a **statement**, and a statement **do not return a value**. So an empty tuple is returned; which is not matching the declared return type ( i32 ). 
 
 To fix this error, simply remove the semi-column:
 
@@ -307,8 +312,6 @@ fn multiply(x: i32, y: i32) -> i32 {
 
 #### difference between ARGUMENTS and PARAMETERS
 
-> 💡Rust doesn’t care where you define your functions, only that they’re defined somewhere.
-
 >  ⚠️ **Parameters** are the special variables used in the function signature, **arguments** are the concrete values we pass to the function when we call it.
 
 ```rust
@@ -316,27 +319,29 @@ fn multiply(x: i32, y: i32) -> i32 {
 fn hello_world(x: i32) {
     println!("Hello world");
 }
+
 fn main() {
   // 67 is an ARGUMENT
   hello_world(67)
 }
 ```
 
-#### Differenc between statements and expressions
+#### Difference between statements and expressions
 
 > ⚠️ Rust is an expression-based language, this is an important distinction to understand
 
 Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
 - Statements do **not return** values
-- Expressions **evaluate** to something (it doest not necessarly return a value, like a function call that can print a message for exemple)
+- Expressions **evaluate** to something
 
-examples of statements :
+Examples of statements :
 ```rust
-// creating a variable and assigning a value to it
+// creating a variable and assigning a value to it. This does NOT return a value.
 let y = 5;
 ```
 > 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5". 
-examples of expressions:
+
+Examples of expressions:
 ```rust
 // Numbers by themselves are also expressions.
 5
