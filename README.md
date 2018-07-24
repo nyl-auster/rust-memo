@@ -1,5 +1,7 @@
 # RUST MEMO
 
+This is a summary of Rust book second edition. I'm a very beginner, please PR if you spotted any mistake / misunderstanding.
+
 ## Getting started
 
 ### installation
