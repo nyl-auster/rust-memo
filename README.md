@@ -28,7 +28,7 @@ fn main() {
 ```
 > 💡The main function is special: it is always the first code that runs in every executable Rust program
 
-> ⚠️ println! is not a function, it is a macro; that's why there is a "!" at the end.
+> ⚠️ println! is **not** a function, it is a **macro**; that's why there is a "!" at the end.
 
 Compile and execute :
 ```sh
@@ -36,7 +36,7 @@ rustc main.rs
 ./main
 ```
 
-### debug variables with println placeholders
+### debug variables with println! placeholders
 
 ```rust
 let array = [1, 2, 3];
@@ -87,14 +87,14 @@ now run :
 cargo build
 ```
 
-Example on how tu use "Rgn" trait methods :
+Example on how tu use "Rng" methods :
 ```rust
 extern crate rand;
 // put Rng trait in the scope to use its methods like "gen_range"
 use rand::Rng;
 ```
 
-> 💡 You won’t just know which traits to use and which methods and functions to call from a crate. Instructions for using a crate are in each crate’s documentation. run cargo doc --open and click rand in the sidebar on the left.
+> 💡 You won’t just know which traits to use and which methods and functions to call from a crate. Instructions for using a crate are in each crate’s documentation. run **cargo doc --open and click rand** in the sidebar on the left.
 
 ## Common programming concepts
 
@@ -103,6 +103,7 @@ use rand::Rng;
 #### immutability
 
 > 💡 Rust code uses snake case as the conventional style for function and variable names.
+
 > ⚠️ by default variables are **immutable**. So this code will throw en error :
 
 ```rust
@@ -123,12 +124,15 @@ fn main() {
 #### examples
 
 ```rust
-// declare an immutable variable ( unsigned 64 bits number )
-let x: u64 = 42;
 // declare an immutable variable with default typing ( default is "i32" : signed 32 bits number)
 let a = 42
+
+// declare an immutable variable ( signed 64 bits number )
+let x: i64 = 42;
+
 // declare a MUTABLE variable
 let mut y: i64 = 27;
+
 // declare an immutable "string" : a growable, UTF-8 encoded bit of text
 let name = String::new();
 ```
