@@ -494,3 +494,5 @@ You learned about variables, scalar and compound data types, functions, comments
 ## Ownership
 
 https://doc.rust-lang.org/book/second-edition/ch04-00-understanding-ownership.html
+
+Rust’s central and most unique feature is ownership. It enables Rust to make memory safety guarantees without needing a garbage collector.
