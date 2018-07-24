@@ -343,7 +343,7 @@ let y = 5;
 
 Examples of expressions:
 ```rust
-// Numbers by themselves are also expressions.
+// Numbers by themselves are expressions.
 5
 
 // mathematics operations
@@ -360,11 +360,7 @@ let y = {
     let x = 3;
     x + 1 
 };
-```
-
-> ⚠️ Please note again that last expression of a *block* **do not end with a ";"** so that it can return a value. 
-
-> 🚨Expressions do not include ending semicolons. If you add a semicolon to the end of an expression, you turn it into a **statement**, which will then not return a value. 
+``` 
 
 ### Control flow
 
