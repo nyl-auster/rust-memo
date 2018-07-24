@@ -372,6 +372,9 @@ let y = {
 
 #### If expressions
 
+> 💡Note that **patterns** are also a very powerful way to handle conditions : https://doc.rust-lang.org/1.5.0/book/patterns.html
+
+
 ```rust
 fn main() {
     let number = 3;
