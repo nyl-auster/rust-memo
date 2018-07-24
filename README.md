@@ -495,4 +495,6 @@ You learned about variables, scalar and compound data types, functions, comments
 
 https://doc.rust-lang.org/book/second-edition/ch04-00-understanding-ownership.html
 
-All programs have to manage the way they use a computer’s memory while running. Rust’s central and most unique feature is ownership. It enables Rust to make memory safety guarantees without needing a garbage collector.
+All programs have to manage the way they use a computer’s memory while running. Rust’s central and most unique feature is ownership. It enables Rust to make memory safety guarantees without needing a garbage collector. 
+
+Some languages have garbage collection that constantly looks for no longer used memory as the program runs; in other languages, the programmer must explicitly allocate and free the memory. Rust uses a third approach: memory is managed through a system of ownership with a set of rules that the compiler checks at compile time.
