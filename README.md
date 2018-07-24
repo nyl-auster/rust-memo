@@ -396,7 +396,7 @@ fn main() {
 }
 ```
 
->  💡 Because if is an expression, we can use it on the right side of a let statement.
+>  💡 Because **if** is an expression, it returns a value : so we can use it on the right side of a **let** statement:
 
 ```rust
 fn main() {
@@ -407,7 +407,8 @@ fn main() {
 
 ```
 
-> 🚨 this will throw en error : each arm of the if must be the same type.
+
+> 🚨 Below code will throw en error : each **arm** of the **if** must be the same type.
 
 ```rust
 fn main() {
