@@ -156,8 +156,8 @@ four primary scalar types:
 
 example :
 ```rust
-let x = 142; // i32
-let y: u8 = 142;
+let x = 142; // i32 type by default
+let y: u8 = 142; 
 ```
 
 |length  | signed | unsigned |
@@ -170,7 +170,7 @@ let y: u8 = 142;
 
 > 💡 the isize and usize types depend on the kind of computer your program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
 
-> 💡 integer types default to i32: this type is generally the fastest
+> 💡 integer types default to i32 because this type is generally the fastest
 
 https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 
@@ -178,7 +178,7 @@ https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
 
 example :
 ```rust
-let x = 2.0; // f64
+let x = 2.0; // f64 by default
 let y: f32 = 142.567890;
 ```
 
