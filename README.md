@@ -485,11 +485,7 @@ fn main() {
 
 ## Time for some practice ! 👩‍💻👨‍💻
 
-You learned about variables, scalar and compound data types, functions, comments, if expressions, and loops! It's time to write some code to memorize those things. You can :
-- Programming a guessing game : https://doc.rust-lang.org/book/second-edition/ch02-00-guessing-game-tutorial.html
-- Convert temperatures between Fahrenheit and Celsius.
-- Generate the nth Fibonacci number.
-- Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” taking advantage of the repetition in the song.
+You learned about variables, scalar and compound data types, functions, comments, if expressions, and loops! you can already try to build your own small programm to memorize all this new stuff.
 
 ## Ownership
 
