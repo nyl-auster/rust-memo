@@ -157,6 +157,8 @@ four primary scalar types:
 - Booleans
 - characters
 
+> 💡The types covered in this section all stored on the stack and popped off the stack when their scope is over.  
+
 #### Integer types
 
 example :
