@@ -2,7 +2,7 @@
 
 ## What is it for ?
 
-All programs have to manage the way they use a computer’s memory while running. The stack end the heap are two different ways to handle and allocate memory.
+All programs have to manage the way they use a computer’s memory while running. Both the stack and the heap are parts of memory that is available to your code to use at runtime, but they are structured in different ways.
 
 ## Where are the stack and the heap ?
 
