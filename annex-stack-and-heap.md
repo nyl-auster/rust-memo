@@ -4,22 +4,26 @@
 
 They are both stored in the computer’s RAM (Random Access Memory). 
 
-## who is creating the stack and the heap ?
+## who is creating and allocating blocks the stack and the heap ?
 
 The OS allocates the **stack** for each system-level thread when the thread is created. 
 Typically the OS is called by the language runtime to allocate the **heap** for the application.
 
+Unlike the stack, there's no enforced pattern to the allocation and deallocation of blocks from the heap; you can allocate a block at any time and free it at any time. This makes it much more complex to keep track of which parts of the heap are allocated or free at any given time; there are many custom heap allocators available to tune heap performance for different usage patterns.
+
+## which data are going to the stack or the heap ?
+
 When a **function** is called, a block is reserved **on the top of the stack** for local variables and some bookkeeping data.
 
-Unlike the stack, there's no enforced pattern to the allocation and deallocation of blocks from the heap; you can allocate a block at any time and free it at any time. This makes it much more complex to keep track of which parts of the heap are allocated or free at any given time; there are many custom heap allocators available to tune heap performance for different usage patterns.
+The **heap** is used for variables whose lifetime we don't really know up front but we expect them to last a while. In most languages it's critical that we know at compile time how large a variable is if we want to store it on the stack. Objects (which vary in size as we update them) go on the heap because we don't know at creation time how long they are going to last.
 
 ## data deallocation
 
 Once a function call runs to completion, any data on the stack created specifically for that function call will automatically be deleted. 
 
-The stack is much faster than the heap. This is because of the way that memory is allocated on the stack. Allocating memory on the stack is as simple as moving the stack pointer up.
+In many languages the heap is garbage collected to find objects (such as the cls1 object) that no longer have any references.
 
-Data on the stack is automatically deallocated when variables go out of scope. However, in languages like C and C++, data stored on the heap has to be deleted manually by the programmer using one of the built in keywords like free, delete, or delete. Other languages like Java and .NET use garbage collection to automatically delete memory from the heap, without the programmer having to do anything
+However, in languages like C and C++, data stored on the heap has to be deleted manually by the programmer using one of the built in keywords like free, delete, or delete. Other languages like Java and .NET use garbage collection to automatically delete memory from the heap, without the programmer having to do anything
 
 ## size
 
@@ -27,9 +31,9 @@ The size of the stack is set when a thread is created. The size of the heap is s
 
 ## What makes one faster?
 
-The stack is faster because the access pattern makes it trivial to allocate and deallocate memory from it (a pointer/integer is simply incremented or decremented), while the heap has much more complex bookkeeping involved in an allocation or deallocation. 
+The stack is much faster than the heap. This is because of the way that memory is allocated on the stack. Allocating memory on the stack is as simple as moving the stack pointer up. Also, each byte in the stack tends to be reused very frequently which means it tends to be mapped to the processor's cache, making it very fast.
 
-Also, each byte in the stack tends to be reused very frequently which means it tends to be mapped to the processor's cache, making it very fast.
+The heap has much more complex bookkeeping involved in an allocation or deallocation. 
 
 Another performance hit for the heap is that the heap, being mostly a global resource, typically has to be multi-threading safe, i.e. each allocation and deallocation needs to be - typically - synchronized with "all" other heap accesses in the program.
 
