@@ -1,5 +1,9 @@
 # The stack and the heap
 
+## What is it for ?
+
+All programs have to manage the way they use a computer’s memory while running. The stack end the heap are two different ways to handle and allocate memory.
+
 ## Where are the stack and the heap ?
 
 They are both stored in the computer’s RAM (Random Access Memory). 
