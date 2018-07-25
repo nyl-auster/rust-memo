@@ -491,8 +491,8 @@ You learned about variables, scalar and compound data types, functions, comments
 
 > This chapter required some basic knwoledges about what are the stack and the heap. See [Annexe: the stack and the heap](annex-stack-and-heap.md)
 
-All programs have to manage the way they use a computer’s memory while running. Rust’s central and most unique feature is **ownership**. **It enables Rust to make memory safety guarantees without needing a garbage collector.**
+Rust’s central and most unique feature is **ownership**. **It enables Rust to make memory safety guarantees without needing a garbage collector.**
 
-Keeping track of what parts of code are using what data on **the heap**, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
+**Managing heap data is why ownership exists** : keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
 
 Some languages have garbage collection that constantly looks for no longer used memory as the program runs; in other languages, the programmer must explicitly allocate and free the memory. Rust uses a third approach: memory is managed through a system of ownership with a set of rules that the compiler checks at compile time.
