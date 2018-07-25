@@ -138,8 +138,11 @@ let x: i64 = 42;
 // declare a MUTABLE variable
 let mut y: i64 = 27;
 
-// declare an immutable "string" : a growable, UTF-8 encoded bit of text
-let name = String::new();
+// Strings are a more complex subject. Here is a quick example that will be explained in depth later.
+// Declare a mutable "String" : a growable, UTF-8 encoded bit of text
+let mut s = "Hello".to_string(); 
+s.push_str(", world.");
+println!("{}", s); // display "Hello, world."
 ```
 
 This is possible to "shadow" a variable by re-using "let" keyword: 
