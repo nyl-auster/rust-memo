@@ -534,6 +534,7 @@ A scope is the range within a program for which an item is valid.
 let mut s = String::from("hello");
 ```
 
+Now let's see how Rust use scope and ownerships to handle allocation on the heap "automatically" :
 
 ```rust
 {
@@ -542,7 +543,7 @@ let mut s = String::from("hello");
     
     // do stuff with "s"
     
-} // this scope is now over, and "s is no longer valid
+} // this scope is now over, and "s is no longer valid : Rust know he can drop the value 
 ```
 
 Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value and give back the memory to the OS.
