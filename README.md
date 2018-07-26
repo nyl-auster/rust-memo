@@ -494,7 +494,7 @@ fn main() {
 
 ## Ownership
 
-> This chapter **requires** some knowledges about what are the **stack** and the **heap**. See [Annexe: the stack and the heap](annex-stack-and-heap.md)
+> Ownership is **all about the heap**, so this chapter **requires** some basic knowledges about what are the **stack** and the **heap**. See [Annexe: the stack and the heap](annex-stack-and-heap.md)
 
 Rust’s central and most unique feature is **ownership**. **It enables Rust to make memory safety guarantees without needing a garbage collector and without the need for the programmer to explicitly allocate and free the memory from the heap.**
 
