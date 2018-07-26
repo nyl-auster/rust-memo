@@ -510,7 +510,16 @@ Some languages have garbage collection that constantly looks for no longer used 
 - There can only be one owner at a time.
 - When the owner goes out of scope, the value will be dropped.
 
-### understanding "move"
+### Rust drop the value when "owner" goes out of scope
+
+```rust
+{                      // s, the "owner", is not valid here, it’s not yet declared
+    let s = "hello";   // s is valid from this point forward
+    // do stuff with s
+}                      // this scope is now over, and "s" is no longer valid the value will be dropped.
+```
+
+### understanding "move" error
 
 This code displays "5", as expected
 ```rust
@@ -552,3 +561,4 @@ Why ? *String* is a growable text. So its value is located on the **heap**. The 
 
 <img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" />
 
+Only ONE variable can be the **owner** of the value, so that Rust can be sure to free the memory only **one** time; to avoid a *a double free error*.
