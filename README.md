@@ -509,7 +509,7 @@ Rust’s central and most unique feature is **ownership**. It enables Rust to ma
 
 - Each **value** in Rust has a **variable** that’s called its **owner**.
 - There can only be **one** owner at a time.
-- When the owner goes **out of scope**, the value will be **dropped**.
+- When the owner goes **out of scope**, the value will be **dropped**
 
 ### Understanding "out of scope"
 
@@ -522,19 +522,25 @@ A scope is the range within a program for which an item is valid.
 }                      // here the scope is now over, and "s" is no longer valid. 
 ```
 
-> ☑️ In this example, "s" is a litteral and its value is not stored in the heap and can not be mutated, because it is is hardcoded into the text of our program. So we are not yet in the land of "ownerships". Heap is used for more complex Types like "String"; which is growable and which size might not be known at compile time (imagine String is coming from a user input for example).
+> ☑️ In this example, "s" is a litteral and its value is not stored in the heap and can not be mutated, because it is is hardcoded into the text of our program. So we are not yet in the land of "ownerships" which concern only the Heap. Heap is used for more complex Types like "String".
 
 ### Ownership example with String complex type
 
-*String* type is allocated on the heap and as such is able to store an amount of text that is unknown to us at compile time. You can create a String from a string literal using the from function, like so:
-
+This is how to declare a growable and mutable piece of text.
 ```rust
-// declare a growable and mutable piece of text :
-// It request memory in the heap from OS at runtime
 let mut s = String::from("hello");
 ```
 
-Now let's see how Rust use scope and ownerships to handle allocation on the heap "automatically" :
+And this is how "Hello" is stored in memory by Rust :
+<img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-01.svg" width="400px" />
+
+We can see that String is stored in two memory locations : 
+- metadata are stored in the *stack* : name, length ... Those values have a known size at compile time.
+- actual value is store on the heap, because it is growable and can not be known for sure at compile time ( it can depends of a user input, for example)
+
+That's crucial to understand the behavior that will happen when Rust copy variables.
+
+For now let's see how Rust use scope and ownerships to handle allocation on the heap for us :
 
 ```rust
 {
@@ -543,15 +549,15 @@ Now let's see how Rust use scope and ownerships to handle allocation on the heap
     
     // do stuff with "s"
     
-} // this scope is now over, and "s is no longer valid : Rust know he can drop the value 
+} // this scope is now over, and "s is no longer valid : Rust drop the value automatically here.
 ```
 
-Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value and give back the memory to the OS.
+Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value from the heap and give back the memory to the OS. At the same time, the variable metadata on the stack are also deleted because variable became out of scope.
 
-### Ownerhips pitfalls : understanding "move" error
+### Ownerhips : understanding "move" error
 
-Because only *one* variable at the time can be the *owner* of value, what happens it we copy a variable ?
-It depends of the *type* of the variable ! Things works as usual when you work with simple types that are stored on the **stack** :
+Because Rust allow only *one* variable per scope to be the *owner* of value, what happens it we copy a variable ? 
+It depends of the *type* of the variable !
 
 For example, this code displays "5", as expected
 ```rust
@@ -562,18 +568,19 @@ fn main() {
 }
 ```
 
-Because integers are simple values with a known, fixed size, they are pushed onto the stack. The stack looks like now :
+Because integers values have a known, fixed size at the compile time; they are pushed onto the *stack* only (*heap* is not used at all to store their value). The stack looks like something like that and all works as expected.
 ```
 let y = 5
 let x = 5
 ```
 
-🚨but the same code with a **complex type which value is allocated to the heap**  will throw an error : 
+🚨but the same code with a **String type** (and all other types using heap allocation !),  will throw an error : 
 
 ```rust
 fn main() {
     let s1 = String::from("hello");
     let s2 = s1;
+    // Rust compiler do not allow us to call s1 here, because we have assigned s1 value to s2 !
     println!("{}", s1)
 }
 ```
@@ -589,21 +596,16 @@ error[E0382]: use of moved value: `s1`
    |                    ^^ value used here after move
 ```
 
-s1 can **not** be used anymore after s2 declaration, because s1 and s2 would be **two owners** for the same heap allocation, and Rust allow only **one owner**. 
+
+That's because when we do "let s2 = s1", Rust copy **only** the stack data, not the value from the heap ! so "s2" and "s1" have actually a pointer toward the same value. 
+
+<img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" width="400px" />
+
+s1 can **not** be used anymore after s2 declaration, because s1 and s2 would be **two owners** for the same value in the heap allocation, and Rust allow only **one owner**. 
 
 That is exactly what ownership is all about, and that's precisely how Rust can ensures us at **compile time** that nothing wrong can happen with memory allocation during **run time** - which is awesome !
 
-How copy works for a type which value is allocatd to the heap ?Why ? *String* is a growable text. So its value is located on the **heap**. The stack only store its size and its pointer to the value location on the heap. When we copy *s1* to *s2*, only the **stack** data is copied, not the value located on the heap.  You could use "clone" method if you actually need to copy both the stack and the heap value.
-
-<img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" />
-
-Only ONE variable can be the **owner** of the value, so that Rust can be sure to free the memory only **one** time; to avoid a *a double free error*. So this is what it does :
-
-<img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-04.svg" />
-
-### clone
-
-It is possible to copy value from the **stack** AND the **heap** using "clone"
+> 💡 It is possible to copy value from the **stack** AND the **heap** using "clone"
 
 ```rust
 let s1 = String::from("hello");
