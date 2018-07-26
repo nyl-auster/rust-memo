@@ -4,10 +4,6 @@
 
 All programs have to manage the way they use a computer’s memory while running. Both the stack and the heap are parts of memory that is available to your code to use at runtime, but they are structured in different ways.
 
-## Where are the stack and the heap ?
-
-They are both stored in the computer’s RAM (Random Access Memory). 
-
 ## what are the difference between the stack and the heap ?
 
 ### The stack
