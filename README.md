@@ -2,6 +2,12 @@
 
 This is a summary of Rust book second edition. I'm a very beginner, you can PR if you spotted any mistake / misunderstanding.
 
+Legend :
+💡: additionnal informations or tip 
+⚠️: be sure to duly note this fact
+🚨: might be a pitfall for a beginner
+☑️: This sentence need to be reviewed by an experienced Rust Developper.
+
 Resources :
 - Rust book : https://doc.rust-lang.org/book/second-edition/index.html
 
@@ -508,14 +514,18 @@ Rust’s central and most unique feature is **ownership**. It enables Rust to ma
 - There can only be **one** owner at a time.
 - When the owner goes **out of scope**, the value will be **dropped**.
 
-### Rust drop the value when "owner" goes out of scope
+### Understanding "out of scope"
+
+A scope is the range within a program for which an item is valid. 
 
 ```rust
-{                      // s (the "owner") is not valid here, it’s not yet declared
-    let s = "hello";   // s is valid from this point forward
+{                      // "s" is not valid here, it’s not yet declared
+    let s = "hello";   // "s" is valid from this point forward
     // do stuff with s
-}                      // this scope is now over, and "s" is no longer valid : the value will be dropped.
+}                      // here the scope is now over, and "s" is no longer valid. 
 ```
+
+> ☑️ In this example, "s" is a litteral and its value is not stored in the heap; it is is hardcoded into the text of our program. So we are not yet in the land of "ownerships". Heap is used for more complex Types like "String"; which is growable and which size might not be known at compile time ( imagine String is coming from a user input for example).
 
 ### understanding "move" error
 
