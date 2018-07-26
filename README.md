@@ -79,26 +79,31 @@ En Rust, les paquets sont nommés **crates** : caisses / cageots.
 |cargo build --release| compiler avec optimisations. L'éxécutable sera crée dans "target/release" à la pkace de "target/debug"|
 |cargo update| mettre à jour les *crates* - seulement le dernier numéro number de leur versionning sémantique|
 
-#### Installer un crate.
+#### Installation d'un crate
 
-example to add "rand" crate to your project. Add rand to your dependencies in your Cargo.toml file.
+Exemple avec l'installation du crate *rand* (génération de nombres au hasard) : Il faut ajouter la dépendance au fichier *Cargo.toml*
+
 ```toml
 [dependencies]
 rand = "0.3.14"
 ```
-now run :
+puis taper la commande suivant à la racine du projet :
 ```sh
 cargo build
 ```
 
-Example on how tu use "Rng" methods :
+Pour pouvoir appeler les méthodes de "Rng", doit ajouter le *trait* à notre scope :
 ```rust
 extern crate rand;
 // put Rng trait in the scope to use its methods like "gen_range"
 use rand::Rng;
 ```
 
-> 💡 You won’t just know which traits to use and which methods and functions to call from a crate. Instructions for using a crate are in each crate’s documentation. run **cargo doc --open and click rand** in the sidebar on the left.
+> 💡 Pour savoir comment importer les méthodes et fonction d'un crate, il faut ouvir la documentation et cliquer sur le paquet concerné dans la barre de gauche.
+
+```sh
+cargo doc --open
+```
 
 ## Common programming concepts
 
