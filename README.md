@@ -614,4 +614,11 @@ let s2 = s1.clone();
 
 ### the "Copy" trait
 
-Errors of onwerships might mention "Copy" trait. Rust has a special annotation called the **Copy trait** that we can place on types like integers that are stored entirely and only on the stack. If a type has the Copy trait, an older variable is still usable after assignment. 
+Errors of onwerships might mention "Copy" trait. Rust has a special annotation called the **Copy trait** that we can place on **types** like integers that are stored  only on the stack.  An older variable is still usable after assignment. **You don't have to think about ownership if the type has the Copy trait.**
+
+So what types are Copy? 
+- All the integer types, such as u32.
+- The Boolean type, bool, with values true and false.
+- All the floating point types, such as f64.
+- The character type, char.
+- Tuples, but only if they contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
