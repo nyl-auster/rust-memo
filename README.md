@@ -522,7 +522,30 @@ A scope is the range within a program for which an item is valid.
 }                      // here the scope is now over, and "s" is no longer valid. 
 ```
 
-> ☑️ In this example, "s" is a litteral and its value is not stored in the heap; it is is hardcoded into the text of our program. So we are not yet in the land of "ownerships". Heap is used for more complex Types like "String"; which is growable and which size might not be known at compile time ( imagine String is coming from a user input for example).
+> ☑️ In this example, "s" is a litteral and its value is not stored in the heap and can not be mutated, because it is is hardcoded into the text of our program. So we are not yet in the land of "ownerships". Heap is used for more complex Types like "String"; which is growable and which size might not be known at compile time (imagine String is coming from a user input for example).
+
+## Ownership example with String complex type
+
+*String* type is allocated on the heap and as such is able to store an amount of text that is unknown to us at compile time. You can create a String from a string literal using the from function, like so:
+
+```rust
+// declare a growable and mutable piece of text :
+// It request memory in the heap from OS at runtime
+let mut s = String::from("hello");
+```
+
+
+```rust
+{
+    // "s" is valid from this point forward and is the "owner" of "Hello" value stored in the heap.
+    let s = String::from("hello"); 
+    
+    // do stuff with "s"
+    
+} // this scope is now over, and "s is no longer valid
+```
+
+Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value and give back the memory to the OS.
 
 ### understanding "move" error
 
