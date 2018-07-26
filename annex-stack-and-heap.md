@@ -12,7 +12,7 @@ They are both stored in the computer’s RAM (Random Access Memory).
 
 ### The stack
 
-- The stack stores values in the order it gets them and removes the values in the opposite order. This is referred to as **last in, first out. **
+- The stack stores values in the order it gets them and removes the values in the opposite order. This is referred to as **last in, first out.**
 - A property of the stack is that all data on the stack **must** take up a known, fixed size.**
 - When your code calls a function, the values passed into the function (including, potentially, pointers to data on the heap) and the function’s local variables get pushed onto the stack. When the function is over, those values get popped off the stack.
 - The stack is fast because of the way it accesses the data: it never has to search for a place to put new data or a place to get data from because that place is always the "top".
