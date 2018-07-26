@@ -611,3 +611,7 @@ That is exactly what ownership is all about, and that's precisely how Rust can e
 let s1 = String::from("hello");
 let s2 = s1.clone();
 ```
+
+### the "Copy" trait
+
+Errors of onwerships might mention "Copy" trait. Rust has a special annotation called the **Copy trait** that we can place on types like integers that are stored entirely and only on the stack. If a type has the Copy trait, an older variable is still usable after assignment. 
