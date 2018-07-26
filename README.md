@@ -1,26 +1,20 @@
-# RUST MEMO
+# RUST - MEMO
 
-This is a summary of Rust book second edition ( https://doc.rust-lang.org/book/second-edition/index.html ). 
-Legend :
+Il s'agit d'un mémo des concepts clefs de Rust, issu de la lecture de ( https://doc.rust-lang.org/book/second-edition/index.html ). 
 
-- 💡Additionnal informations or tip 
-- ⚠️ Be sure to duly note this fact
-- 🚨 Might be a pitfall for a beginner
-- ☑️ This sentence need to be reviewed by an experienced Rust Developper.
-
-## Getting started
+## Commencer rapidement Rust
 
 ### installation
 
-install **rustup**, a command line tool for managing Rust versions and associated tools. On Mac & linux :
+Sur Mac & linux :
 
 ```sh
 curl https://sh.rustup.rs -sSf | sh
 ```
 
-If the install is successfull, *rustup* command will display its version and available commands.
+Si l'installation s'est bien déroulée, taper *rustup* dans le terminal doit afficher les commandes disponibles.
 
-| Command | description |
+| Commande | description |
 |---------|-------------|
 |rustup update| update rustup|
 |rustc --version | display Rust version |
@@ -34,17 +28,17 @@ fn main() {
     println!("Hello, world!");
 }
 ```
-> 💡The main function is special: it is always the first code that runs in every executable Rust program
 
-> ⚠️ println! is **not** a function, it is a **macro**; that's why there is a "!" at the end.
+> 💡La fonction *main* est spéciale : c'est toujours la première partie du code exécutée par un programme Rust.
+> ⚠️ println! n'est **pas** une fonction mais une **macro** :  d'où la présence du "!" à la fin.
 
-Compile and execute :
+Compiler puis exécuter notre code.
 ```sh
 rustc main.rs
 ./main
 ```
 
-### debug variables with println! placeholders
+### 💡déboguer les variables avec les placeholders de "println!"
 
 ```rust
 let array = [1, 2, 3];
@@ -61,29 +55,31 @@ println!("this is my variable : {:#?}", array);
 // ]
 ```
 
-### Package manager
+### Gestion des paquets
 
 #### Cargo
 
-**Cargo** is Rust’s build system and package manager. Cargo comes installed with Rust.
-Create a new project named "hello_cargo" :
+**Cargo** est le system de build et le gestionnaire de paquet de Rust. Il est installé par défaut avec Rust.
+
+Voici comment créer un projet avec cargo, dont le nom serait : "hello_cargo" :
+
 ```sh
 cargo new hello_cargo --bin
 ```
 
-> 💡The --bin argument passed to cargo new makes an executable application (often just called a binary) as opposed to a library
+> 💡l'argument --bin permet de créer une application éxecutable au lieu d'un librairie.
 
-In Rust, packages of code are referred to as **crates** : ( caisses / cageots in french)
+En Rust, les paquets sont nommés **crates** : caisses / cageots.
 
 | command | description |
 |---------|-------------|
-|cargo build|compile. binary will be in target/debug/hello_cargo|
-|cargo run|compile and execute|
-|cargo check| check for errors but doesn’t produce an executable|
-|cargo build --release| compile with optimizations.create an executable in target/release instead of target/debug|
-|cargo update| update crates - only last number of the semantic versionning|
+|cargo build|compiler. le binaire sera crée dans "target/debug/hello_cargo"|
+|cargo run|compile and exécute|
+|cargo check|vérifie les erreurs mais ne produit pas un exécutable (plus rapide que "cargo run" donc)|
+|cargo build --release| compiler avec optimisations. L'éxécutable sera crée dans "target/release" à la pkace de "target/debug"|
+|cargo update| mettre à jour les *crates* - seulement le dernier numéro number de leur versionning sémantique|
 
-#### Install a crate
+#### Installer un crate.
 
 example to add "rand" crate to your project. Add rand to your dependencies in your Cargo.toml file.
 ```toml
