@@ -505,7 +505,7 @@ Rust’s central and most unique feature is **ownership**. It enables Rust to ma
 
 > 🙂 Because ownership is a new concept for many programmers, it does take some time to get used to.
 
-### Understand if a value is in the stack on in the heap
+### Understand if a value is in the stack or in the heap
 
 Ownership concern only variables whose values are stored in the "heap". 
 You must be able to distinguish if a variable is stored only in the stack; or if its value is stored on the heap; because this it what will determine copy behavior and ownership.
@@ -540,13 +540,11 @@ let mut s = String::from("hello");
 - metadata are stored in the *stack* : name, length ... Those values have a known size at compile time.
 - actual value is store on the heap, because it is growable and can not be known for sure at compile time
 
-And this is how "Hello" is stored in memory by Rust :
-
 <img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-01.svg" width="400px" />
 
 #### The "Copy" trait
 
-Rust has a special annotation called the **Copy trait** that we can place on **types** like integers that are stored **only in the stack**.  ou don't have to think about ownership if the type has the Copy trait, because in this case, value is not in the heap.
+Rust has a special annotation called the **Copy trait** that is sued by **types** like integers that are stored **only in the stack**.  You don't have to think about ownership if the type has the Copy trait, because in this case, value is not in the heap.
 
 **So what types are Copy?**
 - All the integer types, such as u32.
@@ -557,7 +555,7 @@ Rust has a special annotation called the **Copy trait** that we can place on **t
 
 ### How Rust ownership is handling allocation in the heap
 
-**Ownsership rules**
+### Ownsership rules
 - Each **value** in Rust has a **variable** that’s called its **owner**.
 - There can only be **one** owner at a time.
 - When the owner goes **out of scope**, the value will be **dropped**
@@ -575,6 +573,8 @@ Let's explore en example with String type :
 ```
 
 A scope is the range within a program for which an item is valid. Scope in Rust is delimited by curly brackets. "String::from("hello")" is requesting an allocation in the heap. Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value from the heap and give back the memory to the OS. 
+
+### Move
 
 🚨But this code will throw an error : 
 
@@ -612,5 +612,7 @@ That is exactly what ownership is all about, and that's precisely how Rust can e
 let s1 = String::from("hello");
 let s2 = s1.clone();
 ```
+
+
 
 
