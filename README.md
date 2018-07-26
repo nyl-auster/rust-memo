@@ -139,7 +139,11 @@ let x: i64 = 42;
 let mut y: i64 = 27;
 
 // Strings are a more complex subject. Here is a quick example that will be explained in depth later.
-// Declare a mutable "String", growable, UTF-8 encoded bit of text
+
+// This string (called "slice") has a fixed size, and cannot be mutated. (&str type)
+let greeting = "Hello there.";
+
+// This is how to declare a mutable, growable, UTF-8 encoded bit of text (String type)
 let mut s = String::from("Hello");
 s.push_str(", world.");
 println!("{}", s); // display "Hello, world."
