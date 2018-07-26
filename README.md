@@ -500,6 +500,8 @@ Rust’s central and most unique feature is **ownership**. It enables Rust to ma
 
 **Managing heap data is why Rust ownership exists** : keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
 
+> 🙂 Because ownership is a new concept for many programmers, it does take some time to get used to.
+
 ### Ownership Rules
 
 - Each **value** in Rust has a **variable** that’s called its **owner**.
