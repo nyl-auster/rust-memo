@@ -139,12 +139,7 @@ let x: i64 = 42;
 let mut y: i64 = 27;
 
 // Strings are a more complex subject. Here is a quick example that will be explained in depth later.
-// Declare a mutable "String" : a growable, UTF-8 encoded bit of text
-let mut s = "Hello".to_string(); 
-s.push_str(", world.");
-println!("{}", s); // display "Hello, world."
-
-// you can also do:
+// Declare a mutable "String", growable, UTF-8 encoded bit of text
 let mut s = String::from("Hello");
 s.push_str(", world.");
 println!("{}", s); // display "Hello, world."
