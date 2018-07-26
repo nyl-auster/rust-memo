@@ -541,6 +541,7 @@ let mut s = String::from("hello");
 - actual value is store on the heap, because it is growable and can not be known for sure at compile time
 
 And this is how "Hello" is stored in memory by Rust :
+
 <img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-01.svg" width="400px" />
 
 #### The "Copy" trait
