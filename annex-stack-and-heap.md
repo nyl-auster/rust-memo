@@ -8,25 +8,21 @@ All programs have to manage the way they use a computer’s memory while running
 
 They are both stored in the computer’s RAM (Random Access Memory). 
 
-## what is the main difference between the stack and the heap ?
+## what are the difference between the stack and the heap ?
 
-### The stack : ordered, data with known and fixed size
+### The stack
 
-The stack stores values in the order it gets them and removes the values in the opposite order. This is referred to as last in, first out. 
+- The stack stores values in the order it gets them and removes the values in the opposite order. This is referred to as **last in, first out. **
+- A property of the stack is that all data on the stack **must** take up a known, fixed size.**
+- When your code calls a function, the values passed into the function (including, potentially, pointers to data on the heap) and the function’s local variables get pushed onto the stack. When the function is over, those values get popped off the stack.
+- The stack is fast because of the way it accesses the data: it never has to search for a place to put new data or a place to get data from because that place is always the "top".
 
-Think of a stack of plates : when you add more plates, you put them on top of the pile, and when you need a plate, you take one off the top. 
+### the heap 
 
-**The stack is fast because of the way it accesses the data: it never has to search for a place to put new data or a place to get data from because that place is always the top**
-
-**A property of the stack is that all data on the stack must take up a known, fixed size.**
-
-### the heap - growable, not ordered, returns pointer
-
-Data with a size unknown at compile time or a size that might change can be stored on the heap instead. 
-
-The heap is less organized: when you put data on the heap, you ask for some amount of space. The operating system finds an empty spot somewhere in the heap that is big enough, marks it as being in use, and returns a **pointer**,  which is the address of that location.
-
-Because the pointer is a known, fixed size, you can store the pointer on the stack, but when you want the actual data, you have to follow the pointer.
+- Data with a **size unknown at compile time or a size that might change** can be stored on the heap instead. 
+- The heap is less organized: when you put data on the heap, you ask for some amount of space. The operating system finds an empty spot somewhere in the heap that is big enough, marks it as being in use, and returns a **pointer**,  which is the address of that location.
+- This process is called **allocating on the heap**, sometimes abbreviated as just **allocating.**. Pushing values onto the stack is **not* considered allocating.
+- Because the pointer is a known, fixed size, you can store the pointer on the stack, but when you want the actual data, you have to follow the pointer.
 
 Accessing data in the heap is slower than accessing data on the stack because you have to follow a pointer to get there. Allocating a large amount of space on the heap can also take time.
 
