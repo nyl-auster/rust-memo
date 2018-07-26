@@ -503,50 +503,65 @@ Rust’s central and most unique feature is **ownership**. It enables Rust to ma
 
 **Managing heap data is why Rust ownership exists** : keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
 
-> to understand ownerships correctly, you MUST be able to determine if a variable has its value stored in the heap. A "Owner" is technically a variable whos value is stored in the heap.
-
 > 🙂 Because ownership is a new concept for many programmers, it does take some time to get used to.
 
-### Ownership Rules
+### Understand if a value is in the stack on in the heap
 
-- Each **value** in Rust has a **variable** that’s called its **owner**.
-- There can only be **one** owner at a time.
-- When the owner goes **out of scope**, the value will be **dropped**
+Ownership concern only variables whose values are stored in the "heap". 
+You must be able to distinguish if a variable is stored only in the stack; or if its value is stored on the heap; because this it what will determine copy behavior and ownership.
 
-### Move or Copy
+#### Simple types
 
-after an assignement, a variable will "move" or "copy", depending on being only in the stack or being both in stack and heap.
-
-### Understanding "out of scope"
-
-A scope is the range within a program for which an item is valid. 
+For example : Integers are a simple type, only stored in the stack; because we know at compile time their size. So this code works exactly as expected.
 
 ```rust
-{                      // "s" is not valid here, it’s not yet declared
-    let s = "hello";   // "s" is valid from this point forward
-    // do stuff with s
-}                      // here the scope is now over, and "s" is no longer valid. 
+fn main() {
+    let x = 5;
+    let y = x;
+    println!("{}", y);
+}
 ```
 
-> ☑️ In this example, "s" is a litteral and its value is not stored in the heap and can not be mutated, because it is is hardcoded into the text of our program. So we are not yet in the land of "ownerships" which concern only the Heap. Heap is used for more complex Types like "String".
+When assigning x to y, a full copy is made and the stack will looks like :
 
-### Ownership example with String complex type
+```
+y = 5
+x = 5
+```
+
+#### Complex types
 
 This is how to declare a growable and mutable piece of text.
 ```rust
 let mut s = String::from("hello");
 ```
 
+ As this is growable, Rust will not store "hello" value on the stack. String data are actually shared between two memory locations : 
+- metadata are stored in the *stack* : name, length ... Those values have a known size at compile time.
+- actual value is store on the heap, because it is growable and can not be known for sure at compile time
+
 And this is how "Hello" is stored in memory by Rust :
 <img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-01.svg" width="400px" />
 
-We can see that String is stored in two memory locations : 
-- metadata are stored in the *stack* : name, length ... Those values have a known size at compile time.
-- actual value is store on the heap, because it is growable and can not be known for sure at compile time ( it can depends of a user input, for example)
+#### The "Copy" trait
 
-That's crucial to understand the behavior that will happen when Rust copy variables.
+Rust has a special annotation called the **Copy trait** that we can place on **types** like integers that are stored **only in the stack**.  ou don't have to think about ownership if the type has the Copy trait, because in this case, value is not in the heap.
 
-For now let's see how Rust use scope and ownerships to handle allocation on the heap for us :
+**So what types are Copy?**
+- All the integer types, such as u32.
+- The Boolean type, bool, with values true and false.
+- All the floating point types, such as f64.
+- The character type, char.
+- Tuples, but only if they contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
+
+### How Rust ownership is handling allocation in the heap
+
+**Ownsership rules**
+- Each **value** in Rust has a **variable** that’s called its **owner**.
+- There can only be **one** owner at a time.
+- When the owner goes **out of scope**, the value will be **dropped**
+
+Let's explore en example with String type :
 
 ```rust
 {
@@ -558,29 +573,9 @@ For now let's see how Rust use scope and ownerships to handle allocation on the 
 } // this scope is now over, and "s is no longer valid : Rust drop the value automatically here.
 ```
 
-Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value from the heap and give back the memory to the OS. At the same time, the variable metadata on the stack are also deleted because variable became out of scope.
+A scope is the range within a program for which an item is valid. Scope in Rust is delimited by curly brackets. "String::from("hello")" is requesting an allocation in the heap. Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value from the heap and give back the memory to the OS. 
 
-### Ownerhips : understanding "move" error
-
-Because Rust allow only *one* variable per scope to be the *owner* of value, what happens it we copy a variable ? 
-It depends of the *type* of the variable !
-
-For example, this code displays "5", as expected
-```rust
-fn main() {
-    let x = 5;
-    let y = x;
-    println!("{}", y);
-}
-```
-
-Because integers values have a known, fixed size at the compile time; they are pushed onto the *stack* only (*heap* is not used at all to store their value). The stack looks like something like that and all works as expected.
-```
-let y = 5
-let x = 5
-```
-
-🚨but the same code with a **String type** (and all other types using heap allocation !),  will throw an error : 
+🚨But this code will throw an error : 
 
 ```rust
 fn main() {
@@ -602,31 +597,19 @@ error[E0382]: use of moved value: `s1`
    |                    ^^ value used here after move
 ```
 
-
 That's because when we do "let s2 = s1", Rust copy **only** the stack data, not the value from the heap ! so "s2" and "s1" have actually a pointer toward the same value. 
 
 <img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" width="400px" />
 
 s1 can **not** be used anymore after s2 declaration, because s1 and s2 would be **two owners** for the same value in the heap allocation, and Rust allow only **one owner**. 
 
-That is exactly what ownership is all about, and that's precisely how Rust can ensures us at **compile time** that nothing wrong can happen with memory allocation during **run time** - which is awesome !
+That is exactly what ownership is all about, and that's precisely how Rust can ensures us at **compile time** that nothing wrong can happen with memory allocation during **run time**.
 
-> 💡 It is possible to copy value from the **stack** AND the **heap** using "clone"
+> 💡 Note: it is still possible to copy value from the **stack** AND the **heap** using "clone"
 
 ```rust
 let s1 = String::from("hello");
 let s2 = s1.clone();
 ```
 
-### the "Copy" trait
 
-Errors of onwerships might mention "Copy" trait. Rust has a special annotation called the **Copy trait** that we can place on **types** like integers that are stored  only on the stack.  An older variable is still usable after assignment. **You don't have to think about ownership if the type has the Copy trait.**
-
-So what types are Copy? 
-- All the integer types, such as u32.
-- The Boolean type, bool, with values true and false.
-- All the floating point types, such as f64.
-- The character type, char.
-- Tuples, but only if they contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
-
-https://doc.rust-lang.org/book/second-edition/ch04-01-what-is-ownership.html#ownership-and-functions
