@@ -561,4 +561,6 @@ Why ? *String* is a growable text. So its value is located on the **heap**. The 
 
 <img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" />
 
-Only ONE variable can be the **owner** of the value, so that Rust can be sure to free the memory only **one** time; to avoid a *a double free error*.
+Only ONE variable can be the **owner** of the value, so that Rust can be sure to free the memory only **one** time; to avoid a *a double free error*. So this is what it does :
+
+<img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-04.svg" />
