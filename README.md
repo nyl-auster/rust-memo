@@ -505,3 +505,44 @@ Rust’s central and most unique feature is **ownership**. **It enables Rust to 
 **Managing heap data is why ownership exists** : keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
 
 Some languages have garbage collection that constantly looks for no longer used memory as the program runs; in other languages, the programmer must explicitly allocate and free the memory. Rust uses a third approach: memory is managed through a system of ownership with a set of rules that the compiler checks at compile time.
+
+### understanding "move"
+
+This code displays "5", as expected
+```rust
+fn main() {
+    let x = 5;
+    let y = x;
+    println!("{}", y);
+}
+```
+
+Because integers are simple values with a known, fixed size, they are pushed onto the stack. The stack contains now :
+```
+let y = 5
+let x = 5
+```
+
+BUT this code will throw an error
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let s2 = s1;
+    println!("{}", s1)
+}
+```
+
+```sh
+error[E0382]: use of moved value: `s1`
+  --> src/main.rs:14:20
+   |
+13 |     let s2 = s1;
+   |         -- value moved here
+14 |     println!("{}", s1)
+   |                    ^^ value used here after move
+```
+
+String is a growable text. Its value is located on the **heap**, Stack only store its size and its pointer to the value location. When we copy s1 to s2, only the stack data is copied.
+
+<img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" />
+
