@@ -622,3 +622,5 @@ So what types are Copy?
 - All the floating point types, such as f64.
 - The character type, char.
 - Tuples, but only if they contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
+
+https://doc.rust-lang.org/book/second-edition/ch04-01-what-is-ownership.html#ownership-and-functions
