@@ -1,15 +1,12 @@
 # RUST MEMO
 
-This is a summary of Rust book second edition. I'm a very beginner, you can PR if you spotted any mistake / misunderstanding.
+This is a summary of Rust book second edition ( https://doc.rust-lang.org/book/second-edition/index.html ). I'm a very beginner, you can PR if you spotted any mistake / misunderstanding.
 
 Legend :
 - 💡Additionnal informations or tip 
 - ⚠️ Be sure to duly note this fact
 - 🚨 Might be a pitfall for a beginner
 - ☑️ This sentence need to be reviewed by an experienced Rust Developper.
-
-Resources :
-- Rust book : https://doc.rust-lang.org/book/second-edition/index.html
 
 ## Getting started
 
