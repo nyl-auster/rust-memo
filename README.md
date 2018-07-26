@@ -506,6 +506,10 @@ Rust’s central and most unique feature is **ownership**. **It enables Rust to 
 
 Some languages have garbage collection that constantly looks for no longer used memory as the program runs; in other languages, the programmer must explicitly allocate and free the memory. Rust uses a third approach: memory is managed through a system of ownership with a set of rules that the compiler checks at compile time.
 
+- Each value in Rust has a variable that’s called its owner.
+- There can only be one owner at a time.
+- When the owner goes out of scope, the value will be dropped.
+
 ### understanding "move"
 
 This code displays "5", as expected
@@ -517,13 +521,14 @@ fn main() {
 }
 ```
 
-Because integers are simple values with a known, fixed size, they are pushed onto the stack. The stack contains now :
+Because integers are simple values with a known, fixed size, they are pushed onto the stack. The stack looks like now :
 ```
 let y = 5
 let x = 5
 ```
 
-BUT this code will throw an error
+🚨but this code will throw an error : s1 can **not** be used anymore after s2 declaration.
+
 ```rust
 fn main() {
     let s1 = String::from("hello");
@@ -531,6 +536,7 @@ fn main() {
     println!("{}", s1)
 }
 ```
+This will display this error : "use of moved value s1"
 
 ```sh
 error[E0382]: use of moved value: `s1`
@@ -542,7 +548,7 @@ error[E0382]: use of moved value: `s1`
    |                    ^^ value used here after move
 ```
 
-String is a growable text. Its value is located on the **heap**, Stack only store its size and its pointer to the value location. When we copy s1 to s2, only the stack data is copied.
+Why ? *String* is a growable text. So its value is located on the **heap**. The stack only store its size and its pointer to the value location. When we copy *s1* to *s2*, only the **stack** data is copied, not the value located on the heap. 
 
 <img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" />
 
