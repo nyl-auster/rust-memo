@@ -13,29 +13,23 @@ They are both stored in the computer’s RAM (Random Access Memory).
 ### The stack
 
 - The stack stores values in the order it gets them and removes the values in the opposite order. This is referred to as **last in, first out.**
-- A property of the stack is that all data on the stack **must** take up a known, fixed size.**
-- When your code calls a function, the values passed into the function (including, potentially, pointers to data on the heap) and the function’s local variables get pushed onto the stack. When the function is over, those values get popped off the stack.
-- The stack is fast because of the way it accesses the data: it never has to search for a place to put new data or a place to get data from because that place is always the "top".
+- A property of the stack is that all data on the stack **must take up a known, fixed size.**
+- The stack is **fast** because of the way it accesses the data: it never has to search for a place to put new data or a place to get data from because that place is always the "top".
+
+When your code calls a function, the values passed into the function (including, potentially, pointers to data on the heap) and the function’s local variables get pushed onto the stack. When the function is over, those values get popped off the stack.
 
 ### the heap 
 
-- Data with a **size unknown at compile time or a size that might change** can be stored on the heap instead. 
-- The heap is less organized: when you put data on the heap, you ask for some amount of space. The operating system finds an empty spot somewhere in the heap that is big enough, marks it as being in use, and returns a **pointer**,  which is the address of that location.
-- This process is called **allocating on the heap**, sometimes abbreviated as just **allocating.**. Pushing values onto the stack is **not* considered allocating.
-- Because the pointer is a known, fixed size, you can store the pointer on the stack, but when you want the actual data, you have to follow the pointer.
+- Data with a **size unknown at compile time or a size that might change** can be stored on the heap instead of the stack. 
+- The heap is less organized: when you put data on the heap, you ask for some amount of space. The operating system finds an empty spot somewhere in the heap that is big enough, marks it as being in use, and returns a **pointer**,  which is the address of that location. This process is called **allocating on the heap**, sometimes abbreviated as just **allocating.**. Pushing values onto the stack is **not* considered allocating.
+- Accessing data in the heap is **slower than accessing data on the stack** because you have to follow a pointer to get there. Allocating a large amount of space on the heap can also take time.
 
-Accessing data in the heap is slower than accessing data on the stack because you have to follow a pointer to get there. Allocating a large amount of space on the heap can also take time.
+Because the pointer is a known, fixed size, you can store the pointer on the stack, but when you want the actual data, you have to follow the pointer.
 
 ## Who is creating and allocating blocks to the stack or the heap ?
 
 The OS allocates the **stack** for each system-level thread when the thread is created. 
 Typically the OS is called by the language runtime to allocate the **heap** for the application.
-
-## which data are going to the stack or the heap ?
-
-When a **function** is called, a block is reserved **on the top of the stack** for local variables and some bookkeeping data.
-
-The **heap** is used for variables whose lifetime we don't really know up front but we expect them to last a while. In most languages it's critical that we know at compile time how large a variable is if we want to store it on the stack. Objects (which vary in size as we update them) go on the heap because we don't know at creation time how long they are going to last.
 
 ## data deallocation
 
@@ -46,6 +40,8 @@ Unlike the stack, there's no enforced pattern to the allocation and deallocation
 In many languages the heap is garbage collected to find objects (such as the cls1 object) that no longer have any references.
 
 In languages like C and C++, data stored on the heap has to be deleted manually by the programmer using one of the built in keywords like free, delete, or delete. Other languages like Java and .NET use garbage collection to automatically delete memory from the heap, without the programmer having to do anything
+
+In Rust, **ownerships** addresses heap deallocation.
 
 ## size
 
@@ -74,14 +70,6 @@ The heap could have the problem of fragmentation, which occurs when the availabl
 The **stack** is attached to a thread, so when the thread exits the stack is reclaimed. 
 
 The **heap** is typically allocated at application startup by the runtime, and is reclaimed when the application (technically process) exits.
-
-## Which one should I use – the stack or the heap?
-
-For people new to programming, it’s probably a good idea to use the stack since it’s easier.
-
-Because the stack is small, you would want to use it when you know exactly how much memory you will need for your data, or if you know the size of your data is very small.
-
-It’s better to use the heap when you know that you will need a lot of memory for your data, or you just are not sure how much memory you will need (like with a dynamic array).
 
 ## sources
 
