@@ -2,6 +2,7 @@
 
 This is a summary of Rust book second edition ( https://doc.rust-lang.org/book/second-edition/index.html ). 
 Legend :
+
 - 💡Additionnal informations or tip 
 - ⚠️ Be sure to duly note this fact
 - 🚨 Might be a pitfall for a beginner
@@ -347,17 +348,21 @@ fn main() {
 > ⚠️ Rust is an expression-based language, this is an important distinction to understand
 
 Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
+
 - Statements do **not return** values
 - Expressions **evaluate** to something
 
 Examples of statements :
+
 ```rust
 // creating a variable and assigning a value to it. This does NOT return a value.
 let y = 5;
 ```
+
 > 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5". 
 
 Examples of expressions:
+
 ```rust
 // Numbers by themselves are expressions.
 5
@@ -399,6 +404,7 @@ fn main() {
 > ⚠️ the condition must be a bool. If the condition isn’t a bool, we’ll get an error. Rust will **NOT** automatically try to convert non-Boolean types to a Boolean
 
 multiples conditions :
+
 ```rust
 fn main() {
     let number = 6;
