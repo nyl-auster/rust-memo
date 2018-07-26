@@ -1,7 +1,6 @@
 # RUST MEMO
 
-This is a summary of Rust book second edition ( https://doc.rust-lang.org/book/second-edition/index.html ). I'm a very beginner, you can PR if you spotted any mistake / misunderstanding.
-
+This is a one-page summary of Rust book second edition ( https://doc.rust-lang.org/book/second-edition/index.html ). 
 Legend :
 - 💡Additionnal informations or tip 
 - ⚠️ Be sure to duly note this fact
