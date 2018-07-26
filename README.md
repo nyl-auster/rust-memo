@@ -511,6 +511,10 @@ Rust’s central and most unique feature is **ownership**. It enables Rust to ma
 - There can only be **one** owner at a time.
 - When the owner goes **out of scope**, the value will be **dropped**
 
+### Move or Copy
+
+after an assignement, a variable will "move" or "copy", depending on being only in the stack or being both in stack and heap.
+
 ### Understanding "out of scope"
 
 A scope is the range within a program for which an item is valid. 
