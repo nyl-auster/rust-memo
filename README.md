@@ -524,7 +524,7 @@ A scope is the range within a program for which an item is valid.
 
 > ☑️ In this example, "s" is a litteral and its value is not stored in the heap and can not be mutated, because it is is hardcoded into the text of our program. So we are not yet in the land of "ownerships". Heap is used for more complex Types like "String"; which is growable and which size might not be known at compile time (imagine String is coming from a user input for example).
 
-## Ownership example with String complex type
+### Ownership example with String complex type
 
 *String* type is allocated on the heap and as such is able to store an amount of text that is unknown to us at compile time. You can create a String from a string literal using the from function, like so:
 
@@ -548,9 +548,12 @@ Now let's see how Rust use scope and ownerships to handle allocation on the heap
 
 Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value and give back the memory to the OS.
 
-### understanding "move" error
+### Ownerhips pitfalls : understanding "move" error
 
-This code displays "5", as expected
+Because only *one* variable at the time can be the *owner* of value, what happens it we copy a variable ?
+It depends of the *type* of the variable ! Things works as usual when you work with simple types that are stored on the **stack** :
+
+For example, this code displays "5", as expected
 ```rust
 fn main() {
     let x = 5;
@@ -565,7 +568,7 @@ let y = 5
 let x = 5
 ```
 
-🚨but this code will throw an error : s1 can **not** be used anymore after s2 declaration.
+🚨but the same code with a **complex type which value is allocated to the heap**  will throw an error : 
 
 ```rust
 fn main() {
@@ -574,7 +577,7 @@ fn main() {
     println!("{}", s1)
 }
 ```
-This will display this error : "use of moved value s1"
+This will display this error : **use of moved value s1**
 
 ```sh
 error[E0382]: use of moved value: `s1`
@@ -586,7 +589,11 @@ error[E0382]: use of moved value: `s1`
    |                    ^^ value used here after move
 ```
 
-Why ? *String* is a growable text. So its value is located on the **heap**. The stack only store its size and its pointer to the value location. When we copy *s1* to *s2*, only the **stack** data is copied, not the value located on the heap. 
+s1 can **not** be used anymore after s2 declaration, because s1 and s2 would be **two owners** for the same heap allocation, and Rust allow only **one owner**. 
+
+That is exactly what ownership is all about, and that's precisely how Rust can ensures us at **compile time** that nothing wrong can happen with memory allocation during **run time** - which is awesome !
+
+How copy works for a type which value is allocatd to the heap ?Why ? *String* is a growable text. So its value is located on the **heap**. The stack only store its size and its pointer to the value location on the heap. When we copy *s1* to *s2*, only the **stack** data is copied, not the value located on the heap.  You could use "clone" method if you actually need to copy both the stack and the heap value.
 
 <img width="400px" src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" />
 
