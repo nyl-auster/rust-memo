@@ -492,31 +492,28 @@ fn main() {
 }
 ```
 
-## Time for some practice ! 👩‍💻👨‍💻
-
-You learned about variables, scalar and compound data types, functions, comments, if expressions, and loops! you can already try to build your own small programm to memorize all this new stuff.
-
 ## Ownership
 
-> This chapter required some basic knwoledges about what are the stack and the heap. See [Annexe: the stack and the heap](annex-stack-and-heap.md)
+> This chapter **requires** some knowledges about what are the **stack** and the **heap**. See [Annexe: the stack and the heap](annex-stack-and-heap.md)
 
-Rust’s central and most unique feature is **ownership**. **It enables Rust to make memory safety guarantees without needing a garbage collector.**
+Rust’s central and most unique feature is **ownership**. **It enables Rust to make memory safety guarantees without needing a garbage collector and without the need for the programmer to explicitly allocate and free the memory.**
 
-**Managing heap data is why ownership exists** : keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
+**Managing heap data is why Rust ownership exists** : keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
 
-Some languages have garbage collection that constantly looks for no longer used memory as the program runs; in other languages, the programmer must explicitly allocate and free the memory. Rust uses a third approach: memory is managed through a system of ownership with a set of rules that the compiler checks at compile time.
 
-- Each value in Rust has a variable that’s called its owner.
-- There can only be one owner at a time.
-- When the owner goes out of scope, the value will be dropped.
+### Ownership Rules
+
+- Each **value** in Rust has a **variable** that’s called its **owner**.
+- There can only be **one** owner at a time.
+- When the owner goes **out of scope**, the value will be **dropped**.
 
 ### Rust drop the value when "owner" goes out of scope
 
 ```rust
-{                      // s, the "owner", is not valid here, it’s not yet declared
+{                      // s (the "owner") is not valid here, it’s not yet declared
     let s = "hello";   // s is valid from this point forward
     // do stuff with s
-}                      // this scope is now over, and "s" is no longer valid the value will be dropped.
+}                      // this scope is now over, and "s" is no longer valid : the value will be dropped.
 ```
 
 ### understanding "move" error
