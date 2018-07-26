@@ -143,6 +143,11 @@ let mut y: i64 = 27;
 let mut s = "Hello".to_string(); 
 s.push_str(", world.");
 println!("{}", s); // display "Hello, world."
+
+// you can also do:
+let mut s = String::from("Hello");
+s.push_str(", world.");
+println!("{}", s); // display "Hello, world."
 ```
 
 This is possible to "shadow" a variable by re-using "let" keyword: 
