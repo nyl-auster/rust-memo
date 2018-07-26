@@ -45,11 +45,13 @@ Unlike the stack, there's no enforced pattern to the allocation and deallocation
 
 In many languages the heap is garbage collected to find objects that no longer have any references. (PHP, Java ... )
 
-In languages like C and C++, data stored on the heap has to be deleted **manually** by the programmer using one of the built in keywords like free or delete. This can lead to memory errors at runtime when trying to access a deleted value or trying to delete a value that was already deleted.
+In languages like C and C++, data stored on the heap has to be deleted **manually** by the programmer using one of the built in keywords like free or delete. 
 
-Other languages like Java and .NET use garbage collection to automatically delete memory from the heap, without the programmer having to do anything
+Other languages like Java and .NET use garbage collection to automatically delete memory from the heap, without the programmer having to do anything.
 
-In Rust, **ownerships** concept is used ot handle heap allocation / deallocation issues : only one "owner" at a time can access a value of the heap; and one this "owner" is out of scope, the memory can be safely freed and the compiler can ensure us that we don't have any memory issues at runtime.
+Doing this **manually** has historically been a difficult programming problem : If we forget to delete, we’ll waste memory. If we do it too early, we’ll have an invalid variable. If we do it twice, that’s a bug too.
+
+In Rust, **ownerships** concept is used ot handle heap allocation / deallocation issues : only one "owner" at a time can access a value of the heap; and when this "owner" is out of scope, the memory can be safely freed and the compiler can ensure us that we won't have any memory issues at runtime.
 
 ## size
 
