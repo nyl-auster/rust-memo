@@ -44,10 +44,10 @@ rustc main.rs
 let array = [1, 2, 3];
 
 println!("this is my variable : {:?}", array);
-// displays: "this is my variable : [1, 2, 3]"
+// affiche: "this is my variable : [1, 2, 3]"
 
 println!("this is my variable : {:#?}", array);
-// displays with formatting :
+// affiche :
 // this is my variable : [
 //    1,
 //    2,
@@ -105,15 +105,15 @@ use rand::Rng;
 cargo doc --open
 ```
 
-## Common programming concepts
+## Concepts généraux
 
-### variables and mutability
+### Variables et mutabilité
 
-#### immutability
+#### Immutabilité
 
-> 💡 Rust code uses snake case as the conventional style for function and variable names.
+> 💡 Rust utilise le type de casse **snake_case** pour nommer les fonctions et variables. Exemple : "hello_world()"
 
-> ⚠️ by default variables are **immutable**. So this code will throw en error :
+> ⚠️ Par défaut, les variables sont **immutables**. Le code suivant provoquera donc une erreur du compilateur.
 
 ```rust
 fn main() {
@@ -122,7 +122,8 @@ fn main() {
 }
 ```
 
-Use **mut** keyword, if you need to mutate your variable
+Il faut utiliser le mot-clef **mut** pour render une variable mutable.
+
 ```rust
 fn main() {
     let mut x = 5;
@@ -130,7 +131,7 @@ fn main() {
 }
 ```
 
-#### examples
+#### Exemples
 
 ```rust
 // declare an immutable variable with default typing ( default is "i32" : signed 32 bits number)
