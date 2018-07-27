@@ -131,37 +131,35 @@ fn main() {
 }
 ```
 
-#### Exemples
+#### Exemples de déclaration de variables
 
 ```rust
-// declare an immutable variable with default typing ( default is "i32" : signed 32 bits number)
+// déclarer un nombre immutable ave le type par défaut qui est i32 ( 32 bits signés) 
 let a = 42
 
-// declare an immutable variable ( signed 64 bits number )
+// déclarer un nombre immubtale en le typant manuellement en 64 bits signés.
 let x: i64 = 42;
 
-// declare a MUTABLE variable
-let mut y: i64 = 27;
+// déclarer un nombre
+let mut y = 27;
 
-// Strings are a more complex subject. Here is a quick example that will be explained in depth later.
-
-// This string (called "slice") has a fixed size, and cannot be mutated. (&str type)
+// créer une string de taille fixe et immutable (appelée "slice", son  type est *&str*)
 let greeting = "Hello there.";
 
-// This is how to declare a mutable, growable, UTF-8 encoded bit of text (String type)
+// déclarer une chaîne de caractères UTF-8 mutable et agrandissable ( type **String** )
 let mut s = String::from("Hello");
 s.push_str(", world.");
 println!("{}", s); // display "Hello, world."
 ```
 
-This is possible to "shadow" a variable by re-using "let" keyword: 
+Il est possible de "shadow" une variable en ré-utilisant le mot clef let.
 
 ```rust
 let my_var = 5;
 let my_var = 6;
 ```
 
-### DATA TYPES
+### Les types de données
 
 four primary scalar types: 
 - integers
