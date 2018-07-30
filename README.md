@@ -719,6 +719,44 @@ let mut s = String::from("hello");
 let r2 = &mut s;
 ```
 
+### pointeur foireux
+
+Dans le code suivant, la valeur de la variable "s" sera jetée à la fin de la fonction. Mais la fonction retourne une référence vers cette valeur qui n'existe plus ! 
+
+```rust
+fn dangle() -> &String { // dangle returns a reference to a String
+    let s = String::from("hello"); // s is a new String
+
+    &s // we return a reference to the String, s
+} // Here, s goes out of scope, and is dropped. Its memory goes away.
+  // Danger!
+```
+
+Rust nous protégera de ce genre d'erreur : le compilateur ne nous laissera pas faire et provoquera une erreur.
+
+```
+error[E0106]: missing lifetime specifier
+ --> main.rs:5:16
+  |
+5 | fn dangle() -> &String {
+  |                ^ expected lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but there is
+  no value for it to be borrowed from
+  = help: consider giving it a 'static lifetime
+```
+
+Il nous suggère d'ajouter un "temps de vie" mais c'est un autre sujet, pour l'heure il suffit de ne pas renvoyer de référence pour fixer l'erreur.
+
+```rust
+fn no_dangle() -> String {
+    let s = String::from("hello");
+    s
+}
+```
+
+
+
 
 
 
