@@ -526,7 +526,8 @@ Voici comme est stocké la valeur "hello" en Rust avec le type complexe **String
 let s1 = String::from("hello");
 ```
 
-![propriété figure a](images/ownership-figure-a.svg)
+<img width="300px" src="images/ownership-figure-a.svg" />
+
 
 Voyons ce qu'il se passe si nous écrivons :
 
@@ -537,7 +538,7 @@ let s2 = s1;
 
 Cela donne l'allocation de mémoire suivante :
 
-![propriété figure b](images/ownership-figure-b.svg)
+<img width="300px" src="images/ownership-figure-b.svg" />
 
 Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas** ! Pour des raisons de performance et par défaut, Rust ne copie que les métadonnées de la pile pour créer cette seconde variable. 
 
@@ -545,7 +546,7 @@ Nous voilà donc ici avec deux **propriétaires** de la valeur "hello"; c'est pr
 
 C'est pourquoi Rust  **transfère la propriété de la valeur** à s2 :
 
-![propriété figure b](images/ownership-figure-c.svg)
+<img width="300px" src="images/ownership-figure-c.svg" />
 
 🚨Ce code produira donc une erreur : on essaie d'accéder à S
 
@@ -579,7 +580,7 @@ let s1 = String::from("hello");
 let s2 = s1.clone();
 ```
 
-![propriété figure b](images/ownership-figure-d.svg)
+<img width="300px" src="images/ownership-figure-d.svg" />
  
 ### Les types qui ne sont PAS concernés par la propriété
 
