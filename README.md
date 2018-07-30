@@ -624,7 +624,7 @@ fn makes_copy(some_integer: i32) { // some_integer comes into scope
 
 ### Return values and scope
 
-Returning values can also transfer ownership. 
+Retourner des valeurs depuis une fonction effectue aussi un transfert de propriété : la valeur est alors déplacée dans la variable à qui on assigne le retour de la fonction.
 
 ```rust
 fn main() {
@@ -658,6 +658,27 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
 }
 ``
 
+### reference et emprunt
+
+Comment faire si on souhaite ne **pas** transférer la propriété à une fonction ? Il faut utiliser une référence, déclarée avec le symbole &.
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    // ici, len reste le propriétaire de la valeur, il ne fait que
+    // la "prêter" à la fonction
+    let len = calculate_length(&s1);
+    // on peut donc toujours l'afficher ici
+    println!("The length of '{}' is {}.", s1, len);
+}
+
+fn calculate_length(s: &String) -> usize {
+    s.len()
+}
+```
+Dans ce cas, "s" est une variable dans la pile contenant uniquement un pointeur vers la variable propriétaire de la valeur.
+
+<img width="500px" src="images/ownership-figure-e.svg" />
 
 
 
