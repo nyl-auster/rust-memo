@@ -544,11 +544,11 @@ Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas
 
 Nous voilà donc ici avec deux **propriétaires** de la valeur "hello"; c'est précisément ce qui est **interdit en Rust**.
 
-C'est pourquoi Rust  **transfère la propriété de la valeur** à s2 :
+C'est pourquoi Rust **transfère la propriété de la valeur** à s2 : on dit aussi que la valeur "s'est déplacé" (**moved**) de s1 à s2; parce que du point de vue du code, on ne peut plus l'afficher avec s1; comme si elle s'était déplacé d'une variable à une autre.
 
 <img width="300px" src="images/ownership-figure-c.svg" />
 
-🚨Ce code produira donc une erreur : on essaie d'accéder à S
+🚨Ce code produira donc une erreur "value moved here"
 
 ```rust
 fn main() {
@@ -590,7 +590,73 @@ Les types dont les valeurs sont stockés dans la pile ne sont **pas** concernés
 - Les booléens
 - Les nombres à virgule flottante
 - Les caractères
-- Les types, mais seulement si ils contiennent uniquement des types simples qui utilisent le trait Copy. Par exemple, (i32, i32); mais pas (i32, String).
+- Les types, mais seulement si ils contiennent uniquement des types simples qui utilisent le trait **Copy**. Par exemple, (i32, i32); mais pas (i32, String).
+
+### Propriété et fonctions
+
+**Le passage d'une variable a une fonction fonctionne comme l'assignation d'une variable à une autre variable** : il y aura soit "copie", soit "transfert de la propriété".
+
+```rust
+fn main() {
+    let s = String::from("hello");  // s comes into scope
+
+    takes_ownership(s);             // s's value moves into the function...
+                                    // ... and so is no longer valid here
+
+    let x = 5;                      // x comes into scope
+
+    makes_copy(x);                  // x would move into the function,
+                                    // but i32 is Copy, so it’s okay to still
+                                    // use x afterward
+
+} // Here, x goes out of scope, then s. But because s's value was moved, nothing
+  // special happens.
+
+fn takes_ownership(some_string: String) { // some_string comes into scope
+    println!("{}", some_string);
+} // Here, some_string goes out of scope and `drop` is called. The backing
+  // memory is freed.
+
+fn makes_copy(some_integer: i32) { // some_integer comes into scope
+    println!("{}", some_integer);
+} // Here, some_integer goes out of scope. Nothing special happens.
+```
+
+### Return values and scope
+
+Returning values can also transfer ownership. 
+
+```rust
+fn main() {
+    let s1 = gives_ownership();         // gives_ownership moves its return
+                                        // value into s1
+
+    let s2 = String::from("hello");     // s2 comes into scope
+
+    let s3 = takes_and_gives_back(s2);  // s2 is moved into
+                                        // takes_and_gives_back, which also
+                                        // moves its return value into s3
+} // Here, s3 goes out of scope and is dropped. s2 goes out of scope but was
+  // moved, so nothing happens. s1 goes out of scope and is dropped.
+
+fn gives_ownership() -> String {             // gives_ownership will move its
+                                             // return value into the function
+                                             // that calls it
+
+    let some_string = String::from("hello"); // some_string comes into scope
+
+    some_string                              // some_string is returned and
+                                             // moves out to the calling
+                                             // function
+}
+
+// takes_and_gives_back will take a String and return one
+fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
+                                                      // scope
+
+    a_string  // a_string is returned and moves out to the calling function
+}
+``
 
 
 
