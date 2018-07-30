@@ -224,42 +224,43 @@ let heart_eyed_cat = '😻';
 
 > ⚠️ Le type caractère est spécifié avec des guillemets simples tandis que les chaîne de caractères sont spécifiées avec des guillemets doubles.
 
-#### Compound Types
+#### Les types composés
 
-Compound types can group multiple values into one type. Rust has two primitive compound types: **tuples** and **arrays**.
+Les types composés peuvent regrouper plusieurs valeurs dans un seul type. Rust propose deux types composés primitifs : les **tuples** et les **arrays**.
 
-##### The Tuple Type
+##### Le type tuple
 
-Variety of types into one compound type.
 ```rust
-// create a tuple
+// créer un tuple composé de différents types simples
 let tup: (i32, f64, u8) = (500, 6.4, 1);
 
-// read values:
+// lire les valeurs du tuple
 let (x, y, z) = tup;
 
-println!("The value of y is: {}", y); // display 6.4
-println!("{}", tup.1); // display also 6.4
+println!("The value of y is: {}", y); // affiche 6.4
+println!("{}", tup.1); // affiche aussi 6.4
 ```
-##### The Array Type
+##### Le type array
 
 Unlike a tuple, every element of an array must have the same type.
 
+Contrairement au *tuple*, chaque élément d'un *array* **doit être du même type**.
+
 ```rust
 let a = [1, 2, 3, 4, 5];
-// access first and second value
+// accédérer à la première et à la deuxième valeur du tableau.
 let first = a[0];
 let second = a[1];
 ```
-> ⚠️ **arrays in Rust have a fixed length**: once declared, they cannot grow or shrink in size. Only **vectors** are allowed to grow or shrink in size.
+> ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
 
-#### Numeric operations
+#### Opérations arithmétiques
 
 ```rust
 // addition
 let sum = 5 + 10;
 
-// subtraction
+// soustraction
 let difference = 95.5 - 4.3;
 
 // multiplication
@@ -268,7 +269,7 @@ let product = 4 * 30;
 // division
 let quotient = 56.7 / 32.2;
 
-// remainder
+// reste
 let remainder = 43 % 5;
 ```
 ### Functions 
