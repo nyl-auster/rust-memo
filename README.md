@@ -388,11 +388,11 @@ let y = {
 };
 ``` 
 
-### Control flow
+### Contrôle de flux
 
-#### If expressions
+#### les expressions if
 
-> 💡Note that **patterns** are also a very powerful way to handle conditions : https://doc.rust-lang.org/book/second-edition/ch18-03-pattern-syntax.html
+> 💡 Note : on parlera un peu plus loin des **patterns** qui sont une autre manière très puissante de gérer les conditions en Rust : https://doc.rust-lang.org/book/second-edition/ch18-03-pattern-syntax.html
 
 
 ```rust
@@ -405,10 +405,9 @@ fn main() {
     }
 }
 ```
+> ⚠️ Rust n'essaiera **PAS** de convertir automatiquement des types non-booléens en type booléen au sein des conditions. 
 
-> ⚠️ the condition must be a bool. If the condition isn’t a bool, we’ll get an error. Rust will **NOT** automatically try to convert non-Boolean types to a Boolean
-
-multiples conditions :
+Conditions multiples :
 
 ```rust
 fn main() {
@@ -426,7 +425,7 @@ fn main() {
 }
 ```
 
->  💡 Because **if** is an expression, it returns a value : so we can use it on the right side of a **let** statement:
+>  💡 Comme **if** est une expression, il retourne une valeur : on peut donc utiliser **if** pour assigner une valeur à une variable :
 
 ```rust
 fn main() {
@@ -437,8 +436,7 @@ fn main() {
 
 ```
 
-
-> 🚨 Below code will throw en error : each **arm** of the **if** must be the same type.
+> 🚨 Le code ci-dessous provoquer une erreur : chaque **bras** du **if** doit être du même type.
 
 ```rust
 fn main() {
@@ -448,11 +446,11 @@ fn main() {
 }
 ```
 
-#### loops
+#### boucles
 
 ##### loop
 
-The **loop** keyword creates an infinite loop. We need **break** keyword to exit a infinite loop.
+Le mot clef **loop** crée une boucle infinie. Il faut utiliser le mot-clef **break** pour sortir d'une boucle infinie.
 
 ```rust
 fn main() {
@@ -483,9 +481,9 @@ fn main() {
 
 ##### for
 
-> 💡The safety and conciseness of for loops make them the most commonly used loop construct in Rust. 
+> 💡For est l'une des constructions de boucles les plus utilisées en Rust pour sa concision.
 
-Iterate on an array:
+Itérer sur un *array*
 
 ```rust
 fn main() {
@@ -495,7 +493,7 @@ fn main() {
     }
 }
 ```
-Using **Range**
+En utilisant **Range**
 
 ```rust
 fn main() {
