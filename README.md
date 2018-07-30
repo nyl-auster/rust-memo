@@ -503,6 +503,15 @@ fn main() {
 }
 ```
 
+pour obtenir un index, il faut passer par l'itérateur et enumerate()
+
+```rust
+let test = ["hello", "world", "!"];
+for (i, element) in test.iter().enumerate() {
+    println!("{} {}", i, element);
+}
+```
+
 ## Propriété( Ownership ) pile (stack) et tas (heap)
 
 > Le concept propriété et de transfert de propriété concerne uniquement les variables dont la valeur est stockée **dan le tas (heap)**, donc ce chapitre **requiert** une connaissance basique à propos de la pile et du tas ( [Annexe: la pile et le tas](annex-stack-and-heap.md) ).
@@ -754,6 +763,14 @@ fn no_dangle() -> String {
     s
 }
 ```
+
+### le Type Slice (tranche)
+
+Une tranche permet de **référencer** ( pas de transfert de propriété ) une séquence d'éléments au sein d'une collection (plutôt que la collection toute entière).
+
+
+
+ 
 
 
 
