@@ -272,13 +272,13 @@ let quotient = 56.7 / 32.2;
 // reste
 let remainder = 43 % 5;
 ```
-### Functions 
+### Fonctions 
 
-> 💡Rust doesn’t care where you define your functions, only that they’re defined somewhere.
+> 💡Note : Rust peut accéder à vos fonctions quel que soit l'endroit de leur déclaration.
 
-#### examples
+#### exemples
 
-You **must** declare return value type with an arrow. If you don't do it, Rust assumes that the value returned by the function is of the type "()", which is an **empty tuple**.
+Vous **devez** declarer le type de valeur retournée avec une flèche. Si vous ne le faites pas, Rust considérera que votre fonction retourne par défaut un *tuple* vide "()".
 
 ```rust
 fn get_x() -> i32 {
@@ -286,9 +286,9 @@ fn get_x() -> i32 {
 }
 ```
 
-> ⚠️ Please note that we DID NOT put a semi-column, so that 76 is evaluated as an **expression** and its value returned implicity.
+> ⚠️ Bien noter qu'il n'y a **PAS** de point-virgule à la fin; ce qui permet à 76 d'être évalué comme une expression, et Rust retourne automatiquement la valeur d'une expression.
 
-This is strictly equivalent to :
+La notation ci-dessus est donc strictement équivalente à la suivante :
 
  ```rust
  fn get_x() -> i32 {
@@ -296,32 +296,34 @@ This is strictly equivalent to :
 }
  ```
 
-Example with parameters. In function signatures, you **must** declare the type of each parameter:
+Exemple avec des paramètres. La signature de la fonction **doit** déclarer le type de chaque argument.
+
 ```rust
 fn multiply(x: i32, y: i32) -> i32 {
     x * y
 }
 ```
 
-Without returning any explicit value (so it will return an empty tuple "()" by default)
+Exemple sans retourner explicitement une valeur ( Rust retournera donc "()" par défault )
+
 ```rust
 fn my_function(x: i32, y: i32) {
     println!("The value of x is: {}", x);
 }
 ```
 
-#### Beginners gotchas
+#### Pièges pour les débutants
 
-🚨 this will throw an error:
+🚨 Ceci provoquera une erreur du compilateur
 ```rust
 fn multiply(x: i32, y: i32) -> i32 {
     x * y;
 }
 ```
 
-There is a semi-column : **expression** is turned into a **statement**, and a statement **do not return a value**. So an empty tuple is returned; which is not matching the declared return type ( i32 ). 
+Comme il y a un point-virgule à la fin de "x * y", l'expression est convertie en **déclaration** (statement), et une déclaration ne retourne rien. Donc Rust considère que la fonction renvoie un tuple vide, ce qui ne correspondant pas au type de retour *i32* qui a été déclaré dans la signature de notre fonction.
 
-To fix this error, simply remove the semi-column:
+Pour réparer l'erreur, il suffit de retirer le point-virgule pour convertir la déclaration en expression, dont la valeur sera retournée automatiquement.
 
 ```rust
 fn multiply(x: i32, y: i32) -> i32 {
@@ -329,56 +331,57 @@ fn multiply(x: i32, y: i32) -> i32 {
 }
 ```
 
-#### difference between ARGUMENTS and PARAMETERS
+#### La différente entre arguments et paramètres
 
->  ⚠️ **Parameters** are the special variables used in the function signature, **arguments** are the concrete values we pass to the function when we call it.
+> ⚠️ Les **paramètres** sont les variables spéciales utilisées dans la signature d'une fonction. Les **arguments** sont les valeurs concrètes passées au moment de l'appel de la fonction.
 
 ```rust
-// x is a PARAMETER
+// x est un paramètre
 fn hello_world(x: i32) {
     println!("Hello world");
 }
 
 fn main() {
-  // 67 is an ARGUMENT
+  // 67 est un argument
   hello_world(67)
 }
 ```
 
-#### Difference between statements and expressions
+#### La différente entre les expressions et les déclarations
 
-> ⚠️ Rust is an expression-based language, this is an important distinction to understand
+> ⚠️ Rust est un language basé sur les expressions, il est important de bien comprendre cette distinction.
+
+Le corps des fonctions est composé d'une série de **déclarations** , qui se termine **éventuellement** par une **expression**.
 
 Function bodies are made up of a series of **statements** *optionally* ending in an **expression**
 
-- Statements do **not return** values
-- Expressions **evaluate** to something
+- les **déclarations** ne retourne **pas** de valeur
+- Les expressions sont toujours **résolues en une valeur** qu'elles retournent.
 
-Examples of statements :
+Exemples de déclarations:
 
 ```rust
-// creating a variable and assigning a value to it. This does NOT return a value.
+// créer une variable et lui assigner une valeur
 let y = 5;
 ```
+> 💡 *let y = 5* est une **déclaration** mais "5" est une **expression** qui est évalué à "5". 
 
-> 💡 *let y = 5* is a **statement** but "5" is an **expression** that evaluates to "5". 
-
-Examples of expressions:
+Exemples d'expressions :
 
 ```rust
-// Numbers by themselves are expressions.
+// Les nombres en eux-même sont des expressions.
 5
 
-// mathematics operations
+// les opération mathématiques
 5 + 6 
 
-// calling a function
+// appeler une fonction
 say_hello()
 
-// calling a macro
+// appeler une macro
 println! 
 
-// block ( evaluates to 4 )
+// les blocs ( ici évalué à 4 )
 let y = {
     let x = 3;
     x + 1 
