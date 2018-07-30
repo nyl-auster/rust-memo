@@ -195,6 +195,7 @@ let y: u8 = 142;  // type entier non-signé 8 bits
 #### Type nombre à virgule flottante
 
 exemple :
+
 ```rust
 let x = 2.0; // f64 par défault
 let y: f32 = 142.567890; // flottant 32 bits
@@ -503,7 +504,7 @@ fn main() {
 }
 ```
 
-pour obtenir un index, il faut passer par l'itérateur et enumerate()
+pour obtenir un index, il faut passer par l'itérateur et enumerate(). Enumerate va renvoyer un *tuple* pour chaque iteration de type (index, element).
 
 ```rust
 let test = ["hello", "world", "!"];
