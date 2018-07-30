@@ -676,9 +676,49 @@ fn calculate_length(s: &String) -> usize {
     s.len()
 }
 ```
-Dans ce cas, "s" est une variable dans la pile contenant uniquement un pointeur vers la variable propriétaire de la valeur.
+Dans ce cas, "s" est une variable dans la pile contenant uniquement un pointeur vers la variable propriétaire de la valeur. Comme "s" n'est **pas** le propriétaire de la valeur, la valeur ne sera pas jetée quand la référence sera hors de portée.
 
 <img width="500px" src="images/ownership-figure-e.svg" />
+
+> 💡 l'opposé de la référence et la dé-référence avec l'operateur *. Plus de détails plus tard à ce sujet.
+ 
+### Références mutables
+
+Pour muter une référence, il faut obligatoirement utiliser le mot clef **mut** et remplacer "&" par "&mut", à la fois dans la signature dans la fonction et dans l'appel de la fonction.
+
+```rust
+fn main() {
+    let mut s = String::from("hello");
+    change(&mut s);
+}
+
+fn change(some_string: &mut String) {
+    some_string.push_str(", world");
+}
+```
+
+> 💡 Dans la même portée, il est possible d'avoir plusieurs références **non mutables** vers la même variable.
+
+> 🚨 Dans la même portée, il ne peut y avoir **qu'une seule référence mutable** vers la même variable.
+
+> 🚨 Dans la même portée, il ne peut pas y avoir une référence mutable **ET** immutable vers la même variable.
+
+```rust
+let mut s = String::from("hello");
+let r1 = &mut s;
+let r2 = &mut s;
+```
+
+Les accolades peuvent être utilisées pour créer une nouvelle portée si il y a besoin de contourner ces règles.
+
+```rust
+let mut s = String::from("hello");
+{
+    let r1 = &mut s;
+} // r1 goes out of scope here, so we can make a new reference with no problems.
+let r2 = &mut s;
+```
+
 
 
 
