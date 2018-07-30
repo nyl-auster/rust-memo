@@ -503,24 +503,44 @@ fn main() {
 }
 ```
 
-## Ownership
+## Propriété ( Ownership ), tas (heap) et pile (stack)
 
-> Ownership is **all about the heap**, so this chapter **requires** some basic knowledges about what are the **stack** and the **heap**. See [Annexe: the stack and the heap](annex-stack-and-heap.md)
+La propriété est un principe central et unique de Rust qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la pile (stack) à la fois.
 
-Rust’s central and most unique feature is **ownership**. It enables Rust to make memory safety guarantees without needing a garbage collector and without the need for the programmer to explicitly allocate and free the memory from the heap.
+Ce principe permet à Rust de supprimer automatiquement la valeur du *tas* dès que le propriétaire correspondant est *hors de portée* (out of scope); comme c'est le cas pour les variables de la *pile*. 
 
-**Managing heap data is why Rust ownership exists** : keeping track of what parts of code are using what data on the heap, minimizing the amount of duplicate data on the heap, and cleaning up unused data on the heap so you don’t run out of space are all problems that ownership addresses.
+Cela permet de se passer de Garbage collector ou du besoin d'allouer et libérer manuellement la mémoire du *tas*.
 
-> 🙂 Because ownership is a new concept for many programmers, it does take some time to get used to.
+Grâce à cela, **il ne peut pas y avoir d'erreur de mémoire au moment** du "run time" ( pas de double libération de la mémoire ou de pointeur qui pointe vers un espace vide ou une mauvaise valeur).
 
-### Understand if a value is in the stack or in the heap
+> La propriété concerne uniquement les variables dont la valeur est stockée **dan le tas**, donc ce chapitre requiert une connaissance basique à propos de la pile et du tas. Voir [Annexe: la pile et le tas](annex-stack-and-heap.md)
 
-Ownership concern only variables whose values are stored in the "heap". 
-You must be able to distinguish if a variable is stored only in the stack; or if its value is stored on the heap; because this it what will determine copy behavior and ownership.
+> 🙂 La propriété est un concept nouveau pour beaucoup de programmeurs, il normal qu'il faille un peu de temps pour être à l'aise avec.
 
-#### Simple types
+### Déterminer si une valeur est stockée dans la pile ou dans le tas
 
-For example : Integers are a simple type, only stored in the stack; because we know at compile time their size. So this code works exactly as expected.
+Le compilateur de Rust vous avertira si vous faites une erreur de gestion de la propriété avec l'erreur "Move" ( plus de détails plus bas). 
+
+Néanmoins il faut savoir quels types stockent leurs valeurs dans le tas ou la pile; car c'est cela qui va déterminer si il y a transfert de propriété de la valeur ou pas et la manière dont la variable est "copiée"
+
+#### Le trait "Copy".
+
+##### comprendre la copie
+
+Rust a une annotation spéciale nommée le trait **Copy** qui est utilisé par les **types** comme les entiers qui sont stockés **uniquement dans la pile**.  
+
+Il n'y a pas de notion de transfert de propriété pour tous ces types car leur valeur est stockée uniquement dans la pile
+
+**Quels types utilisent Copy?**
+- Les entiers
+- Les booléens
+- Les nombres à virgule flottante
+- Les caractères
+- Les types, mais seulement si ils contiennent uniquement des types simples qui utilisent le trait Copy. Par exemple, (i32, i32); mais pas (i32, String).
+
+##### exemple de copie
+
+Les entiers sont stocké uniquement dans la pile donc ce code va se comporter comme attendu. 
 
 ```rust
 fn main() {
@@ -530,14 +550,16 @@ fn main() {
 }
 ```
 
-When assigning x to y, a full copy is made and the stack will looks like :
+Quand on assigne x à y, Rust effectue une **copie** complète de ce qui est contenu dans la pile concernant cette variable; ainsi la stack ressemble à ceci après assignement et chaque variable a sa propre valeur. 
 
 ```
 y = 5
 x = 5
 ```
 
-#### Complex types
+Le transfert de propriété n'a pas de raison d'être dans ce cas; car Rust sait comment libérer la mémoire : dès que x ou y deviennent hors de portée, il suffit de retirer la variable de la pile pour nettoyer la mémoire.
+
+#### Les types complexes
 
 This is how to declare a growable and mutable piece of text.
 ```rust
