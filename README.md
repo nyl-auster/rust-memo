@@ -746,7 +746,7 @@ error[E0106]: missing lifetime specifier
   = help: consider giving it a 'static lifetime
 ```
 
-Il nous suggère d'ajouter un "temps de vie" mais c'est un autre sujet, pour l'heure il suffit de ne pas renvoyer de référence pour fixer l'erreur.
+Il nous suggère d'ajouter un "temps de vie" mais c'est un autre sujet, pour l'heure il suffit de ne pas renvoyer de référence pour fixer l'erreur : on transfert ainsi la propriété, la valeur n'est donc pas jetée.
 
 ```rust
 fn no_dangle() -> String {
