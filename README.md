@@ -161,23 +161,24 @@ let my_var = 6;
 
 ### Les types de données
 
-four primary scalar types: 
+Il existe quatre types scalaires de données. Un type scalaire représente une données "atomique" par opposition à des types composés - comme des types listant plusieurs valeurs tels que *array*, *tuple* ou *String* (une String est une liste de *characters* )
+
 - integers
 - floating-point numbers
 - Booleans
 - characters
 
-> 💡The types covered in this section all stored on the stack and popped off the stack when their scope is over.  
+> 💡 Note : ces types de données scalaires sont stockés uniquement dans la pile et supprimer de la pile lorsqu'il sont hors de portée. ( plus de détails plus bas concernant la *pile* et le *tas*)
 
-#### Integer types
+#### Le type entier
 
 example :
 ```rust
-let x = 142; // i32 type by default
-let y: u8 = 142; 
+let x = 142; // sera du type "entier 32 bits" par défault
+let y: u8 = 142;  // type entier non-signé 8 bits
 ```
 
-|length  | signed | unsigned |
+|longueur|  signé | non-signé |
 |--------|--------|----------|
 |8-bits  | i8     | u8       |
 |16-bits | i16    | u16      |
@@ -185,35 +186,35 @@ let y: u8 = 142;
 |64-bits | i64    | u64      |
 |arch    | isize  | usize    |
 
-> 💡 the isize and usize types depend on the kind of computer your program is running on: 64 bits if you’re on a 64-bit architecture and 32 bits if you’re on a 32-bit architecture.
 
-> 💡 integer types default to i32 because this type is generally the fastest
+> 💡 isize et usize dépendent du type d'ordinateur sur lequel tourne le programme : 64 bits si vous êtes sur une architecture 64 bits, 32 bits si vous êtes sur une architecture 32 bits.
 
-https://doc.rust-lang.org/book/second-edition/ch03-02-data-types.html
+> 💡 Les entiers sont par défault du type i32 parce que c'est généralement le type le plus performant.
 
-#### Floating-point types (decimal points)
 
-example :
+#### Type nombre à virgule flottante
+
+exemple :
 ```rust
-let x = 2.0; // f64 by default
-let y: f32 = 142.567890;
+let x = 2.0; // f64 par défault
+let y: f32 = 142.567890; // flottant 32 bits
 ```
 
-|length  | primitive |
+|longueur|notation|
 |--------|--------|
 |32-bits | f32    |
 |64-bits | f64    |
 
-> 💡 default type is f64 because on modern CPUs it’s roughly the same speed as f32 but is capable of more precision.
+> 💡 Le type par défaut est *f64* parce que sur les CPUs moderne, il est quasimenet aussi rapidement que *f32* mais offre bien plus de précisions.
 
-#### Boolean type
+#### Le type booléen
 
 ```rust
 let x = true;
-let y: bool = false; // with explicit type annotation
+let y: bool = false; // avec un type explicite
 ```
 
-#### Character type
+#### Le type caractère
 
 ```rust
 let c = 'z';
@@ -221,7 +222,7 @@ let z = 'ℤ';
 let heart_eyed_cat = '😻';
 ```
 
-> ⚠️ Note that the char type is specified with single quotes, as opposed to strings, which use double quotes
+> ⚠️ Le type caractère est spécifié avec des guillemets simples tandis que les chaîne de caractères sont spécifiées avec des guillemets doubles.
 
 #### Compound Types
 
