@@ -503,120 +503,62 @@ fn main() {
 }
 ```
 
-## Propriété ( Ownership ), tas (heap) et pile (stack)
+## Propriété( Ownership ) pile (stack) et tas (heap)
 
-La propriété est un principe central et unique de Rust qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la pile (stack) à la fois.
+> Le concept propriété et de transfert de propriété concerne uniquement les variables dont la valeur est stockée **dan le tas (heap)**, donc ce chapitre **requiert** une connaissance basique à propos de la pile et du tas ( [Annexe: la pile et le tas](annex-stack-and-heap.md) ).
 
-Ce principe permet à Rust de supprimer automatiquement la valeur du *tas* dès que le propriétaire correspondant est *hors de portée* (out of scope); comme c'est le cas pour les variables de la *pile*. 
+La propriété est un principe central et unique de Rust qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la pile (stack) à la fois. On dénomme **propriétaire** cette variable.
+
+Ce principe permet à Rust de supprimer automatiquement la valeur du *tas* dès que son propriétaire correspondant est *hors de portée* (out of scope); comme c'est le cas pour les variables de la *pile*. 
 
 Cela permet de se passer de Garbage collector ou du besoin d'allouer et libérer manuellement la mémoire du *tas*.
 
 Grâce à cela, **il ne peut pas y avoir d'erreur de mémoire au moment** du "run time" ( pas de double libération de la mémoire ou de pointeur qui pointe vers un espace vide ou une mauvaise valeur).
 
-> La propriété concerne uniquement les variables dont la valeur est stockée **dan le tas**, donc ce chapitre requiert une connaissance basique à propos de la pile et du tas. Voir [Annexe: la pile et le tas](annex-stack-and-heap.md)
+### Exemple concret de propriété et de transfert de propriété
 
-> 🙂 La propriété est un concept nouveau pour beaucoup de programmeurs, il normal qu'il faille un peu de temps pour être à l'aise avec.
+Voici comme est stocké la valeur "hello" en Rust avec le type complexe **String** ( un morceau de texte UTF-8 qui peut grandir ou rétrécir )
 
-### Déterminer si une valeur est stockée dans la pile ou dans le tas
-
-Le compilateur de Rust vous avertira si vous faites une erreur de gestion de la propriété avec l'erreur "Move" ( plus de détails plus bas). 
-
-Néanmoins il faut savoir quels types stockent leurs valeurs dans le tas ou la pile; car c'est cela qui va déterminer si il y a transfert de propriété de la valeur ou pas et la manière dont la variable est "copiée"
-
-#### Le trait "Copy".
-
-##### comprendre la copie
-
-Rust a une annotation spéciale nommée le trait **Copy** qui est utilisé par les **types** comme les entiers qui sont stockés **uniquement dans la pile**.  
-
-Il n'y a pas de notion de transfert de propriété pour tous ces types car leur valeur est stockée uniquement dans la pile
-
-**Quels types utilisent Copy?**
-- Les entiers
-- Les booléens
-- Les nombres à virgule flottante
-- Les caractères
-- Les types, mais seulement si ils contiennent uniquement des types simples qui utilisent le trait Copy. Par exemple, (i32, i32); mais pas (i32, String).
-
-##### exemple de copie
-
-Les entiers sont stocké uniquement dans la pile donc ce code va se comporter comme attendu. 
+- à gauche, la **pile** qui contient les métadonnées de la variable (pointeur, longueur, capacité)
+- à droite le **tas** qui contient la valeur.
 
 ```rust
-fn main() {
-    let x = 5;
-    let y = x;
-    println!("{}", y);
-}
+let s1 = String::from("hello");
 ```
 
-Quand on assigne x à y, Rust effectue une **copie** complète de ce qui est contenu dans la pile concernant cette variable; ainsi la stack ressemble à ceci après assignement et chaque variable a sa propre valeur. 
+![propriété figure a](images/ownership-figure-a.svg)
 
-```
-y = 5
-x = 5
-```
-
-Le transfert de propriété n'a pas de raison d'être dans ce cas; car Rust sait comment libérer la mémoire : dès que x ou y deviennent hors de portée, il suffit de retirer la variable de la pile pour nettoyer la mémoire.
-
-#### Les types complexes
-
-This is how to declare a growable and mutable piece of text.
-```rust
-let mut s = String::from("hello");
-```
-
- As this is growable, Rust will not store "hello" value on the stack. String data are actually shared between two memory locations : 
-- metadata are stored in the *stack* : name, length ... Those values have a known size at compile time.
-- actual value is store on the heap, because it is growable and can not be known for sure at compile time
-
-<img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-01.svg" width="400px" />
-
-#### The "Copy" trait
-
-Rust has a special annotation called the **Copy trait** that is sued by **types** like integers that are stored **only in the stack**.  You don't have to think about ownership if the type has the Copy trait, because in this case, value is not in the heap.
-
-**So what types are Copy?**
-- All the integer types, such as u32.
-- The Boolean type, bool, with values true and false.
-- All the floating point types, such as f64.
-- The character type, char.
-- Tuples, but only if they contain types that are also Copy. For example, (i32, i32) is Copy, but (i32, String) is not.
-
-### How Rust ownership is handling allocation in the heap
-
-### Ownsership rules
-- Each **value** in Rust has a **variable** that’s called its **owner**.
-- There can only be **one** owner at a time.
-- When the owner goes **out of scope**, the value will be **dropped**
-
-Let's explore en example with String type :
+Voyons ce qu'il se passe si nous écrivons :
 
 ```rust
-{
-    // "s" is valid from this point forward and is the "owner" of "Hello" value stored in the heap.
-    let s = String::from("hello"); 
-    
-    // do stuff with "s"
-    
-} // this scope is now over, and "s is no longer valid : Rust drop the value automatically here.
+let s1 = String::from("hello");
+let s2 = s1;
 ```
 
-A scope is the range within a program for which an item is valid. Scope in Rust is delimited by curly brackets. "String::from("hello")" is requesting an allocation in the heap. Rust calls a special **drop** functon automatically at the closing curly bracket. This is when Rust drop the "hello" value from the heap and give back the memory to the OS. 
+Cela donne l'allocation de mémoire suivante :
 
-### Move
+![propriété figure b](images/ownership-figure-b.svg)
 
-🚨But this code will throw an error : 
+Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas** ! Pour des raisons de performance et par défaut, Rust ne copie que les métadonnées de la pile pour créer cette seconde variable. 
+
+Nous voilà donc ici avec deux **propriétaires** de la valeur "hello"; c'est précisément ce qui est **interdit en Rust**.
+
+C'est pourquoi Rust  **transfère la propriété de la valeur** à s2 :
+
+![propriété figure b](images/ownership-figure-c.svg)
+
+🚨Ce code produira donc une erreur : on essaie d'accéder à S
 
 ```rust
 fn main() {
     let s1 = String::from("hello");
     let s2 = s1;
-    // Rust compiler do not allow us to call s1 here, because we have assigned s1 value to s2 !
+    // Rust compiler ne nous autorise plus à appeler s1 ici, parce que la valeur a été transféré à s2 !
     println!("{}", s1)
 }
 ```
-This will display this error : **use of moved value s1**
+
+Le code suivant affichera donc l'erreur : **use of moved value s1**
 
 ```sh
 error[E0382]: use of moved value: `s1`
@@ -628,20 +570,30 @@ error[E0382]: use of moved value: `s1`
    |                    ^^ value used here after move
 ```
 
-That's because when we do "let s2 = s1", Rust copy **only** the stack data, not the value from the heap ! so "s2" and "s1" have actually a pointer toward the same value. 
+s1 ne fera plus partie de la pile, de manière à ce que la string hello n'ait qu'un seul et unique propriétaire. Ce qui permettra à Rust de pouvoir supprimer en toute sécurité la valeur "hello" du **tas** quand *s2* sera hors de portée.
 
-<img src="https://doc.rust-lang.org/book/second-edition/img/trpl04-02.svg" width="400px" />
-
-s1 can **not** be used anymore after s2 declaration, because s1 and s2 would be **two owners** for the same value in the heap allocation, and Rust allow only **one owner**. 
-
-That is exactly what ownership is all about, and that's precisely how Rust can ensures us at **compile time** that nothing wrong can happen with memory allocation during **run time**.
-
-> 💡 Note: it is still possible to copy value from the **stack** AND the **heap** using "clone"
+Il est possible toutefois, si nécessaire, d'utiliser la méthode **clone** pour copier également la valeur du tas et obtenir l'utilisation suivante de la mémoire :
 
 ```rust
 let s1 = String::from("hello");
 let s2 = s1.clone();
 ```
+
+![propriété figure b](images/ownership-figure-d.svg)
+ 
+### Les types qui ne sont PAS concernés par la propriété
+
+Les types dont les valeurs sont stockés dans la pile ne sont **pas** concernés par la notion de propriété; puisque la propriété ne sert qu'à gérer l'allocation de la mémoire du tas. Les types suivants ne sont pas concernés par la propriété.
+
+- Les entiers
+- Les booléens
+- Les nombres à virgule flottante
+- Les caractères
+- Les types, mais seulement si ils contiennent uniquement des types simples qui utilisent le trait Copy. Par exemple, (i32, i32); mais pas (i32, String).
+
+
+
+
 
 
 
