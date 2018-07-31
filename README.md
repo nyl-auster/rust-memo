@@ -794,6 +794,112 @@ let a = [1, 2, 3, 4, 5];
 let slice = &a[1..3];
 ```
 
+## Structures (Structs)
+
+Une structure est un ensemble de *champs* dont chaque type est spécifié.
+
+```rust
+// créer une structure, en implémentant le trait Debug pour pouvoir
+// afficher la variable dans un println!
+#[derive(Debug)]
+struct User {
+    name: String,
+    email: String,
+    age: u8,
+    active: bool,
+}
+
+// instanciation de la structure
+fn main() {
+    let yann = User {
+        name: String::from("Yann"),
+        email: String::from("yann@yineo.fr"),
+        age: 35,
+        active: true,
+    };
+    // afficher l'âge
+    println!("age : {}", yann.age);
+    // afficher l'objet pour debug
+    println!("debug : {:#?}", yann)
+}
+```
+
+Pour rendre le champ mutable, il faut rendre toute l'instance mutable avec le mot clef **mut** lors de la déclaration de la variable
+
+```rust
+// ajout du mot clef mut à l'instanciation
+let mut yann = User {
+    name: String::from("Yann"),
+    email: String::from("yann@yineo.fr"),
+    age: 35,
+    active: true,
+};
+
+// muter les variables
+yann.age = 43;
+yann.email = String::from("email@email.fr");
+yann.active = false;
+println!("debug : {:#?}", yann);
+```
+
+> ⚠️ **Toute** l'instance doit être mutable, Rust n'autorise pas seulement certains champs à être mutables.
+
+Utiliser une fonction pour instancier la structure :
+
+```rust
+fn main() {
+    let yann = build_user(String::from("yann"), String::from("yann@yineo.fr"));
+    println!("debug : {:#?}", yann);
+}
+
+#[derive(Debug)]
+struct User {
+    name: String,
+    email: String,
+    age: u8,
+    active: bool,
+}
+
+fn build_user(name: String, email: String) -> User {
+    User {
+        name: name,
+        email: email,
+        active: true,
+        age: 35,
+    }
+}
+```
+
+On peut utiliser la notation abrégée pour instancier les champs dans build_user, pour éliminer les redondances comme "name: name" :
+
+```rust
+fn build_user(name: String, email: String) -> User {
+    User {
+        // notation abrégée. Identique à "name: name"
+        name,
+        // notation abrégée
+        email,
+        active: true,
+        age: 35,
+    }
+}
+```
+
+Il est possible d'instancier une structure en reprenant les valeurs d'une autre instance. Ici, Roger est identique à Yann, on change juste le nom et l'email pour créer l'instance de Roger.
+ 
+```rust
+fn main() {
+    let yann = build_user(String::from("yann"), String::from("yann@yineo.fr"));
+    let roger = User {
+        name: String::from("Roger"),
+        email: String::from("roger@roger.fr"),
+        // Struct update syntax
+        ..yann
+    };
+    println!("debug : {:#?}", yann);
+    println!("debug : {:#?}", roger);
+}
+```
 
 
 
