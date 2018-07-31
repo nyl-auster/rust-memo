@@ -692,7 +692,7 @@ Dans ce cas, "s" est une variable dans la pile contenant uniquement un pointeur 
 
 > 💡 l'opposé de la référence et la dé-référence avec l'operateur *. Plus de détails plus tard à ce sujet.
  
-### Références mutables
+### Références mutables : n immutable or 1 mutable. Period.
 
 Pour muter une référence, il faut obligatoirement utiliser le mot clef **mut** et remplacer "&" par "&mut", à la fois dans la signature dans la fonction et dans l'appel de la fonction.
 
@@ -765,9 +765,35 @@ fn no_dangle() -> String {
 }
 ```
 
-### le Type Slice (tranche)
+### Le Type Slice (tranche)
 
-Une tranche permet de **référencer** ( pas de transfert de propriété ) une séquence d'éléments au sein d'une collection (plutôt que la collection toute entière).
+Une tranche permet de référencer ( pas de transfert de propriété ) une séquence d'éléments au sein d'une collection (plutôt que la collection toute entière).
+
+#### String slice
+
+Une string slice est une référence à une partie d'une **String** :
+
+```rust
+let s = String::from("hello world");
+// string slices :
+let hello = &s[0..5]; // hello
+let world = &s[6..11]; // world
+```
+
+<img width="500px" src="images/string-slice-figure-a.svg" />
+
+autres exemples :
+
+```rust
+// strings
+let slice = &s[..2]; // de 0 à 2
+let slice = &s[2..]; // de 2 jusqu'à la fin
+let slice = &s[..];  // toute la chaîne
+// array :
+let a = [1, 2, 3, 4, 5];
+let slice = &a[1..3];
+```
+
 
 
 
