@@ -515,7 +515,9 @@ for (i, element) in test.iter().enumerate() {
 
 ## Propriété( Ownership ) pile (stack) et tas (heap)
 
-> Le concept propriété et de transfert de propriété concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)**, donc ce chapitre **requiert** une connaissance basique à propos de la pile et du tas ( [Annexe: la pile et le tas](annex-stack-and-heap.md) ).
+> 💡 Le concept de propriété est nouveau pour la plupart des programmeurs, il est normal qu'il demande un peu de temps pour être maîtriser. C'est une notion clefs qu'il faut maîtriser pour être à l'aise avec Rust.
+
+> 💡 Le concept propriété et de transfert de propriété concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)**, donc ce chapitre **requiert** une connaissance basique à propos de la pile et du tas ( [Voir annexe: la pile et le tas](annex-stack-and-heap.md) ).
 
 La propriété est un principe central et unique de Rust qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la pile (stack) à la fois. On dénomme **propriétaire** cette variable.
 
@@ -568,9 +570,9 @@ Cette assignation de *s1* à *s2* se traduit par l'allocation de mémoire suivan
 
 <img width="300px" src="images/ownership-figure-b.svg" />
 
-Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas** ! Pour des raisons de performance et par défaut, Rust ne copie que les métadonnées de la pile pour créer cette seconde variable. 
+Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas** !  Pour des raisons de performance et par défaut, Rust ne copie que les métadonnées de la **pile** pour créer cette seconde variable; et s1 et s2 ont toutes les deux un pointeur vers la même valeur dans la pile.
 
-Nous voilà donc ici avec deux **propriétaires** de la valeur "hello"; c'est précisément ce qui est **interdit en Rust**.
+Nous voilà donc ici avec deux "**propriétaires**" de la valeur "hello"; c'est précisément ce qui est **interdit en Rust** pour garantir une absence d'erreur mémoire au run-time.
 
 C'est pourquoi Rust **transfère la propriété de la valeur** à s2 : on dit aussi que la valeur "s'est déplacé" (**moved**) de s1 à s2; parce que du point de vue du code, on ne peut plus l'afficher avec s1; comme si elle s'était déplacé d'une variable à une autre.
 
