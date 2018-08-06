@@ -515,7 +515,7 @@ for (i, element) in test.iter().enumerate() {
 
 ## Propriété( Ownership ) pile (stack) et tas (heap)
 
-> Le concept propriété et de transfert de propriété concerne uniquement les variables dont la valeur est stockée **dan le tas (heap)**, donc ce chapitre **requiert** une connaissance basique à propos de la pile et du tas ( [Annexe: la pile et le tas](annex-stack-and-heap.md) ).
+> Le concept propriété et de transfert de propriété concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)**, donc ce chapitre **requiert** une connaissance basique à propos de la pile et du tas ( [Annexe: la pile et le tas](annex-stack-and-heap.md) ).
 
 La propriété est un principe central et unique de Rust qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la pile (stack) à la fois. On dénomme **propriétaire** cette variable.
 
@@ -524,6 +524,21 @@ Ce principe permet à Rust de supprimer automatiquement la valeur du *tas* dès 
 Cela permet de se passer de Garbage collector ou du besoin d'allouer et libérer manuellement la mémoire du *tas*.
 
 Grâce à cela, **il ne peut pas y avoir d'erreur de mémoire au moment** du "run time" ( pas de double libération de la mémoire ou de pointeur qui pointe vers un espace vide ou une mauvaise valeur).
+
+### Hors de portée
+
+🚨 **Attention**, c'est un principe capital à conserver en permanence en mémoire quand on fait du Rust ! Une variable est "hors de portée" quand le programme rencontre une **accolade fermante**
+
+```rust
+{                      // "s" n'est pas valide ici, car pas encore déclaré
+    let s = "hello";   // s est valide à partir d'ici
+    // do stuff with s
+} // "s" n'est plus valide ici et sa valeur est **jetée** !
+
+```
+
+Quand une accolade fermante est rencontrée, Rust appelle automatiquement une fonction spéciale **drop** qui désalloue la mémoire associée aux variables de la portée. ( qui deviennent donc invalides )
+
 
 ### Exemple concret de propriété et de transfert de propriété
 
