@@ -527,7 +527,7 @@ Grâce à cela, **il ne peut pas y avoir d'erreur de mémoire au moment** du "ru
 
 ### Hors de portée
 
-🚨 **Attention**, c'est un principe capital à conserver en permanence en mémoire quand on fait du Rust ! Une variable est "hors de portée" quand le programme rencontre une **accolade fermante**
+🚨🚨🚨 **Attention** ( et met 3 giyrophares pour l'occasion ) : c'est un principe capital à conserver en permanence en mémoire quand on fait du Rust ! **Une variable est "hors de portée" et supprimée de la mémoire dès que le programme rencontre une accolade fermante**
 
 ```rust
 {                      // "s" n'est pas valide ici, car pas encore déclaré
@@ -537,7 +537,9 @@ Grâce à cela, **il ne peut pas y avoir d'erreur de mémoire au moment** du "ru
 
 ```
 
-Quand une accolade fermante est rencontrée, Rust appelle automatiquement une fonction spéciale **drop** qui désalloue la mémoire associée aux variables de la portée. ( qui deviennent donc invalides )
+Quand une accolade fermante est rencontrée, Rust appelle automatiquement une fonction spéciale **drop** qui désalloue la mémoire associée aux variables de la portée. ( qui deviennent donc invalides ).
+
+Donc à chaque fois qu'on voit une accolade fermante, que ce soit dans la fin d'une fonction ou à n'importe quel autre endroit du code, il faut penser : fonction drop() appelée automatiquement et variable supprimée de la mémoire.
 
 
 ### Exemple concret de propriété et de transfert de propriété
