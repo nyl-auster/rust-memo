@@ -560,10 +560,11 @@ Voyons ce qu'il se passe si nous écrivons :
 
 ```rust
 let s1 = String::from("hello");
+// on assigne la valeur de s1 à s2.
 let s2 = s1;
 ```
 
-Cela donne l'allocation de mémoire suivante :
+Cette assignation de *s1* à *s2* se traduit par l'allocation de mémoire suivante :
 
 <img width="300px" src="images/ownership-figure-b.svg" />
 
