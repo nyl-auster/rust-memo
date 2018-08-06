@@ -527,7 +527,7 @@ Grâce à cela, **il ne peut pas y avoir d'erreur de mémoire au moment** du "ru
 
 ### Hors de portée
 
-🚨🚨🚨 **Attention** ( et met 3 giyrophares pour l'occasion ) : c'est un principe capital à conserver en permanence en mémoire quand on fait du Rust ! **Une variable est "hors de portée" et supprimée de la mémoire dès que le programme rencontre une accolade fermante**
+🚨🚨🚨 **Attention** ( et je met 3 giyrophares pour marquer le coup ) : c'est un principe capital à conserver en permanence en mémoire quand on fait du Rust ! **Une variable est "hors de portée" et supprimée de la mémoire dès que le programme rencontre une accolade fermante**
 
 ```rust
 {                      // "s" n'est pas valide ici, car pas encore déclaré
