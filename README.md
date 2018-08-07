@@ -667,16 +667,17 @@ fn makes_copy(some_integer: i32) { // "some_integer" arrive dans la portée
 } // "some_integer" devient hors de portée. Le tas n'est pas concerné, rien de spécial n'arrive ici
 ```
 
-### Return values and scope
+### Valeurs retournées par une fonction et portée
 
-Retourner des valeurs depuis une fonction effectue aussi un transfert de propriété : la valeur est alors déplacée dans la variable à qui on assigne le retour de la fonction.
+**Retourner des valeurs depuis une fonction a aussi les mêmes conséquences qu'une assignation du point de vue la propriété.** La valeur retournée est donc là aussi soit copiée, soit déplacée.
 
 ```rust
 fn main() {
-    let s1 = gives_ownership();         // gives_ownership moves its return
-                                        // value into s1
+    // "gives_ownership()" retourne la String "hello". Sa valeur est transférée
+    // à "s1" qui devient le propriétaire.
+    let s1 = gives_ownership();         
 
-    let s2 = String::from("hello");     // s2 comes into scope
+    let s2 = String::from("hello");     // s2 arrive dans la portée
 
     let s3 = takes_and_gives_back(s2);  // s2 is moved into
                                         // takes_and_gives_back, which also
@@ -684,15 +685,9 @@ fn main() {
 } // Here, s3 goes out of scope and is dropped. s2 goes out of scope but was
   // moved, so nothing happens. s1 goes out of scope and is dropped.
 
-fn gives_ownership() -> String {             // gives_ownership will move its
-                                             // return value into the function
-                                             // that calls it
-
-    let some_string = String::from("hello"); // some_string comes into scope
-
-    some_string                              // some_string is returned and
-                                             // moves out to the calling
-                                             // function
+fn gives_ownership() -> String {           
+    let some_string = String::from("hello"); // "some_string" arrive dans la portée
+    some_string
 }
 
 // takes_and_gives_back will take a String and return one
@@ -701,7 +696,100 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
 
     a_string  // a_string is returned and moves out to the calling function
 }
-``
+```
+
+### Visualiser le drop en action 
+
+Le code suivant permet de voir affiché le moment où Rust appelle la fonction "drop", qui correspond au moment où il libère la mémoire.
+
+```rust
+fn main() {
+    // on appelle user(), mais on assigne pas son retour à une variable.
+    user();
+    println!("{}", "fin de la fonction main");
+}
+
+struct User {
+    name: String,
+    age: u8,
+}
+
+/**
+ * On implémente la fonction drop sur une structure simple, pour voir quand
+ * elle est appelée automatiquement par Rust
+ */
+impl Drop for User {
+    fn drop(&mut self) {
+        println!("drop User!");
+    }
+}
+
+fn user() -> User {
+    let yann = User {
+        name: String::from("yann"),
+        age: 35,
+    };
+    println!("{}", "fin de la fonction user");
+    yann
+} // drop est appelée ici, car personne n'utilise la valeur de retour de la fonction.
+// Rust en conclut que cette valeur ne sert plus à personne et il appelle drop().
+```
+
+Le code ci-dessus affichera :
+
+```sh
+fin de la fonction user
+drop User!
+fin de la fonction main
+```
+
+La fonction drop est appelée à la fin de la fonction User puisqu'une accolade fermante est rencontrée. 
+
+En revanche, dans l'exemple ci-dessous, drop() ne sera **pas** appelée à la fin de User mais à la fin de main(): la valeur de user() a été "déplacée" dans la variable "let user", donc Rust n'a rien à faire à la fin de User.
+
+```rust
+fn main() {
+    let user = user();
+    println!("Name :{}. Age : {}", user.name, user.age);
+    println!("{}", "fin de la fonction main");
+}
+
+struct User {
+    name: String,
+    age: u8,
+}
+
+impl Drop for User {
+    fn drop(&mut self) {
+        println!("drop User!");
+    }
+}
+
+fn user() -> User {
+    let yann = User {
+        name: String::from("yann"),
+        age: 35,
+    };
+    println!("{}", "fin de la fonction user");
+    yann
+} // le retour de la fonction a été assignée à une variable dans la fonction
+// main() : drop() n'est pas appelée ici car la valeur a été transférée à la variable
+// user de la fonction main().
+
+```
+
+Le code ci-dessus affiche en sortie :
+
+```sh
+fin de la fonction user
+Name :yann. Age : 35
+fin de la fonction main
+drop User!
+```
+
+On voit que le drop est appelée à la fonction main() et pas à la fin de la fonction user(), car la valeur a été déplacée depuis la fonction vers la variable "user".
+
+
 
 ### reference et emprunt
 
