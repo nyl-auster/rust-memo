@@ -513,40 +513,43 @@ for (i, element) in test.iter().enumerate() {
 }
 ```
 
-## Propriété( Ownership ) pile (stack) et tas (heap)
+## Propriété( Ownership ) 
 
-> 💡 Le concept de propriété est nouveau pour la plupart des programmeurs, il est normal qu'il demande un peu de temps pour être maîtriser. C'est une notion clefs qu'il faut maîtriser pour être à l'aise avec Rust.
+>  🚨 Ce chapitre **requiert** une connaissance basique à propos de la gestion de l'allocation mémoire avec la *pile* (stack) et le *tas* (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
 
-> 💡 Le concept propriété et de transfert de propriété concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)**, donc ce chapitre **requiert** une connaissance basique à propos de la pile et du tas ( [Voir annexe: la pile et le tas](annex-stack-and-heap.md) ).
+> 💡 Le concept de propriété une notion nouvelle pour la plupart des programmeurs,     il est normal que cela demande du temps pour être à l'aise avec.
 
-La propriété est un principe central et unique de Rust qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la pile (stack) à la fois. On dénomme **propriétaire** cette variable.
+La propriété est un **principe central et unique de Rust** qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la *pile* (stack) à la fois. Rust dénomme **propriétaire** cette variable.
 
-Ce principe permet à Rust de supprimer automatiquement la valeur du *tas* dès que son propriétaire correspondant est *hors de portée* (out of scope); comme c'est le cas pour les variables de la *pile*. 
+> 🚨 Nota bene : Le concept de *propriété* et de *transfert de propriété* concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)**
 
-Cela permet de se passer de Garbage collector ou du besoin d'allouer et libérer manuellement la mémoire du *tas*.
+Ce principe permet à Rust de supprimer automatiquement la valeur (et donc libérer la mémoire) du *tas* dès que son propriétaire correspondant devient *hors de portée* (out of scope) et d'optimiser au maximum l'allocation mémoire du tas.
 
-Grâce à cela, **il ne peut pas y avoir d'erreur de mémoire au moment** du "run time" ( pas de double libération de la mémoire ou de pointeur qui pointe vers un espace vide ou une mauvaise valeur).
+Cela permet aussi à Rust de n'avoir besoin ni de Garbage Collector, ni de demander au programmeur d'allouer et désallouer lui même la mémoire du tas.
+
+Enfin, grâce à ce principe, Rust peut **garantir à la compilation** qu'**il n'y aura pas d'erreur mémoire au moment du "run time"** ( pas de double libération de la mémoire ou de pointeur qui pointe vers un espace vide ou une mauvaise valeur).
 
 ### Hors de portée
 
-🚨🚨🚨 **Attention** ( et je met 3 giyrophares pour marquer le coup ) : c'est un principe capital à conserver en permanence en mémoire quand on fait du Rust ! **Une variable est "hors de portée" et supprimée de la mémoire dès que le programme rencontre une accolade fermante**
+**La portée est la portion de code située entre deux accolades { }** . Une valeur devient **hors de portée** dès qu'on rencontre une accolade fermante.
+
+A chaque fois qu'une valeur devient *hors de portée*, Rust appelle automatiquement la méthode **Drop** (parfois appelée "destructeur") du type, qui supprime alors la valeur de la mémoire.
+
 
 ```rust
-{                      // "s" n'est pas valide ici, car pas encore déclaré
+{ // la variable "s" n'est pas valide ici, car pas encore déclaré
     let s = "hello";   // s est valide à partir d'ici
-    // do stuff with s
-} // "s" n'est plus valide ici et sa valeur est **jetée** !
-
+} // "s" n'est plus valide ici et la mémoire qu'elle occupe est libérée !
 ```
 
-Quand une accolade fermante est rencontrée, Rust appelle automatiquement une fonction spéciale **drop** qui désalloue la mémoire associée aux variables de la portée. ( qui deviennent donc invalides ).
+Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
 
-Donc à chaque fois qu'on voit une accolade fermante, que ce soit dans la fin d'une fonction ou à n'importe quel autre endroit du code, il faut penser : fonction drop() appelée automatiquement et variable supprimée de la mémoire.
+🚨 C'est un principe clef à conserver en permanence en mémoire :  **Rust supprime automatiquement de la mémoire les valeurs d'une portion de code dès qu'il rencontre son accolade fermante !**
 
 
 ### Exemple concret de propriété et de transfert de propriété
 
-Voici comme est stocké la valeur "hello" en Rust avec le type complexe **String** ( un morceau de texte UTF-8 qui peut grandir ou rétrécir )
+Voici comme est stocké la valeur "hello" en Rust avec le type complexe **String** ( un morceau de texte UTF-8 qui peut grandir )
 
 - à gauche, la **pile** qui contient les métadonnées de la variable (pointeur, longueur, capacité)
 - à droite le **tas** qui contient la valeur.
@@ -572,19 +575,20 @@ Cette assignation de *s1* à *s2* se traduit par l'allocation de mémoire suivan
 
 Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas** !  Pour des raisons de performance et par défaut, Rust ne copie que les métadonnées de la **pile** pour créer cette seconde variable; et s1 et s2 ont toutes les deux un pointeur vers la même valeur dans la pile.
 
-Nous voilà donc ici avec deux "**propriétaires**" de la valeur "hello"; c'est précisément ce qui est **interdit en Rust** pour garantir une absence d'erreur mémoire au run-time.
+Nous voilà donc ici avec deux "**propriétaires**" de la valeur "hello"; c'est précisément ce qui est **interdit en Rust** pour garantir une absence d'erreur de pointeur et de mémoire au moment du run-time.
 
-C'est pourquoi Rust **transfère la propriété de la valeur** à s2 : on dit aussi que la valeur "s'est déplacé" (**moved**) de s1 à s2; parce que du point de vue du code, on ne peut plus l'afficher avec s1; comme si elle s'était déplacé d'une variable à une autre.
+C'est pourquoi Rust décide dans ce cas de **transfèrer la propriété de la valeur de s1 à la variable s2** : c'est à dire qu'on n'est plus autorisé à appeler *s1* à ce moment là. On dit aussi que la valeur "s'est déplacée" (**moved**) de s1 à s2; parce que du point de vue du code, comme on ne peut plus l'afficher en appellant s1 : c'est comme si la valeur "hello" s'était déplacée de *s1* à *s2*.
 
 <img width="300px" src="images/ownership-figure-c.svg" />
 
-🚨Ce code produira donc une erreur "value moved here"
+Qu se passe-til concrètement si on essaie d'appeler *s1* après l'assignation à *s2* ? Le compilateur nous jettera une erreur "value moved here"
 
 ```rust
 fn main() {
     let s1 = String::from("hello");
     let s2 = s1;
-    // Rust compiler ne nous autorise plus à appeler s1 ici, parce que la valeur a été transféré à s2 !
+    // Rust ne nous autorise plus à appeler s1 ici, 
+    // Parce que la valeur a été transférée à s2 !
     println!("{}", s1)
 }
 ```
@@ -601,9 +605,9 @@ error[E0382]: use of moved value: `s1`
    |                    ^^ value used here after move
 ```
 
-s1 ne fera plus partie de la pile, de manière à ce que la string hello n'ait qu'un seul et unique propriétaire. Ce qui permettra à Rust de pouvoir supprimer en toute sécurité la valeur "hello" du **tas** quand *s2* sera hors de portée.
+Quand Rust rencontre l'accolade fermante de la fonction main ci-dessus, il peut supprimer en toute sécurité la valeur "hello" du **tas** car il est certain que seule la variable *s2* s'en servait et qu'elle est désormais hors de portée.
 
-Il est possible toutefois, si nécessaire, d'utiliser la méthode **clone** pour copier également la valeur du tas et obtenir l'utilisation suivante de la mémoire :
+Note : il est possible, si nécessaire, d'utiliser la méthode **clone** pour copier une variable **entièrement**, c'est à dire en duppliquant également la valeur du tas. On obtient alors l'utilisation suivante de la mémoire :
 
 ```rust
 let s1 = String::from("hello");
@@ -612,44 +616,55 @@ let s2 = s1.clone();
 
 <img width="300px" src="images/ownership-figure-d.svg" />
  
-### Les types qui ne sont PAS concernés par la propriété
+### Les types qui ne sont PAS concernés par la notion de propriété
 
-Les types dont les valeurs sont stockés dans la pile ne sont **pas** concernés par la notion de propriété; puisque la propriété ne sert qu'à gérer l'allocation de la mémoire du tas. Les types suivants ne sont pas concernés par la propriété.
+Les types dont la valeurs est stockée **uniquement** dans la pile ne sont **pas** concernés par la notion de propriété; puisque la propriété ne sert qu'à gérer l'allocation de la mémoire du tas. Les types suivants ne sont pas concernés par la propriété. 
 
 - Les entiers
 - Les booléens
 - Les nombres à virgule flottante
 - Les caractères
-- Les types, mais seulement si ils contiennent uniquement des types simples qui utilisent le trait **Copy**. Par exemple, (i32, i32); mais pas (i32, String).
+- Les types, mais seulement si ils contiennent uniquement des types simples. Par exemple, (i32, i32); mais pas (i32, String).
 
 ### Propriété et fonctions
 
-**Le passage d'une variable a une fonction fonctionne comme l'assignation d'une variable à une autre variable** : il y aura soit "copie", soit "transfert de la propriété".
+**🚨 Passer une variable à une fonction a exactement les mêmes conséquence qu'une assignation, du point de vue de la propriété !** Comme pour une assignation de type "s1 = s2", il y aura donc soit "copie" (type simples avec valeur stockée dans la pile), soit "transfert de la propriété" (types dont la valeur est stockée dans le tas)
 
 ```rust
 fn main() {
-    let s = String::from("hello");  // s comes into scope
+    // "s" arrive dans la portée
+    let s = String::from("hello");  
+    
+    // "s" est de type "String", donc sa valeur est stockée dans le tas
+    // Il y a donc transfert de propriété à la fonction : la valeur "hello" est 
+    // "déplacée" à l'intérieur de la fonction takes_ownership !
+    takes_ownership(s);     
+           
+    // donc à partir d'ici , on ne peut plus appeler "s", qui n'est plus
+    // propriétaire de la valeur "hello"
 
-    takes_ownership(s);             // s's value moves into the function...
-                                    // ... and so is no longer valid here
+    // "x" arrive dans la portée
+    let x = 5;
+    
+    // "x" est un type dont la valeur est stockée dans la pile.
+    // Il n'y a donc pas de notion de transfert de propriété :
+    // la fonction reçoit dans ce cas une copie de la variable
+    makes_copy(x);
+    // Si bien qu'on peut toujours utiliser "x" normalement ici !                  
 
-    let x = 5;                      // x comes into scope
+} // Ici, "x" devient hors de portée, puis "s". Mais comme la valeur de
+// "s" a été déplacée dans la fonction takes_ownership, il ne se passe rien
+// de spécial ici concernant la gestion de la mémoire du tas.
 
-    makes_copy(x);                  // x would move into the function,
-                                    // but i32 is Copy, so it’s okay to still
-                                    // use x afterward
 
-} // Here, x goes out of scope, then s. But because s's value was moved, nothing
-  // special happens.
-
-fn takes_ownership(some_string: String) { // some_string comes into scope
+fn takes_ownership(some_string: String) { // "some_string" arrive dans la portée
     println!("{}", some_string);
-} // Here, some_string goes out of scope and `drop` is called. The backing
-  // memory is freed.
+} // Ici, "some_string" devient hors de portée, la fonction "drop" est appelée automatiquement par Rust : 
+// la valeur "hello" est supprimée du tas et donc la mémoire correspondante est libérée
 
-fn makes_copy(some_integer: i32) { // some_integer comes into scope
+fn makes_copy(some_integer: i32) { // "some_integer" arrive dans la portée
     println!("{}", some_integer);
-} // Here, some_integer goes out of scope. Nothing special happens.
+} // "some_integer" devient hors de portée. Le tas n'est pas concerné, rien de spécial n'arrive ici
 ```
 
 ### Return values and scope
