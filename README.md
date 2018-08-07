@@ -635,9 +635,8 @@ fn main() {
     // "s" arrive dans la portée
     let s = String::from("hello");  
     
-    // "s" est de type "String", donc sa valeur est stockée dans le tas
-    // Il y a donc transfert de propriété à la fonction : la valeur "hello" est 
-    // "déplacée" à l'intérieur de la fonction takes_ownership !
+    // "s" est de type "String" : sa valeur est stockée dans le tas
+    // La valeur "hello" est déplacée à l'intérieur de la fonction takes_ownership.
     takes_ownership(s);     
            
     // donc à partir d'ici , on ne peut plus appeler "s", qui n'est plus
@@ -674,27 +673,26 @@ fn makes_copy(some_integer: i32) { // "some_integer" arrive dans la portée
 ```rust
 fn main() {
     // "gives_ownership()" retourne la String "hello". Sa valeur est transférée
-    // à "s1" qui devient le propriétaire.
+    // à "s1" qui en devient le propriétaire.
     let s1 = gives_ownership();         
 
     let s2 = String::from("hello");     // s2 arrive dans la portée
 
-    let s3 = takes_and_gives_back(s2);  // s2 is moved into
-                                        // takes_and_gives_back, which also
-                                        // moves its return value into s3
-} // Here, s3 goes out of scope and is dropped. s2 goes out of scope but was
-  // moved, so nothing happens. s1 goes out of scope and is dropped.
+    let s3 = takes_and_gives_back(s2);  // s2 est déplacée dans
+                                        // takes_and_gives_back, qui à son tour
+                                        // transfère sa valeur de retour dans s3
+} // accolade fermante ! s3 sort de la portée et est jetée. 
+// s2 sort de la portée mais sa valer avait été transférée à la fonction takes_and_gives_back
+// donc il ne se passe rien.
+// s1 sort de la portée et est jetée.
 
 fn gives_ownership() -> String {           
     let some_string = String::from("hello"); // "some_string" arrive dans la portée
     some_string
 }
 
-// takes_and_gives_back will take a String and return one
-fn takes_and_gives_back(a_string: String) -> String { // a_string comes into
-                                                      // scope
-
-    a_string  // a_string is returned and moves out to the calling function
+fn takes_and_gives_back(a_string: String) -> String { // a_string arrive dans la portée
+    a_string  // a_string est retournée et se déplace dans la fonction qui appelle notre fonction.
 }
 ```
 
@@ -789,9 +787,7 @@ drop User!
 
 On voit que le drop est appelée à la fonction main() et pas à la fin de la fonction user(), car la valeur a été déplacée depuis la fonction vers la variable "user".
 
-
-
-### reference et emprunt
+### Référence et emprunt
 
 Comment faire si on souhaite ne **pas** transférer la propriété à une fonction ? Il faut utiliser une référence, déclarée avec le symbole &.
 
