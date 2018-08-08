@@ -537,19 +537,19 @@ A chaque fois qu'une valeur devient *hors de portée*, Rust appelle automatiquem
 
 
 ```rust
-{ // la variable "s" n'est pas valide ici, car pas encore déclaré
+{ // la variable "s" n'est pas valide ici, car pas encore déclarée
     let s = "hello";   // s est valide à partir d'ici
 } // "s" n'est plus valide ici et la mémoire qu'elle occupe est libérée !
 ```
 
 Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
 
-🚨 C'est un principe clef à conserver en permanence en mémoire :  **Rust supprime automatiquement de la mémoire les valeurs d'une portion de code dès qu'il rencontre son accolade fermante !**
+🚨 C'est un principe clef à conserver en permanence en mémoire :  **Rust supprime automatiquement de la mémoire les valeurs d'une portion de code dès qu'il rencontre l'accolade fermante correspondante !**
 
 
 ### Exemple concret de propriété et de transfert de propriété
 
-Voici comme est stocké la valeur "hello" en Rust avec le type complexe **String** ( un morceau de texte UTF-8 qui peut grandir )
+Voici comme est stockée la valeur "hello" en Rust avec le type complexe **String** ( un morceau de texte UTF-8 qui peut grandir )
 
 - à gauche, la **pile** qui contient les métadonnées de la variable (pointeur, longueur, capacité)
 - à droite le **tas** qui contient la valeur.
@@ -577,11 +577,11 @@ Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas
 
 Nous voilà donc ici avec deux "**propriétaires**" de la valeur "hello"; c'est précisément ce qui est **interdit en Rust** pour garantir une absence d'erreur de pointeur et de mémoire au moment du run-time.
 
-C'est pourquoi Rust décide dans ce cas de **transfèrer la propriété de la valeur de s1 à la variable s2** : c'est à dire qu'on n'est plus autorisé à appeler *s1* à ce moment là. On dit aussi que la valeur "s'est déplacée" (**moved**) de s1 à s2; parce que du point de vue du code, comme on ne peut plus l'afficher en appellant s1 : c'est comme si la valeur "hello" s'était déplacée de *s1* à *s2*.
+C'est pourquoi Rust décide dans ce cas de **transfèrer la propriété de la valeur de s1 à la variable s2** : c'est à dire qu'on n'est plus autorisé à appeler *s1* à ce moment là. On dit aussi que la valeur "s'est déplacée" (**moved**) de s1 à s2 parce que du point de vue du code, on ne peut plus afficher la valeur avec s1 : c'est comme si la valeur "hello" s'était déplacée de *s1* à *s2*.
 
 <img width="300px" src="images/ownership-figure-c.svg" />
 
-Qu se passe-til concrètement si on essaie d'appeler *s1* après l'assignation à *s2* ? Le compilateur nous jettera une erreur "value moved here"
+Que se passe-til concrètement si on essaie d'appeler *s1* après l'assignation à *s2* ? Le compilateur nous jettera une erreur "value moved here"
 
 ```rust
 fn main() {
@@ -605,9 +605,9 @@ error[E0382]: use of moved value: `s1`
    |                    ^^ value used here after move
 ```
 
-Quand Rust rencontre l'accolade fermante de la fonction main ci-dessus, il peut supprimer en toute sécurité la valeur "hello" du **tas** car il est certain que seule la variable *s2* s'en servait et qu'elle est désormais hors de portée.
+Quand Rust rencontre l'accolade fermante de la fonction main() ci-dessus, il peut supprimer en toute sécurité la valeur "hello" du **tas** car il est certain que seule la variable *s2* s'en servait; et elle est désormais hors de portée.
 
-Note : il est possible, si nécessaire, d'utiliser la méthode **clone** pour copier une variable **entièrement**, c'est à dire en duppliquant également la valeur du tas. On obtient alors l'utilisation suivante de la mémoire :
+Note : il est possible, si nécessaire, d'utiliser la méthode **clone** pour copier une variable **entièrement**, c'est à dire en duppliquant également la valeur du tas. Il sera alors tout à fait possible de continuer à appeler s1 car on obtient alors l'utilisation suivante de la mémoire :
 
 ```rust
 let s1 = String::from("hello");
@@ -618,7 +618,7 @@ let s2 = s1.clone();
  
 ### Les types qui ne sont PAS concernés par la notion de propriété
 
-Les types dont la valeurs est stockée **uniquement** dans la pile ne sont **pas** concernés par la notion de propriété; puisque la propriété ne sert qu'à gérer l'allocation de la mémoire du tas. Les types suivants ne sont pas concernés par la propriété. 
+Les types dont la valeurs est stockée uniquement dans la **pile** ne sont **pas** concernés par la notion de propriété; puisque la propriété ne sert qu'à gérer l'allocation de la mémoire du tas. Les types suivants ne sont pas concernés par la propriété. 
 
 - Les entiers
 - Les booléens
@@ -628,7 +628,9 @@ Les types dont la valeurs est stockée **uniquement** dans la pile ne sont **pas
 
 ### Propriété et fonctions
 
-**🚨 Passer une variable à une fonction a exactement les mêmes conséquence qu'une assignation, du point de vue de la propriété !** Comme pour une assignation de type "s1 = s2", il y aura donc soit "copie" (type simples avec valeur stockée dans la pile), soit "transfert de la propriété" (types dont la valeur est stockée dans le tas)
+**🚨 Passer une variable en tant qu'argument à une fonction a exactement les mêmes conséquence qu'une assignation, du point de vue de la propriété !** 
+
+Comme pour une assignation de type "s1 = s2", il y aura donc, comme tout à l'heure, soit "copie" de la valeur (pour les type simples avec valeur stockée dans la pile), soit "déplacement de la valeur" (pour les types dont la valeur est stockée dans le tas)
 
 ```rust
 fn main() {
@@ -682,7 +684,7 @@ fn main() {
                                         // takes_and_gives_back, qui à son tour
                                         // transfère sa valeur de retour dans s3
 } // accolade fermante ! s3 sort de la portée et est jetée. 
-// s2 sort de la portée mais sa valer avait été transférée à la fonction takes_and_gives_back
+// s2 sort de la portée mais sa valeur a été transférée à la fonction takes_and_gives_back
 // donc il ne se passe rien.
 // s1 sort de la portée et est jetée.
 
@@ -707,14 +709,15 @@ fn main() {
     println!("{}", "fin de la fonction main");
 }
 
+// on créer une structure simple pour pouvoir implémenter dessus la méthode "Drop"
+// qui nous permettra de voir le drop en action.
 struct User {
     name: String,
     age: u8,
 }
 
 /**
- * On implémente la fonction drop sur une structure simple, pour voir quand
- * elle est appelée automatiquement par Rust
+ * On implémente la fonction drop sur notre structure User
  */
 impl Drop for User {
     fn drop(&mut self) {
@@ -729,8 +732,9 @@ fn user() -> User {
     };
     println!("{}", "fin de la fonction user");
     yann
-} // drop est appelée ici, car personne n'utilise la valeur de retour de la fonction.
-// Rust en conclut que cette valeur ne sert plus à personne et il appelle drop().
+} // drop sera appelée ici pour supprimer l'instance User "yann" , car notre
+// code de la fonction main() n'a pas assigné dans une variable le retour de cette fonction.
+// La valeur n'a donc pas été déplacée et Rust la supprime donc en rencontrant l'accolade fermante
 ```
 
 Le code ci-dessus affichera :
@@ -743,7 +747,7 @@ fin de la fonction main
 
 La fonction drop est appelée à la fin de la fonction User puisqu'une accolade fermante est rencontrée. 
 
-En revanche, dans l'exemple ci-dessous, drop() ne sera **pas** appelée à la fin de User mais à la fin de main(): la valeur de user() a été "déplacée" dans la variable "let user", donc Rust n'a rien à faire à la fin de User.
+En revanche, dans l'exemple ci-dessous, drop() ne sera **pas** appelée à la fin de User mais à la fin de main(): la valeur de la fonction user() a été "déplacée" dans la variable "user" de la fonction main(). Si bien que Rust n'a plus de valeur à "nettoyer" concernant la fonction user(). 
 
 ```rust
 fn main() {
@@ -785,7 +789,7 @@ fin de la fonction main
 drop User!
 ```
 
-On voit que le drop est appelée à la fonction main() et pas à la fin de la fonction user(), car la valeur a été déplacée depuis la fonction vers la variable "user".
+La sortie confirme bien que le drop est appelée à la fonction main() et pas à la fin de la fonction user().
 
 ### Référence et emprunt
 
