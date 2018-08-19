@@ -1021,6 +1021,38 @@ fn main() {
     println!("debug : {:#?}", roger);
 }
 ```
+### methodes
+
+Voici comment définir une méthode "area" sur une structure "Rectangle"
+
+```rust
+#[derive(Debug)]
+struct Rectangle {
+    width: u32,
+    height: u32,
+}
+
+// add a implementation block
+impl Rectangle {
+    fn area(&self) -> u32 {
+        self.width * self.height
+    }
+}
+```
+
+On pourra ensuite appeler la méthode sur une instance de Rectangle  : `my_rectangle.area()`
+
+```rust
+fn main() {
+    let my_rectangle = Rectangle {
+        width: 2,
+        height: 5,
+    };
+    let area_with_struct = my_rectangle.area();
+    println!("The area with struct is {}", area_with_struct);
+}
+```
+
 
 
 
