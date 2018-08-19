@@ -1023,7 +1023,9 @@ fn main() {
 ```
 ### methodes
 
-Voici comment définir une méthode "area" sur une structure "Rectangle"
+Voici comment définir une méthode "area" sur une structure "Rectangle". 
+
+> ⚠️ le premier paramètre est forcément "&self" 
 
 ```rust
 #[derive(Debug)]
@@ -1032,8 +1034,9 @@ struct Rectangle {
     height: u32,
 }
 
-// add a implementation block
+// ajout d'un bloc implémentation
 impl Rectangle {
+    // self est forcément le premier paramètre de la signature de la méthode
     fn area(&self) -> u32 {
         self.width * self.height
     }
