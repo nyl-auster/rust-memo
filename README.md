@@ -1059,6 +1059,8 @@ fn main() {
 }
 ```
 
+https://doc.rust-lang.org/book/second-edition/ch05-03-method-syntax.html#methods-with-more-parameters
+
 
 
 
