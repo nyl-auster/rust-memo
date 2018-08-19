@@ -482,7 +482,7 @@ fn main() {
 
 ##### for
 
-> 💡For est l'une des constructions de boucles les plus utilisées en Rust pour sa concision.
+> 💡 For est l'une des constructions de boucles les plus utilisées en Rust pour sa concision.
 
 Itérer sur un *array*
 
@@ -515,39 +515,37 @@ for (i, element) in test.iter().enumerate() {
 
 ## Propriété( Ownership ) 
 
->  🚨 Ce chapitre **requiert** une connaissance basique à propos de la gestion de l'allocation mémoire avec la *pile* (stack) et le *tas* (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
+> ⚠️ Ce chapitre **requiert** une connaissance basique à propos de la gestion de l'allocation mémoire avec la *pile* (stack) et le *tas* (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
 
-> 💡 Le concept de propriété une notion nouvelle pour la plupart des programmeurs,     il est normal que cela demande du temps pour être à l'aise avec.
+La *propriété* est un principe essentiel et unique de Rust qui permet de gérer de manière très performante et fiable l'allocation et la libération de la mémoire du *tas* par votre programme. 
 
-La propriété est un **principe central et unique de Rust** qui indique qu'une valeur stockée dans le *tas* (heap) ne peut appartenir qu'à une seule variable de la *pile* (stack) à la fois. Rust dénomme **propriétaire** cette variable.
+> 🚨 Le concept de *propriété* et de *transfert de propriété* concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)** !
 
-> 🚨 Nota bene : Le concept de *propriété* et de *transfert de propriété* concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)**
+La *propriété* permet à Rust de n'avoir besoin ni de *Garbage Collector*, ni de demander au développeur d'allouer et libérer lui même la mémoire du tas.
 
-Ce principe permet à Rust de supprimer automatiquement la valeur (et donc libérer la mémoire) du *tas* dès que son propriétaire correspondant devient *hors de portée* (out of scope) et d'optimiser au maximum l'allocation mémoire du tas.
+Enfin, grâce à ce principe, Rust peut **garantir à la compilation** qu'**il n'y aura pas d'erreur mémoire au moment du "run time"** ( pas de double libération de la mémoire ou de pointeur vers un espace vide ou une mauvaise valeur). 
 
-Cela permet aussi à Rust de n'avoir besoin ni de Garbage Collector, ni de demander au programmeur d'allouer et désallouer lui même la mémoire du tas.
+### Portée des variables et libération de la mémoire.
 
-Enfin, grâce à ce principe, Rust peut **garantir à la compilation** qu'**il n'y aura pas d'erreur mémoire au moment du "run time"** ( pas de double libération de la mémoire ou de pointeur qui pointe vers un espace vide ou une mauvaise valeur).
+A chaque fois qu'une variable devient *hors de portée*, Rust appelle automatiquement la méthode **Drop** (parfois appelée "destructeur") du type de variable concernée, qui supprime alors de la mémoire la valeur correspondante dans le **tas**.
 
-### Hors de portée
-
-**La portée est la portion de code située entre deux accolades { }** . Une valeur devient **hors de portée** dès qu'on rencontre une accolade fermante.
-
-A chaque fois qu'une valeur devient *hors de portée*, Rust appelle automatiquement la méthode **Drop** (parfois appelée "destructeur") du type, qui supprime alors la valeur de la mémoire.
-
+La portée d'une variable étant tout simplement déterminée par les accolades qui l'entourent.
 
 ```rust
 { // la variable "s" n'est pas valide ici, car pas encore déclarée
-    let s = "hello";   // s est valide à partir d'ici
-} // "s" n'est plus valide ici et la mémoire qu'elle occupe est libérée !
+
+    let s = String::from("hello");;   // s est valide à partir d'ici
+    
+} // "s" est hors de portée : elle n'est plus valide à partir d'ici. 
+// Rust appelle donc la fonction Drop() et la mémoire qu'elle 
+// occupe sur le tas est automatiquement libérée !
 ```
 
-Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
+⚠️ Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
 
-🚨 C'est un principe clef à conserver en permanence en mémoire :  **Rust supprime automatiquement de la mémoire les valeurs d'une portion de code dès qu'il rencontre l'accolade fermante correspondante !**
+Dans l'exemple ci-dessus, Rust sait qu'il peut libérer la mémoire car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades. 
 
-
-### Exemple concret de propriété et de transfert de propriété
+### Propriété et "déplacement de valeur"
 
 Voici comme est stockée la valeur "hello" en Rust avec le type complexe **String** ( un morceau de texte UTF-8 qui peut grandir )
 
