@@ -1023,6 +1023,7 @@ fn main() {
 ```
 ### methodes
 
+Une **méthode** est une fonction attachée à une structure.
 Voici comment définir une méthode "area" sur une structure "Rectangle". 
 
 > ⚠️ le premier paramètre est forcément "&self" 
