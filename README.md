@@ -1043,7 +1043,9 @@ impl Rectangle {
 }
 ```
 
-On pourra ensuite appeler la méthode sur une instance de Rectangle  : `my_rectangle.area()`
+La méthode doit ensuite être appelée sur une instance de Rectangle : `my_rectangle.area()`
+
+exemple :
 
 ```rust
 fn main() {
