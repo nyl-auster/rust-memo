@@ -1076,53 +1076,51 @@ On sait maintenant d'où provient la notation `String::from("hello")` vu précé
 
 # Créer un type personnalisé avec les Énumérations
 
-Créer un type personnalisé avec une énumération:
+Créer une énumération :
 
 ```rust
+#[derive(Debug)]
 enum IpAddrKind {
     V4,
     V6,
 }
 ```
-
 > 💡 V4 et V6 sont des **variantes** de l'énumération.
 
-Utiliser les valeurs de notre énumération :
+Utiliser les variantes de notre énumération :
 
 ```rust
 let four = IpAddrKind::V4;
 let six = IpAddrKind::V6;
-
 ```
+**⚠️ four et six sont toutes les deux du type IpAddrKind**
 
-> ⚠️ Nota bene: four et six sont toutes les deux du **type IpAddrKind.**
+
+Créer une fonction qui ne peut accepter que IpAddrKind::V4 ou IpAddrKind::V6 en arguments :
 
 ```rust
-// cette fonction acceptera uniquement IpAddrKind::V4 et 
-// IpAddrKind::V6 en argument
-fn route(ip_type: IpAddrKind) { }
+fn route(kind: IpAddrKind) {
+    println!("{:#?}", kind)
+}
 ```
 
 Exemple d'utilisatation avec une structure
 
 ```rust
+// énumération
 enum IpAddrKind {
     V4,
     V6,
 }
+// structure
 struct IpAddr {
     kind: IpAddrKind,
     address: String,
 }
-
+// instance de la structure IpAddr
 let home = IpAddr {
     kind: IpAddrKind::V4,
     address: String::from("127.0.0.1"),
-};
-
-let loopback = IpAddr {
-    kind: IpAddrKind::V6,
-    address: String::from("::1"),
 };
 ```
 
