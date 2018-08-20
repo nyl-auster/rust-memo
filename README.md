@@ -1,6 +1,6 @@
 # RUST - MEMO
 
-Il s'agit d'un mémo des concepts clefs de Rust, issu de la lecture de https://doc.rust-lang.org/book/second-edition/index.html .
+Le livre de Rust résumé en une seule (grosse) page - work in progress https://doc.rust-lang.org/book/second-edition/index.html .
 
 ## Commencer rapidement Rust
 
