@@ -1074,27 +1074,23 @@ Rectangle::square(10);
 
 On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment.
 
-# Créer un type personnalisé avec les Énumérations
+# Énumérations
 
-Créer une énumération :
+Une énumération est **type** personnalisé définissant une liste finie de variantes, qui sont elles-mêmes des types (le type par défaut étant un "unit-like Struct"). Exemple :
 
 ```rust
-#[derive(Debug)]
 enum IpAddrKind {
     V4,
     V6,
 }
 ```
 > 💡 V4 et V6 sont des **variantes** de l'énumération.
-
-Utiliser les variantes de notre énumération :
-
-```rust
+> 
+> ```rust
 let four = IpAddrKind::V4;
 let six = IpAddrKind::V6;
 ```
 **⚠️ four et six sont toutes les deux du type IpAddrKind**
-
 
 Créer une fonction qui ne peut accepter que IpAddrKind::V4 ou IpAddrKind::V6 en arguments :
 
@@ -1104,24 +1100,42 @@ fn route(kind: IpAddrKind) {
 }
 ```
 
-Exemple d'utilisatation avec une structure
+Dans l'énumération ci-dessus les variantes n'ont pas de donnée associée, mais il est possible d'associer à une variante des données du type de notre choix :
 
 ```rust
-// énumération
-enum IpAddrKind {
-    V4,
-    V6,
+enum Message {
+    Quit, // type: unit struct. Aucune donnée associée.
+    ChangeColor(i32, i32, i32), // type : Tuple struct
+    Move { x: i32, y: i32 }, // type : Struct
+    Write(String), // type: Tuple Struct
 }
-// structure
-struct IpAddr {
-    kind: IpAddrKind,
-    address: String,
+```
+
+C'est en quelque sortes équivalent à :
+
+```rust
+struct QuitMessage; // unit struct
+struct MoveMessage {
+    x: i32,
+    y: i32,
 }
-// instance de la structure IpAddr
-let home = IpAddr {
-    kind: IpAddrKind::V4,
-    address: String::from("127.0.0.1"),
-};
+struct WriteMessage(String); // tuple struct
+struct ChangeColorMessage(i32, i32, i32); // tuple struct
+```
+
+Mais avec ses structures distinctes, il ne serait alors pas possible d'utiliser le Pattern Matching (voir plus bas).
+
+Il est possible de créer des méthodes sur les Enums de la même manière que pour une structure :
+
+```rust
+impl Message {
+    fn call(&self) {
+        // method body would be defined here
+    }
+}
+
+let m = Message::Write(String::from("hello"));
+m.call();
 ```
 
 
