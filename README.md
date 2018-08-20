@@ -521,11 +521,13 @@ La *propriété* permet à Rust de n'avoir besoin ni de *Garbage Collector*, ni 
 
 Enfin, grâce à ce principe, Rust peut **garantir à la compilation** qu'**il n'y aura pas d'erreur mémoire au moment du "run time"** ( pas de double libération de la mémoire ou de pointeur vers un espace vide ou une mauvaise valeur). 
 
-## Portée des variables et libération de la mémoire.
+## Portée des variables et libération de la mémoire du tas.
 
-A chaque fois qu'une variable devient *hors de portée*, Rust appelle automatiquement la méthode **Drop** (parfois appelée "destructeur") du type de variable concernée, qui supprime alors de la mémoire la valeur correspondante dans le **tas**.
+En rust, les variables existent uniquement le temps de leur *bloc*. Un *bloc* est une portion de code comprise entre deux accolades. La portée d'une variable en Rust est donc tout simplement déterminée par les accolades qui l'entourent. 
 
-La portée d'une variable étant tout simplement déterminée par les accolades qui l'entourent.
+Une variable n'est utilisable qu'à l'intérieur de son bloc; elle est "hors de portée" pour les autres portions de code, qui ne pourront pas y accéder.
+
+Dès que le programme rencontre une accolade fermante, Rust appelle automatiquement, si nécessaire, la méthode **Drop** (parfois appelée "destructeur") pour chaque variable du bloc de code concerné, qui a pour mission de supprimer les valeurs stockées dans le tas.
 
 ```rust
 { // la variable "s" n'est pas valide ici, car pas encore déclarée
