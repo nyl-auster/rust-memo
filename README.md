@@ -915,7 +915,7 @@ let a = [1, 2, 3, 4, 5];
 let slice = &a[1..3];
 ```
 
-## Structures (Structs)
+## Créer des types personnalisés avec les structures (Structs)
 
 ### Déclarer une structure
 
