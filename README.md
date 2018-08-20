@@ -1,6 +1,6 @@
 # RUST - MEMO
 
-Le livre de Rust résumé en une seule (grosse) page - work in progress https://doc.rust-lang.org/book/second-edition/index.html .
+La seconde édition du livre de Rust résumé en une seule (grosse) page - work in progress. Le livre original est disponible ici (anglais) : https://doc.rust-lang.org/book/second-edition/index.html 
 
 ## Commencer rapidement Rust
 
