@@ -1,58 +1,6 @@
 
 *La seconde édition du livre de Rust résumé en une seule (grosse) page - work in progress. Le livre original [est disponible ici (en anglais)](https://doc.rust-lang.org/book/second-edition/index.html)*
 
-TABLE DES MATIERES
-==================
-
-   * [Commencer rapidement Rust](#commencer-rapidement-rust)
-      * [installation](#installation)
-      * [Hello world](#hello-world)
-      * [<g-emoji class="g-emoji" alias="bulb" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji>déboguer les variables avec les placeholders de "println!"](#déboguer-les-variables-avec-les-placeholders-de-println)
-   * [Gestion des paquets](#gestion-des-paquets)
-      * [Cargo](#cargo)
-      * [Installation d'un crate](#installation-dun-crate)
-   * [Concepts généraux](#concepts-généraux)
-      * [Variables et mutabilité](#variables-et-mutabilité)
-         * [Immutabilité](#immutabilité)
-         * [Exemples de déclaration de variables](#exemples-de-déclaration-de-variables)
-      * [Les types de données](#les-types-de-données)
-         * [Le type entier](#le-type-entier)
-         * [Type nombre à virgule flottante](#type-nombre-à-virgule-flottante)
-         * [Le type booléen](#le-type-booléen)
-         * [Le type caractère](#le-type-caractère)
-         * [Les types composés](#les-types-composés)
-            * [Le type tuple](#le-type-tuple)
-            * [Le type array](#le-type-array)
-         * [Opérations arithmétiques](#opérations-arithmétiques)
-      * [Fonctions](#fonctions)
-         * [exemples](#exemples)
-         * [Pièges pour les débutants](#pièges-pour-les-débutants)
-         * [La différente entre arguments et paramètres](#la-différente-entre-arguments-et-paramètres)
-         * [La différente entre les expressions et les déclarations](#la-différente-entre-les-expressions-et-les-déclarations)
-      * [Contrôle de flux](#contrôle-de-flux)
-         * [les expressions if](#les-expressions-if)
-         * [boucles](#boucles)
-            * [loop](#loop)
-            * [while](#while)
-            * [for](#for)
-   * [Propriété( Ownership )](#propriété-ownership-)
-      * [Portée des variables et libération de la mémoire.](#portée-des-variables-et-libération-de-la-mémoire)
-      * [Propriété et "déplacement de valeur"](#propriété-et-déplacement-de-valeur)
-      * [Les types qui ne sont PAS concernés par la notion de propriété](#les-types-qui-ne-sont-pas-concernés-par-la-notion-de-propriété)
-      * [Propriété et fonctions](#propriété-et-fonctions)
-      * [Valeurs retournées par une fonction et portée](#valeurs-retournées-par-une-fonction-et-portée)
-      * [Visualiser le drop en action](#visualiser-le-drop-en-action)
-      * [Référence et emprunt](#référence-et-emprunt)
-      * [Références mutables : n immutable or 1 mutable. Period.](#références-mutables--n-immutable-or-1-mutable-period)
-      * [pointeur foireux](#pointeur-foireux)
-      * [Le Type Slice (tranche)](#le-type-slice-tranche)
-         * [String slice](#string-slice)
-   * [Créer des types personnalisés avec les structures (Structs)](#créer-des-types-personnalisés-avec-les-structures-structs)
-      * [Déclarer une structure](#déclarer-une-structure)
-      * [Implémenter une méthode sur la structure](#implémenter-une-méthode-sur-la-structure)
-      * [Créer une fonction associée](#créer-une-fonction-associée)
-   * [Enums et Pattern Matching](#enums-et-pattern-matching)
-
 # Commencer rapidement Rust
 
 ## installation
@@ -228,13 +176,13 @@ let x = 142; // sera du type "entier 32 bits" par défault
 let y: u8 = 142;  // type entier non-signé 8 bits
 ```
 
-|longueur|  signé | non-signé |
-|--------|--------|----------|
-|8-bits  | i8     | u8       |
-|16-bits | i16    | u16      |
-|32-bits | i32    | u32      |
-|64-bits | i64    | u64      |
-|arch    | isize  | usize    |
+|longueur|  signé | non-signé| valeur maximale en décimal non signé
+|--------|--------|----------|----
+|8-bits  | i8     | u8       | 256
+|16-bits | i16    | u16      | 65 536
+|32-bits | i32    | u32      | 4 294 967 296
+|64-bits | i64    | u64      | 1,844674407370955e19
+|arch    | isize  | usize    | dépend de l'architecture
 
 
 > 💡 isize et usize dépendent du type d'ordinateur sur lequel tourne le programme : 64 bits si vous êtes sur une architecture 64 bits, 32 bits si vous êtes sur une architecture 32 bits.
