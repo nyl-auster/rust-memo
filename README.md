@@ -1074,7 +1074,58 @@ Rectangle::square(10);
 
 On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment.
 
-# Enums et Pattern Matching
+# Créer un type personnalisé avec les Énumérations
+
+Créer un type personnalisé avec une énumération:
+
+```rust
+enum IpAddrKind {
+    V4,
+    V6,
+}
+```
+
+> 💡 V4 et V6 sont des **variantes** de l'énumération.
+
+Utiliser les valeurs de notre énumération :
+
+```rust
+let four = IpAddrKind::V4;
+let six = IpAddrKind::V6;
+
+```
+
+> ⚠️ Nota bene: four et six sont toutes les deux du **type IpAddrKind.**
+
+```rust
+// cette fonction acceptera uniquement IpAddrKind::V4 et 
+// IpAddrKind::V6 en argument
+fn route(ip_type: IpAddrKind) { }
+```
+
+Exemple d'utilisatation avec une structure
+
+```rust
+enum IpAddrKind {
+    V4,
+    V6,
+}
+struct IpAddr {
+    kind: IpAddrKind,
+    address: String,
+}
+
+let home = IpAddr {
+    kind: IpAddrKind::V4,
+    address: String::from("127.0.0.1"),
+};
+
+let loopback = IpAddr {
+    kind: IpAddrKind::V6,
+    address: String::from("::1"),
+};
+```
+
 
 https://doc.rust-lang.org/book/second-edition/ch06-01-defining-an-enum.html
 
