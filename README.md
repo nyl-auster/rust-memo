@@ -2,9 +2,9 @@
 
 La seconde édition du livre de Rust résumé en une seule (grosse) page - work in progress. Le livre original est disponible ici (anglais) : https://doc.rust-lang.org/book/second-edition/index.html 
 
-## Commencer rapidement Rust
+# Commencer rapidement Rust
 
-### installation
+## installation
 
 Sur Mac & linux :
 
@@ -20,7 +20,7 @@ Si l'installation s'est bien déroulée, taper *rustup* dans le terminal doit af
 |rustc --version | display Rust version |
 | rustup doc | open local doc |
 
-### Hello world
+## Hello world
 
 ```rust
 // filname: main.rs
@@ -38,7 +38,7 @@ rustc main.rs
 ./main
 ```
 
-### 💡déboguer les variables avec les placeholders de "println!"
+## 💡déboguer les variables avec les placeholders de "println!"
 
 ```rust
 let array = [1, 2, 3];
@@ -55,9 +55,9 @@ println!("this is my variable : {:#?}", array);
 // ]
 ```
 
-### Gestion des paquets
+# Gestion des paquets
 
-#### Cargo
+## Cargo
 
 **Cargo** est le system de build et le gestionnaire de paquet de Rust. Il est installé par défaut avec Rust.
 
@@ -79,7 +79,7 @@ En Rust, les paquets sont nommés **crates** : caisses / cageots.
 |cargo build --release| compiler avec optimisations. L'éxécutable sera crée dans "target/release" à la pkace de "target/debug"|
 |cargo update| mettre à jour les *crates* - seulement le dernier numéro number de leur versionning sémantique|
 
-#### Installation d'un crate
+## Installation d'un crate
 
 Exemple avec l'installation du crate *rand* (génération de nombres au hasard) : Il faut ajouter la dépendance au fichier *Cargo.toml*
 
@@ -105,11 +105,11 @@ use rand::Rng;
 cargo doc --open
 ```
 
-## Concepts généraux
+# Concepts généraux
 
-### Variables et mutabilité
+## Variables et mutabilité
 
-#### Immutabilité
+### Immutabilité
 
 > 💡 Rust utilise le type de casse **snake_case** pour nommer les fonctions et variables. Exemple : "hello_world()"
 
@@ -131,7 +131,7 @@ fn main() {
 }
 ```
 
-#### Exemples de déclaration de variables
+### Exemples de déclaration de variables
 
 ```rust
 // déclarer un nombre immutable ave le type par défaut qui est i32 ( 32 bits signés) 
@@ -159,7 +159,7 @@ let my_var = 5;
 let my_var = 6;
 ```
 
-### Les types de données
+## Les types de données
 
 Il existe quatre types scalaires de données. Un type scalaire représente une données "atomique" par opposition à des types composés - comme des types listant plusieurs valeurs tels que *array*, *tuple* ou *String* (une String est une liste de *characters* )
 
@@ -170,9 +170,8 @@ Il existe quatre types scalaires de données. Un type scalaire représente une d
 
 > 💡 Note : ces types de données scalaires sont stockés uniquement dans la pile et supprimer de la pile lorsqu'il sont hors de portée. ( plus de détails plus bas concernant la *pile* et le *tas*)
 
-#### Le type entier
+### Le type entier
 
-example :
 ```rust
 let x = 142; // sera du type "entier 32 bits" par défault
 let y: u8 = 142;  // type entier non-signé 8 bits
@@ -192,9 +191,7 @@ let y: u8 = 142;  // type entier non-signé 8 bits
 > 💡 Les entiers sont par défault du type i32 parce que c'est généralement le type le plus performant.
 
 
-#### Type nombre à virgule flottante
-
-exemple :
+### Type nombre à virgule flottante
 
 ```rust
 let x = 2.0; // f64 par défault
@@ -208,14 +205,14 @@ let y: f32 = 142.567890; // flottant 32 bits
 
 > 💡 Le type par défaut est *f64* parce que sur les CPUs moderne, il est quasimenet aussi rapidement que *f32* mais offre bien plus de précisions.
 
-#### Le type booléen
+### Le type booléen
 
 ```rust
 let x = true;
 let y: bool = false; // avec un type explicite
 ```
 
-#### Le type caractère
+### Le type caractère
 
 ```rust
 let c = 'z';
@@ -225,11 +222,11 @@ let heart_eyed_cat = '😻';
 
 > ⚠️ Le type caractère est spécifié avec des guillemets simples tandis que les chaîne de caractères sont spécifiées avec des guillemets doubles.
 
-#### Les types composés
+### Les types composés
 
 Les types composés peuvent regrouper plusieurs valeurs dans un seul type. Rust propose deux types composés primitifs : les **tuples** et les **arrays**.
 
-##### Le type tuple
+#### Le type tuple
 
 ```rust
 // créer un tuple composé de différents types simples
@@ -241,7 +238,7 @@ let (x, y, z) = tup;
 println!("The value of y is: {}", y); // affiche 6.4
 println!("{}", tup.1); // affiche aussi 6.4
 ```
-##### Le type array
+#### Le type array
 
 Unlike a tuple, every element of an array must have the same type.
 
@@ -255,7 +252,7 @@ let second = a[1];
 ```
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
 
-#### Opérations arithmétiques
+### Opérations arithmétiques
 
 ```rust
 // addition
@@ -273,11 +270,11 @@ let quotient = 56.7 / 32.2;
 // reste
 let remainder = 43 % 5;
 ```
-### Fonctions 
+## Fonctions 
 
 > 💡Note : Rust peut accéder à vos fonctions quel que soit l'endroit de leur déclaration.
 
-#### exemples
+### exemples
 
 Vous **devez** declarer le type de valeur retournée avec une flèche. Si vous ne le faites pas, Rust considérera que votre fonction retourne par défaut un *tuple* vide "()".
 
@@ -313,7 +310,7 @@ fn my_function(x: i32, y: i32) {
 }
 ```
 
-#### Pièges pour les débutants
+### Pièges pour les débutants
 
 🚨 Ceci provoquera une erreur du compilateur
 ```rust
@@ -332,7 +329,7 @@ fn multiply(x: i32, y: i32) -> i32 {
 }
 ```
 
-#### La différente entre arguments et paramètres
+### La différente entre arguments et paramètres
 
 > ⚠️ Les **paramètres** sont les variables spéciales utilisées dans la signature d'une fonction. Les **arguments** sont les valeurs concrètes passées au moment de l'appel de la fonction.
 
@@ -348,7 +345,7 @@ fn main() {
 }
 ```
 
-#### La différente entre les expressions et les déclarations
+### La différente entre les expressions et les déclarations
 
 > ⚠️ Rust est un language basé sur les expressions, il est important de bien comprendre cette distinction.
 
@@ -389,9 +386,9 @@ let y = {
 };
 ``` 
 
-### Contrôle de flux
+## Contrôle de flux
 
-#### les expressions if
+### les expressions if
 
 > 💡 Note : on parlera un peu plus loin des **patterns** qui sont une autre manière très puissante de gérer les conditions en Rust : https://doc.rust-lang.org/book/second-edition/ch18-03-pattern-syntax.html
 
@@ -447,9 +444,9 @@ fn main() {
 }
 ```
 
-#### boucles
+### boucles
 
-##### loop
+#### loop
 
 Le mot clef **loop** crée une boucle infinie. Il faut utiliser le mot-clef **break** pour sortir d'une boucle infinie.
 
@@ -467,7 +464,7 @@ fn main() {
 }
 ```
 
-##### while
+#### while
 
 ```rust
 fn main() {
@@ -480,7 +477,7 @@ fn main() {
 }
 ```
 
-##### for
+#### for
 
 > 💡 For est l'une des constructions de boucles les plus utilisées en Rust pour sa concision.
 
@@ -513,7 +510,7 @@ for (i, element) in test.iter().enumerate() {
 }
 ```
 
-## Propriété( Ownership ) 
+# Propriété( Ownership ) 
 
 > ⚠️ Ce chapitre **requiert** une connaissance basique à propos de la gestion de l'allocation mémoire avec la *pile* (stack) et le *tas* (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
 
@@ -525,7 +522,7 @@ La *propriété* permet à Rust de n'avoir besoin ni de *Garbage Collector*, ni 
 
 Enfin, grâce à ce principe, Rust peut **garantir à la compilation** qu'**il n'y aura pas d'erreur mémoire au moment du "run time"** ( pas de double libération de la mémoire ou de pointeur vers un espace vide ou une mauvaise valeur). 
 
-### Portée des variables et libération de la mémoire.
+## Portée des variables et libération de la mémoire.
 
 A chaque fois qu'une variable devient *hors de portée*, Rust appelle automatiquement la méthode **Drop** (parfois appelée "destructeur") du type de variable concernée, qui supprime alors de la mémoire la valeur correspondante dans le **tas**.
 
@@ -545,7 +542,7 @@ La portée d'une variable étant tout simplement déterminée par les accolades 
 
 Dans l'exemple ci-dessus, Rust sait qu'il peut libérer la mémoire car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades. 
 
-### Propriété et "déplacement de valeur"
+## Propriété et "déplacement de valeur"
 
 Voici comme est stockée la valeur "hello" en Rust avec le type complexe **String** ( un morceau de texte UTF-8 qui peut grandir )
 
@@ -614,7 +611,7 @@ let s2 = s1.clone();
 
 <img width="300px" src="images/ownership-figure-d.svg" />
  
-### Les types qui ne sont PAS concernés par la notion de propriété
+## Les types qui ne sont PAS concernés par la notion de propriété
 
 Les types dont la valeurs est stockée uniquement dans la **pile** ne sont **pas** concernés par la notion de propriété; puisque la propriété ne sert qu'à gérer l'allocation de la mémoire du tas. Les types suivants ne sont pas concernés par la propriété. 
 
@@ -624,7 +621,7 @@ Les types dont la valeurs est stockée uniquement dans la **pile** ne sont **pas
 - Les caractères
 - Les types, mais seulement si ils contiennent uniquement des types simples. Par exemple, (i32, i32); mais pas (i32, String).
 
-### Propriété et fonctions
+## Propriété et fonctions
 
 **🚨 Passer une variable en tant qu'argument à une fonction a exactement les mêmes conséquence qu'une assignation, du point de vue de la propriété !** 
 
@@ -666,7 +663,7 @@ fn makes_copy(some_integer: i32) { // "some_integer" arrive dans la portée
 } // "some_integer" devient hors de portée. Le tas n'est pas concerné, rien de spécial n'arrive ici
 ```
 
-### Valeurs retournées par une fonction et portée
+## Valeurs retournées par une fonction et portée
 
 **Retourner des valeurs depuis une fonction a aussi les mêmes conséquences qu'une assignation du point de vue la propriété.** La valeur retournée est donc là aussi soit copiée, soit déplacée.
 
@@ -696,7 +693,7 @@ fn takes_and_gives_back(a_string: String) -> String { // a_string arrive dans la
 }
 ```
 
-### Visualiser le drop en action 
+## Visualiser le drop en action 
 
 Le code suivant permet de voir affiché le moment où Rust appelle la fonction "drop", qui correspond au moment où il libère la mémoire.
 
@@ -789,7 +786,7 @@ drop User!
 
 La sortie confirme bien que le drop est appelée à la fonction main() et pas à la fin de la fonction user().
 
-### Référence et emprunt
+## Référence et emprunt
 
 Comment faire si on souhaite ne **pas** transférer la propriété à une fonction ? Il faut utiliser une référence, déclarée avec le symbole &.
 
@@ -813,7 +810,7 @@ Dans ce cas, "s" est une variable dans la pile contenant uniquement un pointeur 
 
 > 💡 l'opposé de la référence et la dé-référence avec l'operateur *. Plus de détails plus tard à ce sujet.
  
-### Références mutables : n immutable or 1 mutable. Period.
+## Références mutables : n immutable or 1 mutable. Period.
 
 Pour muter une référence, il faut obligatoirement utiliser le mot clef **mut** et remplacer "&" par "&mut", à la fois dans la signature dans la fonction et dans l'appel de la fonction.
 
@@ -850,7 +847,7 @@ let mut s = String::from("hello");
 let r2 = &mut s;
 ```
 
-### pointeur foireux
+## pointeur foireux
 
 Dans le code suivant, la valeur de la variable "s" sera jetée à la fin de la fonction. Mais la fonction retourne une référence vers cette valeur qui n'existe plus ! 
 
@@ -886,11 +883,11 @@ fn no_dangle() -> String {
 }
 ```
 
-### Le Type Slice (tranche)
+## Le Type Slice (tranche)
 
 Une tranche permet de référencer ( pas de transfert de propriété ) une séquence d'éléments au sein d'une collection (plutôt que la collection toute entière).
 
-#### String slice
+### String slice
 
 Une string slice est une référence à une partie d'une **String** :
 
@@ -915,9 +912,9 @@ let a = [1, 2, 3, 4, 5];
 let slice = &a[1..3];
 ```
 
-## Créer des types personnalisés avec les structures (Structs)
+# Créer des types personnalisés avec les structures (Structs)
 
-### Déclarer une structure
+## Déclarer une structure
 
 Une structure est un ensemble de *champs* dont chaque type est spécifié.
 
@@ -1023,7 +1020,7 @@ fn main() {
     println!("debug : {:#?}", roger);
 }
 ```
-### Implémenter une méthode sur la structure
+## Implémenter une méthode sur la structure
 
 Une **méthode** est une fonction attachée à une structure, qui recoit automatiquement **&self** en premier argument; qui est **l'instance de la structure**. 
 
@@ -1055,7 +1052,7 @@ let my_rectangle = Rectangle {
 let area_with_struct = my_rectangle.area();
 ```
 
-### Créer une fonction associée
+## Créer une fonction associée
 
 Les fonctions associées d'une structure s'ajoutent auss dans le bloc **impl** de la structure, mais ne prennent **pas** l'instance *&self* en premier paramètre. 
 
@@ -1080,7 +1077,7 @@ On sait maintenant d'où provient la notation `String::from("hello")` vu précé
 
 https://doc.rust-lang.org/book/second-edition/ch05-03-method-syntax.html#methods-with-more-parameters
 
-
+# Enums et Pattern Matching
 
 
  
