@@ -917,6 +917,8 @@ let slice = &a[1..3];
 
 ## Structures (Structs)
 
+### Déclarer une structure
+
 Une structure est un ensemble de *champs* dont chaque type est spécifié.
 
 ```rust
@@ -1021,12 +1023,11 @@ fn main() {
     println!("debug : {:#?}", roger);
 }
 ```
-### methodes
+### Implémenter une méthode sur la structure
 
-Une **méthode** est une fonction attachée à une structure.
-Voici comment définir une méthode "area" sur une structure "Rectangle". 
+Une **méthode** est une fonction attachée à une structure, qui recoit automatiquement **&self** en premier argument; qui est **l'instance de la structure**. 
 
-> ⚠️ le premier paramètre est forcément "&self" 
+Pour ajouter une méthode, il faut créer un bloc **impl**. Voici comment définir une méthode "area" sur une structure "Rectangle", qui calculera l'aire de l'instance du Rectangle.
 
 ```rust
 #[derive(Debug)]
@@ -1044,20 +1045,38 @@ impl Rectangle {
 }
 ```
 
-La méthode doit ensuite être appelée sur une instance de Rectangle : `my_rectangle.area()`
-
-exemple :
+On peut ensuite appelé notre *méthode* area() sur une **instance** de *Rectangle*
 
 ```rust
-fn main() {
-    let my_rectangle = Rectangle {
-        width: 2,
-        height: 5,
-    };
-    let area_with_struct = my_rectangle.area();
-    println!("The area with struct is {}", area_with_struct);
+let my_rectangle = Rectangle {
+    width: 2,
+    height: 5,
+};
+let area_with_struct = my_rectangle.area();
+```
+
+### Créer une fonction associée
+
+Les fonctions associées d'une structure s'ajoutent auss dans le bloc **impl** de la structure, mais ne prennent **pas** l'instance *&self* en premier paramètre. 
+
+```rust
+impl Rectangle {
+    fn square(size: u32) -> Rectangle {
+        Rectangle {
+            width: size,
+            height: size,
+        }
+    }
 }
 ```
+
+Une fonction associée ne dépend **pas** de l'instance, on l'appelle de la manière suivante :
+
+```rust
+Rectangle::square(10);
+```
+
+On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment.
 
 https://doc.rust-lang.org/book/second-edition/ch05-03-method-syntax.html#methods-with-more-parameters
 
