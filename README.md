@@ -1074,10 +1074,9 @@ Rectangle::square(10);
 
 On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment.
 
-https://doc.rust-lang.org/book/second-edition/ch05-03-method-syntax.html#methods-with-more-parameters
-
 # Enums et Pattern Matching
 
+https://doc.rust-lang.org/book/second-edition/ch06-01-defining-an-enum.html
 
  
 
