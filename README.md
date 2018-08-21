@@ -1126,6 +1126,65 @@ fn process_message(msg: Message) {
 
 # Énumérations 
 
+Une énumération est un **type** de donnée contenant une liste *finie* de *variantes*. Voici un exemple très simple : 
+
+```rust
+enum Colors {
+    Blue,
+    Red,
+    Yellow
+}
+```
+
+## Motivation : Error reporting
+
+source : http://gradebot.org/doc/ipur/enum.html
+
+Un programme robuste possède une bonne gestion des erreurs. Rust n'utilise **pas** d'exceptions : à la place il utilise le type énumération.
+
+L'error reporting est un cas simple et concret qui permet de rapidement comprendre la puissance des énumérations et leur combinaison avec l'expression **match**.
+
+Supposons qu'on veuille créer une fonction `divide()` charger de diviser deux nombres; mais qu'on veuille interdire l'utilisation du "0" et informer poliment le développeur que ça ne marchera pas.
+
+
+```rust
+
+// Le résultat de "divide()" pourra être soit le résultat de la division,
+// soit un message d'erreur. Ces deux variantes seront du type
+// "Result" (elles sont bien, chacune à leur manière, un résultat)
+enum Result {
+    Value(i32),
+    Error(&'static str),
+}
+
+// Nota bena : la fonction nous renvoie non pas la valeur,
+// mais le type "Result" (qui sera soit Result::Error, 
+// soit Result::Value )
+fn divide(x: i32, y: i32) -> Result {
+    if x == 0 || y == 0 {
+        Result::Error("Impossible de diviser par zéro")
+    } else {
+        Result::Value(x / y)
+    }
+}
+
+fn main() {
+    // On divise 10 par 0, ça nous affiche l'erreur "Impossible de diviser par zéro"
+    match divide(10, 0) {
+        Result::Value(value) => println!("{}", value),
+        Result::Error(message) => println!("{}", message),
+    }
+
+    // on divise 10 par 2, ça affiche la valeur 5.
+    match divide(10, 2) {
+        Result::Value(value) => println!("{}", value),
+        Result::Error(message) => println!("{}", message),
+    }
+}
+```
+
+## explications
+
 Une énumération vous permet est un **type** de donnée contenant une liste *finie* de *variantes*. Une variante peut prendre 3 formes :
 - Juste un nom
 - Un nom et un ensemble de valeur
@@ -1235,13 +1294,6 @@ impl Message {
 let m = Message::Write(String::from("hello"));
 m.call();
 ```
-
-
-## Motivation : Error reporting
-
-source : http://gradebot.org/doc/ipur/enum.html
-
-Un programme robuste possède une bonne gestion des erreurs. Rust n'utilise **pas** d'exceptions : à la place il utilise le type énumération, qui permet de gérer les erreurs; et bien plus encore.
 
 
 # Collections
