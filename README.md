@@ -1,5 +1,5 @@
 
-*La seconde édition du livre de Rust résumé en une seule (grosse) page - work in progress. Le livre original [est disponible ici (en anglais)](https://doc.rust-lang.org/book/second-edition/index.html)*
+*La seconde édition du livre de Rust résumé en une seule (grosse) page pour celles et ceux qui viennent comme moi de langages comme PHP ou JavaScript - work in progress. Le livre original [est disponible ici (en anglais)](https://doc.rust-lang.org/book/second-edition/index.html)*
 
 # La philosophie de Rust
 
