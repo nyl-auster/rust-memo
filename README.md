@@ -1,5 +1,5 @@
 
-*La seconde édition du livre de Rust résumé en une seule (grosse) page pour celles et ceux qui viennent comme moi de langages comme PHP ou JavaScript - work in progress. Le livre original [est disponible ici (en anglais)](https://doc.rust-lang.org/book/second-edition/index.html)*
+*La seconde édition du livre de Rust résumé en une seule (grosse) page - work in progress. Le livre original [est disponible ici (en anglais)](https://doc.rust-lang.org/book/second-edition/index.html)*
 
 # La philosophie de Rust
 
@@ -1144,8 +1144,24 @@ let m = Message::Write(String::from("hello"));
 m.call();
 ```
 
+# Collections
 
-https://doc.rust-lang.org/book/second-edition/ch06-01-defining-an-enum.html
+## Vecteurs
+
+Créér un nouveau vecteur contenant une collection d'entiers. On utilise ensuite la méthode `push` pour ajouter des éléments.
+
+```rust
+let mut suite: Vec<i32> = Vec::new();
+suite.push(0);
+suite.push(1);
+```
+
+La macro `vec!` permet d'écrire plus rapidement le code ci-dessus. Rust infère du code ci-dessous que le type est `Vec<i32>`.
+
+``` rust
+let mut suite = vec![0, 1];
+```
+
 
  
 
