@@ -1,10 +1,6 @@
 
 *La seconde édition du livre de Rust résumé en une seule (grosse) page - work in progress. Le livre original [est disponible ici (en anglais)](https://doc.rust-lang.org/book/second-edition/index.html)*
 
-# La philosophie de Rust
-
-Rust est conçu de manière à **garantir** que si votre programme compile sans erreur, il n'y aura aucune erreur au run-time. Le langage vous pousse à coder d'une manière spécifique qui permet au compilateur de prévenir les erreurs avant qu'elles n'arrivent en production. 
-
 # Commencer rapidement Rust
 
 ## installation
