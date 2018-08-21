@@ -1076,21 +1076,117 @@ Rectangle::square(10);
 
 On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment.
 
-# Énumérations
+# Match
 
-Une énumération vous permet de créer un **type de données composite**  définissant une liste finie de *variantes*, qui sont elles-mêmes des types (le type par défaut étant un "unit-like Struct"). Exemple :
+Match est keyword qui permet de remplacer des groupes de if / else par quelque chose de plus puissant.
 
+```rust
+let x = 5;
+
+match x {
+    1 => println!("one"),
+    2 => println!("two"),
+    3 => println!("three"),
+    4 => println!("four"),
+    // "x" vaut 5 c'est cette expression qui sera exécutée
+    5 => println!("five"),     
+    // obligatoire: pour toutes les autres valeurs de x ( 35 par exemple)
+    // cette expression sera exécutée.
+    _ => println!("something else"),
+}
+```
+
+Match prend une *expression* (ici "x" puis permet de créer des branches en fonction de la valeur retournée par cette expression. Une branche est de la forme `valeur => expression`. Seule la branche correspondant à la valeur de "x" est exécutée.
+
+> 💡 `_` agit comme un "attrape-tout" si aucune des autres valeurs ne correspond pas à celle passée à match.
+
+Un usage très courant de *match* est de traiter les variantes possibles d'une énumération: 
+
+```rust
+enum Message {
+    Quit,
+    ChangeColor(i32, i32, i32),
+    Move { x: i32, y: i32 },
+    Write(String),
+}
+
+fn quit() { /* ... */ }
+fn change_color(r: i32, g: i32, b: i32) { /* ... */ }
+fn move_cursor(x: i32, y: i32) { /* ... */ }
+
+fn process_message(msg: Message) {
+    match msg {
+        Message::Quit => quit(),
+        Message::ChangeColor(r, g, b) => change_color(r, g, b),
+        Message::Move { x: x, y: y } => move_cursor(x, y),
+        Message::Write(s) => println!("{}", s),
+    };
+}
+```
+
+# Énumérations 
+
+Une énumération vous permet est un **type** de donnée contenant une liste *finie* de *variantes*. Une variante peut prendre 3 formes :
+- Juste un nom
+- Un nom et un ensemble de valeur
+- Un nom et une séquence de paires (nom:valeur)
+
+```rust
+enum Example {
+    // This variant has only a name.
+    Foo,
+    // This variant has a name and a sequence of values.
+    Bar(i32, bool),
+    // This variant has a name and a set of (name: value) pairs.
+    Baz { x: i32, y: bool },
+}
+
+fn main() {
+    let x = Example::Foo;
+    let y = Example::Bar(1, true);
+    let z = Example::Baz { x: 1, y: true };
+    println!("{:?}", x);
+}
+
+```
+
+x, y et z seront du type "Example". Bar et Baz peuvent être utilisés comme des **fonctions** dont le type retournée sera "Example".
+
+Les énumérations fonctionnent de pair avec l'expression **match** qui permet de manipuler les variantes - et les données associées le cas échéant. Voici un exemple très basique qui affichera "Non Binaire" si genre_label() reçoit "NonBinaire" (nom de la variante)
+
+```rust
+#[derive(Debug)]
+enum Genre {
+    Homme,
+    Femme,
+    NonBinaire,
+}
+
+fn genre_label(x: Genre) -> &'static str {
+    match x {
+        Genre::Homme => "Homme",
+        Genre::Femme => "Femme",
+        Genre::NonBinaire => "Non binaire",
+    }
+}
+
+fn main() {
+    println!("{}", genre_label(Genre::Homme));
+    println!("{}", genre_label(Genre::NonBinaire));
+    println!("{}", genre_label(Genre::Femme));
+}
+```
+ 
 ```rust
 enum IpAddrKind {
     V4,
     V6,
 }
-```
-> 💡 V4 et V6 sont des **variantes** de l'énumération.
-> 
-> ```rust
-let four = IpAddrKind::V4;
-let six = IpAddrKind::V6;
+
+fn main() {
+    let four = IpAddrKind::V4;
+    let six = IpAddrKind::V6;
+}
 ```
 **⚠️ four et six sont toutes les deux du type IpAddrKind**
 
@@ -1139,6 +1235,14 @@ impl Message {
 let m = Message::Write(String::from("hello"));
 m.call();
 ```
+
+
+## Motivation : Error reporting
+
+source : http://gradebot.org/doc/ipur/enum.html
+
+Un programme robuste possède une bonne gestion des erreurs. Rust n'utilise **pas** d'exceptions : à la place il utilise le type énumération, qui permet de gérer les erreurs; et bien plus encore.
+
 
 # Collections
 
