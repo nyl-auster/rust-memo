@@ -1078,61 +1078,47 @@ On sait maintenant d'où provient la notation `String::from("hello")` vu précé
 
 # Match
 
-Match est keyword qui permet de remplacer des groupes de if / else par quelque chose de plus puissant.
+**match** est une expression qui permet de remplacer des groupes complexes de if / else par quelque chose de plus puissant et expressif.
+
+Match évalue une *expression* (ici "x") puis exécute la branche de code qui "match" avec la valeur de x. Ce sera la branche "2" dans le cas ci-dessous. 
 
 ```rust
-let x = 5;
-
-match x {
-    1 => println!("one"),
-    2 => println!("two"),
-    3 => println!("three"),
-    4 => println!("four"),
-    // "x" vaut 5 c'est cette expression qui sera exécutée
-    5 => println!("five"),     
-    // obligatoire: pour toutes les autres valeurs de x ( 35 par exemple)
-    // cette expression sera exécutée.
-    _ => println!("something else"),
+fn main() {
+    let x = 2;
+    match x {
+        1 => println!("x vaut un"),
+        2 => println!("x vaut deux"),
+        // pattern "range"
+        3...5 => println!("x est compris entre trois et cinq"),
+        // pattern spécial qui veut dire "dans tous les autres cas)
+        _ => println!("x vaut a une valeur non traitée par les branches précédentes"),
+    }
 }
 ```
 
-Match prend une *expression* (ici "x" puis permet de créer des branches en fonction de la valeur retournée par cette expression. Une branche est de la forme `valeur => expression`. Seule la branche correspondant à la valeur de "x" est exécutée.
-
-> 💡 `_` agit comme un "attrape-tout" si aucune des autres valeurs ne correspond pas à celle passée à match.
-
-Un usage très courant de *match* est de traiter les variantes possibles d'une énumération: 
-
-```rust
-enum Message {
-    Quit,
-    ChangeColor(i32, i32, i32),
-    Move { x: i32, y: i32 },
-    Write(String),
-}
-
-fn quit() { /* ... */ }
-fn change_color(r: i32, g: i32, b: i32) { /* ... */ }
-fn move_cursor(x: i32, y: i32) { /* ... */ }
-
-fn process_message(msg: Message) {
-    match msg {
-        Message::Quit => quit(),
-        Message::ChangeColor(r, g, b) => change_color(r, g, b),
-        Message::Move { x: x, y: y } => move_cursor(x, y),
-        Message::Write(s) => println!("{}", s),
-    };
-}
-```
+Chaque branche est de la forme `pattern => expression`.
 
 # Énumérations 
 
-Une énumération est un **type** de donnée contenant une liste *finie* de *variantes*. Voici un exemple très simple : 
+Une énumération est un **type** de donnée contenant une liste *finie* de *variantes*, que l'on pourra traiter grâce à l'expression `match`
+
+Voici un exemple
 
 ```rust
-enum Colors {
-    Blue,
-    Red,
-    Yellow
+enum Coin {
+    Penny,
+    Nickel,
+    Dime,
+    Quarter,
+}
+
+fn value_in_cents(coin: Coin) -> u32 {
+    match coin {
+        Coin::Penny => 1,
+        Coin::Nickel => 5,
+        Coin::Dime => 10,
+        Coin::Quarter => 25,
+    }
 }
 ```
 
