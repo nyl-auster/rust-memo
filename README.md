@@ -1076,6 +1076,34 @@ Rectangle::square(10);
 
 On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment.
 
+## Tuple struct
+
+Rust a un type de donnée qui est comme un hybride de `tuple` et `struct`, appelé *tuple struct* . Un *Tuple struct* a un nom, mais pas ses champs. On rencontrera ce format au moment de voir les énumérations.
+
+```
+struct Color(i32, i32, i32);
+struct Point(i32, i32, i32);
+
+fn main() {
+	let black = Color(0, 0, 0);
+	let origin = Point(0, 0, 0);
+}
+```
+
+## Unit-like struct
+
+Il est possible de définir une `struct` avec aucun champs :
+
+```rust
+struct Electron;
+
+fn main() {
+  let x = Electron;
+}
+```
+
+Ca peut arriver si on doit implémenter un trait mais qu'on a rien à stocker au niveau de la structure, ou pour créer une variante d'énumération qui n'a pas de données.
+
 # Match
 
 **match** est une expression qui permet de remplacer des groupes complexes de if / else par quelque chose de plus puissant et expressif.
@@ -1100,15 +1128,67 @@ Chaque branche est de la forme `pattern => expression`.
 
 # Énumérations 
 
-Une énumération définit un **type** de données en énumérant la liste de ses valeurs possibles, nommées **variantes**. On peut traiter les valeurs de ces variantes grâce à l'expression `match`.
+Une énumération définit un **type** de données en énumérant la liste de ses valeurs possibles, nommées **variantes**. On peut traiter les valeurs des variantes grâce à l'expression `match`.
 
-Exemple basique :
+Exemple basique d'Enum :
 
 ```rust
 enum Country {
     France,
     Espagne,
     Allemagne,
+}
+```
+
+Ci-dessus, les variantes ont juste un nom, mais on peut associer n'importe quel type de donnée à une variante : strings, types numériques, structures ... 
+
+**Déclarer des variantes est en réalité identique à déclarer des structures**, sans le mot clef `struct` :
+ 
+```rust
+enum Message {
+    Quit, // unit-like struct ou unit-struct
+    Move { x: i32, y: i32 }, // struct
+    Write(String), // tuple struct avec un seul paramètre
+    ChangeColor(i32, i32, i32), // tuple struct avec plusieurs paramètres
+}
+```
+
+Les variantes peuvent se lire de la manière suivante :
+
+```rust
+struct QuitMessage; // unit struct
+struct MoveMessage { // struct
+    x: i32,
+    y: i32,
+}
+struct WriteMessage(String); // tuple struct
+struct ChangeColorMessage(i32, i32, i32); // tuple struct
+```
+
+Voici comment instancier et accèder au différents types de données :
+
+```rust
+enum Message {
+    Quit,
+    Move { x: i32, y: i32 },
+    Write(String),
+    ChangeColor(i32, i32, i32),
+}
+
+fn main() {
+    // instances de variantes
+    let quit = Message::Quit;
+    let color = Message::ChangeColor(224, 122, 231);
+    let write = Message::Write(String::from("Hello !"));
+    let moving = Message::Move { x: 25, y: 38 };
+
+    // accès aux données des instances de variantes
+    match moving {
+        Message::Quit => println!("Quit !"),
+        Message::ChangeColor(v1, v2, v3) => println!("{}, {}, {}", v1, v2, v3),
+        Message::Write(v) => println!("{}", v),
+        Message::Move { x, y } => println!("{} {}", x, y),
+    }
 }
 ```
 
@@ -1182,106 +1262,7 @@ fn main() {
 ```
 L'enum `Result` propose aussi des méthodes utiles, que l'on verra dans un chapitre dédié.
 
-## Explication détaillée des énumérations
-
-Une énumération permet de créer un **type** de donnée contenant une liste de *variantes*. Une variante peut prendre 3 formes :
-
-- Juste un nom
-- Un nom et un ensemble de valeurs non-nommées
-- Un nom et un ensemble de valeurs nommées
-
-```rust
-enum Example {
-    // cette variante a juste un nom
-    Foo,
-    // cette variante a un nom et une séquence de valeurs non nommées
-    Bar(i32, bool),
-    // cette variante a un nom et un ensemble de valeurs nommées
-    Baz { x: i32, y: bool },
-}
-
-fn main() {
-    // instances de variantes
-    let x = Example::Foo;
-    let y = Example::Bar(1, true);
-    let z = Example::Baz { x: 1, y: true };
-    println!("{:?}", x);
-}
-
-```
-
-x, y et z seront du type "Example". Bar et Baz peuvent être utilisés comme des **fonctions** dont le type retournée sera "Example".
-
-Les énumérations fonctionnent de pair avec l'expression **match** qui permet de manipuler les variantes - et les données associées le cas échéant. Voici un exemple très basique qui affichera "Non Binaire" si genre_label() reçoit "NonBinaire" (nom de la variante)
-
-```rust
-#[derive(Debug)]
-enum Genre {
-    Homme,
-    Femme,
-    NonBinaire,
-}
-
-fn genre_label(x: Genre) -> &'static str {
-    match x {
-        Genre::Homme => "Homme",
-        Genre::Femme => "Femme",
-        Genre::NonBinaire => "Non binaire",
-    }
-}
-
-fn main() {
-    println!("{}", genre_label(Genre::Homme));
-    println!("{}", genre_label(Genre::NonBinaire));
-    println!("{}", genre_label(Genre::Femme));
-}
-```
- 
-```rust
-enum IpAddrKind {
-    V4,
-    V6,
-}
-
-fn main() {
-    let four = IpAddrKind::V4;
-    let six = IpAddrKind::V6;
-}
-```
-**⚠️ four et six sont toutes les deux du type IpAddrKind**
-
-Créer une fonction qui ne peut accepter que IpAddrKind::V4 ou IpAddrKind::V6 en arguments :
-
-```rust
-fn route(kind: IpAddrKind) {
-    println!("{:#?}", kind)
-}
-```
-
-Dans l'énumération ci-dessus les variantes n'ont pas de donnée associée, mais il est possible d'associer à une variante des données du type de notre choix :
-
-```rust
-enum Message {
-    Quit, // type: unit struct. Aucune donnée associée.
-    ChangeColor(i32, i32, i32), // type : Tuple struct
-    Move { x: i32, y: i32 }, // type : Struct
-    Write(String), // type: Tuple Struct
-}
-```
-
-C'est en quelque sortes équivalent à :
-
-```rust
-struct QuitMessage; // unit struct
-struct MoveMessage {
-    x: i32,
-    y: i32,
-}
-struct WriteMessage(String); // tuple struct
-struct ChangeColorMessage(i32, i32, i32); // tuple struct
-```
-
-Mais avec ses structures distinctes, il ne serait alors pas possible d'utiliser le Pattern Matching (voir plus bas).
+## Méthodes 
 
 Il est possible de créer des méthodes sur les Enums de la même manière que pour une structure :
 
