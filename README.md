@@ -1100,93 +1100,108 @@ Chaque branche est de la forme `pattern => expression`.
 
 # Énumérations 
 
-Une énumération est un **type** de donnée contenant une liste *finie* de *variantes*, que l'on pourra traiter grâce à l'expression `match`
+Une énumération définit un **type** de données en énumérant la liste de ses valeurs possibles, nommées **variantes**. On peut traiter les valeurs de ces variantes grâce à l'expression `match`.
 
-Voici un exemple
+Exemple basique :
 
 ```rust
-enum Coin {
-    Penny,
-    Nickel,
-    Dime,
-    Quarter,
-}
-
-fn value_in_cents(coin: Coin) -> u32 {
-    match coin {
-        Coin::Penny => 1,
-        Coin::Nickel => 5,
-        Coin::Dime => 10,
-        Coin::Quarter => 25,
-    }
+enum Country {
+    France,
+    Espagne,
+    Allemagne,
 }
 ```
 
-## Motivation : Error reporting
+## Un cas concret d'utilisation des énumérations et de match
 
-source : http://gradebot.org/doc/ipur/enum.html
+Nous souhaitons créer une fonction `divide()` capable de faire une division et qui affiche un message d'erreur si un des deux nombres vaut `0`.
 
-Un programme robuste possède une bonne gestion des erreurs. Rust n'utilise **pas** d'exceptions : à la place il utilise le type énumération.
+On code donc la fonction `divide()` de manière à ce qu'elle nous renvoie 
 
-L'error reporting est un cas simple et concret qui permet de rapidement comprendre la puissance des énumérations et leur combinaison avec l'expression **match**.
+- *soit* le résultat de la division
+- *soit* un message d'erreur (une châine de caractère indiquant l'erreur rencontrée) si un nombre vaut `0`.
 
-Supposons qu'on veuille créer une fonction `divide()` charger de diviser deux nombres; mais qu'on veuille interdire l'utilisation du "0" et informer poliment le développeur que ça ne marchera pas.
-
+Ce cas peut s'exprimer élégamment en Rust avec la combinaison d'une énumération et de l'expression `match`
 
 ```rust
-
-// Le résultat de "divide()" pourra être soit le résultat de la division,
-// soit un message d'erreur. Ces deux variantes seront du type
-// "Result" (elles sont bien, chacune à leur manière, un résultat)
-enum Result {
-    Value(i32),
+// le retour de divide() pourra être soit un flottant, soit un message d'erreur
+enum Return {
+    Value(f64),
     Error(&'static str),
 }
 
-// Nota bena : la fonction nous renvoie non pas la valeur,
-// mais le type "Result" (qui sera soit Result::Error, 
-// soit Result::Value )
-fn divide(x: i32, y: i32) -> Result {
-    if x == 0 || y == 0 {
-        Result::Error("Impossible de diviser par zéro")
+// le type de retour de la fonction est Return, car on
+// va retourner une instance de variante de l'enum Return.
+fn divide(x: f64, y: f64) -> Return {
+    if x == 0.0 || y == 0.0 {
+        Return::Error("Impossible de diviser par zéro")
     } else {
-        Result::Value(x / y)
+        Return::Value(x / y)
     }
 }
 
 fn main() {
-    // On divise 10 par 0, ça nous affiche l'erreur "Impossible de diviser par zéro"
-    match divide(10, 0) {
-        Result::Value(value) => println!("{}", value),
-        Result::Error(message) => println!("{}", message),
+    // affiche : "Impossible de diviser par zéro"
+    match divide(10.0, 0.0) {
+        Return::Value(value) => println!("{}", value),
+        Return::Error(message) => println!("{}", message),
     }
-
-    // on divise 10 par 2, ça affiche la valeur 5.
-    match divide(10, 2) {
-        Result::Value(value) => println!("{}", value),
-        Result::Error(message) => println!("{}", message),
+    // affiche : "5"
+    match divide(10.0, 2.0) {
+        Return::Value(value) => println!("{}", value),
+        Return::Error(message) => println!("{}", message),
     }
 }
 ```
 
-## explications
+En réalité, Rust propose justement par défaut un enum `Result` pour ce cas de figure ! Il contient deux variantes : `Ok` et `Err`. Pour nous faciliter la vie, Rust nous autorise même à écrire juste `Ok`  et `Err` au lieu de `Result:Ok` et `Result:Err`. On peut donc réecrire notre code comme suit:
 
-Une énumération vous permet est un **type** de donnée contenant une liste *finie* de *variantes*. Une variante peut prendre 3 formes :
+```rust
+// le type de retour de la fonction est Return, car on
+// va retourner une instance de variante de l'enum Return.
+fn divide(x: f64, y: f64) -> Result<f64, &'static str> {
+    if x == 0.0 || y == 0.0 {
+        Err("Impossible de diviser par zéro")
+    } else {
+        Ok(x / y)
+    }
+}
+
+fn main() {
+    // affiche : "Impossible de diviser par zéro"
+    match divide(10.0, 0.0) {
+        Ok(value) => println!("{}", value),
+        Err(message) => println!("{}", message),
+    }
+    // affiche : "5"
+    match divide(10.0, 2.0) {
+        Ok(value) => println!("{}", value),
+        Err(message) => println!("{}", message),
+    }
+}
+```
+L'enum `Result` propose aussi des méthodes utiles, que l'on verra dans un chapitre dédié.
+
+## Explication détaillée des énumérations
+
+Une énumération permet de créer un **type** de donnée contenant une liste de *variantes*. Une variante peut prendre 3 formes :
+
 - Juste un nom
-- Un nom et un ensemble de valeur
-- Un nom et une séquence de paires (nom:valeur)
+- Un nom et un ensemble de valeurs non-nommées
+- Un nom et un ensemble de valeurs nommées
 
 ```rust
 enum Example {
-    // This variant has only a name.
+    // cette variante a juste un nom
     Foo,
-    // This variant has a name and a sequence of values.
+    // cette variante a un nom et une séquence de valeurs non nommées
     Bar(i32, bool),
-    // This variant has a name and a set of (name: value) pairs.
+    // cette variante a un nom et un ensemble de valeurs nommées
     Baz { x: i32, y: bool },
 }
 
 fn main() {
+    // instances de variantes
     let x = Example::Foo;
     let y = Example::Bar(1, true);
     let z = Example::Baz { x: 1, y: true };
