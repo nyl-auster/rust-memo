@@ -180,6 +180,13 @@ Quand la variable devient *hors de portée* ( c'est à dire quand le programme r
 
 "Détruit" signifie que le type de données de la variable implémente le trait `Drop`, et que le programme invoque Drop::drop() sur les données.
 
+### Boîtes
+
+Pour créer une variable dans le tas, le programme crée une *boîte** (box). Dans l'exemple suivant, le programme place la valeur `1` dans le tas; and crée une variable `x` sur la pile qui pointer vers la valeur du tas.
+
+```rust
+let x = Box::new(1);
+```
 
 ## Variables et mutabilité
 
