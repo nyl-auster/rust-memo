@@ -216,6 +216,8 @@ let my_var = 6;
 
 ## Les types de données
 
+### Type scalaires
+
 Il existe quatre types scalaires de données. Un type scalaire représente une données "atomique" par opposition à des types composés - comme des types listant plusieurs valeurs tels que *array*, *tuple* ou *String* (une String est une liste de *characters* )
 
 - integers
@@ -225,7 +227,7 @@ Il existe quatre types scalaires de données. Un type scalaire représente une d
 
 > 💡 Note : ces types de données scalaires sont stockés uniquement dans la pile et supprimer de la pile lorsqu'il sont hors de portée. ( plus de détails plus bas concernant la *pile* et le *tas*)
 
-### Le type entier
+#### Le type entier
 
 ```rust
 let x = 142; // sera du type "entier 32 bits" par défault
@@ -245,8 +247,7 @@ let y: u8 = 142;  // type entier non-signé 8 bits
 
 > 💡 Les entiers sont par défault du type i32 parce que c'est généralement le type le plus performant.
 
-
-### Type nombre à virgule flottante
+#### Type nombre à virgule flottante
 
 ```rust
 let x = 2.0; // f64 par défault
@@ -260,14 +261,34 @@ let y: f32 = 142.567890; // flottant 32 bits
 
 > 💡 Le type par défaut est *f64* parce que sur les CPUs moderne, il est quasimenet aussi rapidement que *f32* mais offre bien plus de précisions.
 
-### Le type booléen
+#### Opérations arithmétiques
+
+```rust
+// addition
+let sum = 5 + 10;
+
+// soustraction
+let difference = 95.5 - 4.3;
+
+// multiplication
+let product = 4 * 30;
+
+// division
+let quotient = 56.7 / 32.2;
+
+// reste
+let remainder = 43 % 5;
+```
+
+
+#### Le type booléen
 
 ```rust
 let x = true;
 let y: bool = false; // avec un type explicite
 ```
 
-### Le type caractère
+#### Le type caractère
 
 ```rust
 let c = 'z';
@@ -307,31 +328,13 @@ let second = a[1];
 ```
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
 
-### Opérations arithmétiques
-
-```rust
-// addition
-let sum = 5 + 10;
-
-// soustraction
-let difference = 95.5 - 4.3;
-
-// multiplication
-let product = 4 * 30;
-
-// division
-let quotient = 56.7 / 32.2;
-
-// reste
-let remainder = 43 % 5;
-```
 ## Fonctions 
 
 > 💡Note : Rust peut accéder à vos fonctions quel que soit l'endroit de leur déclaration.
 
 ### exemples
 
-Vous **devez** declarer le type de valeur retournée avec une flèche. Si vous ne le faites pas, Rust considérera que votre fonction retourne par défaut un *tuple* vide "()".
+Vous **devez** déclarer le type de valeur retournée avec une flèche. Si vous ne le faites pas, Rust considérera que votre fonction retourne par défaut un *tuple* vide "()".
 
 ```rust
 fn get_x() -> i32 {
