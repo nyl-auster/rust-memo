@@ -233,16 +233,27 @@ On peut diviser les types en 3 catégories :
 - les types primitifs composés
 - les types personnalisés (custom)
 
-### les types primitifs atomiques
+### Les types primitifs atomiques
 
-Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( Note de traduction : ce trait `Copy` joue un rôle clef dans la compréhension de la *propriété* qu'on voit plus bas ).
+Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( 👨‍💻 *Note : ce trait `Copy` joue un rôle clef dans la compréhension de la* propriété *qu'on verra plus loin* ).
 
 - booléen :  `bool` 
 - entiers signés : `i8` `i16` `i32` `i64`, `isize`
 - entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
 - nombres flottant : `f32` `f64`
+- Textuels: `char` `str`
 
-[ to be continued ... http://gradebot.org/doc/ipur/type.html#textual-types ]
+### Les types primitifs composés
+
+- array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
+- tuple `let my_tuple = (1, "a");`
+
+> 💡 Composite primitive types automatically implement the Copy trait if all their constituent types implement the Copy trait.
+
+### Les types personnalisés
+
+- structures : `struct`
+- énumérations : `enum`
 
 ## Les types de donnés en Rust
 
