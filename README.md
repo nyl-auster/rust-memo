@@ -130,28 +130,48 @@ fn main() {
 }
 ```
 
-### Exemples de déclaration de variables
+### Exemples courant de déclaration de variables
+
+Entiers :
 
 ```rust
-// déclarer un nombre immutable ave le type par défaut qui est i32 ( 32 bits signés) 
-let a = 42
+// Un nombre immutable avec le type par défaut qui est i32 ( 32 bits qui peut être positif ou négatif) 
+let a = 42;
 
-// déclarer un nombre immubtale en le typant manuellement en 64 bits signés.
-let x: i64 = 42;
+// Déclarer un nombre immutable compris en 0 et 255.
+let x: u8 = 42;
 
-// déclarer un nombre
+// déclarer un nombre mutable
 let mut y = 27;
+```
 
-// créer une string de taille fixe et immutable (appelée "slice", son  type est *&str*)
+Flottants:
+
+```rust
+let x: f64 = 37.2
+```
+
+Les chaînes de caractères
+
+```rust
+// créer une string de taille fixe et immutable appelée "slice" : son  type est *&str* . Il n'est pas possible de l'agrandir ultérieurement.
 let greeting = "Hello there.";
 
-// déclarer une chaîne de caractères UTF-8 mutable et agrandissable ( type **String** )
+// la macro "format!" est la plus pratique pour créer une chaîne de caractères agrandissable à volonté (type "String") et y insérer des variables 
+let my_string = format!("les valeurs sont : {} {} {}", a, x, y);
+
+// concaténation de slices avec "format!" :
+let hello = "hello";
+let world = "world";
+let my_string = format!("{} {}", hello, world);
+
+// On peut aussi déclarer un type String de la manière suivante :
 let mut s = String::from("Hello");
 s.push_str(", world.");
 println!("{}", s); // display "Hello, world."
 ```
 
-Il est possible de "shadow" une variable en ré-utilisant le mot clef let.
+> 💡 Il est possible de "shadow" une variable en ré-utilisant le mot clef let.
 
 ```rust
 let my_var = 5;
