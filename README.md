@@ -191,7 +191,7 @@ fn main() {
 }
 ```
 
-Il faut obligatoirement utiliser le mot-clef **mut** pour render une variable mutable.
+Il faut obligatoirement utiliser le mot-clef **mut** pour rendre une variable *mutable*.
 
 ```rust
 fn main() {
@@ -200,14 +200,14 @@ fn main() {
 }
 ```
 
-### Exemples de déclaration de variables
+### Exemples déclaration variables
 
-Un survol rapide des types de données couramment utilisées en Rust. Les détails concernant l'utilisattion de chaque type seront données plus bas.
+Un survol rapide des types de données couramment utilisées en Rust. Les détails concernant l'utilisation de chaque type seront données plus loin.
 
 Entiers :
 
 ```rust
-// Un nombre immutable avec le type par défaut qui est i32 ( 32 bits qui peut être positif ou négatif) 
+// Un nombre immutable avec le type par défaut i32 ( 32 bits signés )
 let a = 42;
 
 // Déclarer un nombre immutable compris en 0 et 255.
@@ -321,12 +321,12 @@ let x = 142; // sera du type "entier 32 bits" par défault
 let y: u8 = 142;  // type entier non-signé 8 bits
 ```
 
-|longueur|  signé | non-signé| valeur maximale en décimal non signé
-|--------|--------|----------|----
-|8-bits  | i8     | u8       | 256
-|16-bits | i16    | u16      | 65 536
-|32-bits | i32    | u32      | 4 294 967 296
-|64-bits | i64    | u64      | 1,844674407370955e19
+|longueur|  signé | non-signé| plage décimale signé | plage décimale signée
+|--------|--------|----------|----|---
+|8-bits  | i8     | u8       | de -128 à +127 |  de 0 à 255
+|16-bits | i16    | u16      | de -32 768 à +32 767 | de 0 à 65 536
+|32-bits | i32    | u32      | de -2147483648 à +2147483647| de 0 à 4 294 967 296
+|64-bits | i64    | u64      | de - 9 223 372 036 854 775 808 à +9 223 372 036 854 775 807 |de 0  à 18 446 744 073 709 551 616
 |arch    | isize  | usize    | dépend de l'architecture
 
 
