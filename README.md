@@ -1,5 +1,10 @@
 
-*La seconde édition du livre de Rust résumé en une seule (grosse) page - work in progress. Le livre original [est disponible ici (en anglais)](https://doc.rust-lang.org/book/second-edition/index.html)*
+*Rust en une seule (grosse) page - work in progress.*
+
+*Sources :*
+
+- [La seconde édition du Livre de Rust](https://doc.rust-lang.org/book/second-edition/index.html)
+- [http://gradebot.org/doc/ipur/type.html](http://gradebot.org/doc/ipur/type.html)
 
 # Commencer rapidement Rust
 
@@ -88,6 +93,70 @@ cargo doc --open
 ```
 
 # Concepts généraux
+
+## [Annexe] Qu'est ce qu'un type de donnée et une valeur ?
+
+source : http://gradebot.org/doc/ipur/type.html
+
+Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données (0 ou 1).
+
+Un octet peut représenter différents types de données. Par exemple un octet peut représenter en entier non-signé de 8 bits, un entier signé de 7 bits ou un caractère ASCII. Un **type** définit un ensemble de valeurs valides et d'opération sur ces valeurs. Par exemple, le type `u8` définit des valeurs qui vont de 0 à 255 et les opérations mathématiques sur ces valeurs.
+
+Les types déterminent comment le compilateur traduit les octets en mémoire en valeur. Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilateur l'interprète comme :
+
+- un entier 128 **si le type est `u8`**
+- un entier -128 **si le type est `i8`**
+
+On peut diviser les types en 3 catégories :
+
+- les types primitifs atomiques
+- les types primitifs composés
+- les types personnalisés (custom)
+
+### Les types primitifs atomiques
+
+Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( 👨‍💻 *Note : ce trait `Copy` joue un rôle clef dans la compréhension de la* propriété *qu'on verra plus loin* ).
+
+- booléen :  `bool` 
+- entiers signés : `i8` `i16` `i32` `i64`, `isize`
+- entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
+- nombres flottant : `f32` `f64`
+- Textuels: `char` `str`
+
+### Les types primitifs composés
+
+- array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
+- tuple `let my_tuple = (1, "a");`
+
+> 💡 Composite primitive types automatically implement the Copy trait if all their constituent types implement the Copy trait.
+
+### Les types personnalisés
+
+- structures : `struct`
+- énumérations : `enum`
+
+## [Annexe] Variables et boxes 
+
+A proprement parler, les *variables* représentent la mémoire sur la pile et les *boxes*, la mémoire sur le tas (voir Annexe : La pile et le tas )
+
+### La déclaration `let`
+
+la déclaration `let` nomme une variable and la lie à un emplacement mémoire dans la pile. `let` permet également d'annoter le **type** de variable and initialiser sa valeur.
+
+```rust
+// créer une liaison
+let x;
+x = 1;
+
+// créer une liaison et annoter le type 
+let y: i32;
+
+// créer une liaison, annoter son type, et initialiser sa valeur.
+let z: i32 = 1;
+
+// créer un liaison, initialiser sa valeur, mais laisser le compilateur inférer son type.
+let w = 1; // Le compilateur infère que le type de `w` est `i32`.
+```
 
 ## Variables et mutabilité
 
@@ -213,47 +282,6 @@ println!("this is my variable : {:#?}", array);
 //    3
 // ]
 ```
-
-## [Annexe] Qu'est ce qu'un type de donnée et une valeur ?
-
-source : http://gradebot.org/doc/ipur/type.html
-
-Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données (0 ou 1).
-
-Un octet peut représenter différents types de données. Par exemple un octet peut représenter en entier non-signé de 8 bits, un entier signé de 7 bits ou un caractère ASCII. Un **type** définit un ensemble de valeurs valides et d'opération sur ces valeurs. Par exemple, le type `u8` définit des valeurs qui vont de 0 à 255 et les opérations mathématiques sur ces valeurs.
-
-Les types déterminent comment le compilateur traduit les octets en mémoire en valeur. Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilateur l'interprète comme :
-
-- un entier 128 **si le type est `u8`**
-- un entier -128 **si le type est `i8`**
-
-On peut diviser les types en 3 catégories :
-
-- les types primitifs atomiques
-- les types primitifs composés
-- les types personnalisés (custom)
-
-### Les types primitifs atomiques
-
-Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( 👨‍💻 *Note : ce trait `Copy` joue un rôle clef dans la compréhension de la* propriété *qu'on verra plus loin* ).
-
-- booléen :  `bool` 
-- entiers signés : `i8` `i16` `i32` `i64`, `isize`
-- entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
-- nombres flottant : `f32` `f64`
-- Textuels: `char` `str`
-
-### Les types primitifs composés
-
-- array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
-- tuple `let my_tuple = (1, "a");`
-
-> 💡 Composite primitive types automatically implement the Copy trait if all their constituent types implement the Copy trait.
-
-### Les types personnalisés
-
-- structures : `struct`
-- énumérations : `enum`
 
 ## Les types de donnés en Rust
 
