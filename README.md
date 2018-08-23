@@ -37,23 +37,6 @@ rustc main.rs
 ./main
 ```
 
-## 💡déboguer les variables avec les placeholders de "println!"
-
-```rust
-let array = [1, 2, 3];
-
-println!("this is my variable : {:?}", array);
-// affiche: "this is my variable : [1, 2, 3]"
-
-println!("this is my variable : {:#?}", array);
-// affiche :
-// this is my variable : [
-//    1,
-//    2,
-//    3
-// ]
-```
-
 # Gestion des paquets
 
 ## Cargo
@@ -214,7 +197,70 @@ let my_var = 5;
 let my_var = 6;
 ```
 
-## Les types de données
+## 💡déboguer les variables avec les placeholders de "println!"
+
+```rust
+let array = [1, 2, 3];
+
+println!("this is my variable : {:?}", array);
+// affiche: "this is my variable : [1, 2, 3]"
+
+println!("this is my variable : {:#?}", array);
+// affiche :
+// this is my variable : [
+//    1,
+//    2,
+//    3
+// ]
+```
+
+## [Annexe] Qu'est ce qu'un type de donnée et une valeur ?
+
+source : http://gradebot.org/doc/ipur/type.html
+
+Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données (0 ou 1).
+
+Un octet peut représenter différents types de données. Par exemple un octet peut représenter en entier non-signé de 8 bits, un entier signé de 7 bits ou un caractère ASCII. Un **type** définit un ensemble de valeurs valides et d'opération sur ces valeurs. Par exemple, le type `u8` définit des valeurs qui vont de 0 à 255 et les opérations mathématiques sur ces valeurs.
+
+Les types déterminent comment le compilateur traduit les octets en mémoire en valeur. Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilateur l'interprète comme :
+
+- un entier 128 **si le type est `u8`**
+- un entier -128 **si le type est `i8`**
+
+On peut diviser les types en 3 catégories :
+
+- les types primitifs atomiques
+- les types primitifs composés
+- les types personnalisés (custom)
+
+### les types primitifs atomiques
+
+Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( Note de traduction : ce trait `Copy` joue un rôle clef dans la compréhension de la *propriété* qu'on voit plus bas ).
+
+#### bool
+
+Le type `bool`a deux valeurs : `true`et `false`
+
+#### entiers
+
+Rust définit les entiers suivant qui sont stockés respectivement sur 1, 2, 4 ou 8 octets :
+
+* entiers signés : `i8` `i16` `i32` `i64`
+* entiers non-signés : `u8` `u16` `u32` `u64`
+
+Rust défini aussi des types d'entiers qui dépendent de la machine, whose lengths are large enough to store the addresses of the machine :
+
+* `isize` : entier signé
+* `usize	` entier non-signé
+
+#### Nombre à virgule flottante
+
+* `f32` : nombre flottant stocké sur 32 bits ( 4 octets )
+* `f64` : nombre flottant stocké sur 64 bits ( 8 octets )
+
+[ to be continued ... http://gradebot.org/doc/ipur/type.html#textual-types ]
+
+## Les types de donnés en Rust
 
 ### Type scalaires
 
