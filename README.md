@@ -1106,25 +1106,31 @@ Ca peut arriver si on doit implémenter un trait mais qu'on a rien à stocker au
 
 # Match
 
-**match** est une expression qui permet de remplacer des groupes complexes de if / else par quelque chose de plus puissant et expressif.
+`match` est une expression puissante très souvent utilisée en Rust et qui permet de remplacer des groupes complexes de if / else. Chaque branche d'un match est de la forme `motif => expression` , et l'expression exécutée sera celle dont le **motif** correspond à la valeur fournie à `match`.
 
-Match évalue une *expression* (ici "x") puis exécute la branche de code qui "match" avec la valeur de x. Ce sera la branche "2" dans le cas ci-dessous. 
 
 ```rust
 fn main() {
+
     let x = 2;
-    match x {
-        1 => println!("x vaut un"),
-        2 => println!("x vaut deux"),
-        // pattern "range"
-        3...5 => println!("x est compris entre trois et cinq"),
-        // pattern spécial qui veut dire "dans tous les autres cas)
-        _ => println!("x vaut a une valeur non traitée par les branches précédentes"),
-    }
+    
+    let result = match x {
+        0 => "zero",
+        1 => "one",
+        2 | 3 | 4 => "two, three, four",
+        5...9 => "five -- nine",
+        10 => {
+            println!("on peut ouvrir des accolades également");
+            "ten"
+        }
+        // "_° est un pattern spécial exécuté dans tous les autres cas.
+        _ => "other",
+    };
+    
+    // affiche "two, three four"
+    println!("{}", result);
 }
 ```
-
-Chaque branche est de la forme `pattern => expression`.
 
 # Énumérations 
 
@@ -1264,7 +1270,7 @@ L'enum `Result` propose aussi des méthodes utiles, que l'on verra dans un chapi
 
 ## Méthodes 
 
-Il est possible de créer des méthodes sur les Enums de la même manière que pour une structure :
+Il est possible de d'ajouter des méthodes sur les Enums de la même manière que pour une structure :
 
 ```rust
 impl Message {
@@ -1276,7 +1282,6 @@ impl Message {
 let m = Message::Write(String::from("hello"));
 m.call();
 ```
-
 
 # Collections
 
