@@ -158,6 +158,12 @@ let z: i32 = 1;
 let w = 1; // Le compilateur infère que le type de `w` est `i32`.
 ```
 
+> 💡 On peut lier plusieurs variables avec un seul mot clef let en utilisant le type `tuple`
+
+```rust
+  let (x, y, z) = (1, 2.0, "Hello, world");
+```
+
 ## Variables et mutabilité
 
 ### Immutabilité
