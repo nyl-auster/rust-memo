@@ -130,7 +130,9 @@ fn main() {
 }
 ```
 
-### Exemples courant de déclaration de variables
+### Exemples de déclaration de variables
+
+Un survol rapide des types de données couramment utilisées en Rust. Les détails concernant l'utilisattion de chaque type seront données plus bas.
 
 Entiers :
 
@@ -151,13 +153,26 @@ Flottants:
 let x: f64 = 37.2
 ```
 
+Vecteurs - une collection agrandissable de valeurs d'un même type :
+
+```rust
+let ids = vec![18, 21, 36, 98];
+ids.push(101);
+
+// affiche [18, 21, 36, 98, 101]
+println!("{:#?}", ids);
+```
+
 Les chaînes de caractères
 
 ```rust
-// créer une string de taille fixe et immutable appelée "slice" : son  type est *&str* . Il n'est pas possible de l'agrandir ultérieurement.
+// créer une string de taille fixe et immutable appelée "slice" : son  type est *&str* . 
+/// Il n'est PAS possible de l'agrandir ultérieurement.
 let greeting = "Hello there.";
 
-// la macro "format!" est la plus pratique pour créer une chaîne de caractères agrandissable à volonté (type "String") et y insérer des variables 
+// la macro "format!" est la plus pratique pour créer une chaîne
+// de caractères agrandissable à volonté (type "String") et 
+// y insérer des variables 
 let my_string = format!("les valeurs sont : {} {} {}", a, x, y);
 
 // concaténation de slices avec "format!" :
@@ -169,6 +184,27 @@ let my_string = format!("{} {}", hello, world);
 let mut s = String::from("Hello");
 s.push_str(", world.");
 println!("{}", s); // display "Hello, world."
+```
+
+Structures :
+
+```rust
+// l'annotation debug permettra d'afficher l'objet 
+// avec "println!("{:#?}", user)"
+#[derive(Debug)]
+struct User {
+    name: String,
+    id: u64,
+}
+
+fn main() {
+    let user = User {
+        name: String::from("Yann"),
+        id: 99,
+    };
+    println!("{:#?}", user)
+}
+
 ```
 
 > 💡 Il est possible de "shadow" une variable en ré-utilisant le mot clef let.
