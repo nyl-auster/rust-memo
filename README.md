@@ -1132,6 +1132,28 @@ fn main() {
 }
 ```
 
+> ⚠️  toutes les branches d'un bloc `match` doivent retourner le **même type**.
+
+`match` permet aussi de travailler avec les énumérations (voir prochain chapitre) :
+
+```rust
+enum Color {
+    Red,
+    Yellow,
+    Blue,
+}
+
+fn main() {
+    let my_favourite_color = Color::Yellow;
+    let result = match my_favourite_color {
+        Color::Red => "Rouge",
+        Color::Yellow => "Jaune",
+        Color::Blue => "Blue",
+    };
+    println!("{}", result);
+}
+```
+
 # Énumérations 
 
 Une énumération définit un **type** de données en énumérant la liste de ses valeurs possibles, nommées **variantes**. On peut traiter les valeurs des variantes grâce à l'expression `match`.
@@ -1171,7 +1193,7 @@ struct WriteMessage(String); // tuple struct
 struct ChangeColorMessage(i32, i32, i32); // tuple struct
 ```
 
-Voici comment instancier et accèder au différents types de données :
+Voici comment **instancier** puis **lire** les différents types de données :
 
 ```rust
 enum Message {
@@ -1200,14 +1222,14 @@ fn main() {
 
 ## Un cas concret d'utilisation des énumérations et de match
 
-Nous souhaitons créer une fonction `divide()` capable de faire une division et qui affiche un message d'erreur si un des deux nombres vaut `0`.
+Créons une fonction `divide()` capable de faire une simple division; mais qui affichera un message d'erreur courtois si un des deux nombres passés en argument vaut `0`.
 
-On code donc la fonction `divide()` de manière à ce qu'elle nous renvoie 
+Pour cela, on code donc la fonction `divide()` de manière à ce qu'elle nous renvoie :
 
 - *soit* le résultat de la division
 - *soit* un message d'erreur (une châine de caractère indiquant l'erreur rencontrée) si un nombre vaut `0`.
 
-Ce cas peut s'exprimer élégamment en Rust avec la combinaison d'une énumération et de l'expression `match`
+Ce cas de figure peut s'exprimer très élégamment en Rust avec la combinaison d'un `enum` et de l'expression `match` 
 
 ```rust
 // le retour de divide() pourra être soit un flottant, soit un message d'erreur
