@@ -321,7 +321,7 @@ let x = 142; // sera du type "entier 32 bits" par défault
 let y: u8 = 142;  // type entier non-signé 8 bits
 ```
 
-|longueur|  signé | non-signé| plage décimale signé | plage décimale signée
+|longueur|  signé | non-signé| en décimal signé | en décimal non-signé
 |--------|--------|----------|----|---
 |8-bits  | i8     | u8       | de -128 à +127 |  de 0 à 255
 |16-bits | i16    | u16      | de -32 768 à +32 767 | de 0 à 65 536
