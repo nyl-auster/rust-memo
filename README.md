@@ -100,7 +100,13 @@ source : http://gradebot.org/doc/ipur/type.html
 
 Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données (0 ou 1).
 
-Un octet peut représenter différents types de données. Par exemple un octet peut représenter en entier non-signé de 8 bits, un entier signé de 7 bits ou un caractère ASCII. Un **type** définit un ensemble de valeurs valides et d'opération sur ces valeurs. Par exemple, le type `u8` définit des valeurs qui vont de 0 à 255 et les opérations mathématiques sur ces valeurs.
+Un octet peut représenter différents types de données. Par exemple un octet peut représenter en entier non-signé de 8 bits, un entier signé de 7 bits ou un caractère ASCII. 
+
+> Un type c'est la convention d'interprétation de la séquence de bits qui constitue la variable. Le type de la variable spécifie aussi la longueur de cette séquence (8 bits, 32 bits, 64 bits);
+> 
+> source : https://fr.wikipedia.org/wiki/Variable_(informatique)
+
+Par exemple, le type `u8` définit des valeurs qui vont de 0 à 255 et les opérations mathématiques sur ces valeurs.
 
 Les types déterminent comment le compilateur traduit les octets en mémoire en valeur. Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilateur l'interprète comme :
 
@@ -163,6 +169,17 @@ let w = 1; // Le compilateur infère que le type de `w` est `i32`.
 ```rust
   let (x, y, z) = (1, 2.0, "Hello, world");
 ```
+
+### Portée 
+
+Un **bloc** est une région du programme contenue dans une paire d'accolades `{` `}`.
+
+La **portée** d'une variable est le bloc dans lequel elle a été déclarée. ( c'est à dire qu'elle n'est pas *accessible* en dehors de ce bloc )
+
+Quand la variable devient *hors de portée* ( c'est à dire quand le programme rencontre l'accolade fermante du bloc où elle a été déclarée), Rust libère la mémoire et *détruit* les données de la variables.
+
+"Détruit" signifie que le type de données de la variable implémente le trait `Drop`, et que le programme invoque Drop::drop() sur les données.
+
 
 ## Variables et mutabilité
 
