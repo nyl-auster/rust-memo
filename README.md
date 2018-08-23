@@ -166,11 +166,11 @@ let w = 1; // Le compilateur infère que le type de `w` est `i32`.
 
 ## Variables et mutabilité
 
-### Immutabilité
+### Immutabilité par défaut
 
-> 💡 Rust utilise le type de casse **snake_case** pour nommer les fonctions et variables. Exemple : "hello_world()"
+Dans la plupart des langages, un programme peut modifier la valeur de n'importe quelle variable. Cependant, modifier l'état d'un variable change l'état d'un programme et peut donc causer un bogue. En revanche, lire une variable est sûr, car cela ne change pas l'état du programme. **C'est pourquoi en Rust, les variables sont immutables par défaut**. 
 
-> ⚠️ Par défaut, les variables sont **immutables**. Le code suivant provoquera donc une erreur du compilateur.
+> ⚠️ En Rust on utilise le type de casse **snake_case** pour nommer les fonctions et variables. Exemple : "hello_world()"
 
 ```rust
 fn main() {
@@ -179,7 +179,7 @@ fn main() {
 }
 ```
 
-Il faut utiliser le mot-clef **mut** pour render une variable mutable.
+Il faut obligatoirement utiliser le mot-clef **mut** pour render une variable mutable.
 
 ```rust
 fn main() {
