@@ -237,26 +237,10 @@ On peut diviser les types en 3 catégories :
 
 Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( Note de traduction : ce trait `Copy` joue un rôle clef dans la compréhension de la *propriété* qu'on voit plus bas ).
 
-#### bool
-
-Le type `bool`a deux valeurs : `true`et `false`
-
-#### entiers
-
-Rust définit les entiers suivant qui sont stockés respectivement sur 1, 2, 4 ou 8 octets :
-
-* entiers signés : `i8` `i16` `i32` `i64`
-* entiers non-signés : `u8` `u16` `u32` `u64`
-
-Rust défini aussi des types d'entiers qui dépendent de la machine, whose lengths are large enough to store the addresses of the machine :
-
-* `isize` : entier signé
-* `usize	` entier non-signé
-
-#### Nombre à virgule flottante
-
-* `f32` : nombre flottant stocké sur 32 bits ( 4 octets )
-* `f64` : nombre flottant stocké sur 64 bits ( 8 octets )
+- booléen :  `bool` 
+- entiers signés : `i8` `i16` `i32` `i64`, `isize`
+- entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
+- nombres flottant : `f32` `f64`
 
 [ to be continued ... http://gradebot.org/doc/ipur/type.html#textual-types ]
 
