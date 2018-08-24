@@ -415,28 +415,50 @@ Les types composés peuvent regrouper plusieurs valeurs dans un seul type. Rust 
 
 #### Le type tuple
 
+Créer un tuple composé de différents types simples:
+
 ```rust
-// créer un tuple composé de différents types simples
-let tup: (i32, f64, u8) = (500, 6.4, 1);
-
-// lire les valeurs du tuple
-let (x, y, z) = tup;
-
-println!("The value of y is: {}", y); // affiche 6.4
-println!("{}", tup.1); // affiche aussi 6.4
+let tup: (i32, f64, u8, String) = (500, 6.4, 1, String::from("Hello"));
 ```
-#### Le type array
 
-Unlike a tuple, every element of an array must have the same type.
+L'inférence de type permet d'écrire simplement :
+```rust
+let tup = (500, 6.4, 1, String::from("Hello"));
+```
+
+Lire les valeurs du tuple :
+
+```rust
+let tup = (500, 6.4, 1, String::from("Hello"));
+
+// affiche "6.4"
+println!("{}", tup.1);
+
+// affiche aussi "6.4"
+let (x, y, z, hello) = tup;
+println!("{}", y);
+```
+
+#### Le type array
 
 Contrairement au *tuple*, chaque élément d'un *array* **doit être du même type**.
 
 ```rust
-let a = [1, 2, 3, 4, 5];
-// accédérer à la première et à la deuxième valeur du tableau.
-let first = a[0];
-let second = a[1];
+let ids: [i32; 5] = [12, 16, 23, 15, 99];
+
+// affiche "99'"
+println!("{}", ids[4]);
 ```
+
+L'inférence de type nous permet d'écrire tout simplement:
+
+```rust
+let ids = [12, 16, 23, 15, 99];
+
+// affiche "99'"
+println!("{}", ids[4]);
+```
+
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
 
 ## Fonctions 
