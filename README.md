@@ -323,6 +323,15 @@ println!("this is my variable : {:#?}", array);
 //    2,
 //    3
 // ]
+
+// affiche l'adresse mémoire, par exemple `0x7ffee458816c`
+// L'éperluette signifie "donne moi l'adresse mémoire de cette variable"
+// Mais Rust affiche par défaut la valeur au lieu de l'adresse dans println!,
+// on doit donc ajouter le formateur `:p` pour voir réellement l'adresse.
+println!("{:p}", &array);
+
+// affiche une valeur sous forme de séquences de bits, ici `11`.
+println!("{:b}", array[2]);
 ```
 
 ## Les types de donnés en Rust
