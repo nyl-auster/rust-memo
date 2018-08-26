@@ -5,9 +5,7 @@
 - [https://jvns.ca/blog/2017/11/27/rust-ref/](https://jvns.ca/blog/2017/11/27/rust-ref/)
 - Wikipedia pour les principes généraux de gestion de la mémoire par un programme
 
-# Commencer rapidement Rust
-
-## installation
+# Installer Rust
 
 Sur Mac & linux :
 
@@ -23,7 +21,7 @@ Si l'installation s'est bien déroulée, taper *rustup* dans le terminal doit af
 |rustc --version | display Rust version |
 | rustup doc | open local doc |
 
-## Hello world
+# Hello world
 
 ```rust
 // filname: main.rs
@@ -41,7 +39,7 @@ rustc main.rs
 ./main
 ```
 
-# Le gestionnaire de paquet Cargo
+# Le gestionnaire de paquet : Cargo
 
 ## Cargo
 
@@ -91,7 +89,9 @@ use rand::Rng;
 cargo doc --open
 ```
 
-# Concepts généraux
+# Prélude
+
+Rust requiert plus de connaissances "bas-niveau" que PHP ou JavaScript, le prélude contient un récapitulatif de ce qu'il faut savoir pour comprendre facilement Rust.
 
 ## Compile-time et run-time
 
@@ -105,7 +105,7 @@ Autrement dit, il s'agit de faire en sorte que toutes les erreurs qui pourraient
 
 En rust, on écrit donc beaucoup **pour** le compilateur; c'est à dire que notre code s'adresse avant tout à lui, dans une sémantique qui lui permet de déterminer si notre code comporte des risques d'erreurs; et nous force a améliorer par des messages d'erreurs pour éliminer tout risque d'erreur si nécessaire au moment de l'éxécution.
 
-## [Annexe] Prélude sur la mémoire
+## L'importance de bien comprendre la gestion de la mémoire
 
 Contrairement à PHP ou JavaScript, Rust vous demande, pour coder en tout sérénité, d'avoir une vision claire de la manière dont un programme gère la mémoire dont il a besoin. 
 
@@ -137,7 +137,11 @@ Si cela peut paraître contraignant de prime abord, cela donne aussi des super-p
 
 💡 Une chose très importante à comprendre en Rust, c'est qu'il doit donc savoir précisément *au moment de la compilation* à *quel moment* il doit libérer la mémoire allouée.
 
-## [Annexe] Qu'est ce qu'un type de donnée et une valeur ?
+## La pile et le tas
+
+[ TODO ]
+
+## Qu'est ce qu'un type de donnée et une valeur ?
 
 source : http://gradebot.org/doc/ipur/type.html
 
@@ -154,15 +158,15 @@ Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilate
 - un entier 128 **si le type est `u8`**
 - un entier -128 **si le type est `i8`**
 
-On peut diviser les types Rust en 3 catégories :
+On peut diviser les types Rust en 3 catégories, que l'on verra en détails plus loin.
 
-- les types primitifs atomiques
-- les types primitifs composés ( collections de primitifs atomiques )
-- les types personnalisés (custom, crée par le développeur)
+- les types *primitifs atomiques*
+- les types *primitifs composés* ( collections de primitifs atomiques )
+- les types *personnalisés* (custom, crée par le développeur)
 
 ### Les types primitifs atomiques
 
-Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( 👨‍💻 *Note : ce trait `Copy` joue un rôle clef dans la compréhension de la* propriété *qu'on verra plus loin* ).
+Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( 👨‍💻 *Note : ce trait `Copy` joue un rôle clef dans la gestion de la mémoire de ces variables et dans la compréhension de la *propriété* qu'on verra plus loin* ).
 
 - booléen :  `bool` 
 - entiers signés : `i8` `i16` `i32` `i64`, `isize`
@@ -170,68 +174,21 @@ Il sont définis par le compilateur et ne peuvent pas être personnalisés par l
 - nombres flottant : `f32` `f64`
 - Textuels: `char` `str`
 
-### Les types primitifs composés
+### Les types primitifs composés 
 
-- array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
-- tuple `let my_tuple = (1, "a");`
+Ce sont des collections de plusieurs valeurs.
 
-> 💡 Composite primitive types automatically implement the Copy trait if all their constituent types implement the Copy trait.
+- les array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
+- les tuple `let my_tuple = (1, "a");`
 
 ### Les types personnalisés
 
 - structures : `struct`
 - énumérations : `enum`
 
-## [Annexe] Variables et boxes 
+# Déclarer une variable
 
-A proprement parler, les *variables* représentent la mémoire sur la pile et les *boxes*, la mémoire sur le tas (voir Annexe : La pile et le tas )
-
-### La déclaration `let`
-
-la déclaration `let` nomme une variable and la lie à un emplacement mémoire dans la pile. `let` permet également d'annoter le **type** de variable and initialiser sa valeur.
-
-```rust
-// créer une liaison
-let x;
-x = 1;
-
-// créer une liaison et annoter le type 
-let y: i32;
-
-// créer une liaison, annoter son type, et initialiser sa valeur.
-let z: i32 = 1;
-
-// créer un liaison, initialiser sa valeur, mais laisser le compilateur inférer son type.
-let w = 1; // Le compilateur infère que le type de `w` est `i32`.
-```
-
-> 💡 On peut lier plusieurs variables avec un seul mot clef let en utilisant le type `tuple`
-
-```rust
-  let (x, y, z) = (1, 2.0, "Hello, world");
-```
-
-### Portée 
-
-Un **bloc** est une région du programme contenue dans une paire d'accolades `{` `}`.
-
-La **portée** d'une variable est le bloc dans lequel elle a été déclarée. ( c'est à dire qu'elle n'est pas *accessible* en dehors de ce bloc )
-
-Quand la variable devient *hors de portée* ( c'est à dire quand le programme rencontre l'accolade fermante du bloc où elle a été déclarée), Rust libère la mémoire et *détruit* les données de la variables.
-
-"Détruit" signifie que le type de données de la variable implémente le trait `Drop`, et que le programme invoque Drop::drop() sur les données.
-
-### Boîtes
-
-Pour créer une variable dans le tas, le programme crée une *boîte** (box). Dans l'exemple suivant, le programme place la valeur `1` dans le tas; and crée une variable `x` sur la pile qui pointer vers la valeur du tas.
-
-```rust
-let x = Box::new(1);
-```
-
-## Variables et mutabilité
-
-### Immutabilité par défaut
+## Immutabilité par défaut
 
 Dans la plupart des langages, un programme peut modifier la valeur de n'importe quelle variable. Cependant, modifier l'état d'un variable change l'état d'un programme et peut donc causer un bogue. En revanche, lire une variable est sûr, car cela ne change pas l'état du programme. **C'est pourquoi en Rust, les variables sont immutables par défaut**. 
 
@@ -265,7 +222,7 @@ fn main() {
 }
 ```
 
-### Exemples déclaration variables
+## Exemples déclaration variables
 
 Un survol rapide des types de données couramment utilisées en Rust. Les détails concernant l'utilisation de chaque type seront données plus loin.
 
@@ -280,6 +237,12 @@ let x: u8 = 42;
 
 // déclarer un nombre mutable
 let mut y = 27;
+```
+
+> 💡 On peut lier plusieurs variables avec un seul mot clef let en utilisant le type `tuple`. C'est possible car en réalité, la partie de code à gauche, entre `let` et `=`, est ce que Rust appelle un **motif** (pattern). Plus à ce sujet ultérieurement.
+
+```rust
+  let (x, y, z) = (1, 2.0, "Hello, world");
 ```
 
 Flottants:
@@ -374,6 +337,16 @@ println!("{:p}", &array);
 // affiche une valeur sous forme de séquences de bits, ici `11`.
 println!("{:b}", array[2]);
 ```
+
+### Portée des variables
+
+Un **bloc** est une région du programme contenue dans une paire d'accolades `{` `}`.
+
+La **portée** d'une variable est le bloc dans lequel elle a été déclarée : c'est à dire qu'elle n'est pas *accessible* en dehors de ce bloc.
+
+Quand la variable devient *hors de portée* ( c'est à dire quand le programme rencontre l'accolade fermante du bloc où elle a été déclarée) ET que le type de cette variable implémente le trait `Drop`, Rust libère la mémoire du tas en invoquant la fonction Drop::drop().
+
+Autrement dit : Le programme libére automatiquement la mémoire du **tas**, si besoin, à chaque fois qu'une accolade fermante est rencontrée. Cela vaut pour n'importe qu'elle accolade fermante; qu'il s'agisse de l'accolade de fin d'une fonction, ou d'accolades à l'intérieur d'une fonction.
 
 ## Les types de donnés en Rust
 
