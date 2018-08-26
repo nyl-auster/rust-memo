@@ -92,6 +92,18 @@ cargo doc --open
 
 # Concepts généraux
 
+## Compile-time et run-time
+
+En PHP ou JavaScript, il n'y pas de phase de compilation : ce sont des languages interprétées à la volée. Rust se situe à l'exact opposé : non seulement il requiert une phase de compilation mais surtout, le compilateur de Rust a un rôle de protecteur et de garde-fou très primordial. La promesse principale de Rust est : **si le programme compile, il ne plantera pas**.
+
+Donc en Rust, on distingue le "compile-time" ( temps de compilation ) et le run-time ( temps d'éxécution). Le temps d'éxécution, c'est le moment où le binaire résultant du programme compilé tourne concrètement sur le système d'exploitation.
+
+Le rôle du compilateur de Rust n'est pas seulement de compiler au optimiser votre programme en un fichier binaire; il est d'offrir des garanties solides que votre code tournera sans erreur.
+
+Autrement dit, il s'agit de faire en sorte que toutes les erreurs qui pourraient surgir normalement au moment du temps d'éxecution ou d'interprétation, soient découvertes dès la compilation.
+
+En rust, on écrit donc beaucoup **pour** le compilateur; c'est à dire que notre code s'adresse avant tout à lui, dans une sémantique qui lui permet de déterminer si notre code comporte des risques d'erreurs; et nous force a améliorer par des messages d'erreurs pour éliminer tout risque d'erreur si nécessaire au moment de l'éxécution.
+
 ## [Annexe] Prélude sur la mémoire
 
 Contrairement à PHP ou JavaScript, Rust vous demande, pour coder en tout sérénité, d'avoir une vision claire de la manière dont un programme gère la mémoire dont il a besoin. 
@@ -103,6 +115,26 @@ Il faut ainsi avoir conscience que la mémoire accessible par un programme se di
 - Dans le segment de données du programme
 
 C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire.
+
+La gestion de la mémoire d'un programme est complexe: car il faut **allouer** de la mémoire pour stocker la valeur de certaines variables (cela dépend du **type** de variable, nous y reviendrons ), puis évidemment la libérer quand nous n'en avons plus besoin pour ne pas encombrer la mémoire de l'ordinateur et permettre à d'autres programmes de profiter de la mémoire disponible.
+
+Dans certains languages, l'allocation de la mémoire est *manuelle* ( comme en `C` ); c'est à dire que le développeur doit allouer lui même de la mémoire pour stocker la valeur de certaines variables; puis ensuite la libérer. 
+
+Cela est sources de nombreux bugs : par exemple si on essaie de lire une variable dans la valeur a déjà été effacée de la mémoire; ou bien si on essaie de libérer un emplacement mémoire déjà libéré ! On risque aussi une **fuite de mémoire**, c'est à dire que le programme va allouer par erreur de manière incontrolée beaucoup plus de mémoire que nécessaire.
+
+PHP ou JavaScript reposent quant à eux sur un **récupérateur de mémoire** ( Garbage collector ) : le développeur ne s'occupe de rien mais et le programme fait de son mieux pour nettoyer la mémoire pendant le run-time. Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées ci-dessus. Mais cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme.
+
+Rust a choisi la Voie du milieu : le développeur ne s'occupe pas lui-même de l'allocation mémoire mais n'utilise pas non plus de récupérateur de mémoire ! Pour cela, il faut écrire notre code Rust de manière à ce qu'il sache **exactement et sans ambiguité possible, au moment de la compilation** comme il devra libérer la mémoire lors de son exécution.
+
+Cela passe par le respect d'un ensemble de règles : la **propriété** et le **temps de vie**, qui n'ont d'autres finalité que de permettre à Rust de savoir quand il pourra libérer la mémoire.  Pas de panique : le compilateur de Rust nous indique toujours de ce qu'il faut faire.
+
+Si cela peut paraître contraignant de prime abord, cela donne aussi des super-pouvoirs à Rust, par exemple :
+
+- On est **certain** de n'avoir aucune erreur de mémoire lors de l'éxécution si le programme compile ! Vous pouvez compiler puis aller boire une bière, ce qui est globalement la promesse principale de Rust.
+- On obtient un programme dont la mémoire est gérée de manière très performante
+- On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *récupérateur de mémoire*, parce que le récupérateur de mémoire s'appuie sur des fonctionnalités mémoires du système d'exploitation lui-même. 
+
+**La plus chose la plus important à comprendre en Rust, c'est qu'il doit comprendre au moment de la compilation à quel moment il doit libérer la mémoire**
 
 Il est indispensable de comprendre le rôle de chacun de ces segments pour être à l'aise en Rust avec par exemple les notions de **propriété**, de **référence**, de **copie**.
 
