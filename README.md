@@ -348,9 +348,9 @@ Quand la variable devient *hors de portée* ( c'est à dire quand le programme r
 
 Autrement dit : Le programme libére automatiquement la mémoire du **tas**, si besoin, à chaque fois qu'une accolade fermante est rencontrée. Cela vaut pour n'importe qu'elle accolade fermante; qu'il s'agisse de l'accolade de fin d'une fonction, ou d'accolades à l'intérieur d'une fonction.
 
-## Les types de donnés en Rust
+# Les types de donnés en Rust
 
-### Type scalaires
+## Type primitifs
 
 Il existe quatre types scalaires de données. Un type scalaire représente une données "atomique" par opposition à des types composés - comme des types listant plusieurs valeurs tels que *array*, *tuple* ou *String* (une String est une liste de *characters* )
 
@@ -361,7 +361,7 @@ Il existe quatre types scalaires de données. Un type scalaire représente une d
 
 > 💡 Note : ces types de données scalaires sont stockés uniquement dans la pile et supprimer de la pile lorsqu'il sont hors de portée. ( plus de détails plus bas concernant la *pile* et le *tas*)
 
-#### Le type entier
+### entier
 
 ```rust
 let x = 142; // sera du type "entier 32 bits" par défault
@@ -381,7 +381,7 @@ let y: u8 = 142;  // type entier non-signé 8 bits
 
 > 💡 Les entiers sont par défault du type i32 parce que c'est généralement le type le plus performant.
 
-#### Type nombre à virgule flottante
+### Nombre à virgule flottante
 
 ```rust
 let x = 2.0; // f64 par défault
@@ -414,15 +414,14 @@ let quotient = 56.7 / 32.2;
 let remainder = 43 % 5;
 ```
 
-
-#### Le type booléen
+### Booléen
 
 ```rust
 let x = true;
 let y: bool = false; // avec un type explicite
 ```
 
-#### Le type caractère
+#### Caractère
 
 ```rust
 let c = 'z';
@@ -432,19 +431,20 @@ let heart_eyed_cat = '😻';
 
 > ⚠️ Le type caractère est spécifié avec des guillemets simples tandis que les chaîne de caractères sont spécifiées avec des guillemets doubles.
 
-### Les types composés
+### Les types primitifs composés
 
 Les types composés peuvent regrouper plusieurs valeurs dans un seul type. Rust propose deux types composés primitifs : les **tuples** et les **arrays**.
 
-#### Le type tuple
+#### tuple
 
-Créer un tuple composé de différents types simples:
+Créer un tuple composé de différents *types primitifs*:
 
 ```rust
 let tup: (i32, f64, u8, String) = (500, 6.4, 1, String::from("Hello"));
 ```
 
-L'inférence de type permet d'écrire simplement :
+L'inférence de type permet d'écrire plus simplement :
+
 ```rust
 let tup = (500, 6.4, 1, String::from("Hello"));
 ```
@@ -462,7 +462,7 @@ let (x, y, z, hello) = tup;
 println!("{}", y);
 ```
 
-#### Le type array
+#### array
 
 Contrairement au *tuple*, chaque élément d'un *array* **doit être du même type**.
 
@@ -473,7 +473,7 @@ let ids: [i32; 5] = [12, 16, 23, 15, 99];
 println!("{}", ids[4]);
 ```
 
-L'inférence de type nous permet d'écrire tout simplement:
+L'inférence de type nous permet d'écrire plus simplement:
 
 ```rust
 let ids = [12, 16, 23, 15, 99];
@@ -484,7 +484,7 @@ println!("{}", ids[4]);
 
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
 
-## Références et pointeurs.
+# Références et pointeurs.
 
 En informatique, une référence est une **valeur** qui est un moyen d'accéder en lecture et/ou écriture à une donnée. Une référence n'est **pas** la donnée elle-même mais seulement une information sur sa localisation.
 
@@ -505,11 +505,11 @@ La variable `s` ci-dessus est une *référence* à un `s1`, ce qui donne  en mé
 
 En réalité, les types `String`, `Vec<T>`, `Box<T>` (et d'autres) sont des références - et donc des types de pointeurs. Ces variables stockent ( entre autres ) une adresse mémoire vers la valeur qu'elles stokent dans le tas.
 
-## Fonctions 
+# Fonctions 
 
 > 💡Note : Rust peut accéder à vos fonctions quel que soit l'endroit de leur déclaration.
 
-### exemples
+## exemples
 
 Vous **devez** déclarer le type de valeur retournée avec une flèche. Si vous ne le faites pas, Rust considérera que votre fonction retourne par défaut un *tuple* vide "()".
 
@@ -545,7 +545,7 @@ fn my_function(x: i32, y: i32) {
 }
 ```
 
-### Pièges pour les débutants
+## Pièges pour les débutants
 
 🚨 Ceci provoquera une erreur du compilateur
 ```rust
@@ -564,7 +564,7 @@ fn multiply(x: i32, y: i32) -> i32 {
 }
 ```
 
-### La différente entre arguments et paramètres
+## La différente entre arguments et paramètres
 
 > ⚠️ Les **paramètres** sont les variables spéciales utilisées dans la signature d'une fonction. Les **arguments** sont les valeurs concrètes passées au moment de l'appel de la fonction.
 
@@ -580,7 +580,7 @@ fn main() {
 }
 ```
 
-### La différente entre les expressions et les déclarations
+# La différence entre les expressions et les déclarations
 
 > ⚠️ Rust est un language basé sur les expressions, il est important de bien comprendre cette distinction.
 
@@ -621,9 +621,9 @@ let y = {
 };
 ``` 
 
-## Contrôle de flux
+# Contrôle de flux
 
-### les expressions if
+## les expressions if
 
 > 💡 Note : on parlera un peu plus loin des **patterns** qui sont une autre manière très puissante de gérer les conditions en Rust : https://doc.rust-lang.org/book/second-edition/ch18-03-pattern-syntax.html
 
@@ -679,9 +679,9 @@ fn main() {
 }
 ```
 
-### boucles
+## boucles
 
-#### loop
+### loop
 
 Le mot clef **loop** crée une boucle infinie. Il faut utiliser le mot-clef **break** pour sortir d'une boucle infinie.
 
@@ -699,7 +699,7 @@ fn main() {
 }
 ```
 
-#### while
+### while
 
 ```rust
 fn main() {
@@ -712,7 +712,7 @@ fn main() {
 }
 ```
 
-#### for
+### for
 
 > 💡 For est l'une des constructions de boucles les plus utilisées en Rust pour sa concision.
 
@@ -747,7 +747,7 @@ for (i, element) in test.iter().enumerate() {
 
 # Propriété( Ownership ) 
 
-> ⚠️ Ce chapitre **requiert** une connaissance basique à propos de la gestion de l'allocation mémoire avec la *pile* (stack) et le *tas* (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
+> ⚠️ Ce chapitre **requiert** une connaissance à propos de la gestion de l'allocation mémoire par un programme avec la *pile* (stack) et le *tas* (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
 
 La *propriété* est un principe essentiel et unique de Rust qui permet de gérer de manière très performante et fiable l'allocation et la libération de la mémoire du *tas* par votre programme. 
 
