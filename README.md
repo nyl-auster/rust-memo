@@ -145,13 +145,11 @@ Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste e
 
 Un octet peut représenter différents types de données. Par exemple un octet peut représenter en entier non-signé de 8 bits, un entier signé de 7 bits ou un caractère ASCII. 
 
-> Un type c'est la convention d'interprétation de la séquence de bits qui constitue la variable. Le type de la variable spécifie aussi la longueur de cette séquence (8 bits, 32 bits, 64 bits);
-> 
-> source : https://fr.wikipedia.org/wiki/Variable_(informatique)
-
 Par exemple, le type `u8` définit des valeurs qui vont de 0 à 255 et les opérations mathématiques sur ces valeurs.
 
-Les types déterminent comment le compilateur traduit les octets en mémoire en valeur. Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilateur l'interprète comme :
+Les types déterminent **comment le compilateur interprètent une séquence de bit d'un octets en une valeur** ( un caractère ? un entier ? etc ). 
+
+Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilateur l'interprète comme :
 
 - un entier 128 **si le type est `u8`**
 - un entier -128 **si le type est `i8`**
