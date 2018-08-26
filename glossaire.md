@@ -9,11 +9,9 @@ L'ensemble des entiers naturels, qu'il contienne ou non le nombre zéro, est not
 
 Il ne faut pas la confondre avec le **pointeur** qui est une **variable** contenant une **référence**.
 
-**pointeur:** Un pointer est une **variable** contenant une adresse mémoire sous forme d'entier naturel. Pour voir l'adresse mémoire d'une variable en Rust, il faut ajouter `&` devant la variable. Il faut aussi utiliser le formatteur `:p` avec `println!` car Rust **déréférence** automatiquement la variable à l'affichage (c'est à dire affiche sa valeur et pas l'adresse )
+**pointeur:** Un pointeur est une variable qui stocke l'adresse mémoire d'une autre valeur.  On dit qu'il *référence* un emplacement mémoire. On appelle *déréférencement** l'opération qui permet de lire la valeur de l'emplacement mémoire référencé. Un pointeur est le type de **référence** le plus simple et basique; il requiert une connaissance solide de l'architecture mémoire. Mal manipulé, ils sont source d'erreurs mémoire.
 
-```rust
-    println!("{:p}", &name);
-```
+**reference :** Une référence est une **valeur** qui permet d'accéder indirectement à une donnée. Comme le pointeur, la référence peut stocker l'emplacement mémoire pour accéder à la donnée mais peut aussi avoir d'autres stratégie pour retrouver le chemin de l'emplacement mémoire contenant la valeur.
 
 **déréférencement `*` :**  En Rust, l'étoile `*` est un opérateur préfixe qui dénote le *déréférencement*, c'est à dire l'accès à la donnée dont l'adresse est dans le pointeur.
 

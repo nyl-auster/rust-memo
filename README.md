@@ -511,9 +511,11 @@ println!("{}", ids[4]);
 
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
 
-## Références
+## Références et pointeurs.
 
 En informatique, une référence est une **valeur** qui est un moyen d'accéder en lecture et/ou écriture à une donnée. Une référence n'est **pas** la donnée elle-même mais seulement une information sur sa localisation.
+
+Les références en Rust **sont un type de pointeur** mais qui donnent lieu à des vérifications au moment de la compilation; pour garantir l'absence d'erreur mémoire au moment de l'éxécution du programme.
 
 ```rust
 let s1 = String::from("hello");
@@ -526,12 +528,9 @@ La variable `s` ci-dessus est une *référence* à un `s1`, ce qui donne  en mé
 <img width="500px" src="images/reference.svg" />
 
 - `s` est une **variable** dont la **valeur**  est l'emplacement mémoire de `s1`. Ces deux variables sont stockées sur la pile.
-- comme `s1` représente une chaîne de caractères qui peut grandir au run-time ( type String ), la valeur `hello` est stockée dans le tas, donc `s1` contient aussi une adresse mémoire qui pointe vers la valeur `hello`.
+- Comme `s1` est du type *String*, la valeur `hello` est en réalité stockée dans le tas. Donc `s1` est aussi en réalité un type de pointeur vers une adresse mémoire.
 
-Il y a deux types de références :
-
-- *les références partagées (shared reference) :*   `&`
-- *Les références muables :*	`&mut`
+En réalité, les types `String`, `Vec<T>`, `Box<T>` (et d'autres) sont des références - et donc des types de pointeurs. Ces variables stockent ( entre autres ) une adresse mémoire vers la valeur qu'elles stokent dans le tas.
 
 ## Fonctions 
 
