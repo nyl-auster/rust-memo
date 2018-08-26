@@ -134,9 +134,12 @@ Si cela peut paraître contraignant de prime abord, cela donne aussi des super-p
 - On obtient un programme dont la mémoire est gérée de manière très performante
 - On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *récupérateur de mémoire*, parce que le récupérateur de mémoire s'appuie sur des fonctionnalités mémoires du système d'exploitation lui-même. 
 
-**La plus chose la plus important à comprendre en Rust, c'est qu'il doit comprendre au moment de la compilation à quel moment il doit libérer la mémoire**
+💡 La plus chose la plus importante à comprendre en Rust, c'est qu'il doit donc comprendre *au moment de la compilation* à *quel moment* il doit libérer la mémoire allouée
+=
 
-Il est indispensable de comprendre le rôle de chacun de ces segments pour être à l'aise en Rust avec par exemple les notions de **propriété**, de **référence**, de **copie**.
+Il est également indispensable de comprendre le rôle de chacun  des segments de mémoiree pour être à l'aise en Rust avec par exemple les notions de **propriété**, de **référence**, de **copie**.
+
+
 
 ## [Annexe] Qu'est ce qu'un type de donnée et une valeur ?
 
