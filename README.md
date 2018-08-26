@@ -154,11 +154,11 @@ Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilate
 - un entier 128 **si le type est `u8`**
 - un entier -128 **si le type est `i8`**
 
-On peut diviser les types en 3 catégories :
+On peut diviser les types Rust en 3 catégories :
 
 - les types primitifs atomiques
-- les types primitifs composés
-- les types personnalisés (custom)
+- les types primitifs composés ( collections de primitifs atomiques )
+- les types personnalisés (custom, crée par le développeur)
 
 ### Les types primitifs atomiques
 
