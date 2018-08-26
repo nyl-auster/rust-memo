@@ -3,6 +3,7 @@
 - [La seconde édition du Livre de Rust](https://doc.rust-lang.org/book/second-edition/index.html)
 - [http://gradebot.org/doc/ipur/type.html](http://gradebot.org/doc/ipur/type.html)
 - [https://jvns.ca/blog/2017/11/27/rust-ref/](https://jvns.ca/blog/2017/11/27/rust-ref/)
+- Wikipedia pour les principes généraux de gestion de la mémoire par un programme
 
 # Commencer rapidement Rust
 
@@ -134,7 +135,7 @@ Si cela peut paraître contraignant de prime abord, cela donne aussi des super-p
 - On obtient un programme dont la mémoire est gérée de manière très performante
 - On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *récupérateur de mémoire*, parce que le récupérateur de mémoire s'appuie sur des fonctionnalités mémoires du système d'exploitation lui-même. 
 
-💡 La plus chose la plus importante à comprendre en Rust, c'est qu'il doit donc comprendre *au moment de la compilation* à *quel moment* il doit libérer la mémoire allouée
+💡 La plus chose la plus importante à comprendre en Rust, c'est qu'il doit donc décider *au moment de la compilation* à *quel moment* il doit libérer la mémoire allouée
 =
 
 Il est également indispensable de comprendre le rôle de chacun  des segments de mémoiree pour être à l'aise en Rust avec par exemple les notions de **propriété**, de **référence**, de **copie**.
