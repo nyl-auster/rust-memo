@@ -338,11 +338,36 @@ println!("{:p}", &array);
 println!("{:b}", array[2]);
 ```
 
-### Portée des variables
+# Références
+
+Il existe un autre type de variable, qu'on appelle **référence**, et qui joue un rôle important pour comprendre la notion à venir de **propriété** et la gestion de la mémoire par Rust.
+
+En informatique, une référence est une **valeur** qui est un moyen d'accéder en lecture et/ou écriture à une donnée. Une référence n'est **pas** la donnée elle-même mais seulement une information sur sa localisation dans la mémoire de l'ordinateur.
+
+Les références en Rust **sont un type de pointeur**; mais qui donnent lieu à des vérifications au moment de la compilation; et donc des garanties qu'il n'y aura pas d'erreur mémoire au moment de la compilation.
+
+Un exemple de création d'une référence :
+
+```rust
+let s1 = String::from("hello");
+let s = &s1;
+println!("{}", s);
+```
+
+La variable `s` ci-dessus est une *référence* à un `s1`, ce qui donne  en mémoire la représentation suivante :
+
+<img width="500px" src="images/reference.svg" />
+
+- `s` est une **variable** dont la **valeur**  est l'emplacement mémoire de `s1`. Ces deux variables sont stockées sur la pile car leur taille est connue au moment de la compilation.
+- Comme `s1` est du type *String*, sa valeur `hello` est stockée dans le tas. On voit aussi que `s1` est donc aussi, à son tour, en réalité un type de pointeur vers une adresse mémoire.
+
+En réalité, les types `String`, `Vec<T>`, `Box<T>` (et d'autres) sont des références - et donc des types de pointeurs : ces variables stockent une adresse mémoire vers leurs valeurs qui se trouvent dans le tas.
+
+### Portée des variable
 
 Un **bloc** est une région du programme contenue dans une paire d'accolades `{` `}`.
 
-La **portée** d'une variable est le bloc dans lequel elle a été déclarée : c'est à dire qu'elle n'est pas *accessible* en dehors de ce bloc.
+La **portée** d'une variable est le bloc dans lequel elle a été déclarée : c'est à dire qu'elle n'est pas *accessible* en dehors de ce bloc. Elle est seulement accessible entre sa déclaration et la fin de son bloc de déclaration.
 
 Quand la variable devient *hors de portée* ( c'est à dire quand le programme rencontre l'accolade fermante du bloc où elle a été déclarée) ET que le type de cette variable implémente le trait `Drop`, Rust libère la mémoire du tas en invoquant la fonction Drop::drop().
 
@@ -431,11 +456,11 @@ let heart_eyed_cat = '😻';
 
 > ⚠️ Le type caractère est spécifié avec des guillemets simples tandis que les chaîne de caractères sont spécifiées avec des guillemets doubles.
 
-### Les types primitifs composés
+## Les types primitifs composés
 
 Les types composés peuvent regrouper plusieurs valeurs dans un seul type. Rust propose deux types composés primitifs : les **tuples** et les **arrays**.
 
-#### tuple
+### tuple
 
 Créer un tuple composé de différents *types primitifs*:
 
@@ -462,7 +487,7 @@ let (x, y, z, hello) = tup;
 println!("{}", y);
 ```
 
-#### array
+### array
 
 Contrairement au *tuple*, chaque élément d'un *array* **doit être du même type**.
 
@@ -483,27 +508,6 @@ println!("{}", ids[4]);
 ```
 
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
-
-# Références et pointeurs.
-
-En informatique, une référence est une **valeur** qui est un moyen d'accéder en lecture et/ou écriture à une donnée. Une référence n'est **pas** la donnée elle-même mais seulement une information sur sa localisation.
-
-Les références en Rust **sont un type de pointeur** mais qui donnent lieu à des vérifications au moment de la compilation; pour garantir l'absence d'erreur mémoire au moment de l'éxécution du programme.
-
-```rust
-let s1 = String::from("hello");
-let s = &s1;
-println!("{}", s);
-```
-
-La variable `s` ci-dessus est une *référence* à un `s1`, ce qui donne  en mémoire la représentation suivante :
-
-<img width="500px" src="images/reference.svg" />
-
-- `s` est une **variable** dont la **valeur**  est l'emplacement mémoire de `s1`. Ces deux variables sont stockées sur la pile.
-- Comme `s1` est du type *String*, la valeur `hello` est en réalité stockée dans le tas. Donc `s1` est aussi en réalité un type de pointeur vers une adresse mémoire.
-
-En réalité, les types `String`, `Vec<T>`, `Box<T>` (et d'autres) sont des références - et donc des types de pointeurs. Ces variables stockent ( entre autres ) une adresse mémoire vers la valeur qu'elles stokent dans le tas.
 
 # Fonctions 
 
