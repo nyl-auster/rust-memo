@@ -1,10 +1,8 @@
-
-*Rust en une seule (grosse) page - work in progress.*
-
 *Sources :*
 
 - [La seconde édition du Livre de Rust](https://doc.rust-lang.org/book/second-edition/index.html)
 - [http://gradebot.org/doc/ipur/type.html](http://gradebot.org/doc/ipur/type.html)
+- [https://jvns.ca/blog/2017/11/27/rust-ref/](https://jvns.ca/blog/2017/11/27/rust-ref/)
 
 # Commencer rapidement Rust
 
@@ -42,7 +40,7 @@ rustc main.rs
 ./main
 ```
 
-# Gestion des paquets
+# Le gestionnaire de paquet Cargo
 
 ## Cargo
 
@@ -93,6 +91,20 @@ cargo doc --open
 ```
 
 # Concepts généraux
+
+## [Annexe] Prélude sur la mémoire
+
+Contrairement à PHP ou JavaScript, Rust vous demande, pour coder en tout sérénité, d'avoir une vision claire de la manière dont un programme gère la mémoire dont il a besoin. 
+
+Il faut ainsi avoir conscience que la mémoire accessible par un programme se divise en trois segments :
+
+- Sur la pile d'éxécution ( *stack* )
+- Dans le tas ( *heap* ) 
+- Dans le segment de données du programme
+
+C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire.
+
+Il est indispensable de comprendre le rôle de chacun de ces segments pour être à l'aise en Rust avec par exemple les notions de **propriété**, de **référence**, de **copie**.
 
 ## [Annexe] Qu'est ce qu'un type de donnée et une valeur ?
 
@@ -469,6 +481,28 @@ println!("{}", ids[4]);
 ```
 
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
+
+## Références
+
+En informatique, une référence est une **valeur** qui est un moyen d'accéder en lecture et/ou écriture à une donnée. Une référence n'est **pas** la donnée elle-même mais seulement une information sur sa localisation.
+
+```rust
+let s1 = String::from("hello");
+let s = &s1;
+println!("{}", s);
+```
+
+La variable `s` ci-dessus est une *référence* à un `s1`, ce qui donne  en mémoire la représentation suivante :
+
+<img width="500px" src="images/reference.svg" />
+
+- `s` est une **variable** dont la **valeur**  est l'emplacement mémoire de `s1`. Ces deux variables sont stockées sur la pile.
+- comme `s1` représente une chaîne de caractères qui peut grandir au run-time ( type String ), la valeur `hello` est stockée dans le tas, donc `s1` contient aussi une adresse mémoire qui pointe vers la valeur `hello`.
+
+Il y a deux types de références :
+
+- *les références partagées (shared reference) :*   `&`
+- *Les références muables :*	`&mut`
 
 ## Fonctions 
 
