@@ -115,7 +115,7 @@ Il faut ainsi avoir conscience que la mémoire accessible par un programme se di
 - Dans le tas ( *heap* ) 
 - Dans le segment de données du programme
 
-C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire.
+C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire. 
 
 La gestion de la mémoire d'un programme est complexe: car il faut **allouer** de la mémoire pour stocker la valeur de certaines variables (cela dépend du **type** de variable, nous y reviendrons ), puis évidemment la libérer quand nous n'en avons plus besoin pour ne pas encombrer la mémoire de l'ordinateur et permettre à d'autres programmes de profiter de la mémoire disponible.
 
@@ -135,12 +135,7 @@ Si cela peut paraître contraignant de prime abord, cela donne aussi des super-p
 - On obtient un programme dont la mémoire est gérée de manière très performante
 - On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *récupérateur de mémoire*, parce que le récupérateur de mémoire s'appuie sur des fonctionnalités mémoires du système d'exploitation lui-même. 
 
-💡 La plus chose la plus importante à comprendre en Rust, c'est qu'il doit donc décider *au moment de la compilation* à *quel moment* il doit libérer la mémoire allouée
-=
-
-Il est également indispensable de comprendre le rôle de chacun  des segments de mémoiree pour être à l'aise en Rust avec par exemple les notions de **propriété**, de **référence**, de **copie**.
-
-
+💡 Une chose très importante à comprendre en Rust, c'est qu'il doit donc savoir précisément *au moment de la compilation* à *quel moment* il doit libérer la mémoire allouée.
 
 ## [Annexe] Qu'est ce qu'un type de donnée et une valeur ?
 

@@ -5,3 +5,4 @@
 - pourquoi la syntaxe iter().enumerable() dans les boucles for  ?
 - le chapitre sur string slices m'a semblé confus sur certaines erreurs renvoyées https://doc.rust-lang.org/book/second-edition/ch04-03-slices.html
 - les enums, qui ne correspondant pas à ce à quoi je m'attendais (une simple liste de valeurs comme "bleu", "jaune", "rouge") : le fait qu'il soit indispensable de passer par match pour en manipuler les valeurs; le fait qu'il n'est pas évident qu'une variante soit en réalité une collection implicite de structures, d'autant qu'à ce moment du livre, "tuple struct" ou "unit struct" sont des structures pas encore vues je crois.
+- la différence entre un pointeur, une référence, un emprunt (est ce qu'avoir un "mot" ptr qui pointe vers un emplacement mémoire fait d'une variable un pointeur ou une référence ?)
