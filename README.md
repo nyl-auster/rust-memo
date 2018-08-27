@@ -105,9 +105,9 @@ Autrement dit, il s'agit de faire en sorte que toutes les erreurs qui pourraient
 
 En rust, on écrit donc beaucoup **pour** le compilateur; c'est à dire que notre code s'adresse avant tout à lui, dans une sémantique qui lui permet de déterminer si notre code comporte des risques d'erreurs; et nous force a améliorer par des messages d'erreurs pour éliminer tout risque d'erreur si nécessaire au moment de l'éxécution.
 
-## L'importance de bien comprendre la gestion de la mémoire
+## La gestion de la mémoire 
 
-Contrairement à PHP ou JavaScript, Rust vous demande, pour coder en tout sérénité, d'avoir une vision claire de la manière dont un programme gère la mémoire dont il a besoin. 
+Contrairement à PHP ou JavaScript, Rust vous demande, pour coder en tout sérénité, d'avoir un modèle mental clair de la manière dont un programme gère la mémoire dont il a besoin.
 
 Il faut ainsi avoir conscience que la mémoire accessible par un programme se divise en trois segments :
 
@@ -119,27 +119,84 @@ C'est à dire que le programme peut écrire et lire des données à partir de ce
 
 La gestion de la mémoire d'un programme est complexe: car il faut **allouer** de la mémoire pour stocker la valeur de certaines variables (cela dépend du **type** de variable, nous y reviendrons ), puis évidemment la libérer quand nous n'en avons plus besoin pour ne pas encombrer la mémoire de l'ordinateur et permettre à d'autres programmes de profiter de la mémoire disponible.
 
+### Gestion manuelle de la mémoire
+
 Dans certains languages, l'allocation de la mémoire est *manuelle* ( comme en `C` ); c'est à dire que le développeur doit allouer lui même de la mémoire pour stocker la valeur de certaines variables; puis ensuite la libérer. 
 
 Cela est sources de nombreux bugs : par exemple si on essaie de lire une variable dans la valeur a déjà été effacée de la mémoire; ou bien si on essaie de libérer un emplacement mémoire déjà libéré ! On risque aussi une **fuite de mémoire**, c'est à dire que le programme va allouer par erreur de manière incontrolée beaucoup plus de mémoire que nécessaire.
 
-PHP ou JavaScript reposent quant à eux sur un **récupérateur de mémoire** ( Garbage collector ) : le développeur ne s'occupe de rien mais et le programme fait de son mieux pour nettoyer la mémoire pendant le run-time. Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées ci-dessus. Mais cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme.
+### Gestion automatique de la mémoire
 
-Rust a choisi la Voie du milieu : le développeur ne s'occupe pas lui-même de l'allocation mémoire mais n'utilise pas non plus de récupérateur de mémoire ! Pour cela, il faut écrire notre code Rust de manière à ce qu'il sache **exactement et sans ambiguité possible, au moment de la compilation** comme il devra libérer la mémoire lors de son exécution.
+PHP ou JavaScript reposent quant à eux sur un **ramasse-miettes ou récupération de mémoire** ( Garbage collector ) : le développeur ne s'occupe de rien mais et le programme fait de son mieux pour nettoyer la mémoire au cours de son exécution. 
 
-Cela passe par le respect d'un ensemble de règles : la **propriété** et le **temps de vie**, qui n'ont d'autres finalité que de permettre à Rust de savoir quand il pourra libérer la mémoire.  Pas de panique : le compilateur de Rust nous indique toujours de ce qu'il faut faire.
+Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées ci-dessus. Mais cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme : le programme doit en effet déduire par lui même quels sont les "déchets" à évacuer; puis déclencher quand il le juge nécesaire une tournée de suppression de ces déchets identifiés. 
+
+Établir un algorithme pour établir avec certitude quelles sont les valeurs qui ne sont plus utiles au programme n'est par ailleurs pas simple; et une erreur dans cet algorithme peut provoquer une fuite de mémoire. A contrario, une amélioration de cette algorithme peut se traduire par un gain de performance important pour le langage. ( voir par exemple cette page de la documentation de PHP qui explique une amélioration importante du Garbage collector : [http://php.net/manual/fr/features.gc.performance-considerations.php](http://php.net/manual/fr/features.gc.performance-considerations.php) )
+
+### Rust : la Voie du milieu
+
+Une fonctionnalité phare de *Rust* est la **garantie de sûreté de la mémoire** : il s'agit de garantir au développeur que si le programme compile, il n'y aura aucune erreur de mémoire pendant l'exécution du programme : pas de fuite de mémoire, pas d'accès involontaire à une valeur à une valeur erronée. 
+
+Pour parvenir à cela, en Rust, le développeur ne s'occupe pas lui-même de l'allocation / libération de mémoire; mais le programme n'utilise pas non plus de rammase-miette ! 
+
+AU lieu de cela, il faut écrire notre code Rust de manière à ce qu'il sache **exactement et sans ambiguité possible, au moment de la compilation** comme il devra libérer la mémoire lors de son exécution. Cela passe par le respect d'un ensemble de règles comme la **propriété** et le **temps de vie**, qui n'ont d'autres finalité que de permettre à Rust de savoir quand et comment il pourra libérer la mémoire de manière sûre.  
+
+Autrement dit, en Rust on écrit du **code déterministe en terme d'usage de mémoire** ; c'est à dire que la sémantique du code doit permettre de déterminer précisément et sans aucune ambiguité ce qu'il se passera au moment de l'éxécution. Si ce n'est pas le cas, le compilateur vous le fait savoir.
+
+Le compilateur vous avertira donc souvent ( avec un message bien précis) que tel ou tel code,bien que fonctionnel, n'est pas valide car le compilateur ne peut pas **déterminer** comment libérer la mémoire avec la certitude de ne pas déclencher une erreur au moment de l'éxécution du programme.
 
 Si cela peut paraître contraignant de prime abord, cela donne aussi des super-pouvoirs à Rust, par exemple :
 
-- On est **certain** de n'avoir aucune erreur de mémoire lors de l'éxécution si le programme compile ! Vous pouvez compiler puis aller boire une bière, ce qui est globalement la promesse principale de Rust.
-- On obtient un programme dont la mémoire est gérée de manière très performante
-- On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *récupérateur de mémoire*, parce que le récupérateur de mémoire s'appuie sur des fonctionnalités mémoires du système d'exploitation lui-même. 
+- Si ça compile, vous pouvez aller boire une bière en étant certain de n'avoir aucun problème de gestion de la mémoire.
+- On obtient un programme dont la mémoire est gérée de manière plus  performante qu'avec un ramasse-miette.
+- On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *ramasse-miette*, parce que le ramasse-miette s'appuie justement sur des fonctionnalités mémoires bas-niveau du système d'exploitation lui-même. 
 
-💡 Une chose très importante à comprendre en Rust, c'est qu'il doit donc savoir précisément *au moment de la compilation* à *quel moment* il doit libérer la mémoire allouée.
+## La pile d'éxécution et le tas
 
-## La pile et le tas
+Si vous pouvez coder tranquillement du PHP et du JavaScript sans vous me demander si la valeur d'une variable est stockée dans la pile d'éxécution ( the stack ) ou bien dans le tas ( heap ); il n'en va pas de même en Rust. 
 
-[ TODO ]
+En effet, les problématiques de la gestion de mémoire évoqués ci-dessus concerne uniquement la mémoire du *tas*. Il faut donc impérativement savoir si la valeur de la variable que l'on manipule est stockée sur la pile ou dans le tas.
+
+### La pile d'éxécution
+
+> *représentation naïve du principe de base d'une pile*
+<img width="500px" src="images/stack.png" />
+
+
+La mémoire de la pile d'éxécution a une mission principale : mémoriser la fonction du programme actuellement en cours d'éxécution et savoir à quelle partie du code ( l'*adresse de retour* ) retourner une fois cette fonction termnée. 
+
+> 💡 Il serait plus exact de parler de sous-programme (subroutine) que de fonction : c'est à dire une portion de programme qui peut s'éxécuter indépendamment du reste du programme. Une fonction est un type de sous-programme.
+
+Son nom de "pile" vient du fait, que la donnée tout en haut de la pile est toujours la prochaine adresse de retour où le programme doit se rendre. Il suffit donc de "dépiler" (pop) pour connaître la prochaine étape. Cette opération est très rapide.
+
+La pile stocke aussi les informations dont a besoin la fonction (ou le sous-programme ) pour s'éxécuter, comme par exemple les variables locales ou les arguments de la fonction.
+
+Par exemple, supposons le pseudo code suivant : 
+
+```rust
+fn DrawSquare() {
+  Drawline(pointA, pointB);
+  // ... reste du code pour construire un carré
+}
+```
+La pile d'éxécution correspondant à cette portion de code peut être schématisée ainsi :
+
+<img width="500px" src="images/stack-instance.svg" />
+> source : [https://en.wikipedia.org/wiki/Call_stack](https://en.wikipedia.org/wiki/Call_stack)
+
+On voit ici qu'en réalité la pile est composées de **trames** (*frames*). On voit en <strong style="color:green;">vert</strong> la trame pour éxécuter `Drawline(pointA, pointB);` et en <strong style="color:blue;">bleu</strong>  la trame pour éxécuter `DrawSquare`.
+
+Les pointeurs (*Stack pointer* et *Frame pointer*) permettent de savoir ce qui est actuellement en cours d'éxécution et où se trouve l'adresse de retour de la prochaine instruction de code à éxécuter.
+
+### Le tas : parce qu'on ne peut pas tout stocker dans la pile d'éxécution
+
+La plupart des programmes ont besoin, au cours de leur exécution, d'allouer dynamiquement de la mémoire de manière non-prédictible, puis de la restituer au système. 
+
+Par exemple, si on propose à un utilisateur de rentrer un long texte en markdown, sans limite de caractères, et qu'on veut lui afficher en temps réel une prévisualisation du rendu final de son texte. On ne connaît alors pas la taille finale du texte; mais on a pourtant besoin de le stocker au fur et à mesure en mémoire pour pouvoir générer puis afficher le rendu markdown.
+
+Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libérer cette mémoire quand cette variable n'a plus d'utilité.
+
+[ A compléter ]
 
 ## Qu'est ce qu'un type de donnée et une valeur ?
 
@@ -365,6 +422,8 @@ En réalité, les types `String`, `Vec<T>`, `Box<T>` (et d'autres) sont des réf
 
 ### Portée des variable
 
+## Bloc et libération de mémoire
+
 Un **bloc** est une région du programme contenue dans une paire d'accolades `{` `}`.
 
 La **portée** d'une variable est le bloc dans lequel elle a été déclarée : c'est à dire qu'elle n'est pas *accessible* en dehors de ce bloc. Elle est seulement accessible entre sa déclaration et la fin de son bloc de déclaration.
@@ -372,6 +431,33 @@ La **portée** d'une variable est le bloc dans lequel elle a été déclarée : 
 Quand la variable devient *hors de portée* ( c'est à dire quand le programme rencontre l'accolade fermante du bloc où elle a été déclarée) ET que le type de cette variable implémente le trait `Drop`, Rust libère la mémoire du tas en invoquant la fonction Drop::drop().
 
 Autrement dit : Le programme libére automatiquement la mémoire du **tas**, si besoin, à chaque fois qu'une accolade fermante est rencontrée. Cela vaut pour n'importe qu'elle accolade fermante; qu'il s'agisse de l'accolade de fin d'une fonction, ou d'accolades à l'intérieur d'une fonction.
+
+La manière dont est précisément libérée la mémoire est détaillée plus loin.
+
+## Portée implicite
+
+Rust crée une portée *implicite* pour chaque déclaration `let`: Ainsi le code suivant :
+
+```rust
+{
+    let x;
+    let y = 0;
+    // Error: the reference `x` outlives the owner `y`.
+    x = &y;
+}
+```
+
+est interprété par Rust comme ceci :
+```rust
+{
+    let x;
+    {
+        let y = 0;
+        // Error: the reference `x` outlives the owner `y`.
+        x = &y;
+    } 
+}
+```
 
 # Les types de donnés en Rust
 
