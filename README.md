@@ -217,36 +217,36 @@ Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilate
 
 # Déclarer une variable
 
-## Exemples déclaration variables
+## Exemples de déclaration variables
 
-Un survol rapide des types de données couramment utilisées en Rust. Les détails concernant l'utilisation de chaque type seront données plus loin.
+En rust, on déclare une variable avec le mot clef `let`. Voici un survol rapide de déclaration de types de variable couramment utilisés.
 
-Entiers :
+**Entiers :**
 
 ```rust
-// Un nombre immutable avec le type par défaut i32 ( 32 bits signés )
-let a = 42;
-
 // Déclarer un nombre immutable compris en 0 et 255.
 let x: u8 = 42;
 
-// déclarer un nombre mutable
+// Un nombre immutable avec le type par défaut i32 ( 32 bits signés )
+let a = 42;
+
+// déclarer un nombre mutable avec le type par défaut i32
 let mut y = 27;
 ```
 
-> 💡 On peut lier plusieurs variables avec un seul mot clef let en utilisant le type `tuple`. C'est possible car en réalité, la partie de code à gauche, entre `let` et `=`, est ce que Rust appelle un **motif** (pattern). Plus à ce sujet ultérieurement.
+> 💡 On peut lier plusieurs variables avec un seul mot clef `let` en utilisant le type `tuple`. C'est possible car en réalité, la partie de code à gauche, entre `let` et `=`, est ce que Rust appelle un **motif** (pattern). Plus à ce sujet ultérieurement.
 
 ```rust
   let (x, y, z) = (1, 2.0, "Hello, world");
 ```
 
-Flottants:
+**Flottants:**
 
 ```rust
 let x: f64 = 37.2
 ```
 
-Vecteurs - une collection agrandissable de valeurs d'un même type :
+**Vecteurs** - une collection agrandissable de valeurs d'un même type :
 
 ```rust
 let ids = vec![18, 21, 36, 98];
@@ -256,27 +256,25 @@ ids.push(101);
 println!("{:#?}", ids);
 ```
 
-Les chaînes de caractères
+**Les chaînes de caractères**
 
 ```rust
-// créer une string de taille fixe et immutable appelée "slice" : son  type est *&str* . 
-/// Il n'est PAS possible de l'agrandir ultérieurement.
-let greeting = "Hello there.";
-
-// la macro "format!" est la plus pratique pour créer une chaîne
-// de caractères agrandissable à volonté (type "String") et 
-// y insérer des variables 
-let my_string = format!("les valeurs sont : {} {} {}", a, x, y);
-
-// concaténation de slices avec "format!" :
-let hello = "hello";
-let world = "world";
-let my_string = format!("{} {}", hello, world);
-
-// On peut aussi déclarer un type String de la manière suivante :
+// Créer une chaîne de caractère UTF-8 et agrandissable : 
 let mut s = String::from("Hello");
 s.push_str(", world.");
 println!("{}", s); // display "Hello, world."
+
+// la macro "format!" est pratique pour créer une chaîne
+// de caractères agrandissable (type "String") et 
+// y insérer des valeurs de variables ou faire des concaténations de chaînes de caractères.
+let my_string = format!("les valeurs sont : {} {} {}", a, x, y);
+
+// créer une string de taille fixe et immutable appelée "slice" 
+// Son  type est *&str* .  
+// Cette chaîne de caractère sera stockée dans la mémoire statique du programme 
+// ( il s'agit d'un espace mémoire pré-réservé dans le fichier exécutable lui-même )
+/// Il n'est donc PAS possible de l'agrandir ultérieurement.
+let greeting = "Hello there.";
 ```
 
 Structures :
