@@ -215,34 +215,6 @@ Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilate
 - un entier 128 **si le type est `u8`**
 - un entier -128 **si le type est `i8`**
 
-On peut diviser les types Rust en 3 catégories, que l'on verra en détails plus loin.
-
-- les types *primitifs atomiques*
-- les types *primitifs composés* ( collections de primitifs atomiques )
-- les types *personnalisés* (custom, crée par le développeur)
-
-### Les types primitifs atomiques
-
-Il sont définis par le compilateur et ne peuvent pas être personnalisés par l'utilisateur. Le compilateur implémentent le trait `Copy` sur ces types. ( 👨‍💻 *Note : ce trait `Copy` joue un rôle clef dans la gestion de la mémoire de ces variables et dans la compréhension de la *propriété* qu'on verra plus loin* ).
-
-- booléen :  `bool` 
-- entiers signés : `i8` `i16` `i32` `i64`, `isize`
-- entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
-- nombres flottant : `f32` `f64`
-- Textuels: `char` `str`
-
-### Les types primitifs composés 
-
-Ce sont des collections de plusieurs valeurs.
-
-- les array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
-- les tuple `let my_tuple = (1, "a");`
-
-### Les types personnalisés
-
-- structures : `struct`
-- énumérations : `enum`
-
 # Déclarer une variable
 
 ## Immutabilité par défaut
@@ -459,9 +431,27 @@ est interprété par Rust comme ceci :
 }
 ```
 
-# Les types de donnés en Rust
+# Les types de données en Rust 
 
-## Type primitifs
+## Vue d'ensemble
+
+On peut diviser les types de Rust en 3 catégories, que l'on verra en détail au fil de l'eau.
+
+- les types *primitifs atomiques*
+	- booléen :  `bool` 
+	- entiers signés : `i8` `i16` `i32` `i64`, `isize`
+	- entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
+	- nombres flottant : `f32` `f64`
+	- Textuels: `char` `str`
+- les types *primitifs composés* ( collections de primitifs atomiques )
+	- les array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
+	- les tuples `let my_tuple = (1, "a");`
+- les types *personnalisés* (custom, crée par le développeur)
+	- structures : `struct`
+	- énumérations : `enum`
+
+
+## Type primitifs atomatiques
 
 Il existe quatre types scalaires de données. Un type scalaire représente une données "atomique" par opposition à des types composés - comme des types listant plusieurs valeurs tels que *array*, *tuple* ou *String* (une String est une liste de *characters* )
 
