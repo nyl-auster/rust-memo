@@ -454,6 +454,14 @@ est interprété par Rust comme ceci :
 }
 ```
 
+## durée de vie (lifetime)
+
+La durée de vie d'une variable **est** sa portée : elle est détruite quand elle est hors de portée. La plupart du temps Rust, à partir des portées, parvient donc à déduire implicitement les temps de vie des variables en se basant sur les accolades.
+
+Dans le cas des références, pour satisfaire à la garantie de sûreté de la mémoire; Rust peut avoir besoin d'indications supplémentaires pour être certain que la référence ne pointe pas vers une variable qui n'existe plus : c'est à ça que servent les **durées de vie**.
+
+Ainsi, quand Rust ne peut garantir avec certitude à la compilation qu'une variable a une durée de vie supérieure ou égale à ses références; le compilateur produira une erreur nous incitant à expliciter la durée de vie minimale. Il s'en servir pour libérer la mémoire d'une manière qui garantit l'absence d'erreur au moment de l'éxécution.
+
 # Les types de données 
 
 ## Vue d'ensemble
