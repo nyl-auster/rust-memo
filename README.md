@@ -429,7 +429,9 @@ Dès que le programme rencontre une accolade fermante, Rust appelle automatiquem
 Dans l'exemple ci-dessus, Rust sait qu'il peut supprimer "hello" de la mémoire du tas; car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades. 
 
 
-## durée de vie (lifetime), portées et portées implicites.
+## durée de vie (lifetime) et portées implicites.
+
+### Lien entre portée et durée de vie
 
 La notions de **durée de vie** des variables et de **portée** sont étroitement liées.
 
@@ -446,11 +448,13 @@ Par défaut la durée de vie d'une variable comment à sa déclaration avec le m
 
 Rust déduit donc la durée de vie par défaut d'une variable des accolades de son bloc de déclaration.
 
+### Le cas des références
+
 Mais dans le cas des **références**, pour satisfaire à la garantie de sûreté de la mémoire; Rust peut avoir besoin d'indications supplémentaires pour être certain que la référence ne pointe pas vers une variable qui n'existe plus, ou vers une valeur qui n'est plus la valeur originellement pointée : c'est à ça que servent les **durées de vie explicites.**
 
 Ainsi, quand Rust ne peut garantir avec certitude à la compilation qu'une variable ou valeur possède une durée de vie supérieure ou égale à ses références; le compilateur produira une erreur nous incitant à expliciter la durée de vie minimale des variables. Il s'en servira pour libérer la mémoire d'une manière qui garantit l'absence d'erreur au moment de l'éxécution.
 
-### Portée implicite
+#### Les Portées implicites
 
 Rust crée en réalité une **portée implicite** pour chaque déclaration `let`. Cette portée commence juste avant au mot clef `let` et se termine juste avant que la variable sort de la portée **explicite**
 
