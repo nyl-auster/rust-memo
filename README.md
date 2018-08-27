@@ -454,6 +454,8 @@ Mais dans le cas des **références**, pour satisfaire à la garantie de sûret�
 
 Ainsi, quand Rust ne peut garantir avec certitude à la compilation qu'une variable ou valeur possède une durée de vie supérieure ou égale à ses références; le compilateur produira une erreur nous incitant à expliciter la durée de vie minimale des variables. Il s'en servira pour libérer la mémoire d'une manière qui garantit l'absence d'erreur au moment de l'éxécution.
 
+C'est le **vérificateur d'emprunt** ( Borrow checker ) qui est chargé d'assurer que la variable vers laquelle pointe une référence existe au moins aussi longtemps que la référence elle-même. En effet, en Rust, on considère une référence comme un "emprunt" d'une valeur à une variable. Cette notion est détaillées dans le chapitre sur la **propriété**.
+
 #### Les Portées implicites
 
 Rust crée en réalité une **portée implicite** pour chaque déclaration `let`. Cette portée commence juste avant au mot clef `let` et se termine juste avant que la variable sort de la portée **explicite**
