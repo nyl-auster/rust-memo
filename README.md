@@ -428,39 +428,71 @@ Dès que le programme rencontre une accolade fermante, Rust appelle automatiquem
 
 Dans l'exemple ci-dessus, Rust sait qu'il peut supprimer "hello" de la mémoire du tas; car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades. 
 
-## Portée implicite
 
-Rust crée une portée *implicite* pour chaque déclaration `let`: Ainsi le code suivant :
+## durée de vie (lifetime) et portée implicite.
+
+Les notions de **durée de vie** des variables et de leur portée son étroitement liées.
+
+Par défaut la durée de vie d'une variable est sa portée (son bloc de déclaration, défini par des accolades `{` `}`) : elle est détruite quand elle est hors de portée. C'est ainsi que Rust parvient à déduire de façon **implicite** la durée de de vie d'une variables, sans autre indication de la part du code.
+
+Mais dans le cas des **références**, pour satisfaire à la garantie de sûreté de la mémoire; Rust peut avoir besoin d'indications supplémentaires pour être certain que la référence ne pointe pas vers une variable qui n'existe plus, ou vers une valeur qui n'est plus la valeur originellement pointée : c'est à ça que servent les **durées de vie explicites.**
+
+Ainsi, quand Rust ne peut garantir avec certitude à la compilation qu'une variable ou valeur possède une durée de vie supérieure ou égale à ses références; le compilateur produira une erreur nous incitant à expliciter la durée de vie minimale des variables. Il s'en servira pour libérer la mémoire d'une manière qui garantit l'absence d'erreur au moment de l'éxécution.
+
+### Portée implicite
+
+Rust crée en réalité une **portée implicite** pour chaque déclaration `let`. Cette portée commence juste avant au mot clef `let` et se termine juste avant que la variable sort de la portée **explicite**
+
+Le code suivant permet de mettre en avant l'existence des portées implicites en fonction du mot clef let. 
 
 ```rust
-{
-    let x;
-    let y = 0;
-    // Error: the reference `x` outlives the owner `y`.
-    x = &y;
+fn main() {
+    let r;
+    let x = 5;
+    r = &x;
 }
 ```
 
-est interprété par Rust comme ceci :
+Ce code est interprété comme :
 
 ```rust
-{
-    let x;
-    {
-        let y = 0;
-        // Error: the reference `x` outlives the owner `y`.
-        x = &y;
+fn main() { // début portée explicite de main()
+    { // "let r" ouvre une portée implicite ici
+        let r;
+        { // "let x" crée une autre porté implicite ici
+            let x = 5;
+            r = &x;
+        } // la portée implicite de x est refermée ici, car on arrive
+          // à la fin de la portée explicite. "x" est détruit ici.
+
+        // 🚨 "r" sera encore vivant ici, mais pas "x" =>         
+        // le compilateur refuse cette possibilité et provoque une erreur.
     } 
 }
 ```
 
-## durée de vie (lifetime)
+Si on déclare le `let r` de la manière suivante, l'erreur disparaît :
 
-La durée de vie d'une variable **est** sa portée : elle est détruite quand elle est hors de portée. La plupart du temps Rust, à partir des portées, parvient donc à déduire implicitement les temps de vie des variables en se basant sur les accolades.
+```rust
+fn main() {
+    let x = 5;
+    let y = &x;
+}
+```
 
-Dans le cas des références, pour satisfaire à la garantie de sûreté de la mémoire; Rust peut avoir besoin d'indications supplémentaires pour être certain que la référence ne pointe pas vers une variable qui n'existe plus : c'est à ça que servent les **durées de vie**.
+car les portées implicites deviennent alors  :
 
-Ainsi, quand Rust ne peut garantir avec certitude à la compilation qu'une variable a une durée de vie supérieure ou égale à ses références; le compilateur produira une erreur nous incitant à expliciter la durée de vie minimale. Il s'en servir pour libérer la mémoire d'une manière qui garantit l'absence d'erreur au moment de l'éxécution.
+```rust
+fn main() {
+    { // "let x" crée une portée implicite
+        let x = 5;
+        { // "let y" céer une portée implicite compris dans celle de x
+            let y = &x;
+        } // y est détruit ici, x existe encore donc pas d'erreur.
+    } // x est détruit ici
+}
+
+```
 
 # Les types de données 
 
