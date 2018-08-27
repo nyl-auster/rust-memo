@@ -406,7 +406,7 @@ En réalité, les types `String`, `Vec<T>`, `Box<T>` (et d'autres) sont des réf
 
 ## Portée des variables
 
-Les portées joue un rôle crucial dans la **propriété** et les **temps de vie**. Ce sont elles qui indiquent au compilateur quand allouer et libérer la mémoire.
+Les portées joue un rôle crucial dans la **propriété** et les **temps de vie**. Ce sont notamment elles qui indiquent au compilateur quand allouer et libérer la mémoire.
 
 En rust, les variables existent uniquement le temps de leur *bloc*. Un *bloc* est une portion de code comprise entre deux accolades. La portée d'une variable en Rust est donc tout simplement déterminée par les accolades qui l'entourent. 
 
