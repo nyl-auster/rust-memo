@@ -339,7 +339,7 @@ fn main() {
 }
 ```
 
-## 💡déboguer les variables avec les placeholders de "println!"
+## Déboguer les variables avec les placeholders de "println!" 💡 
 
 `println!` permet d'afficher une variable à l'aide de différents formatteurs tels que `{}`, `{:?}` , `{:#?}`, `{:p}` et d'autres :
 
@@ -379,7 +379,7 @@ println!("{:p}", &array);
 println!("{:b}", array[2]);
 ```
 
-# Références
+## Références
 
 Il existe un autre type de variable, qu'on appelle **référence**, et qui joue un rôle important pour comprendre la notion à venir de **propriété** et la gestion de la mémoire par Rust.
 
@@ -404,19 +404,27 @@ La variable `s` ci-dessus est une *référence* à un `s1`, ce qui donne  en mé
 
 En réalité, les types `String`, `Vec<T>`, `Box<T>` (et d'autres) sont des références - et donc des types de pointeurs : ces variables stockent une adresse mémoire vers leurs valeurs qui se trouvent dans le tas.
 
-### Portée des variable
+## Portée des variables
 
-## Bloc et libération de mémoire
+En rust, les variables existent uniquement le temps de leur *bloc*. Un *bloc* est une portion de code comprise entre deux accolades. La portée d'une variable en Rust est donc tout simplement déterminée par les accolades qui l'entourent. 
 
-Un **bloc** est une région du programme contenue dans une paire d'accolades `{` `}`.
+Une variable n'est utilisable qu'à l'intérieur de son bloc; elle est "hors de portée" pour les autres portions de code, qui ne pourront pas y accéder.
 
-La **portée** d'une variable est le bloc dans lequel elle a été déclarée : c'est à dire qu'elle n'est pas *accessible* en dehors de ce bloc. Elle est seulement accessible entre sa déclaration et la fin de son bloc de déclaration.
+Dès que le programme rencontre une accolade fermante, Rust appelle automatiquement, si nécessaire, la méthode **Drop** (parfois appelée "destructeur") pour chaque variable du bloc de code concerné, qui a pour mission de supprimer les valeurs stockées dans le tas.
 
-Quand la variable devient *hors de portée* ( c'est à dire quand le programme rencontre l'accolade fermante du bloc où elle a été déclarée) ET que le type de cette variable implémente le trait `Drop`, Rust libère la mémoire du tas en invoquant la fonction Drop::drop().
+```rust
+{ // la variable "s" n'est pas valide ici, car pas encore déclarée
 
-Autrement dit : Le programme libére automatiquement la mémoire du **tas**, si besoin, à chaque fois qu'une accolade fermante est rencontrée. Cela vaut pour n'importe qu'elle accolade fermante; qu'il s'agisse de l'accolade de fin d'une fonction, ou d'accolades à l'intérieur d'une fonction.
+    let s = String::from("hello");;   // s est valide à partir d'ici
+    
+} // "s" est hors de portée : elle n'est plus valide à partir d'ici. 
+// Rust appelle donc la fonction Drop() et la mémoire qu'elle 
+// occupe sur le tas est automatiquement libérée !
+```
 
-La manière dont est précisément libérée la mémoire est détaillée plus loin.
+⚠️ Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
+
+Dans l'exemple ci-dessus, Rust sait qu'il peut supprimer "hello" de la mémoire du tas; car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades. 
 
 ## Portée implicite
 
@@ -432,6 +440,7 @@ Rust crée une portée *implicite* pour chaque déclaration `let`: Ainsi le code
 ```
 
 est interprété par Rust comme ceci :
+
 ```rust
 {
     let x;
@@ -443,11 +452,11 @@ est interprété par Rust comme ceci :
 }
 ```
 
-# Les types de données en Rust 
+# Les types de données 
 
 ## Vue d'ensemble
 
-On peut diviser les types de Rust en 3 catégories, que l'on verra en détail au fil de l'eau.
+On peut diviser les types de données en 3 grandes catégories, que l'on verra en détail au fil de l'eau.
 
 - les types *primitifs atomiques*
 	- booléen :  `bool` 
@@ -849,7 +858,7 @@ La *propriété* permet à Rust de n'avoir besoin ni de *Garbage Collector*, ni 
 
 Enfin, grâce à ce principe, Rust peut **garantir à la compilation** qu'**il n'y aura pas d'erreur mémoire au moment du "run time"** ( pas de double libération de la mémoire ou de pointeur vers un espace vide ou une mauvaise valeur). 
 
-## Portée des variables et libération de la mémoire du tas.
+## Portée des variables
 
 En rust, les variables existent uniquement le temps de leur *bloc*. Un *bloc* est une portion de code comprise entre deux accolades. La portée d'une variable en Rust est donc tout simplement déterminée par les accolades qui l'entourent. 
 
@@ -869,7 +878,7 @@ Dès que le programme rencontre une accolade fermante, Rust appelle automatiquem
 
 ⚠️ Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
 
-Dans l'exemple ci-dessus, Rust sait qu'il peut libérer la mémoire car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades. 
+Dans l'exemple ci-dessus, Rust sait qu'il peut supprimer "hello" de la mémoire du tas; car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades. 
 
 ## Propriété et "déplacement de valeur"
 
