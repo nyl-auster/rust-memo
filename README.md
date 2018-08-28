@@ -1,3 +1,5 @@
+🚨 EN COURS DE REDACTION ! 
+
 *Sources :*
 
 - [La seconde édition du Livre de Rust](https://doc.rust-lang.org/book/second-edition/index.html)
@@ -6,7 +8,7 @@
 - Wikipedia en anglais pour les principes généraux de gestion de la mémoire par un programme
 - [The Rust language: memory, ownership and lifetimes](https://www.youtube.com/watch?v=9wOzjbgRoNU&index=2&t=33s&list=LLmu3oE2OqTaAOrbpYsNOfhQ)
 
-# Historique de Rust : d'où viens-je, que fais-je, où vais-je ?
+# Historique de Rust 
 
 Les technologies, c'est comme les êtres humains : on les comprend bien mieux quand on sait d'où ils viennent, quelle est leur histoire personnelle et quelles sont leurs motivations principales. La motivation, c'est étymologiquement *ce qui pousse à agir*, le moteur d'actes visibles; mais ces actes ne peuvent sembler qu'un bouquet de phénomènes sans ordre particulier si on ignore ce qui les motive profondément. 
 
@@ -20,13 +22,9 @@ A l'heure actuelle, les principaux navigateurs sont constitués de millions de l
 
 Mais, et là nous arrivons au coeur de la motivation qui a fait naître Rust : C++ n'offre pas de garanties de sûreté mémoire. On peut donc être à peu près certain que sur les 8 millions de codes, il y a forcément quelques **erreurs de segmentation** ( une erreur d'accès mémoire qui plante l'application ) et de vulnérabilité de sécurité liées à ces incertitudes de gestion de la mémoire.
 
-Cela peut sembler étonnant quand on vient de PHP par exemple, où la gestion de la mémoire est quasiment absente de l'esprit du programmeur ... sauf quand il faut augmenter la mémoire vive maximale allouée à PHP ^^ . Au contraire, en Rust la question de la mémoire est centrale : au sens logiciel (stabilité, sécurité et performance) comme au sens symbolique ( mémoire du passé de l'informatique avec la reprise de concepts de programmation qui ont prouvé leur efficacité au fil des années ).
+Cela peut sembler étonnant quand on vient de PHP par exemple, où la gestion de la mémoire est quasiment absente de l'esprit du programmeur ... sauf quand il faut augmenter la mémoire vive maximale allouée à PHP ^^ . Au contraire, en Rust la question de la mémoire est centrale : au sens logiciel (stabilité, sécurité et performance) comme au sens symbolique : mémoire du passé de l'informatique avec la reprise de concepts de programmation qui ont prouvé leur efficacité au fil des années, une inspiration forte de C, C++, Cyclone, Haskell, Erlang et d'autres.
 
-Il s'agissait donc pour le projet Servo de choisir un language qui offrait plus de garanties tout en permettant un contrôle aisé de ce qu'il se passe sur la machine au bas-niveau.
-
-[... in progress ]
-
-
+Il s'agissait donc pour le projet Servo de choisir un language qui offrait plus de garanties que C ou C++ tout en permettant la même flexibilité, les mêmes performances et le même contrôle du bas-niveau. Rust est a été créer dans cette optique bien précise de pouvoir gérer des millions de lignes de codes en offrant des garanties solides concernant la sûreté de la mémoire tout en permettat de garder contrôle fin sur le bas-niveau à l'image de C et C++.
 
 
 # Installer Rust
@@ -153,25 +151,27 @@ Cela est sources de nombreux bugs : par exemple si on essaie de lire une variabl
 
 PHP ou JavaScript reposent quant à eux sur un **ramasse-miettes ou récupération de mémoire** ( Garbage collector ) : le développeur ne s'occupe de rien mais et le programme fait de son mieux pour nettoyer la mémoire au cours de son exécution. 
 
-Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées ci-dessus. Mais cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme : le programme doit en effet déduire par lui même quels sont les "déchets" à évacuer; puis déclencher quand il le juge nécesaire une tournée de suppression de ces déchets identifiés. 
+Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées ci-dessus. Mais cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme : le programme doit en effet déduire par lui même quels sont les "déchets" à évacuer; puis déclencher quand il le juge nécesaire une tournée de suppression de ces déchets identifiés.  Pour le dire plus techniqement : le récupérateur de mémoire doit périodiquement trouver lui-même parmi les mémoires du tas celles qui ne sont pointées par aucune référence et les libérer.
 
 Établir un algorithme pour établir avec certitude quelles sont les valeurs qui ne sont plus utiles au programme n'est par ailleurs pas simple; et une erreur dans cet algorithme peut provoquer une fuite de mémoire. A contrario, une amélioration de cette algorithme peut se traduire par un gain de performance important pour le langage. ( voir par exemple cette page de la documentation de PHP qui explique une amélioration importante du Garbage collector : [http://php.net/manual/fr/features.gc.performance-considerations.php](http://php.net/manual/fr/features.gc.performance-considerations.php) )
 
 ### Rust : la Voie du milieu
 
-Une fonctionnalité phare de *Rust* est la **garantie de sûreté de la mémoire** : il s'agit de garantir au développeur que si le programme compile, il n'y aura aucune erreur de mémoire pendant l'exécution du programme : pas de fuite de mémoire, pas d'accès involontaire à une valeur à une valeur erronée. 
+Une fonctionnalité phare de *Rust* est la **garantie de sûreté de la mémoire** : il s'agit de garantir au développeur que si le programme compile, il n'y aura aucune erreur de mémoire pendant l'exécution du programme : pas de fuite de mémoire, pas d'accès involontaire à une valeur à une valeur erronée, pas de "race conditions".
 
-Pour parvenir à cela, en Rust, le développeur ne s'occupe pas lui-même de l'allocation / libération de mémoire; mais le programme n'utilise pas non plus de rammase-miette ! 
+Pour parvenir à cela, en Rust, le développeur ne s'occupe pas lui-même de l'allocation / libération de mémoire; mais le programme n'utilise pas non plus de ramasse-miette ! 
 
-AU lieu de cela, il faut écrire notre code Rust de manière à ce qu'il sache **exactement et sans ambiguité possible, au moment de la compilation** comme il devra libérer la mémoire lors de son exécution. Cela passe par le respect d'un ensemble de règles comme la **propriété** et le **temps de vie**, qui n'ont d'autres finalité que de permettre à Rust de savoir quand et comment il pourra libérer la mémoire de manière sûre.  
+AU lieu de cela, il faut écrire notre code Rust en respectant des conventions de manière à ce qu'il sache **exactement et sans ambiguité possible, au moment de la compilation** comment et quand il devra libérer la mémoire lors de son exécution.
 
-Autrement dit, en Rust on écrit du **code déterministe en terme d'usage de mémoire** ; c'est à dire que la sémantique du code doit permettre de déterminer précisément et sans aucune ambiguité ce qu'il se passera au moment de l'éxécution. Si ce n'est pas le cas, le compilateur vous le fait savoir.
+Cela passe par le respect d'un ensemble de règles comme la **propriété, l'emprunt**,le **temps de vie** etc. **C'est le compilateur qui est chargé de vérifier que le développeur respecte bien ces règles garantes de la sûreté de la mémoire**. 
 
-Le compilateur vous avertira donc souvent ( avec un message bien précis) que tel ou tel code,bien que fonctionnel, n'est pas valide car le compilateur ne peut pas **déterminer** comment libérer la mémoire avec la certitude de ne pas déclencher une erreur au moment de l'éxécution du programme.
+Autrement dit, en Rust on doit écrire du **code déterministe en terme d'usage de mémoire** ; c'est à dire que la sémantique du code doit permettre de déterminer *au moment de la compilation*, précisément et sans aucune ambiguité, si telle ou telle valeur du tas peut être supprimée en tout sécurité. 
+
+Le compilateur vous avertira donc souvent ( avec un message bien précis) que tel ou tel code,bien que fonctionnel, n'est pas valide car le compilateur ne peut pas **déterminer** comment libérer la mémoire avec la certitude de ne pas déclencher une erreur au moment de l'éxécution du programme; et vous invitera à réecrire différemment une partie du code ou parfois à ajouter des indications supplémentaires ( comme une *durée de vie explicite* pour une référence )
 
 Si cela peut paraître contraignant de prime abord, cela donne aussi des super-pouvoirs à Rust, par exemple :
 
-- Si ça compile, vous pouvez aller boire une bière en étant certain de n'avoir aucun problème de gestion de la mémoire.
+- Si ça compile, vous pouvez aller boire une bière en étant certain de n'avoir aucun problème de gestion de la mémoire ou de races conditions.
 - On obtient un programme dont la mémoire est gérée de manière plus  performante qu'avec un ramasse-miette.
 - On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *ramasse-miette*, parce que le ramasse-miette s'appuie justement sur des fonctionnalités mémoires bas-niveau du système d'exploitation lui-même. 
 
