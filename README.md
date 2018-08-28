@@ -250,8 +250,6 @@ Si le type était en entier **signé** ( `i8` ), la séquence de bits sera inter
 
 > On réserve le bit le plus à gauche pour réprésenter la présence ou l'absence du signe `-`. Soit : `2^7 - 1 = 63`.
 
-Mais ça pourrait aussi être un type `char` ! Dans une table de caractères `ISO-8859-1`, cet octet serait interprété comme étant le caractère `À`.
-
 # Déclarer une variable
 
 ## Exemples de déclaration variables
