@@ -223,22 +223,33 @@ Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libér
 
 [ A compléter ]
 
-## Qu'est ce qu'un type de donnée et une valeur ?
+## Qu'est ce qu'un type de donnée  ?
 
-source : http://gradebot.org/doc/ipur/type.html
+Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données. Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Et dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui soit laisse passer le courant électrique, soit ne le laisse pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
 
-Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données (0 ou 1).
+En programmation, on sait que les variables peuvent être de différents types : nombres, chaînes de caractères, booléens; mais aussi des types plus complexes comme des tableaux ou des classes. C'est ce qu'on désigne par **types de données**.
 
-Un octet peut représenter différents types de données. Par exemple un octet peut représenter en entier non-signé de 8 bits, un entier signé de 7 bits ou un caractère ASCII. 
+Mais en réalité, dans la mémoire de l'ordinateur, une variable est toujours stockée dans un emplacement mémoire sous forme de **séquence de bits** , comme par exemple `11000000`.  Du point de vue de la machine, il n'y a pas de "nombres", de "chaînes de caractères" ou de "booléen", seulement des séquences de bits, plus ou moins longues.
 
-Par exemple, le type `u8` définit des valeurs qui vont de 0 à 255 et les opérations mathématiques sur ces valeurs.
+C'est le langage qui interprète ces séquences de bits comme étant un  "nombre", "chaîne de caractères" ou autres; en lui associant justement un **type** : ainsi le programme ne stocke pas simplement `11000000` en mémoire; mais aussi le type de données que cet octet représente; et parfois d'autres champs. 
 
-Les types déterminent **comment le compilateur interprètent une séquence de bit d'un octets en une valeur** ( un caractère ? un entier ? etc ). 
+**Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
 
-Par exemple, si un octet stocke la séquence de bit ```10000000```, le compilateur l'interprète comme :
+On pourrait schématiser naïvement une variable de type "entier non-signé" de la sorte
 
-- un entier 128 **si le type est `u8`**
-- un entier -128 **si le type est `i8`**
+champ |   |
+------|---
+type | u8
+valeur|11000000
+
+L'interprétation de: `11000000` dépend donc du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` ), la séquence de bits sera interprétée comme **191** 
+
+> Soit `(2^7  + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
+
+Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme `-63`
+
+> On réserve le bit le plus à gauche pour réprésenter la présence ou l'absence du signe `-`. Soit : `2^7 - 1 = 63`.
+
 
 # Déclarer une variable
 
