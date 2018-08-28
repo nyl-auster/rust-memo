@@ -24,7 +24,7 @@ A l'heure actuelle, les principaux navigateurs sont constitués de millions de l
 
 Le développeur peut faire des efforts pour respect un ensemble de règle pour éviter ces erreurs mais en C++ rien ne me permet de **garantir** que le code final ne contient aucune erreurs mémoire. On peut donc supposer sans se tromper que sur les 8 millions de codes que comptent Firefox, il y a forcément quelques **erreurs de segmentation** ( une erreur d'accès mémoire qui plante l'application ) et de vulnérabilité de sécurité liées à ces incertitudes de gestion de la mémoire qui traînent.
 
-Il s'agissait donc pour le projet Servo de choisir un language qui offrait de solide garanties concernant la sûreté de la mémoire avec la même flexibilité dans le "bas niveau" que C ou C++.
+Il s'agissait donc pour le projet Servo de choisir un language qui offrait de solide garanties concernant la sûreté de la mémoire pour s'assurer que ces erreurs deviennent impossibles; mais avec la même flexibilité et le contrôle du bas-niveau que C ou C++.
 
 Rust est naît de ce besoin, et Servo, encore en version expérimentale, est aujourd'hui codé en Rust.
 
