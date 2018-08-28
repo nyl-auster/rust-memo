@@ -3,7 +3,31 @@
 - [La seconde édition du Livre de Rust](https://doc.rust-lang.org/book/second-edition/index.html)
 - [http://gradebot.org/doc/ipur/type.html](http://gradebot.org/doc/ipur/type.html)
 - [https://jvns.ca/blog/2017/11/27/rust-ref/](https://jvns.ca/blog/2017/11/27/rust-ref/)
-- Wikipedia pour les principes généraux de gestion de la mémoire par un programme
+- Wikipedia en anglais pour les principes généraux de gestion de la mémoire par un programme
+- [The Rust language: memory, ownership and lifetimes](https://www.youtube.com/watch?v=9wOzjbgRoNU&index=2&t=33s&list=LLmu3oE2OqTaAOrbpYsNOfhQ)
+
+# Historique de Rust : d'où viens-je, que fais-je, où vais-je ?
+
+Les technologies, c'est comme les êtres humains : on les comprend bien mieux quand on sait d'où ils viennent, quelle est leur histoire personnelle et quelles sont leurs motivations principales. La motivation, c'est étymologiquement *ce qui pousse à agir*, le moteur d'actes visibles; mais ces actes ne peuvent sembler qu'un bouquet de phénomènes sans ordre particulier si on ignore ce qui les motive profondément. 
+
+Penchons nous donc un instant sur ce qui a amené Rust à voir le jour.
+
+Rust est un language crée par **Mozilla Research**. Une partie de leur travail consiste à travailler sur un navigateur nouvelle génération à travers le projet [Servo](https://fr.wikipedia.org/wiki/Servo_(moteur_de_rendu))
+
+Une partie de la question posée par Servo est : si on réecrit le coeur du navigateur; en quel language faut-il le faire ? 
+
+A l'heure actuelle, les principaux navigateurs sont constitués de millions de lignes de code en C++. ( Firefox contient environ 8 millions de lignes de code ). Le choix du C++ est lié à un besoin de grand contrôle du bas-niveau pour maîtriser les performances.
+
+Mais, et là nous arrivons au coeur de la motivation qui a fait naître Rust : C++ n'offre pas de garanties de sûreté mémoire. On peut donc être à peu près certain que sur les 8 millions de codes, il y a forcément quelques **erreurs de segmentation** ( une erreur d'accès mémoire qui plante l'application ) et de vulnérabilité de sécurité liées à ces incertitudes de gestion de la mémoire.
+
+Cela peut sembler étonnant quand on vient de PHP par exemple, où la gestion de la mémoire est quasiment absente de l'esprit du programmeur ... sauf quand il faut augmenter la mémoire vive maximale allouée à PHP ^^ . Au contraire, en Rust la question de la mémoire est centrale : au sens logiciel (stabilité, sécurité et performance) comme au sens symbolique ( mémoire du passé de l'informatique avec la reprise de concepts de programmation qui ont prouvé leur efficacité au fil des années ).
+
+Il s'agissait donc pour le projet Servo de choisir un language qui offrait plus de garanties tout en permettant un contrôle aisé de ce qu'il se passe sur la machine au bas-niveau.
+
+[... in progress ]
+
+
+
 
 # Installer Rust
 
