@@ -18,14 +18,15 @@ Rust est un language crée par **Mozilla Research**. Une partie de leur travail 
 
 Une partie de la question posée par Servo est : si on réecrit le coeur du navigateur; en quel language faut-il le faire ? 
 
-A l'heure actuelle, les principaux navigateurs sont constitués de millions de lignes de code en C++. ( Firefox contient environ 8 millions de lignes de code ). Le choix du C++ est lié à un besoin de grand contrôle du bas-niveau pour maîtriser les performances.
+A l'heure actuelle, les principaux navigateurs sont constitués de millions de lignes de code en *C++*. ( Firefox contient environ 8 millions de lignes de code ). Le choix du *C++* est lié à un besoin de grand contrôle du bas-niveau pour maîtriser les performances du rendu du navigateur.
 
-Mais, et là nous arrivons au coeur de la motivation qui a fait naître Rust : C++ n'offre pas de garanties de sûreté mémoire. On peut donc être à peu près certain que sur les 8 millions de codes, il y a forcément quelques **erreurs de segmentation** ( une erreur d'accès mémoire qui plante l'application ) et de vulnérabilité de sécurité liées à ces incertitudes de gestion de la mémoire.
+*C++* offre en effet grande flexibilité et un grand contrôle notamment de la mémoire, avec des fonctions comme `malloc`. Un bon exemple puisque une erreur de manipulation de ces fonctions peuvent facilement mener à des erreurs de pointeurs qui vont planter l'application au moment de l'éxécution : libération d'une mémoire déjà libérée, pointeur qui pointe vers une valeur qui n'est plus la bonne, fuites de mémoires ...
 
-Cela peut sembler étonnant quand on vient de PHP par exemple, où la gestion de la mémoire est quasiment absente de l'esprit du programmeur ... sauf quand il faut augmenter la mémoire vive maximale allouée à PHP ^^ . Au contraire, en Rust la question de la mémoire est centrale : au sens logiciel (stabilité, sécurité et performance) comme au sens symbolique : mémoire du passé de l'informatique avec la reprise de concepts de programmation qui ont prouvé leur efficacité au fil des années, une inspiration forte de C, C++, Cyclone, Haskell, Erlang et d'autres.
+Le développeur peut faire des efforts pour respect un ensemble de règle pour éviter ces erreurs mais en C++ rien ne me permet de **garantir** que le code final ne contient aucune erreurs mémoire. On peut donc supposer sans se tromper que sur les 8 millions de codes que comptent Firefox, il y a forcément quelques **erreurs de segmentation** ( une erreur d'accès mémoire qui plante l'application ) et de vulnérabilité de sécurité liées à ces incertitudes de gestion de la mémoire qui traînent.
 
-Il s'agissait donc pour le projet Servo de choisir un language qui offrait plus de garanties que C ou C++ tout en permettant la même flexibilité, les mêmes performances et le même contrôle du bas-niveau. Rust est a été créer dans cette optique bien précise de pouvoir gérer des millions de lignes de codes en offrant des garanties solides concernant la sûreté de la mémoire tout en permettat de garder contrôle fin sur le bas-niveau à l'image de C et C++.
+Il s'agissait donc pour le projet Servo de choisir un language qui offrait de solide garanties concernant la sûreté de la mémoire avec la même flexibilité dans le "bas niveau" que C ou C++.
 
+Rust est naît de ce besoin, et Servo, encore en version expérimentale, est aujourd'hui codé en Rust.
 
 # Installer Rust
 
