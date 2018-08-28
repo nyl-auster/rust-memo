@@ -235,10 +235,10 @@ C'est le langage qui interprète ces séquences de bits comme étant un  "nombre
 
 **Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
 
-On pourrait schématiser naïvement une variable de type "entier non-signé" de la sorte
 
 champ |   |
 ------|---
+nom  | ma_variable
 type | u8
 valeur|11000000
 
@@ -250,6 +250,7 @@ Si le type était en entier **signé** ( `i8` ), la séquence de bits sera inter
 
 > On réserve le bit le plus à gauche pour réprésenter la présence ou l'absence du signe `-`. Soit : `2^7 - 1 = 63`.
 
+Mais ça pourrait aussi être un type `char` ! Dans une table de caractères `ISO-8859-1`, cet octet serait interprété comme étant le caractère `À`.
 
 # Déclarer une variable
 
