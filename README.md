@@ -212,40 +212,52 @@ Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libér
 
 Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; et un *bit* est la plus petite unité de données. Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui, soit laissent passer le courant électrique, soit ne le laissent pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
 
-### Transformer un nombre binaire en décimal
-
-En réalité, il n'y a aucun savoir spécial à acquérir pour compter en binaire : la notation en binaire suit exactement la même logique que notre notation décimale habituelle; si ce n'est que le binaire est au final plus simple puisqu'il n'y a que deux chiffres : `0` et `1`.
+Il n'y a aucun savoir spécial à acquérir pour compter en binaire : la notation en binaire suit exactement la même logique que notre notation décimale habituelle; si ce n'est qu'au lieu d'avoir 10 chiffres, il n'y en a que 2: `0`et `1`. 
 
 Prenons le chiffre `263` en décimal , en réalité il est une notation raccourcie du calcul suivante :
-`(2 * 100) + (6 * 10) + (3 * 1)` qu'on peut lire comme "2 *centaines* et 6 *dizaines* et 3 *unités*".
+`(2 x 100) + (6 x 10) + (3 x 1)` qu'on peut aussi lire comme "2 centaines + 6 *dizaines* + 3 *unités*". Notre notation des nombres repose donc sur une **addition** de **multiplications**.
 
-A l'époque des romains, il y avait des symboles différents pour signifier dix, cent, mille etc :
+A l'époque des romains, il y avait des symboles différents pour signifier dizaine, centaines, milliers etc, et on trouvait aussi des symboles pour 5, 50, 500 
 
 symbole | version décimale
 ---|---
 | `|` | 1 | 
+|`V`| 5 |
 | `X`| 10 |
+| `L`| 50 |
 | `C`| 100 |
+| `D`| 500 |
 | `M` | 1000 |
 
-Le truc pénible avec ce principe, c'est qu'il faut inventer de nouveaux symboles ou imaginer de nouvelles notations au fur et à mesure que les nombres grandissent.
+Notre `263` s'écrirait en chiffres romains `CCLXIII`, soit `100 + 100 + 50 + 10 + 3`. C'est une toute autre manière de compter ! Ici, pas de multiplications cachées, seulemement des additions; on additionne la valeur de chaque symbole pour obtenir le total.
 
-Dans notre système de notation actuelle,  l'astuce c'est que nous n'avons que dix chiffres; mais **la quantité représenté par un chiffre change en fonction de sa position dans le nombre**. Ainsi, le chiffre 1 va signifier 10, 100, 1000 ou 10 000 selon sa position :
+> 💡 Pour être précis, il faut aussi parfois faire des soustractions dans le système numérique romain. Ainsi `IV` ne fait pas `1 + 5` mais `5-1`, donc `4`; il en va de même pour d'autres symboles qui doivent être soustraits plutôt qu'additionnée si ils se trouvent devant un nombre supérieur. Mais au fond `4` pourrait tout aussi bien s'écrire `IIII`, les deux écritures (`IV` t `IIII`) sont alors équivalentes et d'ailleurs étaient concurrentes à l'époque.
 
-|  signification  | notation décimale   
+On remarquer deux points faibles avec un tel système numérique :
+
+- On s'en tenant aux symboles existants, le nombre maximal possible est `4999` en écrivant `MMMM DCCCC LXXXX VIIII` ( oups! ). Il existe un "hack" pour contourner cette limite embêtante : on peut,  avec de traits verticaux et horizontaux, ajouter des multiplicateurs pour arriver jusqu'aux millions.
+- La longueur manuscrite d'un nombre romain n'a aucun rapport avec sa taille : `CCLXIII` = `263` tandis que `M` = `1000` ; ça ne permet pas non plus de résoudre aussi facilement par écrit, comme avec notre système, des additions, multiplications, des soustractions etc.
+
+### Le système positionnel
+
+Dans notre système de notation actuelle,  l'astuce c'est que nous n'avons que dix chiffres; mais **la position occupée par un chiffre modifie sa valeur**. Ainsi, le même chiffre 1 va signifier 10, 100, 1000 ou 10 000 selon sa position. 
+
+Ainsi, pour `263` , le chiffre `2` est en troisième position ( en partant de la droite), ce qui signifie, dans notre système, qu'il faut le multiplier par 100. 
+
+|  position du chiffre en partant de la droite  | il faut multiplier le chiffre par:   
 ---|---
-le premier chiffre, en partant de la **droite**, représente les **unités** : | 1 | 
-le second chiffre les **dizaines** | 10 
-le troisième chiffres les **centaines** | 100 
-le quatrième chiffre les **milliers** | 1000
-le cinquième chiffre les **dizaine de milliers** | 10000 
+1ere  | 1 | 
+2eme | 10 
+3eme  | 100 
+4eme | 1000
+5eme | 10000 
 etc, vers l'infini et au-delà. | 
 
-On peut donc très facilement représenter de très grands nombres : `1 000 000 000 000 000 000 000 000 000`
+Contrairement aux romains, on peut donc très facilement représenter de très grands nombres sans ajouter de nouveau symboles, juste avec une longue succession de chiffres dont la valeur se démultiplie grâce à la position : `1 567 847 987 211 544 878 980 765 876 090 764`
 
-La position d'un chiffre est mathématiquement une **multiplication implicite** par 1, 10, 100, 1000 etc. Nous disposons mathématiquement d'une notion plus pratique pour représenter ces multiplications : les puissances; et en l'occurenc des puissances de 10.
+Nous disposons mathématiquement d'une notion plus pratique pour représenter ces multiplications par 1, 10, 100, 1000 etc , en fonction de la position : ce sont les **puissances**; et en l'occurence ce sont des puissances de 10.
 
-|  signification  | en décimal | en puissance de 10  | 
+|  signification  | représentation décimale | représentation en puissance de 10  | 
 ---|---|---
 le premier chiffre, en partant de la **droite**, représente les **unités** : | 1 | `1 x 10^0` 
 le second chiffre les **dizaines** | 10 |  `1 x 10^1` 
@@ -254,7 +266,9 @@ le quatrième chiffre les **milliers** | 1000 |  `1 x 10^3`
 le cinquième chiffre les **dizaine de milliers** | 10000| `1 x 10^4` 
 etc, vers l'infini et au-delà. | 
 
-[à compléter]
+Le système binaire fonctionne en tout point exactement pareil : c'est un système positionnel; la seule différence c'est qu'il fonctionne en puissance de 2 au lieu de fonctionner en puissance de 10.
+
+[... to be continue]
 
 ## Qu'est ce qu'un type de donnée  ?
 
