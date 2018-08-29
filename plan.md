@@ -1,0 +1,2 @@
+- prélude : toutes les notions à connaitre avant d'apprendr Rust, quand on vient de PHP ou JavaScript
+  - 
