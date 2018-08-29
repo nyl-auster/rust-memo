@@ -1,105 +1,5 @@
 🚨 EN COURS DE REDACTION ! 
 
-<!--ts-->
-   * [Historique de Rust](#historique-de-rust)
-   * [Installer Rust](#installer-rust)
-   * [Hello world](#hello-world)
-   * [Le gestionnaire de paquet : Cargo](#le-gestionnaire-de-paquet--cargo)
-      * [Cargo](#cargo)
-      * [Installation d'un crate](#installation-dun-crate)
-   * [Prélude](#prélude)
-      * [Compile-time et run-time](#compile-time-et-run-time)
-      * [La gestion de la mémoire](#la-gestion-de-la-mémoire)
-         * [Gestion manuelle de la mémoire](#gestion-manuelle-de-la-mémoire)
-         * [Gestion automatique de la mémoire](#gestion-automatique-de-la-mémoire)
-         * [Rust : la Voie du milieu](#rust--la-voie-du-milieu)
-      * [La pile d'éxécution et le tas](#la-pile-déxécution-et-le-tas)
-         * [La pile d'éxécution](#la-pile-déxécution)
-         * [Le tas : parce qu'on ne peut pas tout stocker dans la pile d'éxécution](#le-tas--parce-quon-ne-peut-pas-tout-stocker-dans-la-pile-déxécution)
-   * [Déclarer une variable](#déclarer-une-variable)
-      * [Récapitulatifs des variables couramment utilisées](#récapitulatifs-des-variables-couramment-utilisées)
-      * [Immutabilité par défaut](#immutabilité-par-défaut)
-   * [Les types de données](#les-types-de-données)
-      * [Qu'est ce qu'un type de donnée  ?](#quest-ce-quun-type-de-donnée--)
-      * [Vue d'ensemble des types de données en Rust](#vue-densemble-des-types-de-données-en-rust)
-      * [Type primitifs atomiques](#type-primitifs-atomiques)
-         * [entier](#entier)
-         * [Nombre à virgule flottante](#nombre-à-virgule-flottante)
-            * [Opérations arithmétiques](#opérations-arithmétiques)
-         * [Booléen](#booléen)
-            * [Caractère](#caractère)
-      * [Les types primitifs composés](#les-types-primitifs-composés)
-         * [tuple](#tuple)
-         * [array](#array)
-      * [Collection couramment utilisées](#collection-couramment-utilisées)
-      * [Déboguer les variables avec les placeholders de "println!" <g-emoji class="g-emoji" alias="bulb" fallback-src="https://assets-cdn.github.com/images/icons/emoji/unicode/1f4a1.png">💡</g-emoji>](#déboguer-les-variables-avec-les-placeholders-de-println-)
-   * [Fonctions](#fonctions)
-      * [exemples](#exemples)
-      * [Pièges pour les débutants](#pièges-pour-les-débutants)
-      * [La différente entre arguments et paramètres](#la-différente-entre-arguments-et-paramètres)
-   * [La différence entre les expressions et les déclarations](#la-différence-entre-les-expressions-et-les-déclarations)
-      * [Références](#références)
-      * [Portée des variables](#portée-des-variables)
-      * [durée de vie (lifetime) et portées implicites.](#durée-de-vie-lifetime-et-portées-implicites)
-         * [Lien entre portée et durée de vie](#lien-entre-portée-et-durée-de-vie)
-         * [Le cas des références](#le-cas-des-références)
-            * [Les Portées implicites](#les-portées-implicites)
-   * [Contrôle de flux](#contrôle-de-flux)
-      * [les expressions if](#les-expressions-if)
-      * [boucles](#boucles)
-         * [loop](#loop)
-         * [while](#while)
-         * [for](#for)
-   * [Propriété( Ownership )](#propriété-ownership-)
-      * [Portée des variables](#portée-des-variables-1)
-      * [Propriété et "déplacement de valeur"](#propriété-et-déplacement-de-valeur)
-      * [Les types qui ne sont PAS concernés par la notion de propriété](#les-types-qui-ne-sont-pas-concernés-par-la-notion-de-propriété)
-      * [Propriété et fonctions](#propriété-et-fonctions)
-      * [Valeurs retournées par une fonction et portée](#valeurs-retournées-par-une-fonction-et-portée)
-      * [Visualiser le drop en action](#visualiser-le-drop-en-action)
-      * [Référence et emprunt](#référence-et-emprunt)
-      * [Références mutables : n immutable or 1 mutable. Period.](#références-mutables--n-immutable-or-1-mutable-period)
-      * [pointeur foireux](#pointeur-foireux)
-      * [Le Type Slice (tranche)](#le-type-slice-tranche)
-         * [String slice](#string-slice)
-   * [Créer des types personnalisés avec les structures (Structs)](#créer-des-types-personnalisés-avec-les-structures-structs)
-      * [Déclarer une structure](#déclarer-une-structure)
-      * [Implémenter une méthode sur la structure](#implémenter-une-méthode-sur-la-structure)
-      * [Créer une fonction associée](#créer-une-fonction-associée)
-      * [Tuple struct](#tuple-struct)
-      * [Unit-like struct](#unit-like-struct)
-   * [Match](#match)
-   * [Énumérations](#Énumérations)
-      * [Un cas concret d'utilisation des énumérations et de match](#un-cas-concret-dutilisation-des-énumérations-et-de-match)
-      * [Méthodes](#méthodes)
-   * [Collections](#collections)
-      * [Vecteurs](#vecteurs)
-   * [Sources](#sources)
-
-<!-- Added by: yann, at:  -->
-
-<!--te-->
-
-# Historique de Rust 
-
-Les technologies, c'est comme les êtres humains : on les comprend bien mieux quand on sait d'où ils viennent, quelle est leur histoire personnelle et quelles sont leurs motivations principales. La motivation, c'est étymologiquement *ce qui pousse à agir*, le moteur d'actes visibles; mais ces actes ne peuvent sembler qu'un bouquet de phénomènes sans ordre particulier si on ignore ce qui les motive profondément. 
-
-Penchons nous donc un instant sur ce qui a amené Rust à voir le jour.
-
-Rust est un language crée par **Mozilla Research**. Une partie de leur travail consiste à travailler sur un navigateur nouvelle génération à travers le projet [Servo](https://fr.wikipedia.org/wiki/Servo_(moteur_de_rendu))
-
-Une partie de la question posée par Servo est : si on réecrit le coeur du navigateur; en quel language faut-il le faire ? 
-
-A l'heure actuelle, les principaux navigateurs sont constitués de millions de lignes de code en *C++*. ( Firefox contient environ 8 millions de lignes de code ). Le choix du *C++* est lié à un besoin de grand contrôle du bas-niveau pour maîtriser les performances du rendu du navigateur.
-
-*C++* offre en effet grande flexibilité et un grand contrôle notamment de la mémoire, avec des fonctions comme `malloc`. Un bon exemple puisque une erreur de manipulation de ces fonctions peuvent facilement mener à des erreurs de pointeurs qui vont planter l'application au moment de l'éxécution : libération d'une mémoire déjà libérée, pointeur qui pointe vers une valeur qui n'est plus la bonne, fuites de mémoires ...
-
-Le développeur peut faire des efforts pour respect un ensemble de règle pour éviter ces erreurs mais en C++ rien ne me permet de **garantir** que le code final ne contient aucune erreurs mémoire. On peut donc supposer sans se tromper que sur les 8 millions de codes que comptent Firefox, il y a forcément quelques **erreurs de segmentation** ( une erreur d'accès mémoire qui plante l'application ) et de vulnérabilité de sécurité liées à ces incertitudes de gestion de la mémoire qui traînent.
-
-Il s'agissait donc pour le projet Servo de choisir un language qui offrait de solide garanties concernant la sûreté de la mémoire pour s'assurer que ces erreurs deviennent impossibles; mais avec la même flexibilité et le contrôle du bas-niveau que C ou C++.
-
-Rust est naît de ce besoin, et Servo, encore en version expérimentale, est aujourd'hui codé en Rust.
-
 # Installer Rust
 
 Sur Mac & linux :
@@ -167,6 +67,7 @@ Exemple avec l'installation du crate *rand* (génération de nombres au hasard) 
 rand = "0.3.14"
 ```
 puis taper la commande suivant à la racine du projet :
+
 ```sh
 cargo build
 ```
@@ -186,25 +87,70 @@ cargo doc --open
 
 # Prélude
 
-Rust requiert plus de connaissances "bas-niveau" que PHP ou JavaScript, le prélude contient un récapitulatif de ce qu'il faut savoir pour comprendre facilement Rust.
+Rust requiert beaucoup plus de connaissances "bas-niveau" que PHP ou JavaScript, le prélude contient un récapitulatif de ce qu'il faut savoir pour comprendre le livre de Rust sans venir des langages C ou C++.
 
-## Compile-time et run-time
+## Historique de Rust 
 
-En PHP ou JavaScript, il n'y pas de phase de compilation : ce sont des languages interprétées à la volée. Rust se situe à l'exact opposé : non seulement il requiert une phase de compilation mais surtout, le compilateur de Rust a un rôle de protecteur et de garde-fou très primordial. La promesse principale de Rust est : **si le programme compile, il ne plantera pas**.
+Rust est un language crée par **Mozilla Research**. Une partie de leur travail consiste à travailler sur un navigateur nouvelle génération : c'est le le projet [Servo](https://fr.wikipedia.org/wiki/Servo_(moteur_de_rendu))
 
-Donc en Rust, on distingue le "compile-time" ( temps de compilation ) et le run-time ( temps d'éxécution). Le temps d'éxécution, c'est le moment où le binaire résultant du programme compilé tourne concrètement sur le système d'exploitation.
+Une partie de la question posée par Servo est : si on réecrit le coeur du navigateur; en quel language faut-il le faire ? 
 
-Le rôle du compilateur de Rust n'est pas seulement de compiler au optimiser votre programme en un fichier binaire; il est d'offrir des garanties solides que votre code tournera sans erreur.
+A l'heure actuelle, les principaux navigateurs sont constitués de millions de lignes de code en *C++*. ( Firefox contiendrait environ 8 millions de lignes de code ). Le choix du language *C++* est lié à une nécessité de pouvoir contrôler ce qu'il se passe au bas-niveau pour maîtriser les performances de rendus du navigateur. *C++* offre par exemple un grand contrôle de la mémoire, avec des fonctions comme `malloc` et `free`. 
 
-Autrement dit, il s'agit de faire en sorte que toutes les erreurs qui pourraient surgir normalement au moment du temps d'éxecution ou d'interprétation, soient découvertes dès la compilation.
+La contrepartie de cette flexibilité, ce sont les erreurs mémoires et les data "races" : une mauvaise manipulation du développeur peut vite mener à une erreur mémoire qui plante l'application : **libération d'une mémoire déjà libérée, pointeur qui pointe vers une valeur qui n'est plus la bonne (dangling pointers), fuites de mémoires (memory leaks), "data races", ou même failles de sécurité lié à une défaillance de la gestion de la mémoire.**
 
-En rust, on écrit donc beaucoup **pour** le compilateur; c'est à dire que notre code s'adresse avant tout à lui, dans une sémantique qui lui permet de déterminer si notre code comporte des risques d'erreurs; et nous force a améliorer par des messages d'erreurs pour éliminer tout risque d'erreur si nécessaire au moment de l'éxécution.
+Le développeur peut faire des efforts pour respecter un ensemble de règle pour éviter au maximum ces erreurs mais en C++ rien ne me permet de **garantir** que le code final ne contient aucune de ces erreurs. 
+
+Il s'agissait donc pour le projet Servo de choisir un language qui offrait la même flexibilité que *C++* tout en offrant de solide garanties concernant la sûreté de la mémoire pour s'assurer que toutes ces erreurs deviennent **impossibles**.
+
+Les personnes en charges du projet ont estimé que la plupart des autres languages disponibles offraient :
+- du contrôle du bas-niveau mais peu ou pas de garanties de sûreté de la mémoire
+- des garanties de la sûreté mémoire mais peu ou pas de contrôle du bas-niveau.
+
+Rust est naît du besoin de remplir ces deux conditions : une grande flexibilité accompagnée et de solides garanties. Servo, encore en version expérimentale, est aujourd'hui codé en Rust.
+
+## La phase de compilation (compile-time) et la phase d'éxécution (run-time)
+
+En PHP ou JavaScript, il n'y pas de phase de compilation : ce sont des languages interprétés à la volée. A l'opposé, Rust nécessite d'être compilé avant de pouvoir être exécuté.  Donc en Rust, on distingue le "compile-time" ( phase de compilation ) et le run-time ( phase d'éxécution). 
+
+Le rôle du compilateur de Rust n'est pas seulement de compiler au optimiser votre programme en un fichier binaire; c'est lui qui offre des garanties solides que votre code tournera sans erreur en forçant le développeur à respecter un ensemble de règles.
 
 ## La gestion de la mémoire 
 
-Contrairement à PHP ou JavaScript, Rust vous demande, pour coder en tout sérénité, d'avoir un modèle mental clair de la manière dont un programme gère la mémoire dont il a besoin.
+Pour tourner, un programme doit constammer allouer puis libérer de la mémoire. Une variable est par exemple fondamentalement un espace mémoire contenant une séquences de bits; qui doit être supprimée de la mémoire quand elle n'est plus utile au programme. 
 
-Il faut ainsi avoir conscience que la mémoire accessible par un programme se divise en trois segments :
+La question de la gestion de la mémoire est centrale en Rust, il est donc impératif d'avoir un modèl mental clair de la manière dont un programme gére la mémoire dans les grandes lignes.
+
+### Gestion automatique de la mémoire
+
+En PHP ou JavaScript, il n'est jamais nécesserait d'allouer ou libérer soi-même de la mémoire : on créer simplement nos variables (allocations de mémoire) et le **ramasse-miettes** (Garbage Collector) se charge ensuite de libérer automatiquement la mémoire. 
+
+Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées de double libération ou de pointeurs foireux. Cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme : le programme doit en effet évaluer par lui même au moyen d'un algorithme, sans aucune indication du développeur, pendant qu'il s'éxécute, quelles sont les valeurs en mémoires devenus inutiles au programme et si il peut les supprimer en toute sécurité.  
+
+Établir un algorithme pour établir avec certitude quelles sont les valeurs qui ne sont plus utiles au programme n'est par ailleurs pas si simple; une erreur dans cet algorithme pourrait par exemple provoquer une fuite de mémoire dans certains cas. A contrario, une amélioration de cet algorithme peut se traduire par un gain de performance très important pour le langage. ( voir par exemple cette page de la documentation de PHP qui explique une amélioration importante de son Garbage collector : [http://php.net/manual/fr/features.gc.performance-considerations.php](http://php.net/manual/fr/features.gc.performance-considerations.php) )
+
+### Gestion manuelle de la mémoire
+
+Dans certains languages, l'allocation de la mémoire peut être *manuelle* ( comme en `C` ); c'est à dire que le développeur doit parfois allouer et libérer lui même la mémoire pour certaines variables.
+
+Cela peut-être sources de nombreux bugs : par exemple si on essaie de lire une variable dans la valeur a déjà été effacée de la mémoire; ou bien si on essaie de libérer un emplacement mémoire déjà libéré. On risque aussi une **fuite de mémoire**, c'est à dire que le programme va allouer trop de mémoire de manière incontrolée et exponentielle à cause d'un bout de code incorrect dans la gestion de la mémoire.
+
+### Rust : la Voie du milieu
+
+Rust de son côté n'utilise pas de *ramasse-miettes* ; mais ne demande pas non plus au développeur de libérer manuellement la mémoire. Il le fait automatiquement grâce à des règles d'écriture de code qui permet au compilateur de toujours savoir à quel moment il peut supprimer une donnée de la mémoire de façon sûre.
+ 
+En Rust on doit donc écrire du **code déterministe, aux yeux du compilateur, en terme d'usage de mémoire** ; c'est à dire que la sémantique du code doit permettre seule de déterminer *au moment de la compilation*, précisément et sans aucune ambiguité, si telle ou telle donnée peut être supprimée de la mémoire en tout sécurité. 
+
+Le compilateur vous avertira donc souvent ( avec un message bien précis) que tel ou tel code,bien que fonctionnel, n'est pas valide car le compilateur ne peut pas **déterminer** comment libérer la mémoire avec la certitude de ne pas déclencher une erreur au moment de l'éxécution du programme; et vous invitera à réecrire différemment une partie du code ou parfois à ajouter des indications supplémentaires ( comme une *durée de vie explicite* pour une référence )
+
+Si le compilateur peut sembler contraignant de prime abord, il confère aussi des super-pouvoirs à Rust, comme par exemple :
+- Si ça compile, vous pouvez aller boire une bière en étant certain de n'avoir aucun problème de gestion de la mémoire ou de "data races".
+- On obtient un programme dont la mémoire est gérée de manière très performante.
+- On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *ramasse-miette*, parce que le ramasse-miette s'appuie justement sur des fonctionnalités mémoires bas-niveau du système d'exploitation lui-même. 
+
+### Les 3 segments de mémoire les plus utilisés par un programme
+
+La mémoire accessible par un programme se divise en trois segments. En avoir une vision claire permet de comprendre Rust aisément. A contrario, une mauvaise compréhension de ces types de mémoires seront un frein important à beaucoup de concepts de Rust.
 
 - Sur la pile d'éxécution ( *stack* )
 - Dans le tas ( *heap* ) 
@@ -212,53 +158,18 @@ Il faut ainsi avoir conscience que la mémoire accessible par un programme se di
 
 C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire. 
 
-La gestion de la mémoire d'un programme est complexe: car il faut **allouer** de la mémoire pour stocker la valeur de certaines variables (cela dépend du **type** de variable, nous y reviendrons ), puis évidemment la libérer quand nous n'en avons plus besoin pour ne pas encombrer la mémoire de l'ordinateur et permettre à d'autres programmes de profiter de la mémoire disponible.
-
-### Gestion manuelle de la mémoire
-
-Dans certains languages, l'allocation de la mémoire est *manuelle* ( comme en `C` ); c'est à dire que le développeur doit allouer lui même de la mémoire pour stocker la valeur de certaines variables; puis ensuite la libérer. 
-
-Cela est sources de nombreux bugs : par exemple si on essaie de lire une variable dans la valeur a déjà été effacée de la mémoire; ou bien si on essaie de libérer un emplacement mémoire déjà libéré ! On risque aussi une **fuite de mémoire**, c'est à dire que le programme va allouer par erreur de manière incontrolée beaucoup plus de mémoire que nécessaire.
-
-### Gestion automatique de la mémoire
-
-PHP ou JavaScript reposent quant à eux sur un **ramasse-miettes ou récupération de mémoire** ( Garbage collector ) : le développeur ne s'occupe de rien mais et le programme fait de son mieux pour nettoyer la mémoire au cours de son exécution. 
-
-Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées ci-dessus. Mais cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme : le programme doit en effet déduire par lui même quels sont les "déchets" à évacuer; puis déclencher quand il le juge nécesaire une tournée de suppression de ces déchets identifiés.  Pour le dire plus techniqement : le récupérateur de mémoire doit périodiquement trouver lui-même parmi les mémoires du tas celles qui ne sont pointées par aucune référence et les libérer.
-
-Établir un algorithme pour établir avec certitude quelles sont les valeurs qui ne sont plus utiles au programme n'est par ailleurs pas simple; et une erreur dans cet algorithme peut provoquer une fuite de mémoire. A contrario, une amélioration de cette algorithme peut se traduire par un gain de performance important pour le langage. ( voir par exemple cette page de la documentation de PHP qui explique une amélioration importante du Garbage collector : [http://php.net/manual/fr/features.gc.performance-considerations.php](http://php.net/manual/fr/features.gc.performance-considerations.php) )
-
-### Rust : la Voie du milieu
-
-Une fonctionnalité phare de *Rust* est la **garantie de sûreté de la mémoire** : il s'agit de garantir au développeur que si le programme compile, il n'y aura aucune erreur de mémoire pendant l'exécution du programme : pas de fuite de mémoire, pas d'accès involontaire à une valeur à une valeur erronée, pas de "race conditions".
-
-Pour parvenir à cela, en Rust, le développeur ne s'occupe pas lui-même de l'allocation / libération de mémoire; mais le programme n'utilise pas non plus de ramasse-miette ! 
-
-AU lieu de cela, il faut écrire notre code Rust en respectant des conventions de manière à ce qu'il sache **exactement et sans ambiguité possible, au moment de la compilation** comment et quand il devra libérer la mémoire lors de son exécution.
-
-Cela passe par le respect d'un ensemble de règles comme la **propriété, l'emprunt**,le **temps de vie** etc. **C'est le compilateur qui est chargé de vérifier que le développeur respecte bien ces règles garantes de la sûreté de la mémoire**. 
-
-Autrement dit, en Rust on doit écrire du **code déterministe en terme d'usage de mémoire** ; c'est à dire que la sémantique du code doit permettre de déterminer *au moment de la compilation*, précisément et sans aucune ambiguité, si telle ou telle valeur du tas peut être supprimée en tout sécurité. 
-
-Le compilateur vous avertira donc souvent ( avec un message bien précis) que tel ou tel code,bien que fonctionnel, n'est pas valide car le compilateur ne peut pas **déterminer** comment libérer la mémoire avec la certitude de ne pas déclencher une erreur au moment de l'éxécution du programme; et vous invitera à réecrire différemment une partie du code ou parfois à ajouter des indications supplémentaires ( comme une *durée de vie explicite* pour une référence )
-
-Si cela peut paraître contraignant de prime abord, cela donne aussi des super-pouvoirs à Rust, par exemple :
-
-- Si ça compile, vous pouvez aller boire une bière en étant certain de n'avoir aucun problème de gestion de la mémoire ou de races conditions.
-- On obtient un programme dont la mémoire est gérée de manière plus  performante qu'avec un ramasse-miette.
-- On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *ramasse-miette*, parce que le ramasse-miette s'appuie justement sur des fonctionnalités mémoires bas-niveau du système d'exploitation lui-même. 
-
 ## La pile d'éxécution et le tas
 
-Si vous pouvez coder tranquillement du PHP et du JavaScript sans vous me demander si la valeur d'une variable est stockée dans la pile d'éxécution ( the stack ) ou bien dans le tas ( heap ); il n'en va pas de même en Rust. 
+Si vous pouvez coder tranquillement du PHP et du JavaScript sans vous me demander si la valeur d'une variable est stockée dans la pile d'éxécution ( the stack ) ou bien dans le tas ( heap ); il n'en va pas de même en Rust !
 
-En effet, les problématiques de la gestion de mémoire évoqués ci-dessus concerne uniquement la mémoire du *tas*. Il faut donc impérativement savoir si la valeur de la variable que l'on manipule est stockée sur la pile ou dans le tas.
+En effet, toutes les problématiques de la gestion de mémoire évoqués ci-dessus concerne uniquement la mémoire du *tas* ( heap ). 
+
+**🚨 Une variable en Rust ne se comportera pas de la même manière selon que sa valeur soit stockée dans le tas ou dans la pile d'éxécution.**
 
 ### La pile d'éxécution
 
 > *représentation naïve du principe de base d'une pile*
 <img width="500px" src="images/stack.png" />
-
 
 La mémoire de la pile d'éxécution a une mission principale : mémoriser la fonction du programme actuellement en cours d'éxécution et savoir à quelle partie du code ( l'*adresse de retour* ) retourner une fois cette fonction termnée. 
 
@@ -285,7 +196,7 @@ On voit ici qu'en réalité la pile est composées de **trames** (*frames*). On 
 
 Les pointeurs (*Stack pointer* et *Frame pointer*) permettent de savoir ce qui est actuellement en cours d'éxécution et où se trouve l'adresse de retour de la prochaine instruction de code à éxécuter.
 
-### Le tas : parce qu'on ne peut pas tout stocker dans la pile d'éxécution
+### Le tas 
 
 La plupart des programmes ont besoin, au cours de leur exécution, d'allouer dynamiquement de la mémoire de manière non-prédictible, puis de la restituer au système. 
 
