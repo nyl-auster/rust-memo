@@ -206,6 +206,103 @@ Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libér
 
 [ A compléter ]
 
+## Savoir compter en binaire
+
+### C'est quoi un bit ?
+
+Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; et un *bit* est la plus petite unité de données. Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui, soit laissent passer le courant électrique, soit ne le laissent pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
+
+### Transformer un nombre binaire en décimal
+
+En réalité, il n'y a aucun savoir spécial à acquérir pour compter en binaire : la notation en binaire suit exactement la même logique que notre notation décimale habituelle; si ce n'est que le binaire est au final plus simple puisqu'il n'y a que deux chiffres : `0` et `1`.
+
+Prenons le chiffre `263` en décimal , en réalité il est une notation raccourcie du calcul suivante :
+`(2 * 100) + (6 * 10) + (3 * 1)` qu'on peut lire comme "2 *centaines* et 6 *dizaines* et 3 *unités*".
+
+A l'époque des romains, il y avait des symboles différents pour signifier dix, cent, mille etc :
+
+symbole | version décimale
+---|---
+| `|` | 1 | 
+| `X`| 10 |
+| `C`| 100 |
+| `M` | 1000 |
+
+Le truc pénible avec ce principe, c'est qu'il faut inventer de nouveaux symboles ou imaginer de nouvelles notations au fur et à mesure que les nombres grandissent.
+
+Dans notre système de notation actuelle,  l'astuce c'est que nous n'avons que dix chiffres; mais **la quantité représenté par un chiffre change en fonction de sa position dans le nombre**. Ainsi, le chiffre 1 va signifier 10, 100, 1000 ou 10 000 selon sa position :
+
+|  signification  | notation décimale   
+---|---
+le premier chiffre, en partant de la **droite**, représente les **unités** : | 1 | 
+le second chiffre les **dizaines** | 10 
+le troisième chiffres les **centaines** | 100 
+le quatrième chiffre les **milliers** | 1000
+le cinquième chiffre les **dizaine de milliers** | 10000 
+etc, vers l'infini et au-delà. | 
+
+On peut donc très facilement représenter de très grands nombres : `1 000 000 000 000 000 000 000 000 000`
+
+La position d'un chiffre est mathématiquement une **multiplication implicite** par 1, 10, 100, 1000 etc. Nous disposons mathématiquement d'une notion plus pratique pour représenter ces multiplications : les puissances; et en l'occurenc des puissances de 10.
+
+|  signification  | en décimal | en puissance de 10  | 
+---|---|---
+le premier chiffre, en partant de la **droite**, représente les **unités** : | 1 | `1 x 10^0` 
+le second chiffre les **dizaines** | 10 |  `1 x 10^1` 
+le troisième chiffres les **centaines** |  100 | `1 x 10^2` 
+le quatrième chiffre les **milliers** | 1000 |  `1 x 10^3` 
+le cinquième chiffre les **dizaine de milliers** | 10000| `1 x 10^4` 
+etc, vers l'infini et au-delà. | 
+
+[à compléter]
+
+## Qu'est ce qu'un type de donnée  ?
+
+En programmation, quand on déclare une variable, elle toujours d'un certain **type**.  Il peut s'agir d'un *booléen*, d'un *nombre*, ou d'une *chaîne de caractères*... Mais aussi des types plus complexes comme des tableaux ou des classes. C'est ce qu'on désigne par **types de données**. 
+
+
+>🚨 Attention à ne pas mélanger en anglais *bytes* (octet) et *bits* (bits). En cas de doute, penser au **e** qu'on retrouve dans  byt**e** et oct**e**t.
+
+Dans la mémoire de l'ordinateur, la valeur d'une variable est toujours stockée dans un emplacement mémoire sous forme de **séquence de bits** , comme par exemple `11000000` ( on a ici 8 *bits*, soit un *octet*).  Du point de vue de la machine, il n'y a pas de *nombres*, de *chaînes de caractères* ou de *booléen*, seulement des séquences de bits, plus ou moins longues.
+
+C'est le langage qui interprète ces séquences de bits comme étant un  *nombre*, une *chaîne de caractères* ou autre; en lui assignant justement un **type** : ainsi le programme ne stocke pas simplement `11000000` en mémoire; mais aussi le type de donnée que cet octet (ou plusieurs octets) représente.
+
+**Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
+
+
+champ |   |
+------|---
+nom  | ma_variable
+type | u8
+valeur|11000000
+
+L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` ), la séquence de bits sera interprétée comme un nombre décimal valant **191** 
+
+> Soit `(2^7  + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
+
+Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme le nombre décimal négatif `-63`
+
+> Le bit le plus à gauche est utilisé pour indiquer la présence ou l'absence du signe `-`; donc si il vaut `1`, on considérera qu'il s'agit d'un nombre négatif. Soit : `2^7 - 1 = 63`. 
+
+Sur la même logique, `11000000` pourrait aussi bien représenter un caractère ou tout autre chose que le langage aura décidé de lui faire représenter.
+
+## Vue d'ensemble des types de données en Rust
+
+On peut diviser les types de données en 3 grandes catégories, que l'on verra en détail au fil de l'eau.
+
+- les types *primitifs atomiques*
+	- booléen :  `bool` 
+	- entiers signés : `i8` `i16` `i32` `i64`, `isize`
+	- entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
+	- nombres flottant : `f32` `f64`
+	- Textuels: `char` `str`
+- les types *primitifs composés* ( collections de primitifs atomiques )
+	- les array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
+	- les tuples `let my_tuple = (1, "a");`
+- les types *personnalisés* (custom, crée par le développeur)
+	- structures : `struct`
+	- énumérations : `enum`
+
 # Déclarer une variable
 
 En rust, on déclare une variable avec le mot clef `let`. 
@@ -219,6 +316,12 @@ let x :i32 = 67;
 ```rust
 let my_var = 5;
 let my_var = 6;
+```
+
+> 💡 On peut lier plusieurs variables avec un seul mot clef `let` en utilisant le type `tuple`. C'est possible car en réalité, la partie de code à gauche, entre `let` et `=`, est ce que Rust appelle un **motif** (pattern). Plus à ce sujet ultérieurement.
+
+```rust
+  let (x, y, z) = (1, 2.0, "Hello, world");
 ```
 
 ## Récapitulatifs des variables couramment utilisées
@@ -236,12 +339,6 @@ let a = 42;
 
 // déclarer un nombre mutable avec le type par défaut i32
 let mut y = 27;
-```
-
-> 💡 On peut lier plusieurs variables avec un seul mot clef `let` en utilisant le type `tuple`. C'est possible car en réalité, la partie de code à gauche, entre `let` et `=`, est ce que Rust appelle un **motif** (pattern). Plus à ce sujet ultérieurement.
-
-```rust
-  let (x, y, z) = (1, 2.0, "Hello, world");
 ```
 
 **Flottants:**
@@ -440,52 +537,6 @@ let y = {
 ``` 
 
 # Les types de données 
-
-## Qu'est ce qu'un type de donnée  ?
-
-En programmation, on sait que les variables peuvent être de différents types : nombres, chaînes de caractères, booléens; mais aussi des types plus complexes comme des tableaux ou des classes. C'est ce qu'on désigne par **types de données**. Pour comprendre ce qu'est un type, il faut revenir un instant au bas-niveau.
-
-Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données. Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Et dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui soit laissent passer le courant électrique, soit ne le laissent pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
-
-En réalité, dans la mémoire de l'ordinateur, une variable est toujours stockée dans un emplacement mémoire sous forme de **séquence de bits** , comme par exemple `11000000` ( ici 8 bits, donc un octet).  Du point de vue de la machine, il n'y a pas de "nombres", de "chaînes de caractères" ou de "booléen", seulement des séquences de bits, plus ou moins longues.
-
-C'est le langage qui interprète ces séquences de bits comme étant un  "nombre", une "chaîne de caractères" ou autres; en lui assignant justement un **type** : ainsi le programme ne stocke pas simplement `11000000` en mémoire; mais aussi le type de donnée que cet octet (ou plusieurs octets) représente.
-
-**Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
-
-
-champ |   |
-------|---
-nom  | ma_variable
-type | u8
-valeur|11000000
-
-L'interprétation de: `11000000` dépend donc du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` ), la séquence de bits sera interprétée comme **191** 
-
-> Soit `(2^7  + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
-
-Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme `-63`
-
-> On réserve le bit le plus à gauche pour réprésenter la présence ou l'absence du signe `-`. Soit : `2^7 - 1 = 63`.
-
-Sur la même logique, `11000000` pourrait aussi bien représenter un caractère ou tout autre chose que le langage aura décidé de lui faire représenter.
-
-## Vue d'ensemble des types de données en Rust
-
-On peut diviser les types de données en 3 grandes catégories, que l'on verra en détail au fil de l'eau.
-
-- les types *primitifs atomiques*
-	- booléen :  `bool` 
-	- entiers signés : `i8` `i16` `i32` `i64`, `isize`
-	- entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
-	- nombres flottant : `f32` `f64`
-	- Textuels: `char` `str`
-- les types *primitifs composés* ( collections de primitifs atomiques )
-	- les array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
-	- les tuples `let my_tuple = (1, "a");`
-- les types *personnalisés* (custom, crée par le développeur)
-	- structures : `struct`
-	- énumérations : `enum`
 
 ## Type primitifs atomiques
 
