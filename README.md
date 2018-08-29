@@ -240,7 +240,7 @@ On remarquer deux points faibles avec un tel système numérique :
 
 ### Le système positionnel
 
-Dans notre système de notation actuelle,  l'astuce c'est que nous n'avons que dix chiffres; mais **la position occupée par un chiffre modifie sa valeur**. Ainsi, le même chiffre 1 va signifier 10, 100, 1000 ou 10 000 selon sa position. 
+Dans notre système numérique évite habilement ces écueil avec élégance : l'astuce c'est que nous n'avons que dix symboles ( 10 chiffers); mais **la position occupée par un chiffre modifie sa valeur**. Ainsi, le même chiffre `2` va signifier 20, 200, 2000 ou 20 000 selon sa position. ( c'est pour ça qu'ajouter des zéros fait quand même grandir le nombre; parce que sinon normalement, ajouter des zéros, ça ne fait rien ^^ )
 
 Ainsi, pour `263` , le chiffre `2` est en troisième position ( en partant de la droite), ce qui signifie, dans notre système, qu'il faut le multiplier par 100. 
 
