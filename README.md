@@ -223,38 +223,24 @@ Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libér
 
 [ A compléter ]
 
-## Qu'est ce qu'un type de donnée  ?
-
-Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données. Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Et dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui soit laisse passer le courant électrique, soit ne le laisse pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
-
-En programmation, on sait que les variables peuvent être de différents types : nombres, chaînes de caractères, booléens; mais aussi des types plus complexes comme des tableaux ou des classes. C'est ce qu'on désigne par **types de données**.
-
-Mais en réalité, dans la mémoire de l'ordinateur, une variable est toujours stockée dans un emplacement mémoire sous forme de **séquence de bits** , comme par exemple `11000000`.  Du point de vue de la machine, il n'y a pas de "nombres", de "chaînes de caractères" ou de "booléen", seulement des séquences de bits, plus ou moins longues.
-
-C'est le langage qui interprète ces séquences de bits comme étant un  "nombre", "chaîne de caractères" ou autres; en lui associant justement un **type** : ainsi le programme ne stocke pas simplement `11000000` en mémoire; mais aussi le type de données que cet octet représente; et parfois d'autres champs. 
-
-**Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
-
-
-champ |   |
-------|---
-nom  | ma_variable
-type | u8
-valeur|11000000
-
-L'interprétation de: `11000000` dépend donc du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` ), la séquence de bits sera interprétée comme **191** 
-
-> Soit `(2^7  + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
-
-Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme `-63`
-
-> On réserve le bit le plus à gauche pour réprésenter la présence ou l'absence du signe `-`. Soit : `2^7 - 1 = 63`.
-
 # Déclarer une variable
 
-## Exemples de déclaration variables
+En rust, on déclare une variable avec le mot clef `let`. 
 
-En rust, on déclare une variable avec le mot clef `let`. Voici un survol rapide de déclaration de types de variable couramment utilisés.
+```rust
+let x :i32 = 67;
+```
+
+> 💡 Il est possible de "shadow" une variable en ré-utilisant le mot clef let.
+
+```rust
+let my_var = 5;
+let my_var = 6;
+```
+
+## Récapitulatifs des variables couramment utilisées
+
+Voici un survol rapide de déclaration de types de variable couramment utilisés.
 
 **Entiers :**
 
@@ -281,64 +267,6 @@ let mut y = 27;
 let x: f64 = 37.2
 ```
 
-**Vecteurs** - une collection agrandissable de valeurs d'un même type :
-
-```rust
-let ids = vec![18, 21, 36, 98];
-ids.push(101);
-
-// affiche [18, 21, 36, 98, 101]
-println!("{:#?}", ids);
-```
-
-**Les chaînes de caractères**
-
-```rust
-// Créer une chaîne de caractère UTF-8 et agrandissable : 
-let mut s = String::from("Hello");
-s.push_str(", world.");
-println!("{}", s); // display "Hello, world."
-
-// la macro "format!" est pratique pour créer une chaîne
-// de caractères agrandissable (type "String") et 
-// y insérer des valeurs de variables ou faire des concaténations de chaînes de caractères.
-let my_string = format!("les valeurs sont : {} {} {}", a, x, y);
-
-// créer une string de taille fixe et immutable appelée "slice" 
-// Son  type est *&str* .  
-// Cette chaîne de caractère sera stockée dans la mémoire statique du programme 
-// ( il s'agit d'un espace mémoire pré-réservé dans le fichier exécutable lui-même )
-/// Il n'est donc PAS possible de l'agrandir ultérieurement.
-let greeting = "Hello there.";
-```
-
-Structures :
-
-```rust
-// l'annotation debug permettra d'afficher l'objet 
-// avec "println!("{:#?}", user)"
-#[derive(Debug)]
-struct User {
-    name: String,
-    id: u64,
-}
-
-fn main() {
-    let user = User {
-        name: String::from("Yann"),
-        id: 99,
-    };
-    println!("{:#?}", user)
-}
-
-```
-
-> 💡 Il est possible de "shadow" une variable en ré-utilisant le mot clef let.
-
-```rust
-let my_var = 5;
-let my_var = 6;
-```
 
 ## Immutabilité par défaut
 
@@ -374,49 +302,40 @@ fn main() {
 }
 ```
 
-## Déboguer les variables avec les placeholders de "println!" 💡 
 
-`println!` permet d'afficher une variable à l'aide de différents formatteurs tels que `{}`, `{:?}` , `{:#?}`, `{:p}` et d'autres :
-
-```rust
-
-// pour une variable primitive atomique, "{}" est suffisant:
-let x = "hello world";
-println!("{}", x);
-
-// pour les types plus complexes, un formatteur est nécessaire
-let array = [1, 2, 3];
-
-// ceci ne fonctionnera pas
-println!("this is my variable : {}", array);
-// error[E0277]: `[{integer}; 3]` doesn't implement `std::fmt::Display`
-
-// ceci fonctionne
-println!("this is my variable : {:?}", array);
-// affiche: "this is my variable : [1, 2, 3]"
-
-// pour encore plus de lisibilité :
-println!("this is my variable : {:#?}", array);
-// affiche :
-// this is my variable : [
-//    1,
-//    2,
-//    3
-// ]
-
-// affiche l'adresse mémoire, par exemple `0x7ffee458816c`
-// L'éperluette signifie "donne moi l'adresse mémoire de cette variable"
-// Mais Rust affiche par défaut la valeur au lieu de l'adresse dans println!,
-// on doit donc ajouter le formateur `:p` pour voir réellement l'adresse.
-println!("{:p}", &array);
-
-// affiche une valeur sous forme de séquences de bits, ici `11`.
-println!("{:b}", array[2]);
-```
 
 # Les types de données 
 
-## Vue d'ensemble
+## Qu'est ce qu'un type de donnée  ?
+
+En programmation, on sait que les variables peuvent être de différents types : nombres, chaînes de caractères, booléens; mais aussi des types plus complexes comme des tableaux ou des classes. C'est ce qu'on désigne par **types de données**. Pour comprendre ce qu'est un type, il faut revenir un instant au bas-niveau.
+
+Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; and un *bit* est la plus petite unité de données. Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Et dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui soit laissent passer le courant électrique, soit ne le laissent pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
+
+En réalité, dans la mémoire de l'ordinateur, une variable est toujours stockée dans un emplacement mémoire sous forme de **séquence de bits** , comme par exemple `11000000` ( ici 8 bits, donc un octet).  Du point de vue de la machine, il n'y a pas de "nombres", de "chaînes de caractères" ou de "booléen", seulement des séquences de bits, plus ou moins longues.
+
+C'est le langage qui interprète ces séquences de bits comme étant un  "nombre", une "chaîne de caractères" ou autres; en lui assignant justement un **type** : ainsi le programme ne stocke pas simplement `11000000` en mémoire; mais aussi le type de donnée que cet octet (ou plusieurs octets) représente.
+
+**Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
+
+
+champ |   |
+------|---
+nom  | ma_variable
+type | u8
+valeur|11000000
+
+L'interprétation de: `11000000` dépend donc du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` ), la séquence de bits sera interprétée comme **191** 
+
+> Soit `(2^7  + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
+
+Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme `-63`
+
+> On réserve le bit le plus à gauche pour réprésenter la présence ou l'absence du signe `-`. Soit : `2^7 - 1 = 63`.
+
+Sur la même logique, `11000000` pourrait aussi bien représenter un caractère ou tout autre chose que le langage aura décidé de lui faire représenter.
+
+## Vue d'ensemble des types de données en Rust
 
 On peut diviser les types de données en 3 grandes catégories, que l'on verra en détail au fil de l'eau.
 
@@ -434,16 +353,14 @@ On peut diviser les types de données en 3 grandes catégories, que l'on verra e
 	- énumérations : `enum`
 
 
-## Type primitifs atomatiques
+## Type primitifs atomiques
 
-Il existe quatre types scalaires de données. Un type scalaire représente une données "atomique" par opposition à des types composés - comme des types listant plusieurs valeurs tels que *array*, *tuple* ou *String* (une String est une liste de *characters* )
+Il existe quatre types scalaires de données. Un type scalaire représente une données *atomique* par opposition à des types composés - comme des types listant plusieurs valeurs tels que *array*, *tuple* ou *String* (une String étant une liste de *caractères* )
 
-- integers
-- floating-point numbers
-- Booleans
-- characters
-
-> 💡 Note : ces types de données scalaires sont stockés uniquement dans la pile et supprimer de la pile lorsqu'il sont hors de portée. ( plus de détails plus bas concernant la *pile* et le *tas*)
+- Entier
+- Nombre à virgule flottante
+- Booléens
+- Caractère
 
 ### entier
 
@@ -567,6 +484,125 @@ println!("{}", ids[4]);
 ```
 
 > ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
+
+## Collection couramment utilisées
+
+Un survol rapide de types de collection couramment utilisés. Elles seront expliquées en détails plus tard; mais difficile de bidouiller un programme simple sans chaînes de caractères ou sans vecteur !
+
+**Les chaînes de caractères**
+
+```rust
+// Créer une chaîne de caractère UTF-8 et agrandissable : 
+let mut s = String::from("Hello");
+s.push_str(", world.");
+println!("{}", s); // display "Hello, world."
+
+// la macro "format!" est pratique pour créer une chaîne
+// de caractères agrandissable (type "String") et 
+// y insérer des valeurs de variables ou faire des concaténations de chaînes de caractères.
+let my_string = format!("les valeurs sont : {} {} {}", a, x, y);
+
+// créer une string de taille fixe et immutable appelée "slice" 
+// Son  type est *&str* .  
+// Cette chaîne de caractère sera stockée dans la mémoire statique du programme 
+// ( il s'agit d'un espace mémoire pré-réservé dans le fichier exécutable lui-même )
+/// Il n'est donc PAS possible de l'agrandir ultérieurement.
+let greeting = "Hello there.";
+```
+
+**Vecteurs** - une collection agrandissable de valeurs d'un **même type**, indexée par des entiers :
+
+```rust
+fn main() {
+    let mut ids = vec![18, 21, 36, 98];
+    ids.push(101);
+    
+    // affiche [18, 21, 36, 98, 101]
+    println!("{:#?}", ids);
+    
+    // afiche "21"
+    println!("{}", ids[1]);
+}
+```
+
+**HashMap** - un collection agrandissable de valeur d'un **même type**, indexée des chaînes de caractères, entiers, booléens ou tout type implémentant les traits `Eq` et `Hash`
+
+```rust
+use std::collections::HashMap;
+
+fn main() {
+    let mut contacts = HashMap::new();
+    contacts.insert("Daniel", "798-1364");
+    contacts.insert("Ashley", "645-7689");
+    contacts.insert("Katie", "435-8291");
+    contacts.insert("Robert", "956-1745");
+    // afficher toute la collection
+    println!("{:#?}", contacts);
+    // affiche le numéro de Daniel
+    println!("{}", contacts["Daniel"]);
+}
+```
+
+**Structures** - une structure permet de nommer et grouper un ensemble de valeurs. Un sructure peut également implémenter des méthodes ( plus de détails dans le chapitre dédié )
+
+```rust
+// l'annotation #[derive(Debug)] est optionnelle mais
+// elle permet d'afficher l'objet avec "println!("{:#?}", user)"
+#[derive(Debug)]
+struct User {
+    name: String,
+    id: u64,
+}
+
+fn main() {
+    let user = User {
+        name: String::from("Yann"),
+        id: 99,
+    };
+    println!("{:#?}", user)
+}
+
+```
+
+## Déboguer les variables avec les placeholders de "println!" 💡 
+
+`println!` permet d'afficher une variable à l'aide de différents formatteurs tels que `{}`, `{:?}` , `{:#?}`, `{:p}` et d'autres :
+
+```rust
+
+// pour une variable primitive atomique, "{}" est suffisant:
+let x = "hello world";
+println!("{}", x);
+
+// pour les types plus complexes, un formatteur est nécessaire
+let array = [1, 2, 3];
+
+// ceci ne fonctionnera pas
+println!("this is my variable : {}", array);
+// error[E0277]: `[{integer}; 3]` doesn't implement `std::fmt::Display`
+
+// ceci fonctionne
+println!("this is my variable : {:?}", array);
+// affiche: "this is my variable : [1, 2, 3]"
+
+// pour encore plus de lisibilité :
+println!("this is my variable : {:#?}", array);
+// affiche :
+// this is my variable : [
+//    1,
+//    2,
+//    3
+// ]
+
+// affiche l'adresse mémoire, par exemple `0x7ffee458816c`
+// L'éperluette signifie "donne moi l'adresse mémoire de cette variable"
+// Mais Rust affiche par défaut la valeur au lieu de l'adresse dans println!,
+// on doit donc ajouter le formateur `:p` pour voir réellement l'adresse.
+println!("{:p}", &array);
+
+// affiche une valeur sous forme de séquences de bits, ici `11`.
+println!("{:b}", array[2]);
+```
 
 # Fonctions 
 
