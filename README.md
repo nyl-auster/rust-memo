@@ -87,7 +87,7 @@ cargo doc --open
 
 # Prélude
 
-Rust requiert beaucoup plus de connaissances "bas-niveau" que PHP ou JavaScript, le prélude contient un récapitulatif de ce qu'il faut savoir pour comprendre le livre de Rust sans venir des langages C ou C++.
+Apprendre vite, c'est apprendre doucement en s'appuyant sur des fondamentaux solides à chaque étape : Rust requiert plus de connaissances "bas-niveau" que n'en requiert PHP ou JavaScript, ce prélude contient un récapitulatif de ce qu'il faut savoir pour aborder le livre de Rust sans difficultés : les différents segments de mémoire que peut utiliser un programme, la différence entre un pointeur et une référence, la relation entre numération binaire et bits, ce qu'est un "type de donnée" ...
 
 ## Historique de Rust 
 
