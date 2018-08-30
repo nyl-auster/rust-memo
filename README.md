@@ -881,11 +881,11 @@ m.call();
 
 ## Références
 
-Il existe un autre type de variable, qu'on appelle **référence**, et qui joue un rôle important pour comprendre la notion à venir de **propriété** et la gestion de la mémoire par Rust.
+Une **référence** est fondamentalement un **pointeur** : c'est à dire une donnée qui est une adresse mémoire vers une autre donnée; et qui pemet d'accéder en lecture et / ou écriture à la donnée pointée. 
 
-En informatique, une référence est une **valeur** qui est un moyen d'accéder en lecture et/ou écriture à une donnée. Une référence n'est **pas** la donnée elle-même mais seulement une information sur sa localisation dans la mémoire de l'ordinateur.
+**Un pointeur n'est  pas la donnée elle-même, seulement une information qui permet de la retrouver. **
 
-Les références en Rust **sont un type de pointeur**; mais qui donnent lieu à des vérifications au moment de la compilation; et donc des garanties qu'il n'y aura pas d'erreur mémoire au moment de la compilation.
+Une référence en Rust **est un type de pointeur**; mais qui donne lieu à des vérifications de sûreté mémoire au moment de la compilation. 
 
 Un exemple de création d'une référence :
 
