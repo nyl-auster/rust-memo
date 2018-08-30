@@ -209,15 +209,11 @@ Essayons de calculer la valeur représentée par le nombre binaire : `101000001`
 |multiplicateur exprimé en puissance|2^8|2^7|2^6|2^5|2^4|2^3|2^2|2^1|2^0| 
 |valeur du chiffre|256|0|64|0|0|0|0|0|1|**321** 
 
-### Distinction entre bit et binaires
+On voit donc que la numération binaire, qui peut paraître pauvre et aride au premier regard du néophyte; est en réalité un système de numération extrêmement élégant et efficace; le tout en utilisant seulement deux chiffres avec la notation positionnelle. 
 
-Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; et un *bit* est la plus petite unité de données. 
+### Les ordinateurs sont des calculette binaires surpuissants.
 
-Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui, soit laissent passer le courant électrique, soit ne le laissent pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
-
-Un **bit** n'est pas en soit du binaire : le binaire est un système de numération, tandis que le bit est un composant électronique qui a deux états possibles d'un point de vue électrique.  Mais deux états du bit peuvent être représentés de n'importe quel manière , on pourrait dire "ouvert" et "fermé", "vrai" et "faux" ou; ce qui est le plus proche de la réalité : "plutôt 5 volts" et "plutôt 0 volts". 
-
-Si on considère que "plutôt 0 volts" est un `0` et que "plutôt 5 volts" est un `1`; on peut interpréter une suite de transistors comme un puissant système de numération positionnel binaire !
+Nous avons vu ci-dessus qu'un ordinateurs contenaient des millions de petits interrupteurs qu'on pouvait allumer ou éteindre pour répresenter deux états; que l'on peut interpréter dans nos programme comme étant  `0` ou `1`. Il se trouve que c'est tout ce dont on a besoin pour construire une calculette binaire sur-puissante; et c'est précisément ce que sont nos ordinateurs.
 
 ## Qu'est ce qu'un type de donnée  ?
 
