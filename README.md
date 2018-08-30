@@ -331,6 +331,9 @@ Le système de numération binaire est lui aussi un système de numération posi
 
 Et comme il n'y a que deux chiffres; il fonctionne avec des **puissances de 2** au lieu de fonctionner avec des puissances de 10.
 
+En binaire, chaque position d'un nombre ne peut donc avoir que deux **états** (0 et 1), et c'est très proche de ce qu'on appelle un **bit** en informatique : un emplacement pour lequel on peut distinguer **deux états** possibles. 
+
+
 
 Prenons l'exemple du nombre décimal **1101**
 
@@ -341,9 +344,11 @@ Prenons l'exemple du nombre décimal **1101**
 |multiplicateur exprimé en puissance|2^3|2^2|2^1|2^0|
 |valeur du chiffre|8|4|0|1|**13**
 
-On procède donc pour le calcul exactement comme pour le système décimal; excepté que le multiplicateur caché est une puissance de 2.
+On procède donc pour le calcul exactement comme pour le système décimal; excepté que le multiplicateur caché est une puissance de 2. 
 
-Comme il n'y a que deux chiffres; le résultat est toujours directement *soit 0*, *soit la puissance de 2 associée à la position du chiffre*. On peut donc là aussi totalement ignorer les 0, et juste additionner les puissance de 2 associés à la position.
+Comme il n'y a que deux chiffres; le résultat est toujours directement *soit 0*, *soit la puissance de 2 associée à la position du chiffre*. 
+
+**On peut simplement directement prendre le résultat de la puissance de deux liée à la position là où il y a un chiffre 1 et ne pas s'occuper des 0**
 
 Essayons de calculer la valeur représentée par le nombre binaire : `101000001`
 
@@ -354,9 +359,17 @@ Essayons de calculer la valeur représentée par le nombre binaire : `101000001`
 |multiplicateur exprimé en puissance|2^8|2^7|2^6|2^5|2^4|2^3|2^2|2^1|2^0| 
 |valeur du chiffre|256|0|64|0|0|0|0|0|1|**321** 
 
-## Qu'est ce qu'un type de donnée  ?
+### Distinction entre bit et binaires
 
-Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; et un *bit* est la plus petite unité de données. Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui, soit laissent passer le courant électrique, soit ne le laissent pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
+Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; et un *bit* est la plus petite unité de données. 
+
+Un bit ne peut avoir que deux **états**, qu'on représente conventionnellement par `0` et `1`. Dans le vrai monde, un bit est un tout petit endroit dans votre ordinateur composés de transistors qui, soit laissent passer le courant électrique, soit ne le laissent pas passer. Nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
+
+Un **bit** n'est pas en soit du binaire : le binaire est un système de numération, tandis que le bit est un composant électronique qui a deux états possibles d'un point de vue électrique.  Mais deux états du bit peuvent être représentés de n'importe quel manière , on pourrait dire "ouvert" et "fermé", "vrai" et "faux" ou; ce qui est le plus proche de la réalité : "plutôt 5 volts" et "plutôt 0 volts". 
+
+Si on considère que "plutôt 0 volts" est un `0` et que "plutôt 5 volts" est un `1`; on peut interpréter une suite de transistors comme un puissant système de numération positionnel binaire !
+
+## Qu'est ce qu'un type de donnée  ?
 
 En programmation, quand on déclare une variable, elle toujours d'un certain **type**.  Il peut s'agir d'un *booléen*, d'un *nombre*, ou d'une *chaîne de caractères*... Mais aussi des types plus complexes comme des tableaux ou des classes. C'est ce qu'on désigne par **types de données**. 
 
