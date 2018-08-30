@@ -208,6 +208,10 @@ Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libér
 
 ## Le système de numération binaire
 
+Le système de numération binaire n'a en réalité rien de différent de notre système à 10 chiffres de tous les jours; il est même plus simple puisqu'il n'a que deux chiffres ( `0` et `1` ) eu lieu de 10 !
+
+Comprendre le binaire, c'est donc comprendre notre système décimal habituel, c'est donc comprendre ce qu'est un *système de numération positionnel* et pourquoi ça existe.
+
 ### La notion d'unité
 
 Qu'est ce qu'un chiffre ? Un certaine quantité d'unités ou de "un" que l'on peut compter. Si on note "|" l'unité, voici comment décrire en unités les chiffres de notre système décimal.
@@ -266,7 +270,7 @@ Mais le système n'est pas parfait non plus, si on s'en tient à ces symboles :
 
 ### La notation positionnelle
 
-C'est pourquoi notre système de numération actuel utilise la très astucieuse **notation positionnelle** qui résoud tous les problèmes précédemment évoqués; avec un ensemble très restreint de symboles. D'ailleurs, un  `0` et un `1` suffisent amplement pour créer n'importe quel nombre tant ce système est ingénieux ! Mais commençons par redécouvrir notre système de numération décimal de tous les jours.
+C'est pourquoi notre système de numération actuel utilise la très astucieuse **notation positionnelle** qui résoud tous les problèmes précédemment évoqués; avec un ensemble très restreint de symboles. 
 
 Notre système de numération décimal utilisent un ensemble de 10 symboles, nommés chiffres, en utilisant la **notation positionnelle** : c'est à dire que la valeur d'un chiffre va changer en fonction de sa **position** dans le nombre. En réalité, chaque position implique un **multiplicateur caché**.
 
@@ -325,15 +329,11 @@ A la troisième position, nous avons un `0` : on s'aperçoit que ça revient à 
  
 ### Compter en binaire
 
-En réalité, il n'y a rien de particulier à apprendre pour compter en binaire : le système binaire fonctionne sur exactement les mêmes principes que notre système de numération décimal positionnel. 
+Le système binaire fonctionne sur exactement les mêmes principes que notre système de numération décimal positionnel : c'est un système de numération à notation positionnel avec seulement deux chiffres : `0` et `1` au lieu de 10.
 
-Le système de numération binaire est lui aussi un système de numération positionnel. La seule différence c'est que que le système binaire n'a que 2 chiffres au lieu de 10  : `0`et `1`. 
+Un des corollaires de la notation positionnelle; c'est qu'il n'y a pas besoin de 10 chiffres pour que ça fonctionne, ça peut être aussi bien 5, ou 60, 12 et même ... seulement 2 chiffres ! Ce qui est la version la plus minimaliste possible d'un système de numération positionnel. Ca fait partie de l'élégance de ce système.
 
-Et comme il n'y a que deux chiffres; il fonctionne avec des **puissances de 2** au lieu de fonctionner avec des puissances de 10.
-
-En binaire, chaque position d'un nombre ne peut donc avoir que deux **états** (0 et 1), et c'est très proche de ce qu'on appelle un **bit** en informatique : un emplacement pour lequel on peut distinguer **deux états** possibles. 
-
-
+Comme la numération binaire n'utilise que deux chiffres; il fonctionne avec des **puissances de 2** au lieu de fonctionner avec des puissances de 10 comme notre système décimal.
 
 Prenons l'exemple du nombre décimal **1101**
 
