@@ -501,6 +501,8 @@ println!("{}", ids[4]);
 
 ### Vecteurs
 
+Un vecteur peut s'agrandir pendant l'éxécution, ses valeurs sont donc stockées dans le **tas**.
+
 Créér un nouveau vecteur contenant une collection d'entiers. On utilise ensuite la méthode `push` pour ajouter des éléments.
 
 ```rust
