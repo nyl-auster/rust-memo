@@ -1,104 +1,60 @@
 
 # Prélude
 
-Apprendre vite, c'est apprendre doucement ! Rust requiert plus de connaissances "bas-niveau" que n'en requiert *PHP* ou *JavaScript*, ce prélude contient un récapitulatif de ce qu'il faut savoir pour aborder le livre de Rust sans difficultés : les différents segments de mémoire que peut utiliser un programme, la différence entre un pointeur et une référence, la relation entre numération binaire et bits, ce qu'est un "type de donnée" ....
+Apprendre vite, c'est apprendre doucement ! Rust requiert plus de connaissances "bas-niveau" que n'en requiert *PHP* ou *JavaScript*, ce prélude contient un récapitulatif, adapté à Rust, de ce qu'il faut savoir pour aborder *Rust* sans difficultés quand on vient des langages PHP ou JavaScript : les différents segments de mémoire que peut utiliser un programme, le binaire, qu'est ce qu'un fichier binaire, ce qu'est un "type de donnée" .... 
 
 ## La phase de compilation (compile-time) et la phase d'éxécution (run-time)
 
 En PHP ou JavaScript, il n'y pas de phase de compilation : ce sont des languages interprétés à la volée. A l'opposé, Rust nécessite d'être compilé avant de pouvoir être exécuté.  Donc en Rust, on distingue le "compile-time" ( phase de compilation ) et le run-time ( phase d'éxécution). 
 
-Le rôle du compilateur de Rust n'est pas seulement de compiler au optimiser votre programme en un fichier binaire; c'est lui qui offre des garanties solides que votre code tournera sans erreur en forçant le développeur à respecter un ensemble de règles.
+Mais en contre-partie PHP et JavaScript ont besoin d'un interpréteur pour être exécuté. Il faut un navigateur ou Node.js pour exécuter du JavaScript; et il faut un serveur HTTP sur lequel il faut installer un interpréteur pour PHP. 
 
-## La gestion de la mémoire 
+Rust de son côté fourni après compilation un fichier binaire qu'il est possible d'éxécuter même si Rust n'est pas installé sur la machine. [<span style="color:red">A préciser</span>]
 
-Pour tourner, un programme doit constammer allouer puis libérer de la mémoire. Une variable est par exemple fondamentalement un espace mémoire contenant une séquences de bits; qui doit être supprimée de la mémoire quand elle n'est plus utile au programme. 
+Le rôle du compilateur de Rust n'est pas seulement de compiler et optimiser le programme en un fichier binaire; c'est aussi lui qui, pendant la phase de développement, garantit la sûreté de la mémoire et la qualité du code en imposant le respect de certaines conventions d'écriture du code.
 
-La question de la gestion de la mémoire est centrale en Rust, il est donc impératif d'avoir un modèl mental clair de la manière dont un programme gére la mémoire dans les grandes lignes.
+## Fichier binaire
 
-### Gestion automatique de la mémoire
+J'ai écrit que Rust se compile en un fichier binaire. Mais qu'est ce qu'un fichier binaire précisément ? 
 
-En PHP ou JavaScript, il n'est jamais nécesserait d'allouer ou libérer soi-même de la mémoire : on créer simplement nos variables (allocations de mémoire) et le **ramasse-miettes** (Garbage Collector) se charge ensuite de libérer automatiquement la mémoire. 
+<img width="500" src="images/binary-file.png" />
+> ci-dessus un extrait d'un fichier binaire de Rust obtenu avec la commande `xxd -b filename`
 
-Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées de double libération ou de pointeurs foireux. Cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme : le programme doit en effet évaluer par lui même au moyen d'un algorithme, sans aucune indication du développeur, pendant qu'il s'éxécute, quelles sont les valeurs en mémoires devenus inutiles au programme et si il peut les supprimer en toute sécurité.  
+Quand on compile Rust, on obtient un fichier qui contient des `0` et des  `1` , que l'ordinateur est en mesure de comprendre et éxécuter pour que le programme fasse ce pourquoi il a été développé. Pourquoi des `0` et des  `1` ?
 
-Établir un algorithme pour établir avec certitude quelles sont les valeurs qui ne sont plus utiles au programme n'est par ailleurs pas si simple; une erreur dans cet algorithme pourrait par exemple provoquer une fuite de mémoire dans certains cas. A contrario, une amélioration de cet algorithme peut se traduire par un gain de performance très important pour le langage. ( voir par exemple cette page de la documentation de PHP qui explique une amélioration importante de son Garbage collector : [http://php.net/manual/fr/features.gc.performance-considerations.php](http://php.net/manual/fr/features.gc.performance-considerations.php) )
+## Le bit.
 
-### Gestion manuelle de la mémoire
+Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; et un *bit* est la plus petite unité de données d'un ordinateur.
 
-Dans certains languages, l'allocation de la mémoire peut être *manuelle* ( comme en `C` ); c'est à dire que le développeur doit parfois allouer et libérer lui même la mémoire pour certaines variables.
+Dans votre ordinateur le principe du **bit** repose en réalité sur tout petit composant électronique (composés lui-même de **transistors**); que l'ordinateur peut manipuler pour qu'il bloque ou pas la circulation d'un courant électrique (un peu comme un interrupteur).  
 
-Cela peut-être sources de nombreux bugs : par exemple si on essaie de lire une variable dans la valeur a déjà été effacée de la mémoire; ou bien si on essaie de libérer un emplacement mémoire déjà libéré. On risque aussi une **fuite de mémoire**, c'est à dire que le programme va allouer trop de mémoire de manière incontrolée et exponentielle à cause d'un bout de code incorrect dans la gestion de la mémoire.
+On peut alors considérer que ce composant, d'un point de vue électrique a **deux états** bien distincts : "ouvert" ou "fermé". On interpretera par exemple comme "ouvert" le fait que le courant circule et comme "fermé" le fait que le courant en circule pas. On représente souvent par `0` et `1` ou "vrai" et "faux" ces deux états. 
 
-### Rust : la Voie du milieu
+Avec deux états, on ne peut représenter que deux valeurs, c'est peu. 
 
-Rust de son côté n'utilise pas de *ramasse-miettes* ; mais ne demande pas non plus au développeur de libérer manuellement la mémoire. Il le fait automatiquement grâce à des règles d'écriture de code qui permet au compilateur de toujours savoir à quel moment il peut supprimer une donnée de la mémoire de façon sûre.
- 
-En Rust on doit donc écrire du **code déterministe, aux yeux du compilateur, en terme d'usage de mémoire** ; c'est à dire que la sémantique du code doit permettre seule de déterminer *au moment de la compilation*, précisément et sans aucune ambiguité, si telle ou telle donnée peut être supprimée de la mémoire en tout sécurité. 
+Mais avec une séquences de 2 bits , on obtient 4 valeurs / mots / combinaisons / états possibles : 
 
-Le compilateur vous avertira donc souvent ( avec un message bien précis) que tel ou tel code,bien que fonctionnel, n'est pas valide car le compilateur ne peut pas **déterminer** comment libérer la mémoire avec la certitude de ne pas déclencher une erreur au moment de l'éxécution du programme; et vous invitera à réecrire différemment une partie du code ou parfois à ajouter des indications supplémentaires ( comme une *durée de vie explicite* pour une référence )
+`00`,  `01`,  `10`, `11`. 
 
-Si le compilateur peut sembler contraignant de prime abord, il confère aussi des super-pouvoirs à Rust, comme par exemple :
-- Si ça compile, vous pouvez aller boire une bière en étant certain de n'avoir aucun problème de gestion de la mémoire ou de "data races".
-- On obtient un programme dont la mémoire est gérée de manière très performante.
-- On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *ramasse-miette*, parce que le ramasse-miette s'appuie justement sur des fonctionnalités mémoires bas-niveau du système d'exploitation lui-même. 
+On peut donc déjà compter de 0 jusqu'à 3 en créeant une table de correspondance ! on dira simplement que :
 
-### Les 3 segments de mémoire les plus utilisés par un programme
+| encodage en bits | signification |
+|---|---|
+|00 |0 |
+|01 |1 |
+|10 |2 |
+|11 |3 |
 
-La mémoire accessible par un programme se divise en trois segments. En avoir une vision claire permet de comprendre Rust aisément. A contrario, une mauvaise compréhension de ces types de mémoires seront un frein important à beaucoup de concepts de Rust.
+Continuons : avec 5 bits on a 32 valeurs possibles; avec 32 bits, on obtient .... **4 milliards de valeurs possibles** ! Sachant que nos ordinateurs modernes contiennent plusieurs centaines de **millions** de transistors.
 
-- Sur la pile d'éxécution ( *stack* )
-- Dans le tas ( *heap* ) 
-- Dans le segment de données du programme
+5 bits, c'est assez pour créer un système de communication complet et  utilisable en temps de guerre : le morse ne contient que deux signaux possibles (signal court ou un signal long, c'est donc une forme de bit) et pourtant permet d'avoir une conversation.
 
-C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire. 
+<img width="300" src="images/morse.png" />
+> Avec seulement **5 bits** (c'est le nombre maximal de signaux pour un caractère sur l'image ci-dessus), le morse peut représenter 24 lettres et 10 chiffres !
 
-## La pile d'éxécution et le tas
+Les bits sont au final comme des millions de minuscules interrupteurs électriques, qu'on peut éteindre ou allumer pour encoder de l'information.  Tout comme le morse, l'information est donc à **décoder** ensuite : en tant qu'utilisateur d'un ordinateur, nous voulons voir du texte, des images ; mais pas des 0 et des 1 !
 
-Si vous pouvez coder tranquillement du PHP et du JavaScript sans vous me demander si la valeur d'une variable est stockée dans la pile d'éxécution ( the stack ) ou bien dans le tas ( heap ); il n'en va pas de même en Rust !
-
-En effet, toutes les problématiques de la gestion de mémoire évoqués ci-dessus concerne uniquement la mémoire du *tas* ( heap ). 
-
-**🚨 Une variable en Rust ne se comportera pas de la même manière selon que sa valeur soit stockée dans le tas ou dans la pile d'éxécution.**
-
-### La pile d'éxécution
-
-> *représentation naïve du principe de base d'une pile*
-<img width="500px" src="images/stack.png" />
-
-La mémoire de la pile d'éxécution a une mission principale : mémoriser la fonction du programme actuellement en cours d'éxécution et savoir à quelle partie du code ( l'*adresse de retour* ) retourner une fois cette fonction termnée. 
-
-> 💡 Il serait plus exact de parler de sous-programme (subroutine) que de fonction : c'est à dire une portion de programme qui peut s'éxécuter indépendamment du reste du programme. Une fonction est un type de sous-programme.
-
-Son nom de "pile" vient du fait, que la donnée tout en haut de la pile est toujours la prochaine adresse de retour où le programme doit se rendre. Il suffit donc de "dépiler" (pop) pour connaître la prochaine étape. Cette opération est très rapide.
-
-La pile stocke aussi les informations dont a besoin la fonction (ou le sous-programme ) pour s'éxécuter, comme par exemple les variables locales ou les arguments de la fonction.
-
-Par exemple, supposons le pseudo code suivant : 
-
-```rust
-fn DrawSquare() {
-  Drawline(pointA, pointB);
-  // ... reste du code pour construire un carré
-}
-```
-La pile d'éxécution correspondant à cette portion de code peut être schématisée ainsi :
-
-<img width="500px" src="images/stack-instance.svg" />
-> source : [https://en.wikipedia.org/wiki/Call_stack](https://en.wikipedia.org/wiki/Call_stack)
-
-On voit ici qu'en réalité la pile est composées de **trames** (*frames*). On voit en <strong style="color:green;">vert</strong> la trame pour éxécuter `Drawline(pointA, pointB);` et en <strong style="color:blue;">bleu</strong>  la trame pour éxécuter `DrawSquare`.
-
-Les pointeurs (*Stack pointer* et *Frame pointer*) permettent de savoir ce qui est actuellement en cours d'éxécution et où se trouve l'adresse de retour de la prochaine instruction de code à éxécuter.
-
-### Le tas 
-
-La plupart des programmes ont besoin, au cours de leur exécution, d'allouer dynamiquement de la mémoire de manière non-prédictible, puis de la restituer au système. 
-
-Par exemple, si on propose à un utilisateur de rentrer un long texte en markdown, sans limite de caractères, et qu'on veut lui afficher en temps réel une prévisualisation du rendu final de son texte. On ne connaît alors pas la taille finale du texte; mais on a pourtant besoin de le stocker au fur et à mesure en mémoire pour pouvoir générer puis afficher le rendu markdown.
-
-Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libérer cette mémoire quand cette variable n'a plus d'utilité.
-
-[ A compléter ]
+Deux états, c'est aussi tout ce qu'il nous faut pour manipuler les bits comme un système de numération très élégant et puissant : le système binaire.
 
 ## Le système de numération binaire
 
@@ -291,3 +247,95 @@ Si le type était en entier **signé** ( `i8` ), la séquence de bits sera inter
 > Le bit le plus à gauche est utilisé pour indiquer la présence ou l'absence du signe `-`; donc si il vaut `1`, on considérera qu'il s'agit d'un nombre négatif. Soit : `2^7 - 1 = 63`. 
 
 Sur la même logique, `11000000` pourrait aussi bien représenter un caractère ou tout autre chose que le langage aura décidé de lui faire représenter.
+
+## La gestion de la mémoire 
+
+Pour fonctionner, un programme doit constammer allouer puis libérer de la mémoire. Une variable est par exemple un espace mémoire contenant une séquences de **bits**; qui doit être supprimée de la mémoire quand elle n'est plus utile au programme. 
+
+La question de la gestion de la mémoire est centrale en Rust, il est donc impératif d'avoir un modèl mental clair de la manière dont un programme gére la mémoire dans les grandes lignes.
+
+### Gestion automatique de la mémoire
+
+En PHP ou JavaScript, il n'est jamais nécesserait d'allouer ou libérer soi-même de la mémoire : on créer simplement nos variables (allocations de mémoire) et le **ramasse-miettes** (Garbage Collector) se charge ensuite de libérer automatiquement la mémoire. 
+
+Cela libére le développeur de l'obligation d'allouer manuellement la mémoire et évite les erreurs mentionnées de double libération ou de pointeurs foireux. Cela peut aussi avoir un impact sur les performances, le récupérateur mémoire ayant tendance à augmenter la consommation mémoire du programme : le programme doit en effet évaluer par lui même au moyen d'un algorithme, sans aucune indication du développeur, pendant qu'il s'éxécute, quelles sont les valeurs en mémoires devenus inutiles au programme et si il peut les supprimer en toute sécurité.  
+
+Établir un algorithme pour établir avec certitude quelles sont les valeurs qui ne sont plus utiles au programme n'est par ailleurs pas si simple; une erreur dans cet algorithme pourrait par exemple provoquer une fuite de mémoire dans certains cas. A contrario, une amélioration de cet algorithme peut se traduire par un gain de performance très important pour le langage. ( voir par exemple cette page de la documentation de PHP qui explique une amélioration importante de son Garbage collector : [http://php.net/manual/fr/features.gc.performance-considerations.php](http://php.net/manual/fr/features.gc.performance-considerations.php) )
+
+### Gestion manuelle de la mémoire
+
+Dans certains languages, l'allocation de la mémoire peut être *manuelle* ( comme en `C` ); c'est à dire que le développeur doit parfois allouer et libérer lui même la mémoire pour certaines variables.
+
+Cela peut-être sources de nombreux bugs : par exemple si on essaie de lire une variable dans la valeur a déjà été effacée de la mémoire; ou bien si on essaie de libérer un emplacement mémoire déjà libéré. On risque aussi une **fuite de mémoire**, c'est à dire que le programme va allouer trop de mémoire de manière incontrolée et exponentielle à cause d'un bout de code incorrect dans la gestion de la mémoire.
+
+### Rust : la Voie du milieu
+
+Rust de son côté n'utilise pas de *ramasse-miettes* ; mais ne demande pas non plus au développeur de libérer manuellement la mémoire. Il le fait automatiquement grâce à des règles d'écriture de code qui permet au compilateur de toujours savoir à quel moment il peut supprimer une donnée de la mémoire de façon sûre.
+ 
+En Rust on doit donc écrire du **code déterministe, aux yeux du compilateur, en terme d'usage de mémoire** ; c'est à dire que la sémantique du code doit permettre seule de déterminer *au moment de la compilation*, précisément et sans aucune ambiguité, si telle ou telle donnée peut être supprimée de la mémoire en tout sécurité. 
+
+Le compilateur vous avertira donc souvent ( avec un message bien précis) que tel ou tel code,bien que fonctionnel, n'est pas valide car le compilateur ne peut pas **déterminer** comment libérer la mémoire avec la certitude de ne pas déclencher une erreur au moment de l'éxécution du programme; et vous invitera à réecrire différemment une partie du code ou parfois à ajouter des indications supplémentaires ( comme une *durée de vie explicite* pour une référence )
+
+Si le compilateur peut sembler contraignant de prime abord, il confère aussi des super-pouvoirs à Rust, comme par exemple :
+- Si ça compile, vous pouvez aller boire une bière en étant certain de n'avoir aucun problème de gestion de la mémoire ou de "data races".
+- On obtient un programme dont la mémoire est gérée de manière très performante.
+- On peut utiliser Rust pour tout, y compris écrire un système d'exploitation, ce qui ne serait pas possible si il avait un *ramasse-miette*, parce que le ramasse-miette s'appuie justement sur des fonctionnalités mémoires bas-niveau du système d'exploitation lui-même. 
+
+### Les 3 segments de mémoire les plus utilisés par un programme
+
+La mémoire accessible par un programme se divise en trois segments. En avoir une vision claire permet de comprendre Rust aisément. A contrario, une mauvaise compréhension de ces types de mémoires seront un frein important à beaucoup de concepts de Rust.
+
+- Sur la pile d'éxécution ( *stack* )
+- Dans le tas ( *heap* ) 
+- Dans le segment de données du programme
+
+C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire. 
+
+## La pile d'éxécution et le tas
+
+Si vous pouvez coder tranquillement du PHP et du JavaScript sans vous me demander si la valeur d'une variable est stockée dans la pile d'éxécution ( the stack ) ou bien dans le tas ( heap ); il n'en va pas de même en Rust !
+
+En effet, toutes les problématiques de la gestion de mémoire évoqués ci-dessus concerne uniquement la mémoire du *tas* ( heap ). 
+
+**🚨 Une variable en Rust ne se comportera pas de la même manière selon que sa valeur soit stockée dans le tas ou dans la pile d'éxécution.**
+
+### La pile d'éxécution
+
+> *représentation naïve du principe de base d'une pile*
+<img width="500px" src="images/stack.png" />
+
+La mémoire de la pile d'éxécution a une mission principale : mémoriser la fonction du programme actuellement en cours d'éxécution et savoir à quelle partie du code ( l'*adresse de retour* ) retourner une fois cette fonction termnée. 
+
+> 💡 Il serait plus exact de parler de sous-programme (subroutine) que de fonction : c'est à dire une portion de programme qui peut s'éxécuter indépendamment du reste du programme. Une fonction est un type de sous-programme.
+
+Son nom de "pile" vient du fait, que la donnée tout en haut de la pile est toujours la prochaine adresse de retour où le programme doit se rendre. Il suffit donc de "dépiler" (pop) pour connaître la prochaine étape. Cette opération est très rapide.
+
+La pile stocke aussi les informations dont a besoin la fonction (ou le sous-programme ) pour s'éxécuter, comme par exemple les variables locales ou les arguments de la fonction.
+
+Par exemple, supposons le pseudo code suivant : 
+
+```rust
+fn DrawSquare() {
+  Drawline(pointA, pointB);
+  // ... reste du code pour construire un carré
+}
+```
+La pile d'éxécution correspondant à cette portion de code peut être schématisée ainsi :
+
+<img width="500px" src="images/stack-instance.svg" />
+> source : [https://en.wikipedia.org/wiki/Call_stack](https://en.wikipedia.org/wiki/Call_stack)
+
+On voit ici qu'en réalité la pile est composées de **trames** (*frames*). On voit en <strong style="color:green;">vert</strong> la trame pour éxécuter `Drawline(pointA, pointB);` et en <strong style="color:blue;">bleu</strong>  la trame pour éxécuter `DrawSquare`.
+
+Les pointeurs (*Stack pointer* et *Frame pointer*) permettent de savoir ce qui est actuellement en cours d'éxécution et où se trouve l'adresse de retour de la prochaine instruction de code à éxécuter.
+
+### Le tas 
+
+La plupart des programmes ont besoin, au cours de leur exécution, d'allouer dynamiquement de la mémoire de manière non-prédictible, puis de la restituer au système. 
+
+Par exemple, si on propose à un utilisateur de rentrer un long texte en markdown, sans limite de caractères, et qu'on veut lui afficher en temps réel une prévisualisation du rendu final de son texte. On ne connaît alors pas la taille finale du texte; mais on a pourtant besoin de le stocker au fur et à mesure en mémoire pour pouvoir générer puis afficher le rendu markdown.
+
+Il faut dans ce genre de cas allouer de la mémoire sur le **tas** , puis libérer cette mémoire quand cette variable n'a plus d'utilité.
+
+[ A compléter ]
+
