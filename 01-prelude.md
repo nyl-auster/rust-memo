@@ -1,0 +1,3 @@
+# Prélude
+
+Rust requiert plus de connaissances dites "bas-niveau" que n'en requiert _PHP_ ou _JavaScript_. Ce prélude contient un récapitulatif, adapté à Rust, de ce qu'il faut savoir pour aborder _Rust_ sans difficultés quand on vient des langages PHP ou JavaScript : les différents segments de mémoire que peut utiliser un programme, ce qu'est un fi, ce qu'est un "type de donnée" ....
