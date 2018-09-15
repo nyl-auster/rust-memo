@@ -1,4 +1,4 @@
-## Le bit.
+# Bits et transistors
 
 Les ordinateurs stockent leurs données dans la mémoire. La mémoire consiste en une séquence d'octets, qui stockent chacun 8 bits. Un octet est la plus petite unité de mémoire qu'un ordinateur peut lire ou écrire; et un _bit_ est la plus petite unité de données d'un ordinateur.
 

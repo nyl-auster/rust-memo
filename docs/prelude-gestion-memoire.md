@@ -1,11 +1,10 @@
-
-## La gestion de la mémoire 
+# La gestion de la mémoire 
 
 Pour fonctionner, un programme doit constammer allouer puis libérer de la mémoire. Une variable est par exemple un espace mémoire contenant une séquences de **bits**; qui doit être supprimée de la mémoire quand elle n'est plus utile au programme. 
 
 La question de la gestion de la mémoire est centrale en Rust, il est donc impératif d'avoir un modèl mental clair de la manière dont un programme gére la mémoire dans les grandes lignes.
 
-### Gestion automatique de la mémoire
+## Gestion automatique de la mémoire
 
 En PHP ou JavaScript, il n'est jamais nécesserait d'allouer ou libérer soi-même de la mémoire : on créer simplement nos variables (allocations de mémoire) et le **ramasse-miettes** (Garbage Collector) se charge ensuite de libérer automatiquement la mémoire. 
 
@@ -13,13 +12,13 @@ Cela libére le développeur de l'obligation d'allouer manuellement la mémoire 
 
 Établir un algorithme pour établir avec certitude quelles sont les valeurs qui ne sont plus utiles au programme n'est par ailleurs pas si simple; une erreur dans cet algorithme pourrait par exemple provoquer une fuite de mémoire dans certains cas. A contrario, une amélioration de cet algorithme peut se traduire par un gain de performance très important pour le langage. ( voir par exemple cette page de la documentation de PHP qui explique une amélioration importante de son Garbage collector : [http://php.net/manual/fr/features.gc.performance-considerations.php](http://php.net/manual/fr/features.gc.performance-considerations.php) )
 
-### Gestion manuelle de la mémoire
+## Gestion manuelle de la mémoire
 
 Dans certains languages, l'allocation de la mémoire peut être *manuelle* ( comme en `C` ); c'est à dire que le développeur doit parfois allouer et libérer lui même la mémoire pour certaines variables.
 
 Cela peut-être sources de nombreux bugs : par exemple si on essaie de lire une variable dans la valeur a déjà été effacée de la mémoire; ou bien si on essaie de libérer un emplacement mémoire déjà libéré. On risque aussi une **fuite de mémoire**, c'est à dire que le programme va allouer trop de mémoire de manière incontrolée et exponentielle à cause d'un bout de code incorrect dans la gestion de la mémoire.
 
-### Rust : la Voie du milieu
+## Rust : propriété et emprunt
 
 Rust de son côté n'utilise pas de *ramasse-miettes* ; mais ne demande pas non plus au développeur de libérer manuellement la mémoire. Il le fait automatiquement grâce à des règles d'écriture de code qui permet au compilateur de toujours savoir à quel moment il peut supprimer une donnée de la mémoire de façon sûre.
  

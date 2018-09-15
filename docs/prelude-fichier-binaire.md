@@ -1,4 +1,4 @@
-## Fichier binaire
+# qu'est ce qu'un fichier binaire ?
 
 J'ai écrit que Rust se compile en un fichier binaire. Mais qu'est ce qu'un fichier binaire précisément ?
 

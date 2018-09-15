@@ -1,4 +1,4 @@
-# Prélude : La phase de compilation (compile-time) et la phase d'éxécution (run-time)
+# La phase de compilation (compile-time) et la phase d'éxécution (run-time)
 
 En PHP ou JavaScript, il n'y pas de phase de compilation : ce sont des languages interprétés à la volée. A l'opposé, Rust nécessite d'être compilé avant de pouvoir être exécuté.  Donc en Rust, on distingue le "compile-time" ( phase de compilation ) et le run-time ( phase d'éxécution). 
 
