@@ -1,24 +1,16 @@
 # Variables et types de données
 
-## Qu'est ce qu'un type de donnée / de variabl ?
+## Qu'est ce qu'un type de donnée ?
 
-En programmation, quand on déclare une variable, elle toujours d'un certain **type**. Il peut s'agir d'un _booléen_, d'un _nombre_, ou d'une _chaîne de caractères_... Mais aussi des types plus complexes comme des tableaux ou des classes. C'est ce qu'on désigne par **types de données**.
+En programmation, quand on déclare une variable, elle toujours d'un certain **type**. Il peut s'agir d'un _booléen_, d'un _nombre_, ou d'une _chaîne de caractères_... Mais aussi des types plus complexes comme des "tableaux", des "collections", des classes. C'est ce qu'on désigne par **types de données**.
 
-> 🚨 Attention à ne pas mélanger en anglais _bytes_ (octet) et _bits_ (bits). En cas de doute, penser au **e** qu'on retrouve dans byt**e** et oct**e**t.
+Dans la mémoire de l'ordinateur, la valeur d'une variable est toujours stockée dans un emplacement mémoire sous forme d'une **séquence de bits** , comme par exemple `11000000` ( on a ici 8 _bits_, soit un _octet_). Du point de vue de la machine, il n'y a pas de _nombres_, de _chaînes de caractères_ ou de _booléen_, seulement des séquences de bits, plus ou moins longues.
 
-Dans la mémoire de l'ordinateur, la valeur d'une variable est toujours stockée dans un emplacement mémoire sous forme de **séquence de bits** , comme par exemple `11000000` ( on a ici 8 _bits_, soit un _octet_). Du point de vue de la machine, il n'y a pas de _nombres_, de _chaînes de caractères_ ou de _booléen_, seulement des séquences de bits, plus ou moins longues.
-
-C'est le langage qui interprète ces séquences de bits comme étant un _nombre_, une _chaîne de caractères_ ou autre; en lui assignant justement un **type** : ainsi le programme ne stocke pas simplement `11000000` en mémoire; mais aussi le type de donnée que cet octet (ou plusieurs octets) représente.
+C'est le langage qui **interprète** ensuite ces séquences de bits comme étant un _nombre_, une _chaîne de caractères_ ou autre; en lui assignant justement un **type** : ainsi le programme ne stocke pas simplement `11000000` en mémoire; mais aussi le type de donnée que cet octet (ou plusieurs octets) représente; afin de savoir comment le programme doit l'interpréter.
 
 **Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
 
-| champ  |             |
-| ------ | ----------- |
-| nom    | ma_variable |
-| type   | u8          |
-| valeur | 11000000    |
-
-L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` ), la séquence de bits sera interprétée comme un nombre décimal valant **191**
+L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` en Rust ), la séquence de bits sera interprétée comme un nombre décimal valant **191**
 
 > Soit `(2^7 + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
 
