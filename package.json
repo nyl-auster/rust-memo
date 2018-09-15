@@ -1,22 +1,9 @@
 {
-  "name": "rust-depuis-zero",
-  "version": "1.0.0",
-  "description": "Rust depuis zéro",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/nyl-auster/rust-memo.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/nyl-auster/rust-memo/issues"
-  },
-  "homepage": "https://github.com/nyl-auster/rust-memo#readme",
-  "dependencies": {
+  "devDependencies": {
     "vuepress": "^0.14.3"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
   }
 }
