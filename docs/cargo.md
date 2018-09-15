@@ -10,7 +10,9 @@ Voici comment créer un projet avec cargo, dont le nom serait : "hello_cargo" :
 cargo new hello_cargo --bin
 ```
 
-> 💡l'argument --bin permet de créer une application éxecutable au lieu d'un librairie.
+:::tip Note
+💡l'argument --bin permet de créer une application éxecutable au lieu d'un librairie.
+:::
 
 En Rust, les paquets sont nommés **crates** : caisses / cageots.
 

@@ -12,11 +12,15 @@ C'est le langage qui **interprète** ensuite ces séquences de bits comme étant
 
 L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` en Rust ), la séquence de bits sera interprétée comme un nombre décimal valant **191**
 
-> Soit `(2^7 + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
+:::tip EXPLICATION
+ Soit `(2^7 + 2^8) - 1 = 191` . Moins 1 car il faut garder une valeur pour représenter le `0`
+ :::
 
 Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme le nombre décimal négatif `-63`
 
-> Le bit le plus à gauche est utilisé pour indiquer la présence ou l'absence du signe `-`; donc si il vaut `1`, on considérera qu'il s'agit d'un nombre négatif. Soit : `2^7 - 1 = 63`.
+:::tip EXPLICATION
+ Le bit le plus à gauche est utilisé pour indiquer la présence ou l'absence du signe `-`; donc si il vaut `1`, on considérera qu'il s'agit d'un nombre négatif. Soit : `2^7 - 1 = 63`.
+ :::
 
 Sur la même logique, `11000000` pourrait aussi bien représenter un caractère ou tout autre chose que le langage aura décidé de lui faire représenter.
 
@@ -28,7 +32,7 @@ On peut diviser les types de données en 3 grandes catégories, que l'on verra e
 - les types _primitifs composés_ ( collections de primitifs atomiques ) - les array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];` - les tuples `let my_tuple = (1, "a");`
 - les types _personnalisés_ (custom, crée par le développeur) - structures : `struct` - énumérations : `enum`
 
-## Déclarer une variable : let
+## Déclarer une variable avec `let`
 
 En rust, on déclare une variable avec le mot clef `let`.
 
@@ -147,7 +151,9 @@ println!("{:b}", array[2]);
 
 # Fonctions
 
-> 💡Note : Rust peut accéder à vos fonctions quel que soit l'endroit de leur déclaration.
+:::tip Note
+Rust peut accéder à vos fonctions quel que soit l'endroit de leur déclaration.
+:::
 
 ## exemples
 
@@ -159,7 +165,9 @@ fn get_x() -> i32 {
 }
 ```
 
-> ⚠️ Bien noter qu'il n'y a **PAS** de point-virgule à la fin; ce qui permet à 76 d'être évalué comme une expression, et Rust retourne automatiquement la valeur d'une expression.
+:::danger
+Bien noter qu'il n'y a **PAS** de point-virgule à la fin; ce qui permet à 76 d'être évalué comme une expression, et Rust retourne automatiquement la valeur d'une expression.
+ :::
 
 La notation ci-dessus est donc strictement équivalente à la suivante :
 
@@ -207,7 +215,9 @@ fn multiply(x: i32, y: i32) -> i32 {
 
 ## La différente entre arguments et paramètres
 
-> ⚠️ Les **paramètres** sont les variables spéciales utilisées dans la signature d'une fonction. Les **arguments** sont les valeurs concrètes passées au moment de l'appel de la fonction.
+:::tip NOTE
+ Les **paramètres** sont les variables spéciales utilisées dans la signature d'une fonction. Les **arguments** sont les valeurs concrètes passées au moment de l'appel de la fonction.
+:::
 
 ```rust
 // x est un paramètre
@@ -223,7 +233,9 @@ fn main() {
 
 ## La différence entre les expressions et les déclarations
 
-> ⚠️ Rust est un language basé sur les expressions, il est important de bien comprendre cette distinction.
+:::warning NOTA BENE
+Rust est un language basé sur les **expressions**, il est donc important de bien comprendre cette distinction.
+ :::
 
 Le corps des fonctions est composé d'une série de **déclarations** , qui se termine **éventuellement** par une **expression**.
 
@@ -239,7 +251,9 @@ Exemples de déclarations:
 let y = 5;
 ```
 
-> 💡 _let y = 5_ est une **déclaration** mais "5" est une **expression** qui est évalué à "5".
+:::tip NOTA BENE
+_let y = 5_ est une **déclaration** mais "5" est une **expression** qui est évalué à "5".
+:::
 
 Exemples d'expressions :
 
@@ -289,9 +303,13 @@ let y: u8 = 142;  // type entier non-signé 8 bits
 | 64-bits  | i64   | u64       | de `- 9 223 372 036 854 775 808` à `+9 223 372 036 854 775 807` | de `0` à `18 446 744 073 709 551 616` |
 | arch     | isize | usize     | dépend de l'architecture                                        |
 
-> 💡 isize et usize dépendent du type d'ordinateur sur lequel tourne le programme : 64 bits si vous êtes sur une architecture 64 bits, 32 bits si vous êtes sur une architecture 32 bits.
+:::tip NOTE
+isize et usize dépendent du type d'ordinateur sur lequel tourne le programme : 64 bits si vous êtes sur une architecture 64 bits, 32 bits si vous êtes sur une architecture 32 bits.
+:::
 
-> 💡 Les entiers sont par défault du type i32 parce que c'est généralement le type le plus performant.
+:::tip NOTE
+Les entiers sont par défault du type i32 parce que c'est généralement le type le plus performant.
+:::
 
 ### Nombre à virgule flottante
 
@@ -394,7 +412,9 @@ let ids = [12, 16, 23, 15, 99];
 println!("{}", ids[4]);
 ```
 
-> ⚠️ **les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
+:::warning NOTA BENE
+**les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
+:::
 
 ## Collections
 
@@ -514,7 +534,9 @@ yann.active = false;
 println!("debug : {:#?}", yann);
 ```
 
-> ⚠️ **Toute** l'instance doit être mutable, Rust n'autorise pas seulement certains champs à être mutables.
+:::warning NOTA BENE
+**Toute** l'instance doit être mutable, Rust n'autorise pas seulement certains champs à être mutables.
+:::
 
 Utiliser une fonction pour instancier la structure :
 
@@ -786,7 +808,7 @@ m.call();
 
 Rust a un type de donnée qui est comme un hybride de `tuple` et `struct`, appelé _tuple struct_ . Un _Tuple struct_ a un nom, mais pas ses champs. On rencontrera ce format au moment de voir les énumérations.
 
-```
+```rust
 struct Color(i32, i32, i32);
 struct Point(i32, i32, i32);
 

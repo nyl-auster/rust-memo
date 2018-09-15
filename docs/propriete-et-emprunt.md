@@ -47,7 +47,7 @@ Voici comme est stockée la valeur "hello" en Rust avec le type complexe **Strin
 let s1 = String::from("hello");
 ```
 
-<img width="300px" src="images/ownership-figure-a.svg" />
+<img width="300px" src="./images/ownership-figure-a.svg" />
 
 Voyons ce qu'il se passe si nous écrivons :
 
@@ -59,7 +59,7 @@ let s2 = s1;
 
 Cette assignation de _s1_ à _s2_ se traduit par l'allocation de mémoire suivante :
 
-<img width="300px" src="images/ownership-figure-b.svg" />
+<img width="300px" src="./images/ownership-figure-b.svg" />
 
 Les métadonnés de la **pile** sont **copiées** mais pas la valeur de du **tas** ! Pour des raisons de performance et par défaut, Rust ne copie que les métadonnées de la **pile** pour créer cette seconde variable; et s1 et s2 ont toutes les deux un pointeur vers la même valeur dans la pile.
 
@@ -67,7 +67,7 @@ Nous voilà donc ici avec deux "**propriétaires**" de la valeur "hello"; c'est 
 
 C'est pourquoi Rust décide dans ce cas de **transfèrer la propriété de la valeur de s1 à la variable s2** : c'est à dire qu'on n'est plus autorisé à appeler _s1_ à ce moment là. On dit aussi que la valeur "s'est déplacée" (**moved**) de s1 à s2 parce que du point de vue du code, on ne peut plus afficher la valeur avec s1 : c'est comme si la valeur "hello" s'était déplacée de _s1_ à _s2_.
 
-<img width="300px" src="images/ownership-figure-c.svg" />
+<img width="300px" src="./images/ownership-figure-c.svg" />
 
 Que se passe-til concrètement si on essaie d'appeler _s1_ après l'assignation à _s2_ ? Le compilateur nous jettera une erreur "value moved here"
 
@@ -102,7 +102,7 @@ let s1 = String::from("hello");
 let s2 = s1.clone();
 ```
 
-<img width="300px" src="images/ownership-figure-d.svg" />
+<img width="300px" src="./images/ownership-figure-d.svg" />
  
 ## Les types qui ne sont PAS concernés par la notion de propriété
 
@@ -299,7 +299,7 @@ fn calculate_length(s: &String) -> usize {
 
 Dans ce cas, "s" est une variable dans la pile contenant uniquement un pointeur vers la variable propriétaire de la valeur. Comme "s" n'est **pas** le propriétaire de la valeur, la valeur ne sera pas jetée quand la référence sera hors de portée.
 
-<img width="500px" src="images/ownership-figure-e.svg" />
+<img width="500px" src="./images/ownership-figure-e.svg" />
 
 > 💡 l'opposé de la référence et la dé-référence avec l'operateur \*. Plus de détails plus tard à ce sujet.
 
@@ -391,7 +391,7 @@ let hello = &s[0..5]; // hello
 let world = &s[6..11]; // world
 ```
 
-<img width="500px" src="images/string-slice-figure-a.svg" />
+<img width="500px" src="./images/string-slice-figure-a.svg" />
 
 autres exemples :
 

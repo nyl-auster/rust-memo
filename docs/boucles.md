@@ -46,6 +46,7 @@ fn main() {
     }
 }
 ```
+
 En utilisant **Range**
 
 ```rust
