@@ -1,10 +1,14 @@
 # Propriété( Ownership )
 
-> ⚠️ Ce chapitre **requiert** une connaissance à propos de la gestion de l'allocation mémoire par un programme avec la _pile_ (stack) et le _tas_ (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
+:::danger ATTENTION    
+⚠️ Ce chapitre **requiert** une connaissance à propos de la gestion de l'allocation mémoire par un programme avec la _pile_ (stack) et le _tas_ (heap). [Voir annexe: la pile et le tas](annex-stack-and-heap.md).
+:::
 
 La _propriété_ est un principe essentiel et unique de Rust qui permet de gérer de manière très performante et fiable l'allocation et la libération de la mémoire du _tas_ par votre programme.
 
-> 🚨 Le concept de _propriété_ et de _transfert de propriété_ concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)** !
+:::warning NOTA BENE
+Le concept de _propriété_ et de _transfert de propriété_ concerne uniquement les variables dont la valeur est stockée **dans le tas (heap)** !
+:::
 
 La _propriété_ permet à Rust de n'avoir besoin ni de _Garbage Collector_, ni de demander au développeur d'allouer et libérer lui même la mémoire du tas.
 
