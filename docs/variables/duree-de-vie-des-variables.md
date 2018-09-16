@@ -9,11 +9,11 @@ La durée de vie et la portée des variables est une notion qui, l'air de rien, 
 Un **bloc** est une portion de code comprise entre deux accolades. Le code ci-dessous contient 2 paires d'accolades, donc 2 blocs de code.
 
 ```rust
-fn main() {                        //-------------| 
+fn main() {                        //-------------|
     let message = "hello world";   //             | bloc de la 
     {                              //---|         | fonction main()
         let x = 1;                 //   | second  |
-        println!("{}", x);         //   | bloc    | 
+        println!("{}", x);         //   | bloc    |
     }                              //---|         |
     println!("{}", message)        //             |
 }                                  // ------------|
@@ -163,3 +163,6 @@ fn main() {
     } // x est détruit ici
 }
 ```
+
+C'est ce que veut nous dire le compilateur quand il indique : "Always keep in mind that values in a scope are dropped in the opposite order they are
+created" : les portées implicites ci-dessus montre bien que `x` est déclaré en premier et jeté en dernier : premier déclaré = dernier détruit.
