@@ -2,7 +2,7 @@
 
 ## Tuple struct
 
-Rust a un type de donnée qui est comme un hybride de `tuple` et `struct`, appelé _tuple struct_ . Un _Tuple struct_ a un nom, mais pas ses champs. On rencontrera ce format au moment de voir les énumérations.
+Rust a un type de donnée qui est comme un hybride de `tuple` et `struct`, appelé _tuple struct_ . Un _Tuple struct_ a un nom, mais pas ses champs. On rencontrera souvent ce format au moment de voir les énumérations; qui sont en réalité des structures, et fréquement de type *tuple struc* ou des *unit struct*
 
 ```rust
 struct Color(i32, i32, i32);

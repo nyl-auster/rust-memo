@@ -35,6 +35,7 @@ module.exports = {
           '/variables/autres-types',
           '/variables/debogguer-une-variable',
           '/variables/duree-de-vie-des-variables',
+          '/variables/recapitulatif',
         ]
       },
       '/boucles',
