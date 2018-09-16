@@ -13,13 +13,10 @@ C'est le langage qui **interprète** ensuite ces séquences de bits comme étant
 L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` en Rust ), la séquence de bits sera interprétée comme un nombre décimal valant **191**
 
 :::tip EXPLICATION
-
 ```rust 
-(2^7 + 2^8) - 1 = 191
+(2^7 + 2^8) = 192
 ```
-
-Moins 1 car il faut garder une valeur pour représenter le `0`
- :::
+:::
 
 Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme le nombre décimal négatif `-63`
 
@@ -27,7 +24,7 @@ Si le type était en entier **signé** ( `i8` ), la séquence de bits sera inter
  Le bit le plus à gauche est utilisé pour indiquer la présence ou l'absence du signe `-`; donc si il vaut `1`, on considérera qu'il s'agit d'un nombre négatif. Soit : 
  
  ```rust
- 2^7 - 1 = 63
+ -(2^7) = -64
  ```
  :::
 
