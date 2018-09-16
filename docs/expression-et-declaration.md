@@ -1,6 +1,8 @@
-# La différence entre les expressions et les déclarations
+# Les expressions et les déclarations
 
-Rust est un langage centré sur les **expressions**, il est important savoir distinguer une *expression* d'une *déclaration*.
+## La différence entre une expression et une déclaration
+
+Rust est un langage centré sur les **expressions**, il est important savoir distinguer une *expression* d'une *déclaration*. 
 
 - les **déclarations** ne retournent **pas** de valeur
 - les expressions sont toujours **résolues en une valeur**, qu'elles retournent.
@@ -46,7 +48,11 @@ fn main() {
 }
 ```
 
-Le corps des fonctions est composé d'une série de **déclarations** , qui se termine **éventuellement** par une **expression**. Ci-dessous; le chiffre `5` est retourné par la fonction car il n'y a **pas** de point-virgule à la fin.
+## Le point-virgule en Rust
+
+La présence ou l'absence de point-virgule en Rust a une signification précise qu'il faut garder en tête.
+
+Ci-dessous; le chiffre `5` est retourné par la fonction car il n'y a **pas** de point-virgule à la fin. 
 
 ```rust
 fn example() -> i32 {
@@ -54,7 +60,7 @@ fn example() -> i32 {
 }
 ```
 
-Si on ajoute un point-virgule, l'*expression* devient une *déclaration* et le résultat n'est **pas** retourné par la fonction, rust affichera d'ailleurs une erreur très explicite à ce sujet.
+Dans la fonction ci-dessous, si on ajoute un point-virgule, l'*expression* devient une *déclaration* et le résultat n'est **pas** retourné par la fonction, rust affichera d'ailleurs une erreur très explicite à ce sujet.
 
 ```rust
 fn example() -> i32 {
@@ -75,3 +81,31 @@ L'erreur retournée est la suivante :
 ```
 
 La fonction ne renvoie rien, Rust infère donc que le type de retour est le type par défault, qui est `()`. Il s'agit d'un *tuple* vide, qu'on verra plus en détail dans la section sur les [variables](./variables/primitifs-composes.html#tuple).
+
+On retrouve le même comportement avec les blocs. La valeur de `x + 1` est retournée à `y` car il n'y a pas de point-virgule ici.
+
+```rust
+fn main() {
+    let y = {
+        let x = 3;
+        x + 1
+    };
+    // affiche 4
+    println!("{}", y)
+}
+
+```
+
+Si on ajoute un point-virgule à la fin de la ligne, `()` sera retourné à place de `4`, et *Rust* nous avertira que notre opération est inutile puisque non-utilisée.
+
+```rust
+fn main() {
+    let y = {
+        let x = 3;
+        x + 1;
+    };
+    // affiche ()
+    println!("{:#?}", y)
+}
+
+```

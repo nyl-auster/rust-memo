@@ -1,4 +1,4 @@
-# Commencer Rust rapidment
+# Hello world
 
 Installation sur Mac & linux :
 
@@ -16,15 +16,18 @@ Si l'installation s'est bien déroulée, taper *rustup* dans le terminal doit af
 
 # Hello world
 
+Tout programme *Rust* doit contenir une fonction *main*, qui sera toujours la première partie du code exécutée. le mot clef `fn` est utilisé pour créer une fonction.
+
 ```rust
-// filname: main.rs
+// nom du fichier: main.rs
 fn main() {
     println!("Hello, world!");
 }
 ```
 
-> 💡La fonction *main* est spéciale : c'est toujours la première partie du code exécutée par un programme Rust.
-> ⚠️ println! n'est **pas** une fonction mais une **macro** :  d'où la présence du "!" à la fin.
+:::tip NOTE
+On note la présence d'un point d'exclamation à la fin de println : c'est que `println!` n'est **pas** une fonction mais une **macro**.
+:::
 
 Compiler puis exécuter notre code.
 
