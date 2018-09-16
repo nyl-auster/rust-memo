@@ -21,13 +21,14 @@ module.exports = {
       '/cargo',
       '/expression-vs-declaration',
       {
-        title: "Variables et types de données",
+        title: "Variables et fonctions",
         children: [
           '/variables/type-de-donnees',
           '/variables/let',
           '/variables/primitifs-atomiques',
           '/variables/operations-mathematiques',
           '/variables/primitifs-composes',
+          '/variables/fonction',
           '/variables/structure',
           '/variables/enumeration',
           '/variables/collections',
