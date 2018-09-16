@@ -38,17 +38,6 @@ Sur la même logique, `11000000` pourrait aussi bien représenter un caractère 
 On peut diviser les types de données de Rust en 4 grandes catégories, que l'on va voir en détail dans les chapitres suivant.
 
 - **les primitifs atomiques**
-  - booléen : `bool` 
-  - entiers signés : `i8` `i16` `i32` `i64`, `isize` 
-  - entiers non-signés : `u8` `u16` `u32` `u64`, `usize` 
-  - nombres flottant : `f32` `f64` - Textuels: `char` `str`
 - **les primitifs composés** ( collections de primitifs atomiques ) 
-  - array et slice : `let ids = [13, 23, 99];` et `let slice = &ids[1..];` 
-  - tuples `let my_tuple = (1, "a");`
 - **les collections**
-  - Vecteur : `let v = vec![1, 2, 3];`
-  - String : `let s = String::from("Hello");`
-  - Hash Map : `let h = HashMap::new()`
 - **les types personnalisés** (*custom*, crée par le développeur) 
-  - structures : `struct` 
-  - énumérations : `enum`

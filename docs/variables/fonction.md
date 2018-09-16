@@ -4,9 +4,9 @@
 Rust peut accéder à vos fonctions quel que soit l'endroit de leur déclaration.
 :::
 
-## exemples
+## Déclarer une fonction
 
-Vous **devez** déclarer le type de valeur retournée avec une flèche. Si vous ne le faites pas, Rust considérera que votre fonction retourne par défaut un _tuple_ vide "()".
+Vous **devez** déclarer le type de valeur retournée avec une flèche. Si vous ne le faites pas, Rust considérera que votre fonction retourne par défaut un `tuple` vide "()".
 
 ```rust
 fn get_x() -> i32 {
@@ -14,8 +14,8 @@ fn get_x() -> i32 {
 }
 ```
 
-:::danger
-Bien noter qu'il n'y a **PAS** de point-virgule à la fin; ce qui permet à 76 d'être évalué comme une expression, et Rust retourne automatiquement la valeur d'une expression.
+:::danger ATTENTION
+Bien noter que ci-dessus il n'y a **PAS** de point-virgule à la fin de la ligne. Cela permet à `76` d'être évalué comme une expression, et *Rust* retourne alors automatiquement la valeur d'une expression. Voir [Expression et déclaration](../expression-et-declaration.html)
  :::
 
 La notation ci-dessus est donc strictement équivalente à la suivante :

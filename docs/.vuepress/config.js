@@ -19,7 +19,7 @@ module.exports = {
       },
       '/commencer-rust-rapidement',
       '/cargo',
-      '/expression-vs-declaration',
+      '/expression-et-declaration',
       {
         title: "Variables et fonctions",
         children: [
@@ -38,8 +38,14 @@ module.exports = {
           '/variables/recapitulatif',
         ]
       },
-      '/boucles',
-      '/conditions',
+      {
+        title: "Contrôle de flux",
+        children: [
+          '/controle-de-flux/boucles',
+          '/controle-de-flux/if-else',
+          '/controle-de-flux/pattern-matching',
+        ]
+      },
       '/propriete-et-emprunt'
     ]
   },

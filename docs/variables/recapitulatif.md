@@ -2,10 +2,21 @@
 
 4 grandes catégories de types de données en Rust.
 
-- **les primitifs atomiques** : booléen, entier, nombre flottant, caractère
-- **les primitifs composés** : array, slice, tuples
-- **les collections**: vecteur, string, hashmap...
-- **les types personnalisés** : structure, énumération
+- **les primitifs atomiques**
+  - booléen : `bool` 
+  - entiers signés : `i8` `i16` `i32` `i64`, `isize`
+  - entiers non-signés : `u8` `u16` `u32` `u64`, `usize`
+  - nombres flottant : `f32` `f64` - Textuels: `char` `str`
+- **les primitifs composés** ( collections de primitifs atomiques ) 
+  - `array` et `slice` : `let ids = [13, 23, 99];` et `let slice = &ids[1..];`
+  - `tuple`: `let my_tuple = (1, "a");`
+- **les collections**
+  - `Vector` : `let v = vec![1, 2, 3];`
+  - `String` : `let s = String::from("Hello");`
+  - `HashMap` : `let h = HashMap::new()`
+- **les types personnalisés** (*custom*, crée par le développeur)
+  - `struct` 
+  - `enum`
 
 le mot clef `let` permet de déclarer une variable. Les variables sont **immutables** par défaut. Il faut ajouter le mot clef `mut` pour rendre une variable mutable
 
