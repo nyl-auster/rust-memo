@@ -1,4 +1,4 @@
-# Autre type de données
+# Autres types de données
 
 ## Tuple struct
 

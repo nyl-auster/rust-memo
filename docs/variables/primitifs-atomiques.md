@@ -1,5 +1,5 @@
 
-# Type primitifs atomiques
+# Types primitifs atomiques
 
 Il existe quatre types scalaires de données. Un type scalaire représente une données _atomique_ par opposition à des types composés - comme des types listant plusieurs valeurs tels que _array_, _tuple_ ou _String_ (une String étant une liste de _caractères_ )
 

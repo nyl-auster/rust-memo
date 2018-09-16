@@ -14,6 +14,12 @@ Une valeur peut aussi être allouée dans le **tas**, mais pour cela il faudra u
 En Rust on utilise toujour le type de casse **snake_case** pour nommer variables et fonctions, sauf pour le type de donnée [struct](./structure.html).
 :::
 
+Déclarer une variable avec `let`, c'est faire les trois choses suivantes:
+
+- on lie un nom à un emplacement mémoire
+- on inscrit une valeur dans cet emplacement mémoire
+- on indique de quel type est la variable
+
 Déclaration d'un entier stocké sur 32 bits:
 
 ```rust
