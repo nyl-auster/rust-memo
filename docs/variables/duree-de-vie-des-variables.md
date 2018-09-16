@@ -4,13 +4,29 @@
 La durée de vie et la portée des variables est une notion qui, l'air de rien, va  permettre de comprendre facilement les notions de **propriété** et **d'emprunt**, cette partie requiert donc, cher lectrice ou lecteur, une attention bien particulière de ta part.
 :::
 
-## Définition de la portée
+## Définition de la durée de vie
 
-Un _bloc_ est une portion de code comprise entre deux accolades. **Les variables existent uniquement le temps du _bloc_ dans lequel elles ont été déclarée**. Leur *durée de vie* est délimité par le bloc.
+Un **bloc** est une portion de code comprise entre deux accolades. Le code ci-dessous contient 2 paires d'accolades, donc 2 blocs de code.
+
+```rust
+fn main() {                        //-------------| 
+    let message = "hello world";   //             | bloc de la 
+    {                              //---|         | fonction main()
+        let x = 1;                 //   | second  |
+        println!("{}", x);         //   | bloc    | 
+    }                              //---|         |
+    println!("{}", message)        //             |
+}                                  // ------------|
+```
+
+**Un variable existe uniquement le temps que _bloc_ decode dans lequel elle a été déclarée soit éxécuté** : le bloc n'est donc pas seulement un repère visuel pour le développeur, il définit aussi La **durée de vie**. Cela définit donc aussi la **portée** de la variable; qui est la portion de code où on peut accéder à la valeur de la variable.
+
+La portée c'est la portion de code dans laquelle on peut accéder à la variable.
+
 
 ```rust
 fn main() {
-    // la variable "x" n'exite pas encore ici
+    // la variable "x" n'existe pas encore ici
     {
         let x = 7; // x est valide à partir d'ici
     }
@@ -84,7 +100,7 @@ Dans le deux cas, quand le programme arrive à  une accolade fermante, il libér
 
 ## durée de vie (lifetime) et portées implicites.
 
-### Le cas des références
+## Le cas des références
 
 Mais dans le cas des **références**, pour satisfaire à la garantie de sûreté de la mémoire; Rust peut avoir besoin d'indications supplémentaires pour être certain que la référence ne pointe pas vers une variable qui n'existe plus, ou vers une valeur qui n'est plus la valeur originellement pointée : c'est à ça que servent les **durées de vie explicites.**
 
@@ -92,7 +108,7 @@ Ainsi, quand Rust ne peut garantir avec certitude à la compilation qu'une varia
 
 C'est le **vérificateur d'emprunt** ( Borrow checker ) qui est chargé d'assurer que la variable vers laquelle pointe une référence existe au moins aussi longtemps que la référence elle-même. En effet, en Rust, on considère une référence comme un "emprunt" d'une valeur à une variable. Cette notion est détaillées dans le chapitre sur la **propriété**.
 
-#### Les Portées implicites
+## Les Portées implicites
 
 Rust crée en réalité une **portée implicite** pour chaque déclaration `let`. Cette portée commence juste avant au mot clef `let` et se termine juste avant que la variable sort de la portée **explicite**
 
@@ -119,7 +135,9 @@ fn main() { // début portée explicite de main()
           // à la fin de la portée explicite. "x" est détruit ici.
 
         // 🚨 "r" sera encore vivant ici, mais pas "x" =>
-        // le compilateur refuse cette possibilité et provoque une erreur.
+        // le compilateur refuse cette possibilité et provoque une erreur,
+        // Car pour garantir la sûreté de la mémoire, il faut 
+        // que "x" vive au moins aussi longtemps que "r"
     }
 }
 ```
