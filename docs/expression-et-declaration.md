@@ -1,9 +1,9 @@
 # La différence entre les expressions et les déclarations
 
-Rust est un language basé sur les **expressions**, il est donc important de bien comprendre la distinction entre une *expression* et une *déclaration*.
+Rust est un langage centré sur les **expressions**, il est important savoir distinguer une *expression* d'une *déclaration*.
 
 - les **déclarations** ne retournent **pas** de valeur
-- les expressions sont toujours **résolues en une valeur** qu'elles retournent.
+- les expressions sont toujours **résolues en une valeur**, qu'elles retournent.
 
 Exemples de déclaration:
 
@@ -13,7 +13,7 @@ let y = 5;
 ```
 
 :::tip NOTA BENE
-_let y = 5_ est une **déclaration** mais que "5" est en lui-même une **expression** qui est évalué à "5".
+_let y = 5_ est une **déclaration** mais que "5" est en lui-même une **expression** qui est évalué à "5" et retourné à `y`
 :::
 
 Exemples d'expressions :
@@ -46,10 +46,32 @@ fn main() {
 }
 ```
 
-Le corps des fonctions est composé d'une série de **déclarations** , qui se termine **éventuellement** par une **expression**. Ci-dessous; le chiffre `5` est retourné par la fonction.
+Le corps des fonctions est composé d'une série de **déclarations** , qui se termine **éventuellement** par une **expression**. Ci-dessous; le chiffre `5` est retourné par la fonction car il n'y a **pas** de point-virgule à la fin.
 
 ```rust
-fn number() -> i32 {
+fn example() -> i32 {
     5
 }
 ```
+
+Si on ajoute un point-virgule, l'*expression* devient une *déclaration* et le résultat n'est **pas** retourné par la fonction, rust affichera d'ailleurs une erreur très explicite à ce sujet.
+
+```rust
+fn example() -> i32 {
+    5;
+}
+```
+
+L'erreur retournée est la suivante : 
+
+```sh
+ |
+5 |   fn example() -> i32 {
+  |  _____________________^
+6 | |     5;
+  | |      - help: consider removing this semicolon
+7 | | }
+  | |_^ expected i32, found ()
+```
+
+La fonction ne renvoie rien, Rust infère donc que le type de retour est le type par défault, qui est `()`. Il s'agit d'un *tuple* vide, qu'on verra plus en détail dans la section sur les [variables](./variables/primitifs-composes.html#tuple).
