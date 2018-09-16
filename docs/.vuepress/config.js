@@ -19,6 +19,7 @@ module.exports = {
       },
       '/commencer-rust-rapidement',
       '/cargo',
+      '/expression-vs-declaration',
       {
         title: "Variables et types de données",
         children: [
@@ -27,7 +28,11 @@ module.exports = {
           '/variables/primitifs-atomiques',
           '/variables/operations-mathematiques',
           '/variables/primitifs-composes',
+          '/variables/structure',
+          '/variables/enumeration',
           '/variables/collections',
+          '/variables/autres-types',
+          '/variables/debogguer-une-variable',
           '/variables/duree-de-vie-des-variables',
         ]
       },
