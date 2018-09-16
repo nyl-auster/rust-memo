@@ -2,7 +2,7 @@
 
 J'ai écrit que Rust se compile en un fichier binaire. Mais qu'est ce qu'un fichier binaire précisément ?
 
-<img width="500" src="./images/binary-file.png" />
+<img width="500" src="../images/binary-file.png" />
 
 > ⬆️ ci-dessus un extrait d'un fichier binaire de Rust obtenu avec la commande `xxd -b filename`
 

@@ -5,20 +5,36 @@ module.exports = {
     sidebar: [
       '/',
       '/historique-de-rust',
-      '/prelude',
-      '/prelude-compilation-execution',
-      '/prelude-fichier-binaire',
-      '/prelude-bit',
-      '/prelude-numeration-binaire',
-      '/prelude-gestion-memoire',
-      '/prelude-les-segments-memoire',
+      {
+        title: "Prelude",
+        children: [
+          '/prelude/',
+          '/prelude/compilation-execution',
+          '/prelude/fichier-binaire',
+          '/prelude/bit',
+          '/prelude/numeration-binaire',
+          '/prelude/gestion-memoire',
+          '/prelude/les-segments-memoire',
+        ]
+      },
       '/commencer-rust-rapidement',
       '/cargo',
-      '/variables',
-      '/duree-de-vie-des-variables',
+      {
+        title: "Variables et types de données",
+        children: [
+          '/variables/type-de-donnees',
+          '/variables/let',
+          '/variables/primitifs-atomiques',
+          '/variables/operations-mathematiques',
+          '/variables/primitifs-composes',
+          '/variables/collections',
+          '/variables/duree-de-vie-des-variables',
+        ]
+      },
       '/boucles',
       '/conditions',
       '/propriete-et-emprunt'
     ]
-  }
+  },
+
 }
