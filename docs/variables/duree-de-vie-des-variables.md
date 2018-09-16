@@ -1,20 +1,85 @@
 # Durée de vie des variables
 
-Les variables existent uniquement le temps de leur _bloc_. Un _bloc_ est une portion de code comprise entre deux accolades. La portée d'une variable en Rust est donc tout simplement déterminée par les accolades qui l'entourent.
+:::warning NOTA BENE
+La durée de vie et la portée des variables est une notion qui, l'air de rien, va  permettre de comprendre facilement les notions de **propriété** et **d'emprunt**, cette partie requiert donc, cher lectrice ou lecteur, une attention bien particulière de ta part.
+:::
 
-Une variable n'est utilisable qu'à l'intérieur de son bloc; elle est "hors de portée" pour les autres portions de code, qui ne pourront pas y accéder.
+## Définition de la portée
 
-Dès que le programme rencontre une accolade fermante, Rust appelle automatiquement, si nécessaire, la méthode **Drop** (parfois appelée "destructeur") pour chaque variable du bloc de code concerné, qui a pour mission de supprimer les valeurs stockées dans le tas.
+Un _bloc_ est une portion de code comprise entre deux accolades. **Les variables existent uniquement le temps du _bloc_ dans lequel elles ont été déclarée**. Leur *durée de vie* est délimité par le bloc.
 
 ```rust
-{ // la variable "s" n'est pas valide ici, car pas encore déclarée
-
-    let s = String::from("hello");;   // s est valide à partir d'ici
-
-} // "s" est hors de portée : elle n'est plus valide à partir d'ici.
-// Rust appelle donc la fonction Drop() et la mémoire qu'elle
-// occupe sur le tas est automatiquement libérée !
+fn main() {
+    // la variable "x" n'exite pas encore ici
+    {
+        let x = 7; // x est valide à partir d'ici
+    }
+    // l'accolade de son bloc se referme, x n'existe déjà plus ici !
+    println!("{}", x);
+}
 ```
+
+La valeur de `s` n'étant plus accessible, le compilateur nous renvoie l'erreur suivante.
+
+```sh
+error[E0425]: cannot find value `x` in this scope
+ --> src/main.rs:6:20
+  |
+6 |     println!("{}", x);
+  |
+```
+
+Le code suivant est correct:
+
+```rust
+fn main() {
+    // la variable "x" n'est pas valide ici, car pas encore déclarée
+    {
+        let x = 7; // x est valide à partir d'ici
+        println!("{}", x);
+    }
+}
+```
+
+## Portées imbriquées
+
+Ici, le bloc de déclaration de `y` sont les accolades de la fonction `main`; donc `y`  est valide jusqu'à la fin de la fonction. On peut l'appeler dans les sous-portées.
+
+```rust
+fn main() {
+    let y = 35;
+    {
+        let x = 7; // s est valide à partir d'ici
+        println!("{}", x);
+        println!("{}", y);
+    }
+}
+```
+
+Cela fonctionnerait tout aussi bien avec n'importe quel nombre de sous-portées.
+
+```rust
+fn main() {
+    let x = 7;
+    {
+        {
+            {
+                {
+                    println!("{}", x); // c'est moche mais ça affiche bien 7 \o/
+                }
+            }
+        }
+    }
+}
+```
+
+## Nettoyage automatique de la mémoire
+
+Si une variable n'est pas accessible en dehors de son bloc de déclaration, c'est que **Rust supprime automatiquement, à chaque fois qu'il rencontre une accolade fermante, les variables qui ont été déclarées au sein de ce bloc.**
+
+C'est grâce à ce principe de base que Rust peut nettoyer automatiquement la mémoire allouée par le programme; sans utiliser de *ramasse-miettes* (Garbage collector), ni demander au développeur de libérer manuellement la mémoire. 
+
+Dès que le programme rencontre une accolade fermante, Rust appelle automatiquement, si nécessaire, la méthode **Drop** (parfois appelée "destructeur") pour chaque variable du bloc de code concerné, qui a pour mission de supprimer les valeurs stockées dans le tas.
 
 ⚠️ Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
 

@@ -1,5 +1,13 @@
 # Déclarer des variables
 
+## Qu'est ce qu'une variable ?
+
+Les variables sont un moyen simple pour le développeur d'accéder à un emplacement mémoire; dans lequel il peut lire ou écrire une valeur. C'est en quelque sorte un simple identifiant; porteur de sens sur son rôle ( normalement :-p ), pour que le code soit plus facile écrire et à lire.
+
+Par défaut, une variable représente toujours un emplacement mémoire allouée sur la **pile**.
+
+Une valeur peut aussi être allouée dans le **tas**, mais pour cela il faudra utiliser explicitement une `Box<T>`. Une `Box` sera techniquement un pointeur sur la pile qui référence un emplacement mémoire dans le tas.
+
 ## let
 
 :::tip NOTE
@@ -20,6 +28,11 @@ let my_variable = 67;
 // Rust infère qu'il s'agit d'un booléen
 let my_boolean = true
 ```
+
+:::tip NOTA BENE 
+Rust infère en réalité pas mal de choses; il faut juste bien se rappeler quand dans tous les cas, si quelque chose n'est pas précisé explicitement, il l'est **implicitement**. Dans l'exemple ci-dessus, `let my_boolean = true` et `let my_boolean :bool = true` sont strictement équivalent.
+:::
+
 
 Il est possible "d'éclipser" (*shadow*) une variable en ré-utilisant le mot clef `let` avec le même nom de variable.
 
