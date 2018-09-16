@@ -10,7 +10,7 @@ C'est le langage qui **interprète** ensuite ces séquences de bits comme étant
 
 **Un type de donnée est donc une méta-donnée qui permet à un langage de savoir comment interpréter une séquence de bits**.
 
-L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` en Rust ), la séquence de bits sera interprétée comme un nombre décimal valant **191**
+L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type est "entier non-signé" ( `u8` en Rust ), la séquence de bits sera interprétée comme un nombre décimal valant **192**
 
 :::tip EXPLICATION
 ```rust 
@@ -18,7 +18,7 @@ L'interprétation de: `11000000` dépend du type qui lui est asigné. Si le type
 ```
 :::
 
-Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme le nombre décimal négatif `-63`
+Si le type était en entier **signé** ( `i8` ), la séquence de bits sera interprétée comme le nombre décimal négatif `-64`
 
 :::tip EXPLICATION
  Le bit le plus à gauche est utilisé pour indiquer la présence ou l'absence du signe `-`; donc si il vaut `1`, on considérera qu'il s'agit d'un nombre négatif. Soit : 

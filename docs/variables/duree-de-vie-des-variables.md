@@ -75,34 +75,14 @@ fn main() {
 
 ## Nettoyage automatique de la mémoire
 
-Si une variable n'est pas accessible en dehors de son bloc de déclaration, c'est que **Rust supprime automatiquement, à chaque fois qu'il rencontre une accolade fermante, les variables qui ont été déclarées au sein de ce bloc.**
+Lorsqu'un le programme arrive à une accolade fermante, les valeurs des variables déclarée au sein de ce bloc sont libérées. Il y a deux cas de figures possibles :
 
-C'est grâce à ce principe de base que Rust peut nettoyer automatiquement la mémoire allouée par le programme; sans utiliser de *ramasse-miettes* (Garbage collector), ni demander au développeur de libérer manuellement la mémoire. 
+1) La valeur de la variable est stockée dans la *pile* : en ce cas elle est supprimée automatiquement par la pile
+2) La valeur de la variable est stocké dans le *tas* : dans ce cas Rust appelle automatiquement la méthode ****Drop** (parfois appelée "destructeur") de ce type de variable, qui a pour mission libérer la mémoire qui lui était allouée dans le tas.
 
-Dès que le programme rencontre une accolade fermante, Rust appelle automatiquement, si nécessaire, la méthode **Drop** (parfois appelée "destructeur") pour chaque variable du bloc de code concerné, qui a pour mission de supprimer les valeurs stockées dans le tas.
-
-⚠️ Cela vaut pour toute accolade fermante : que soit la fin d'une fonction ou des accolades au sein d'une fonction.
-
-Dans l'exemple ci-dessus, Rust sait qu'il peut supprimer "hello" de la mémoire du tas; car seul "s" utilise la valeur "hello" dans la portion de code entre les deux accolades.
+Dans le deux cas, quand le programme arrive à  une accolade fermante, il libére automatiquement la mémoire des variables du bloc concerné. C'est le principe de base qu'utilise Rust pour libérer automatiquement la mémoire du tas; alors que cette opération est normalement soit manuelle ( en C et C++), soit du fait d'un ramasse-miettes ( PHP, JavaScript, Java).
 
 ## durée de vie (lifetime) et portées implicites.
-
-### Lien entre portée et durée de vie
-
-La notions de **durée de vie** des variables et de **portée** sont étroitement liées.
-
-Par défaut la durée de vie d'une variable comment à sa déclaration avec le mot clef `let` jusqu'à l'accolade fermante du bloc dans lequel elle est déclarée :
-
-```rust
-{ // x n'existe pas encore
-  // x n'existe toujours pas
-  let x = 1; // x existe   // |
-  println!("{}", x)        // | durée de vie de "x"
-                           // |
-} // x n'existe plus
-```
-
-Rust déduit donc la durée de vie par défaut d'une variable des accolades de son bloc de déclaration.
 
 ### Le cas des références
 

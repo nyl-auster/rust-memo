@@ -25,6 +25,7 @@ module.exports = {
         children: [
           '/variables/type-de-donnees',
           '/variables/declarer-une-variable',
+          '/variables/reference',
           '/variables/primitifs-atomiques',
           '/variables/operations-mathematiques',
           '/variables/primitifs-composes',
