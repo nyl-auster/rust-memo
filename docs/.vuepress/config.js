@@ -24,7 +24,7 @@ module.exports = {
         title: "Variables et fonctions",
         children: [
           '/variables/type-de-donnees',
-          '/variables/let',
+          '/variables/declarer-une-variable',
           '/variables/primitifs-atomiques',
           '/variables/operations-mathematiques',
           '/variables/primitifs-composes',
