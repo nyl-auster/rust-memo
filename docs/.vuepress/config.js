@@ -44,6 +44,7 @@ module.exports = {
         children: [
           '/controle-de-flux/boucles',
           '/controle-de-flux/if-else',
+          '/controle-de-flux/suite-de-fibonacci',
           '/controle-de-flux/pattern-matching',
         ]
       },
