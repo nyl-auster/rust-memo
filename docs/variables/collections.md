@@ -27,6 +27,10 @@ Un vecteur peut s'agrandir pendant l'éxécution, ses valeurs sont donc stockée
 
 Créér un nouveau vecteur contenant une collection d'entiers. On utilise ensuite la méthode `push` pour ajouter des éléments.
 
+:::warning NOTA BENE
+Il faut impérativement ajouter le mot-clef `mut` devant le nom de la variable pour pouvoir utiliser la méthode `push`, puisque celle-ci modifie les données de la collection.
+:::
+
 ```rust
 let mut suite: Vec<i32> = Vec::new();
 suite.push(0);

@@ -2,15 +2,13 @@
 
 ## Qu'est ce qu'une référence ?
 
-Une **référence** est fondamentalement un **pointeur** : c'est à dire une donnée qui est une adresse mémoire vers une autre donnée; et qui pemet d'accéder en lecture et / ou écriture à la donnée pointée. C'est un emplacement mémoire qui contient l'adresse d'un autre emplacement mémoire.
+Une **référence** est d'abord un **pointeur** : c'est à dire une donnée qui est une adresse mémoire vers une autre donnée. 
 
-**Un pointeur n'est  pas la donnée elle-même : seulement une information qui permet de la retrouver.**.
-
-Une référence en Rust **est un type de pointeur** qui offre en prime des garanties concernant la sûreté de la mémoire chère à Rust.
+Une référence en Rust **est un type de pointeur** en mieux : il offre des garanties de sûreté mémoire et surtout nous allons voir bientôt qu'elle également joue un rôle clef dans la notion de propriété et de durée de vie. Retenons simplement pour le moment qu'en Rust, une référence est bien plus qu'un pointeur.
 
 ## Créer une référence
 
-Un exemple de création d'une référence :
+Pour créer une référence, on peut utiliser le symbole `&`.
 
 ```rust
 let s1 = String::from("hello");
@@ -18,9 +16,26 @@ let s = &s1;
 println!("{}", s);
 ```
 
+Puisqu'une référence est au fond un *pointeur*, ça veut dire que `s` contient en réalité une adresse mémoire vers la valeur de `s1`. On peut afficher d'ailleurs cette adresse mémoire de la manière suivante :
+
+```rust
+fn main() {
+    let s1 = String::from("hello");
+    let s = &s1;
+    println!("{:p}", &s);
+}
+```
+
+Qui affichera par exemple :
+
+```rust
+0x7ffee457f1b0
+```
+
 La variable `s` ci-dessus est une *référence* à un `s1`, ce qui donne  en mémoire la représentation suivante :
 
 <img width="500px" src="../images/reference.svg" />
+
 
 - `s` est une **variable** dont la **valeur**  est l'emplacement mémoire de `s1`. Ces deux variables sont stockées sur la pile car leur taille est connue au moment de la compilation.
 - Comme `s1` est du type *String*, sa valeur `hello` est stockée dans le tas. On voit aussi que `s1` est donc aussi, à son tour, en réalité un type de pointeur vers une adresse mémoire.

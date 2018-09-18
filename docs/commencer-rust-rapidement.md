@@ -1,4 +1,4 @@
-# Hello world
+# Commencer rapidement
 
 Installation sur Mac & linux :
 
