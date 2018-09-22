@@ -4,6 +4,7 @@ module.exports = {
   themeConfig: {
     sidebar: [
       '/',
+      '/commencer-rapidement',
       '/historique-de-rust',
       {
         title: "Prelude",
@@ -17,7 +18,6 @@ module.exports = {
           '/prelude/les-segments-memoire',
         ]
       },
-      '/commencer-rust-rapidement',
       '/cargo',
       '/expression-et-declaration',
       {
