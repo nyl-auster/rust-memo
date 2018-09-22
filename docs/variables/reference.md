@@ -2,9 +2,9 @@
 
 ## Qu'est ce qu'une référence ?
 
-Une **référence** est d'abord un **pointeur** : c'est à dire une donnée qui est une adresse mémoire vers une autre donnée. 
+Une **référence** est d'abord un **pointeur** : c'est à dire une donnée qui est une adresse mémoire vers une autre donnée.
 
-Une référence en Rust **est un type de pointeur** en mieux : il offre des garanties de sûreté mémoire et surtout nous allons voir bientôt qu'elle également joue un rôle clef dans la notion de propriété et de durée de vie. Retenons simplement pour le moment qu'en Rust, une référence est bien plus qu'un pointeur.
+Une référence en Rust **est un type de pointeur** en mieux : il offre des garanties de sûreté mémoire et elle joue un rôle clef dans la notion de propriété.
 
 ## Créer une référence
 
