@@ -2,10 +2,17 @@ module.exports = {
   title: 'Rust depuis zéro',
   description: 'Apprendre Rust progressivement depuis zéro',
   themeConfig: {
+    lastUpdated: 'Last Updated', // string | boolean
     sidebar: [
       '/',
-      '/commencer-rapidement',
-      '/historique-de-rust',
+      {
+        title: "",
+        children:[
+          'introduction/historique-de-rust',
+          'introduction/commencer-rapidement',
+          'introduction/cargo',
+        ]
+      },
       {
         title: "Prelude",
         children: [
@@ -18,7 +25,6 @@ module.exports = {
           '/prelude/les-segments-memoire',
         ]
       },
-      '/cargo',
       '/expression-et-declaration',
       {
         title: "Variables et fonctions",
@@ -35,8 +41,7 @@ module.exports = {
           '/variables/collections',
           '/variables/autres-types',
           '/variables/debogguer-une-variable',
-          '/variables/duree-de-vie-des-variables',
-          '/variables/recapitulatif',
+          '/variables/duree-de-vie-des-variables'
         ]
       },
       {
@@ -48,7 +53,18 @@ module.exports = {
           '/controle-de-flux/pattern-matching',
         ]
       },
-      '/propriete-et-emprunt'
+      {
+        title: "Propriété et emprunt",
+        children: [
+          '/propriete/propriete-et-emprunt'
+        ]
+      },
+      {
+        title: "Organiser son code en modules",
+        children: [
+          '/modules/commencer-rapidement'
+        ]
+      }
     ]
   },
 
