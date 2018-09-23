@@ -6,7 +6,7 @@ module.exports = {
     sidebar: [
       '/',
       {
-        title: "",
+        title: "introduction",
         children:[
           'introduction/historique-de-rust',
           'introduction/commencer-rapidement',
