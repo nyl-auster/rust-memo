@@ -67,7 +67,7 @@ module.exports = {
       {
         title: "Gestion des erreurs",
         children: [
-          '/gestion-des-erreurs'
+          '/gestion-des-erreurs/'
         ]
       },
     ]

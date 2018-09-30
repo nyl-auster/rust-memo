@@ -25,8 +25,8 @@ fn main() {
 }
 ```
 
-:::tip NOTE
-On note la présence d'un point d'exclamation à la fin de println : c'est que `println!` n'est **pas** une fonction mais une **macro**.
+:::tip NOTA BENE
+Il faut ici note la présence d'un point d'exclamation à la fin de println : c'est que `println!` n'est **pas** une fonction mais une **macro**. Pour l'heure, il suffit de dire que les macros sont fréquemment utilisées en Rust et de bien faire attention à ne pas confondre une macro et une fonction.
 :::
 
 Compiler puis exécuter notre code.

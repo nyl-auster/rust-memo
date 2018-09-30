@@ -6,7 +6,7 @@ Une partie de la question posée par Servo est : si on écrit aujourd'hui le coe
 
 A l'heure actuelle, les principaux navigateurs sont constitués de plusieurs millions de lignes de code en _C++_. Le choix du language _C++_ est lié à une nécessité de pouvoir contrôler ce qu'il se passe au bas-niveau pour maîtriser les performances de rendu du navigateur. _C++_ offre notamment un grand contrôle de la gestion de la mémoire.
 
-La contrepartie de cette flexibilité, c'est qu'une mauvaise manipulation des développeur·e·s peut vite mener à une erreur mémoire fatale pour l'application : **libération d'une mémoire déjà libérée, pointeur qui pointe vers une valeur qui n'est plus la bonne (dangling pointers), fuites de mémoires (memory leaks), "data races", ou même failles de sécurité lié à une défaillance de la gestion de la mémoire.**
+La contrepartie de cette flexibilité, c'est qu'une mauvaise manipulation des développeur·e·s peut vite mener à une erreur mémoire pour l'application : **libération d'une mémoire déjà libérée, pointeur qui pointe vers une valeur qui n'est plus la bonne (dangling pointers), fuites de mémoires (memory leaks), "data races", ou même failles de sécurité lié un accès mémoire permettant de lire des valeurs non-prévues !**
 
 Le développeur peut faire des efforts et preuve de discipline pour respecter un ensemble de règles pour éviter au maximum ces erreurs, mais en _C++_, rien ne me permet de **garantir** dans le langage lui-même que le code final ne contient aucune de ces erreurs, ni au moment de la compilation, ni après.
 
