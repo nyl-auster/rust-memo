@@ -1,9 +1,9 @@
 # La phase de compilation (compile-time) et la phase d'éxécution (run-time)
 
-En PHP ou JavaScript, il n'y pas de phase de compilation : ce sont des languages interprétés à la volée. A l'opposé, Rust nécessite d'être compilé avant de pouvoir être exécuté.  Donc en Rust, on distingue la phase de **compilation** (*compile-time*) et la phase **d'éxécution**. (*run-time*)
+En *PHP* ou *JavaScript*, il n'y pas de phase de compilation : ce sont des languages interprétés à la volée. A l'opposé, un programme *Rust* nécessite d'être d'abord *compilé en un fichier binaire*, ce fichier pourra ensuite être *exécuté* par l'ordinateur.  On distingue donc la phase de **compilation** (*compile-time*) et la phase **d'éxécution**. (*run-time*)
 
-Mais en contre-partie PHP et JavaScript ont besoin d'un interpréteur pour être exécuté. Il faut un navigateur ou Node.js pour exécuter du JavaScript; et il faut un serveur HTTP sur lequel il faut installer un interpréteur pour PHP. 
+PHP et JavaScript ont besoin qu'un *interpréteur* soit installé sur la machine du client pour fonctionner. Il faut par exemple un navigateur ou un serveur Node.js pour interpréter du JavaScript.
 
-Rust de son côté fourni après compilation un fichier binaire qu'il est possible d'éxécuter même si Rust n'est pas installé sur la machine. [<span style="color:red">A préciser</span>]
+Rust de son côté fourni, après compilation, un fichier binaire qu'il est possible d'éxécuter même si Rust n'est pas installé sur la machine.
 
-Le rôle du compilateur de Rust n'est pas seulement de compiler et optimiser le programme en un fichier binaire; c'est aussi lui qui, pendant la phase de développement, garantit la sûreté de la mémoire et la qualité du code en imposant le respect de certaines conventions d'écriture du code.
+Le rôle du compilateur est central en Rust, il ne se limite pas à compiler et optimiser le programme en un fichier binaire : il oblige également le développeur à respecter des conventions de codage strictes dans le but d'éviter que des erreurs apparaissent à la compilation. La phase de compilation de Rust est en réalité une véritable revue de l'intégralité du code pour garantir au maximum au programmeur que son code ne plantera pas une fois exécuté. 

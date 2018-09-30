@@ -16,7 +16,6 @@ module.exports = {
       {
         title: "Prelude",
         children: [
-          '/prelude/',
           '/prelude/compilation-execution',
           '/prelude/fichier-binaire',
           '/prelude/bit',
@@ -64,7 +63,13 @@ module.exports = {
         children: [
           '/modules/commencer-rapidement'
         ]
-      }
+      },
+      {
+        title: "Gestion des erreurs",
+        children: [
+          '/gestion-des-erreurs'
+        ]
+      },
     ]
   },
 
