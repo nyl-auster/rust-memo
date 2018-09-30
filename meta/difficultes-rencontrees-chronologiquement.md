@@ -12,4 +12,6 @@
 
 - la différence entre un pointeur, une référence, un emprunt (est ce qu'avoir un "mot" ptr qui pointe vers un emplacement mémoire fait d'une variable un pointeur ou une référence ?)
 
-- les lifetimes avec leur scope implicite ^^
+- les lifetimes avec leur scope implicite ^^'
+
+- Confusion entre <Option>, <Result>, expect() unwrap() ...
