@@ -20,7 +20,7 @@ fn main() {
 C'était facile 🙀 . Deux choses importantes à retenir ici :
 
 - Par défaut, toutes les fonctions et types d'un module sont **privées**, il faut utiliser le mot clef `pub` pour les rendre accessibles au code extérieur.
-- Pour accéder au méthodes et types d'un module, il faut **toujours** les préfixer par le nom du module. Ici on écrit `database::connect` et pas `connect`.
+- Pour accéder aux méthodes et types du module, il faut d'abord indiquer à Rust le nom du module suivi de `::`.  Ce qui donne ici `database::connect`
 
 ## Mettre notre module dans un fichier dédié
 
@@ -142,3 +142,152 @@ fn main() {
 ```
 
 Et voilà 🎉 ! Armé de ce simple mot clef `mod`, nous pouvons déjà organiser facilement un code complexe, et sur le même principe nous pouvons créer des dossiers de modules dans nos dossiers de module et ainsi de suite.
+
+## comprendre les chemins de modules et le mot-clef `use`
+
+### Les modules forment une arboresence virtuelle
+
+Les espaces de nom des modules forment en réalité **une arborescence** de modules, avec une racine. Un peu comme un système de fichier. 
+
+On peut réprésenter ainsi l'arborescence des modules que nous avons crée au cours de ce chapitre. Je vais utiliser des icônes de paquets 📦 pour bien distinguer l'arborescence des modules de l'arborescence des fichiers.
+
+```rust
+📦 root
+  📦 database
+    📦 install
+    📦 uninstall
+  📦 user
+```
+
+:::tip NOTA BENE
+
+L'arborescence des modules n'est PAS identique à l'arborescence de leurs dossiers et fichiers ! On peut très bien créer une arborescence complexe de modules dans un seul fichier :
+
+```rust
+// fichier src/main.rs
+
+fn main () {
+  nourriture::fruits::pommes::reinettes::nom()
+}
+
+pub mod nourriture {
+  pub mod fruits{
+    pub mod pommes{
+      pub mod reinettes {
+        pub fn nom() {
+          println!("Pommes reinettes");
+        }
+      }
+    }
+  }
+}
+```
+
+Nous avons ci-dessus un seul fichier `main.rs` mais l'arborescence de module suivante :
+
+```rust
+📦 root
+  📦 nourriture
+    📦 fruits
+      📦 pommes
+        📦 reinettes
+          {} nom
+```
+
+:::
+
+Pour accéder à la fonction `nom` du module reinettes, on doit indiquer son **chemin** dans l'arborescence de modules. soit `nourriture::fruits::pommes::reinettes::nom()`
+
+**Mais il s'agit en réalité d'un chemin **relatif** qui prend en compte l'endroit où l'on se trouve dans le code**. Le chemin **absolu** complet réel est le suivant : `::nourriture::fruits::pommes::reinettes::nom()`
+
+C'est exactement la même différence conceptuelle qu'entre les urls `nourriture/fruits/pommes/reinettes` et `/nourriture/fruits/pommes/reinettes` : le slash du début permet d'indiquer qu'il s'agit d'un chemin absolu, qui doit donc repartir de la racine.
+
+### Exemple d'erreur de chemin
+
+Créons un module user, qui appelera du code de notre module *database*
+
+fichier `src/user.rs` :
+
+```rust
+pub fn get() {
+  database::connect();
+  println!("getting user");
+}
+```
+
+fichier `main.rs`
+
+```rust
+mod user;
+mod database;
+
+fn main () {
+  user::get();
+}
+```
+
+Nous avons une erreur 😨 , le fichier `user.rs` ne parvient pas à résoudre `database::connect`
+
+```rust
+error[E0433]: failed to resolve. Use of undeclared type or module `database`
+ --> src/user.rs:2:3
+  |
+2 |   database::connect();
+  |   ^^^^^^^^ Use of undeclared type or module `database`
+```
+
+C'est parce que nous indiquons ici un chemin de module **relatif** : Rust cherche donc d'abord un module database **dans** notre module user. Voici en réalité ce que nous avons demandé en écrivant `database::connect()` :
+
+```rust
+📦 root
+  📦 user
+    📦 database
+      {} connect
+```
+
+Pour régler cela, nous pouvons utiser un chemin absolu (qui commence par `::`), changeons `user.rs`:
+
+```rust{2}
+pub fn get() {
+  ::database::connect();
+  println!("getting user");
+}
+```
+
+Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreur a disparu !
+
+```rust
+📦 root
+  📦 database
+    {} connect
+```
+
+## Le mot clef `use`
+
+Il existe une autre notation en Rust pour appeler la bonne méthode dans l'arborescence de module : c'est `use` :
+
+Fichier `user.rs`
+
+```rust{1}
+use database::connect;
+
+pub fn get() {
+  connect();
+  println!("getting user");
+}
+```
+
+Ainsi, si on a besoin d'appeler la fonction `connect()` 10 fois dans le fichier, nous n'aurons pas à repréciser à chaque le chemin absolu.
+
+:::danger ATTENTION
+Le chemin indiqué par `use` est toujours **absolu**, bien qu'on ne précise pas `::`. On part donc toujours de la racine de notre arborscence de module pour utiliser use.
+:::
+
+Le mot clef use propose d'autres syntaxes :
+
+```rust
+// permet d'appeler ensuite sans chemin connect() et tagazok()
+use database::{connect, tagazok};
+// permet d'appeler sans chemin tout ce qui est public dans database
+use database::*
+```
