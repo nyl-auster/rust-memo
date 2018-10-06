@@ -55,7 +55,19 @@ fn main() {
 
 ```
 
-Et voilà ! nous savons déjà organiser facilement notre code en créant modules dans leurs propres fichiers. Mais le mot-clef `mod` nous permet encore mieux.
+:::tip Note:
+`mod database;` est donc équivalent à
+
+```rust
+
+mod database {
+  pub fn connect() {
+    println!("Connexion à la base")
+  }
+}
+```
+
+:::
 
 ## Organiser ses modules en dossier
 
@@ -130,7 +142,3 @@ fn main() {
 ```
 
 Et voilà 🎉 ! Armé de ce simple mot clef `mod`, nous pouvons déjà organiser facilement un code complexe, et sur le même principe nous pouvons créer des dossiers de modules dans nos dossiers de module et ainsi de suite.
-
-Au final, le mot-clef `mod` permet d'inclure du code dans notre programme, une bonne fois pour toutes. Ainsi
-
-## Le mot clef `use`
