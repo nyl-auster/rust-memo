@@ -1,5 +1,7 @@
 # Commencer rapidement
 
+## installation
+
 Installation sur Mac & linux :
 
 ```sh
@@ -7,6 +9,8 @@ curl https://sh.rustup.rs -sSf | sh
 ```
 
 Si l'installation s'est bien déroulée, taper *rustup* dans le terminal doit afficher les commandes disponibles.
+
+## rustup
 
 | Commande | description |
 |---------|-------------|
