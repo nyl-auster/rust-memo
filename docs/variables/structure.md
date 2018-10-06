@@ -133,9 +133,9 @@ let my_rectangle = Rectangle {
 let area_with_struct = my_rectangle.area();
 ```
 
-## Créer une fonction associée
+## Les fonctions associées
 
-Les fonctions associées d'une structure s'ajoutent auss dans le bloc **impl** de la structure, mais ne prennent **pas** l'instance _&self_ en premier paramètre.
+Les fonctions associées sont des méthodes qui ne prennent **pas** `&self` en premier paramètre :
 
 ```rust
 impl Rectangle {

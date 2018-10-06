@@ -61,7 +61,7 @@ module.exports = {
       {
         title: "Organiser son code en modules",
         children: [
-          '/modules/commencer-rapidement'
+          '/modules/commencer-rapidement',
         ]
       },
       {
