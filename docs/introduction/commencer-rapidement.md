@@ -11,8 +11,11 @@ Si l'installation s'est bien déroulée, taper *rustup* dans le terminal doit af
 | Commande | description |
 |---------|-------------|
 |rustup update| update rustup|
-|rustc --version | display Rust version |
+|rustc --version | Affiche la version active de Rust |
 | rustup doc | open local doc |
+|  rustup show | afficher les versions de rust intallées  |
+|  rustup default stable | utiliser la version stable de Rust par défaut |
+|  rustup default nightly | utiliser la version nightly de Rust par défaut |
 
 # Hello world
 
