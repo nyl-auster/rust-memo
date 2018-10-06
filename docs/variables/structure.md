@@ -1,12 +1,13 @@
-# Structure - Créer des types personnalisés avec les structures (Structs)
+# Structures - Créer des types personnalisés avec `struct`
 
 ## Déclarer une structure
 
-Une structure est un ensemble de _champs_ dont chaque type est spécifié.
+Une structure est un type de donnée qui regroupe un ensemble de champs dont chaque type est spécifié. On peut également y attacher des **méthodes**.
+
+Voici comment déclarer une structure simple:
 
 ```rust
-// créer une structure, en implémentant le trait Debug pour pouvoir
-// afficher la variable dans un println!
+// le trait debug est optionnel : il permet d'afficher notre structure avec println!
 #[derive(Debug)]
 struct User {
     name: String,
@@ -14,8 +15,15 @@ struct User {
     age: u8,
     active: bool,
 }
+```
 
-// instanciation de la structure
+:::tip NOTE
+On utilise le **PascalCase** pour le nommage des structures, au lieu de la **snake_case** habituelle. Example : `AuthenticatedUser`.
+::: 
+
+Créer une instance de la structure et afficher la valeur de ses champs:
+
+```rust
 fn main() {
     let yann = User {
         name: String::from("Yann"),
@@ -23,14 +31,13 @@ fn main() {
         age: 35,
         active: true,
     };
-    // afficher l'âge
     println!("age : {}", yann.age);
-    // afficher l'objet pour debug
     println!("debug : {:#?}", yann)
+
 }
 ```
 
-Pour rendre le champ mutable, il faut rendre toute l'instance mutable avec le mot clef **mut** lors de la déclaration de la variable
+Pour que les valeurs soient mutables, il faut rendre **toute** l'instance mutable avec le mot clef **mut** lors de l'instanciation de la structure.
 
 ```rust
 // ajout du mot clef mut à l'instanciation
@@ -41,7 +48,7 @@ let mut yann = User {
     active: true,
 };
 
-// muter les variables
+// muter les variables est désormais possible
 yann.age = 43;
 yann.email = String::from("email@email.fr");
 yann.active = false;
@@ -52,40 +59,14 @@ println!("debug : {:#?}", yann);
 **Toute** l'instance doit être mutable, Rust n'autorise pas seulement certains champs à être mutables.
 :::
 
-Utiliser une fonction pour instancier la structure :
-
-```rust
-fn main() {
-    let yann = build_user(String::from("yann"), String::from("yann@yineo.fr"));
-    println!("debug : {:#?}", yann);
-}
-
-#[derive(Debug)]
-struct User {
-    name: String,
-    email: String,
-    age: u8,
-    active: bool,
-}
-
-fn build_user(name: String, email: String) -> User {
-    User {
-        name: name,
-        email: email,
-        active: true,
-        age: 35,
-    }
-}
-```
-
-On peut utiliser la notation abrégée pour instancier les champs dans build_user, pour éliminer les redondances comme "name: name" :
+On peut utiliser la notation abrégée pour instancier des champs dans build_user, pour éliminer les redondances comme `name: name`. La fonction ci-dessous nous permet d'instancier une structure avec des valeurs par défaut et tire parti de la notation abrégée:
 
 ```rust
 fn build_user(name: String, email: String) -> User {
     User {
         // notation abrégée. Identique à "name: name"
         name,
-        // notation abrégée
+        // notation abrégée. Identique à "email: email"
         email,
         active: true,
         age: 35,
@@ -93,7 +74,7 @@ fn build_user(name: String, email: String) -> User {
 }
 ```
 
-Il est possible d'instancier une structure en reprenant les valeurs d'une autre instance. Ici, Roger est identique à Yann, on change juste le nom et l'email pour créer l'instance de Roger.
+Il est possible d'instancier une structure en se basant sur les valeurs d'une autre instance. On peut ainsi redéfinir uniquement certaines valeurs et laisse l'instance de base. 
 
 ```rust
 fn main() {
@@ -101,11 +82,22 @@ fn main() {
     let roger = User {
         name: String::from("Roger"),
         email: String::from("roger@roger.fr"),
-        // Struct update syntax
+        // L'instance de base, elle doit toujours être en dernier.
+        // Les valeurs ci-dessus écrasent celles de "yann".
         ..yann
     };
-    println!("debug : {:#?}", yann);
     println!("debug : {:#?}", roger);
+}
+```
+
+Le debug ci-dessus affichera :
+
+```rust
+debug : User {
+    name: "Roger",
+    email: "roger@roger.fr",
+    age: 35,
+    active: true
 }
 ```
 
