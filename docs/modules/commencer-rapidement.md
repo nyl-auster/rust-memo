@@ -44,7 +44,7 @@ pub fn connect() {
 
 Il faut maintenant déclarer notre module et l'inclure dans le programme, avec le mot clef `mod`. Dans `main.rs` :
 
-```rust
+```rust{3}
 // src/main.rs
 
 mod database;
@@ -56,7 +56,7 @@ fn main() {
 ```
 
 :::tip Note:
-`mod database;` est donc équivalent à
+`mod database;` est donc équivalent à écrire:
 
 ```rust
 
@@ -71,9 +71,18 @@ mod database {
 
 ## Organiser ses modules en dossier
 
-Pour un module plus complexe, on voudra rapidement créer un dossier pour notre module qui contiendra tous les fichiers liés à ses fonctionnalités.
+Pour un module plus complexe, on voudra rapidement créer un dossier qui contiendra les fichiers liés à ses fonctionnalités. On aimerait quelque chose comme ça :
 
-Faisons cela avec notre module `database` en créant un fichier `src/database/mod.rs`
+```rust
+📂 src
+  📂 database
+    📝 fichier_a.rs
+    📝 fichier_b.rs
+    📝 mod.rs //ce fichier est requis par Rust
+  📝 main.rs
+```
+
+Créons le fichier `src/database/mod.rs`. Le nom de fichier **mod.rs** est **requis** par Rust pour qu'il puisse identifier notre dossier comme étant celui d'un module. 
 
 ```rust
 // src/database/mod.rs
@@ -94,7 +103,7 @@ fn main() {
 ```
 
 :::tip NOTA BENE
-Quand on écrit `mod database;`, Rust va chercher automatiquement 
+Quand on écrit `mod database;`, Rust va chercher automatiquement:
 
 - soit un fichier  `src/database.rs`
 - soit un fichier `src/database/mod.rs`.
