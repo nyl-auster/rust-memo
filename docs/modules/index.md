@@ -275,7 +275,7 @@ Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreu
 
 ## Le mot clef `use`
 
-Il existe un autre moyen pour éviter d'avoir à écrire le chemin d'un module à chaque fois qu'on appelle une de ses fonctions : c'est le mot-clef `use`.
+Il existe un autre moyen pour éviter rendre moins fastidieux l'écriture des chemins des modules: le mot-clef `use`.
 
 **`📝 src/user.rs`**:
 
@@ -288,7 +288,7 @@ pub fn get() {
 }
 ```
 
-Ainsi, si on a besoin d'appeler la fonction `connect()` plusieurs fois dans le fichier, nous n'aurons pas à repréciser à chaque fois le chemin absolu. Le `use` est donc un préfixe automatique de chemin pour les fonctions qu'on lui donne en arguments
+Ainsi, si on a besoin d'appeler la fonction `connect()` plusieurs fois dans le fichier, nous n'aurons pas à repréciser à chaque fois le chemin absolu. Le `use` agit comme un préfixe de chemin automatique pour les fonctions et types qu'on lui indique.
 
 :::danger ATTENTION PIEGE
 Le chemin indiqué par `use` est toujours **absolu**, bien qu'on ne précise pas `::` au début. On part donc toujours de la racine de notre arborescence de module pour indiquer un chemin avec `use`.

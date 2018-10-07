@@ -6,8 +6,13 @@ module.exports = {
   },
   themeConfig: {
     lastUpdated: true, 
+    nav: [
+      { text: "S'abonner", link: 'http://eepurl.com/dJuW3I' },
+      { text: 'Contact', link: 'https://yineo.fr/contact' },
+    ],
     sidebar: [
       '/',
+      /*
       {
         title: "introduction",
         children:[
@@ -61,18 +66,21 @@ module.exports = {
           '/propriete/propriete-et-emprunt'
         ]
       },
+      */
       {
         title: "Organiser son code en modules",
         children: [
           '/modules/commencer-rapidement',
         ]
       },
+      /*
       {
         title: "Gestion des erreurs",
         children: [
           '/gestion-des-erreurs/'
         ]
       },
+      */
     ]
   },
 
