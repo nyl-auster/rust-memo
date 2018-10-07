@@ -1,8 +1,16 @@
 # Les modules
 
-## Commencer rapidement
+Rust nous permet d'organiser très facilement notre code et ses fichiers grâce à son puissant système de  *modules*. Les modules nous permettent :
 
-Rust nous permet d'organiser très facilement les fichiers de notre code grâce à son système de  *modules*. Voici l'exemple le plus simple de déclaration d'un module :
+- d'organiser notre code en fichiers et dossiers comme bon nous semble
+- de créer des espaces de nom
+- de choisir si une portion de code est publique ou privée.
+
+## Exemple
+
+Voici un exemple basique de la création d'un module *database* :
+
+**`📝 src/main.rs`**
 
 ```rust
 mod database {
@@ -17,14 +25,14 @@ fn main() {
 
 ```
 
-C'était facile 🙀 . Deux choses importantes à retenir ici :
+C'était facile 🙀 . Deux choses importantes à noter ici :
 
-- Par défaut, toutes les fonctions et types d'un module sont **privées**, il faut utiliser le mot clef `pub` pour les rendre accessibles au code extérieur.
-- Pour accéder aux méthodes et types du module, il faut d'abord indiquer à Rust le nom du module suivi de `::`.  Ce qui donne ici `database::connect`
+- Par défaut, toutes les fonctions et types d'un module sont **privées**: elles ne sont utilisables qu'à l'intérieur de leur module de déclaration. Le mot clef `pub` (*public*) permet d'appeler le code depuis l'extérieur du module.
+- Pour accéder aux méthodes et types d'un module, il faut préciser le nom du module avant : `database::connect` ( et pas simplement `connect`).
 
 ## Mettre notre module dans un fichier dédié
 
-Créons un fichier `src/database.rs`, de manière à obtenir l'arborescence de fichiers suivante :
+On peut mettre le code de notre module *database* dans un fichier dédié, pour obtenir l'organisation de fichier suivante :
 
 ```rust
 📂 src
@@ -32,21 +40,21 @@ Créons un fichier `src/database.rs`, de manière à obtenir l'arborescence de f
   📝 main.rs
 ```
 
-Dans `src/database.rs`, nous allons inclure le code notre module; mais **SANS** le mot clef `mod`
+Déplaçons le code de notre module *database* dans le fichier `src/database.rs` mais **SANS** utiliser le mot-clef `mod` cette fois.
+
+**`📝 src/database.rs`**
 
 ```rust
-// src/database.rs
-
 pub fn connect() {
   println!("Connexion à la base")
 }
 ```
 
-Il faut maintenant déclarer notre module et l'inclure dans le programme, avec le mot clef `mod`. Dans `main.rs` :
+Il faut maintenant déclarer notre module et inclure son code dans le programme.
 
-```rust{3}
-// src/main.rs
+**`📝 src/main.rs`**
 
+```rust{1}
 mod database;
 
 fn main() {
@@ -56,37 +64,35 @@ fn main() {
 ```
 
 :::tip Note:
-`mod database;` est donc équivalent à écrire:
+`mod database;` signifie donc :
 
 ```rust
-
 mod database {
-  pub fn connect() {
-    println!("Connexion à la base")
-  }
+  // contenu du fichier src/database.rs
 }
 ```
 
 :::
 
-## Organiser ses modules en dossier
+## Mettre notre module dans un dossier dédié
 
-Pour un module plus complexe, on voudra rapidement créer un dossier qui contiendra les fichiers liés à ses fonctionnalités. On aimerait quelque chose comme ça :
+On peut aussi mettre notre module dans un dossier dédié, ce qui permet de séparer si besoin le code de notre module en plusieurs fichiers. Par exemple :
 
-```rust
+```rust{6}
 📂 src
   📂 database
     📝 fichier_a.rs
     📝 fichier_b.rs
-    📝 mod.rs //ce fichier est requis par Rust
+    📝 fichier_c.rs
+    📝 mod.rs //ce fichier est obligatoire
   📝 main.rs
 ```
 
-Créons le fichier `src/database/mod.rs`. Le nom de fichier **mod.rs** est **requis** par Rust pour qu'il puisse identifier notre dossier comme étant celui d'un module. 
+Déplaçons le code de notre module *database* dans un fichier `src/database/mod.rs` et supprimons l'ancier fichier `src/database.rs`
+
+**`📝 src/database/mod.rs`**
 
 ```rust
-// src/database/mod.rs
-
 pub fn connect() {
   println!("Connexion à la base")
 }
@@ -103,23 +109,20 @@ fn main() {
 ```
 
 :::tip NOTA BENE
-Quand on écrit `mod database;`, Rust va chercher automatiquement:
-
-- soit un fichier  `src/database.rs`
-- soit un fichier `src/database/mod.rs`.
+Le nom de fichier **mod.rs** est **obligatoire** : quand nous écrivons `mod database;` dans le fichier `main.rs`, Rust cherche automatiquement un fichier  `src/database.rs` puis `src/database/mod.rs`.
 :::
 
-Supposons que nous voulions ajouter dans notre module *database* un script de création de tables pour installer la base de données de notre programme. Voici l'arborescence qu'on aimerait avoir :
+Ajoutons dans notre module *database* un script de création de tables pour installer la base de données de notre programme. Voici l'arborescence voulue :
 
-```rust
+```rust{3}
 📂 src
   📂 database
-    📝 install.rs
+    📝 install.rs //  script de création des tables
     📝 mod.rs
   📝 main.rs
 ```
 
-Contenu de `src/database/install.rs`
+**`📝 src/database/install.rs`**
 
 ```rust
 pub fn create_tables() {
@@ -127,11 +130,12 @@ pub fn create_tables() {
 }
 ```
 
-Contenu de `src/database/mod.rs`
+Il faut maintenant inclure le code de `install.rs` dans notre module database :
 
-```rust
-// on inclut nos modules dans le programme en indiquant avec "pub"
-// que les méthodes et types sont publiques.
+**`📝 src/database/mod.rs`**
+
+```rust{2}
+// ⚠️ attention, il FAUT déclarer notre module comme public
 pub mod install;
 
 pub fn connect() {
@@ -139,9 +143,11 @@ pub fn connect() {
 }
 ```
 
-Et dans notre fichier `src/main.rs`
+On vient en réalité de créer un **nouveau module** nommé *install*, qui est un **sous-module** de *database*.
 
-```rust
+**`📝 src/main.rs`**
+
+```rust{6}
 mod database;
 
 fn main() {
@@ -150,27 +156,24 @@ fn main() {
 }
 ```
 
-Et voilà 🎉 ! Armé de ce simple mot clef `mod`, nous pouvons déjà organiser facilement un code complexe, et sur le même principe nous pouvons créer des dossiers de modules dans nos dossiers de module et ainsi de suite.
+Et voilà 🎉 ! Armé de ce simple mot clef `mod`, nous pouvons déjà organiser facilement un code complexe, et créer autant de dossiers et de sous-dossiers que nécessaire.
 
-## comprendre les chemins de modules et le mot-clef `use`
+## Bien comprendre le chemins des modules
 
-### Les modules forment une arboresence virtuelle
+La déclaration de nos modules forment **une arborescence** de modules, avec une racine. Un peu comme un système de fichier.
 
-Les espaces de nom des modules forment en réalité **une arborescence** de modules, avec une racine. Un peu comme un système de fichier. 
-
-On peut réprésenter ainsi l'arborescence des modules que nous avons crée au cours de ce chapitre. Je vais utiliser des icônes de paquets 📦 pour bien distinguer l'arborescence des modules de l'arborescence des fichiers.
+On peut réprésenter ainsi l'arborescence des modules que nous avons crée au cours de ce chapitre.
 
 ```rust
 📦 root
   📦 database
     📦 install
-    📦 uninstall
   📦 user
 ```
 
-:::tip NOTA BENE
+:::warning NOTA BENE
 
-L'arborescence des modules n'est PAS identique à l'arborescence de leurs dossiers et fichiers ! On peut très bien créer une arborescence complexe de modules dans un seul fichier :
+L'arborescence des modules n'est PAS l'arborescence de leurs dossiers et fichiers! On peut très bien créer une arborescence complexe de modules dans un seul fichier :
 
 ```rust
 // fichier src/main.rs
@@ -205,17 +208,19 @@ Nous avons ci-dessus un seul fichier `main.rs` mais l'arborescence de module sui
 
 :::
 
-Pour accéder à la fonction `nom` du module reinettes, on doit indiquer son **chemin** dans l'arborescence de modules. soit `nourriture::fruits::pommes::reinettes::nom()`
+Pour accéder à la fonction `nom` du module reinettes ci-dessus, on doit indiquer son **chemin** dans l'arborescence de modules. soit `nourriture::fruits::pommes::reinettes::nom()`
 
-**Mais il s'agit en réalité d'un chemin **relatif** qui prend en compte l'endroit où l'on se trouve dans le code**. Le chemin **absolu** complet réel est le suivant : `::nourriture::fruits::pommes::reinettes::nom()`
+**Il s'agit d'un chemin RELATIF**, c'est à dire qu'il s'ajoute au chemin du module dans lequel on se trouve actuellement. Dans `main.rs`, on se trouve dans le module implicite **root** qui a pour chemin `::`.
 
-C'est exactement la même différence conceptuelle qu'entre les urls `nourriture/fruits/pommes/reinettes` et `/nourriture/fruits/pommes/reinettes` : le slash du début permet d'indiquer qu'il s'agit d'un chemin absolu, qui doit donc repartir de la racine.
+Le chemin **absolu** et réel de `nourriture::fruits::pommes::reinettes::nom()` est donc `::nourriture::fruits::pommes::reinettes::nom()`.
+
+Pourquoi les chemins relatifs existent ? Si on se trouve dans une fonction du module *pommes*, les chemins relatifs nous permettent d'appeler la fonction `nom()` en écrivant juste `reinettes::nom()` au lieu du chemin absolu  `::nourriture::fruits::pommes::reinettes::nom()`.
 
 ### Exemple d'erreur de chemin
 
-Créons un module user, qui appelera du code de notre module *database*
+Créons un module user, qui appelera une fonction de notre module *database*.
 
-fichier `src/user.rs` :
+**`📝 src/user.rs`**:
 
 ```rust
 pub fn get() {
@@ -224,7 +229,7 @@ pub fn get() {
 }
 ```
 
-fichier `main.rs`
+**`📝 main.rs`**:
 
 ```rust
 mod user;
@@ -235,7 +240,7 @@ fn main () {
 }
 ```
 
-Nous avons une erreur 😨 , le fichier `user.rs` ne parvient pas à résoudre `database::connect`
+Nous avons une erreur en compilant 😱 : le fichier `user.rs` ne parvient pas à résoudre le chemin `database::connect`. C'est une sorte de *404 module not found*:
 
 ```rust
 error[E0433]: failed to resolve. Use of undeclared type or module `database`
@@ -245,16 +250,19 @@ error[E0433]: failed to resolve. Use of undeclared type or module `database`
   |   ^^^^^^^^ Use of undeclared type or module `database`
 ```
 
-C'est parce que nous indiquons ici un chemin de module **relatif** : Rust cherche donc d'abord un module database **dans** notre module user. Voici en réalité ce que nous avons demandé en écrivant `database::connect()` :
+C'est parce que nous indiquons ici un chemin de module **relatif** : Rust cherche donc d'abord un module database **dans** notre module user. En écrivant `database::connect()`, nous avons en réalité demandé `::user::database::connect`, ce qui ne correspond à rien dans notre arborescence de modules:
 
 ```rust
 📦 root
+  📦 database
+    📦 install
+    {} connect
   📦 user
-    📦 database
-      {} connect
 ```
 
-Pour régler cela, nous pouvons utiser un chemin absolu (qui commence par `::`), changeons `user.rs`:
+Pour régler cela, nous devons utiliser un chemin absolu. 
+
+**`📝 src/user.rs`**:
 
 ```rust{2}
 pub fn get() {
@@ -265,17 +273,11 @@ pub fn get() {
 
 Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreur a disparu !
 
-```rust
-📦 root
-  📦 database
-    {} connect
-```
-
 ## Le mot clef `use`
 
-Il existe une autre notation en Rust pour appeler la bonne méthode dans l'arborescence de module : c'est `use` :
+Il existe un autre moyen pour éviter d'avoir à écrire le chemin d'un module à chaque fois qu'on appelle une de ses fonctions : c'est le mot-clef `use`.
 
-Fichier `user.rs`
+**`📝 src/user.rs`**:
 
 ```rust{1}
 use database::connect;
@@ -286,17 +288,17 @@ pub fn get() {
 }
 ```
 
-Ainsi, si on a besoin d'appeler la fonction `connect()` 10 fois dans le fichier, nous n'aurons pas à repréciser à chaque le chemin absolu.
+Ainsi, si on a besoin d'appeler la fonction `connect()` plusieurs fois dans le fichier, nous n'aurons pas à repréciser à chaque fois le chemin absolu. Le `use` est donc un préfixe automatique de chemin pour les fonctions qu'on lui donne en arguments
 
-:::danger ATTENTION
-Le chemin indiqué par `use` est toujours **absolu**, bien qu'on ne précise pas `::`. On part donc toujours de la racine de notre arborscence de module pour utiliser use.
+:::danger ATTENTION PIEGE
+Le chemin indiqué par `use` est toujours **absolu**, bien qu'on ne précise pas `::` au début. On part donc toujours de la racine de notre arborescence de module pour indiquer un chemin avec `use`.
 :::
 
-Le mot clef use propose d'autres syntaxes :
+Le mot clef `use` propose d'autres syntaxes utiles :
 
 ```rust
-// permet d'appeler ensuite sans chemin connect() et tagazok()
+// préfixer connect() et tagazok() avec "::database::"
 use database::{connect, tagazok};
-// permet d'appeler sans chemin tout ce qui est public dans database
+// préfixer tout ce qui vient de database avec "::database::"
 use database::*
 ```
