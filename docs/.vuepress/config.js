@@ -5,7 +5,7 @@ module.exports = {
     lineNumbers: true
   },
   themeConfig: {
-    lastUpdated: 'Last Updated', // string | boolean
+    lastUpdated: true, 
     sidebar: [
       '/',
       {

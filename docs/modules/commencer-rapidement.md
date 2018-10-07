@@ -2,7 +2,7 @@
 
 Rust nous permet d'organiser très facilement notre code et ses fichiers grâce à son puissant système de  *modules*. Les modules nous permettent :
 
-- d'organiser notre code en fichiers et dossiers comme bon nous semble
+- d'organiser notre code en fichiers et dossiers
 - de créer des espaces de nom
 - de choisir si une portion de code est publique ou privée.
 
@@ -32,7 +32,7 @@ C'était facile 🙀 . Deux choses importantes à noter ici :
 
 ## Mettre notre module dans un fichier dédié
 
-On peut mettre le code de notre module *database* dans un fichier dédié, pour obtenir l'organisation de fichier suivante :
+On peut mettre le code de notre module *database* dans un fichier dédié, pour obtenir l'organisation de fichiers suivante :
 
 ```rust
 📂 src
@@ -195,7 +195,7 @@ pub mod nourriture {
 }
 ```
 
-Nous avons ci-dessus un seul fichier `main.rs` mais l'arborescence de module suivante :
+Nous avons ci-dessus un seul fichier `main.rs` mais l'arborescence de modules suivante :
 
 ```rust
 📦 root
@@ -271,7 +271,7 @@ pub fn get() {
 }
 ```
 
-Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreur a disparu !
+Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreur a disparue !
 
 ## Le mot clef `use`
 
