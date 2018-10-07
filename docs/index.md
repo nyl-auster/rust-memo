@@ -1,8 +1,4 @@
----
-published: false
----
-
-# Rust depuis zéro
+# Rust depuis zéro ( ⚠️  Work in progress )
 
 Rust requiert plus de connaissances dites "bas-niveau" que n'en requiert _PHP_ ou _JavaScript_. Le guide officiel de Rust est excellent mais s'adresse plus volontiers à celles et ceux provenant de C++ et C. 
 

@@ -11,7 +11,9 @@ module.exports = {
       { text: 'Contact', link: 'https://yineo.fr/contact' },
     ],
     sidebar: [
-      '/',
+      ["/", "Rust depuis zéro"],
+      '/modules/',
+      /* UNPUBLISHED */
       /*
       {
         title: "introduction",
@@ -67,12 +69,6 @@ module.exports = {
         ]
       },
       */
-      {
-        title: "Organiser son code en modules",
-        children: [
-          '/modules/commencer-rapidement',
-        ]
-      },
       /*
       {
         title: "Gestion des erreurs",
