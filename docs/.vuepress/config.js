@@ -5,7 +5,7 @@ module.exports = {
     lineNumbers: true
   },
   themeConfig: {
-    lastUpdated: true, 
+    lastUpdated: 'Last Updated', // string | boolean
     nav: [
       { text: "S'abonner", link: 'http://eepurl.com/dJuW3I' },
       { text: 'Contact', link: 'https://yineo.fr/contact' },

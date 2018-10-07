@@ -271,15 +271,32 @@ pub fn get() {
 }
 ```
 
-Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreur a disparue !
+Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreur a disparue ! Mais en Rust, on utilisera plutôt le mot-clef `use` pour gérer nos chemins absolus.
 
-## Le mot clef `use`
+## Gérer les chemins absolus avec `use`
 
-Il existe un autre moyen pour éviter rendre moins fastidieux l'écriture des chemins des modules: le mot-clef `use`.
+On peut créer un chemin absolu avec le mot-clef `use` :
+
+```rust{1,4}
+use database;
+
+pub fn get() {
+  database::connect();
+  println!("getting user");
+}
+```
+
+Dans le cas ci-dessus, `database::connect()` sera bien interprété comme `::database::connect()`.
+
+:::danger NOTA BENE
+Le chemin importé par `use` est toujours à renseigner en **absolu**, bien qu'on ne précise pas `::` au début. On part donc toujours de la racine de notre arborescence de modules.
+:::
+
+On peut aussi importer le chemin tout entier, ce qui nous permet d'appeler tout simplement `connect()` ensuite :
 
 **`📝 src/user.rs`**:
 
-```rust{1}
+```rust{1,4}
 use database::connect;
 
 pub fn get() {
@@ -288,17 +305,13 @@ pub fn get() {
 }
 ```
 
-Ainsi, si on a besoin d'appeler la fonction `connect()` plusieurs fois dans le fichier, nous n'aurons pas à repréciser à chaque fois le chemin absolu. Le `use` agit comme un préfixe de chemin automatique pour les fonctions et types qu'on lui indique.
-
-:::danger ATTENTION PIEGE
-Le chemin indiqué par `use` est toujours **absolu**, bien qu'on ne précise pas `::` au début. On part donc toujours de la racine de notre arborescence de module pour indiquer un chemin avec `use`.
-:::
-
-Le mot clef `use` propose d'autres syntaxes utiles :
+Le mot-clef `use` propose d'autres syntaxes utiles :
 
 ```rust
-// préfixer connect() et tagazok() avec "::database::"
-use database::{connect, tagazok};
-// préfixer tout ce qui vient de database avec "::database::"
+// permettra d'écrire "connect()" et "close_connection()"
+use database::{connect, close_connection};
+
+// permettra la même chose mais avec TOUTES les fonctions et types
+// contenu(e)s dans le module database
 use database::*
 ```
