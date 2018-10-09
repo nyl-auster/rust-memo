@@ -25,7 +25,7 @@ fn main() {
 
 ```
 
-C'était facile 🙀 . Deux choses importantes à noter ici :
+C'était facile 🙀 . Deux choses importantes à remarquer ici :
 
 - Par défaut, toutes les fonctions et types d'un module sont **privées**: elles ne sont utilisables qu'à l'intérieur de leur module de déclaration. Le mot clef `pub` (*public*) permet d'appeler le code depuis l'extérieur du module.
 - Pour accéder aux méthodes et types d'un module, il faut préciser le nom du module avant : `database::connect` ( et pas simplement `connect`).
@@ -50,7 +50,7 @@ pub fn connect() {
 }
 ```
 
-Il faut maintenant déclarer notre module et inclure son code dans le programme.
+Il faut maintenant déclarer notre module et **inclure** son code dans le programme.
 
 **`📝 src/main.rs`**
 
@@ -63,8 +63,7 @@ fn main() {
 
 ```
 
-:::tip Note:
-`mod database;` signifie donc :
+écrire `mod database;` est donc équivalent à :
 
 ```rust
 mod database {
@@ -72,11 +71,17 @@ mod database {
 }
 ```
 
-:::
+## Différence entre `mod` et `extern crate`
+
+`mod` permet d'inclure dans notre programme un module interne à notre projet; tandis que `extern crate` permet d'inclure dans notre programme des modules d'une librairie (*crate*) *externe* :
+
+```rust
+extern crate postgres;
+```
 
 ## Mettre notre module dans un dossier dédié
 
-On peut aussi mettre notre module dans un dossier dédié, ce qui permet de séparer si besoin le code de notre module en plusieurs fichiers. Par exemple :
+On peut mettre notre module dans un dossier dédié, ce qui permet de séparer si besoin son code en plusieurs fichiers. Par exemple :
 
 ```rust{6}
 📂 src
@@ -275,6 +280,8 @@ Ce qui revient cette fois à demander le bon chemin vers notre fonction. L'erreu
 
 ## Gérer les chemins absolus avec `use`
 
+Il peut devenir fastidieux de répéter plusieurs fois les mêmes chemins pour accéder à une fonction : le mot-clef `use` nous facilite les choses de ce côté.
+
 On peut créer un chemin absolu avec le mot-clef `use` :
 
 ```rust{1,4}
@@ -289,7 +296,10 @@ pub fn get() {
 Dans le cas ci-dessus, `database::connect()` sera bien interprété comme `::database::connect()`.
 
 :::danger NOTA BENE
-Le chemin importé par `use` est toujours à renseigner en **absolu**, bien qu'on ne précise pas `::` au début. On part donc toujours de la racine de notre arborescence de modules.
+
+- Le chemin importé par `use` est toujours à renseigner en **absolu**, bien qu'on ne précise pas `::` au début. On part donc toujours de la racine de notre arborescence de modules.
+- `use` n'inclus PAS de nouveau code dans le projet**. On ne peut utiliser `use` que concernant du code *déjà inclus*, soit par `mod`, soit par `extern crate`.
+
 :::
 
 On peut aussi importer le chemin tout entier, ce qui nous permet d'appeler tout simplement `connect()` ensuite :
