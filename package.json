@@ -4,6 +4,7 @@
   },
   "scripts": {
     "dev": "vuepress dev docs",
+    "draft": "vuepress dev docs_draft",
     "docs:build": "vuepress build docs",
     "deploy": "./deploy.sh"
   }

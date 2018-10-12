@@ -1,18 +1,14 @@
 # Les 3 segments de mémoire les plus utilisés par un programme
 
-La mémoire accessible par un programme se divise en trois segments. En avoir une vision claire permet de comprendre Rust aisément. A contrario, une mauvaise compréhension de ces types de mémoires seront un frein important à beaucoup de concepts de Rust.
+Un programme a à sa disposition plusieurs types de mémoire pour manipuler lire ou écrire des données.
 
-- Sur la pile d'éxécution ( _stack_ )
-- Dans le tas ( _heap_ )
-- Dans le segment de données du programme
-
-C'est à dire que le programme peut écrire et lire des données à partir de ces trois segments de mémoire.
+- La pile d'éxécution ( _stack_ )
+- Le tas ( _heap_ )
+- Le fichier binaire final.
 
 ## La pile d'éxécution et le tas
 
-Si vous pouvez coder tranquillement du PHP et du JavaScript sans vous me demander si la valeur d'une variable est stockée dans la pile d'éxécution ( the stack ) ou bien dans le tas ( heap ); il n'en va pas de même en Rust !
-
-En effet, toutes les problématiques de la gestion de mémoire évoqués ci-dessus concerne uniquement la mémoire du _tas_ ( heap ).
+Si des langages tels que PHP ou JavaScript nous permettent de coder sans nous soucier de la gestion de la mémoire (c'est tout l'intérêt du Garbage Collector), il en est pas de même en Rust : bien comprendre la disctinction entre la pile et le tas permet de comprendre comment il gère la mémoire.
 
 **🚨 Une variable en Rust ne se comportera pas de la même manière selon que sa valeur soit stockée dans le tas ou dans la pile d'éxécution.**
 

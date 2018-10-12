@@ -8,7 +8,7 @@ Rust utilise `Result<T, E>` pour les erreurs recouvrables ( qui n'arrêtent pas 
 
 `Result` joue un rôle similaire aux exceptions dans les autres langages.
 
-## Technique, c'est quoi Result ?
+## Techniquement, c'est quoi Result ?
 
 Result est une **énumération** qui représente soit un succès ( `Ok` ), soit un échec ( `Err`). Voici sa déclaration complète :
 

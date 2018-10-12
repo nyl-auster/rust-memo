@@ -1,5 +1,10 @@
 🚨 EN COURS DE REDACTION !
 
+# brouillons lisibles
+
+[ ] historique de Rust
+[ ] dossier prélude
+
 # Sources
 
 - [La seconde édition du Livre de Rust](https://doc.rust-lang.org/book/second-edition/index.html)
