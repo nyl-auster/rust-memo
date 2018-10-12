@@ -2,6 +2,8 @@
 
 ## Getting started
 
+Vuepress est installé pour rédiger la doc puis l'afficher ensuite sur larouille.github.io.
+
 ```sh
 yarn install
 ```
