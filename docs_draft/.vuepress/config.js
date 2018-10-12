@@ -1,4 +1,5 @@
 let config = require("../../vuepress.config")
+config.title = "DRAFT - Rust depuis Zéro"
 config.themeConfig.sidebar = [
   ["/", "Rust depuis zéro"],
   {
@@ -59,7 +60,6 @@ config.themeConfig.sidebar = [
     children: [
       '/gestion-des-erreurs/'
     ]
-  },
-  '/modules/',
+  }
 ]
 module.exports = config;
