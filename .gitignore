@@ -2,3 +2,4 @@ node_modules
 docs/.vuepress/dist
 docs_draft/.vuepress/dist
 docs_review/.vuepress/dist
+.vscode
