@@ -1,5 +1,7 @@
 # Les points qui ont posé questions, chronologiquement, dans l'apprentissage de Rust en venant de PHP / JS
 
+## En lisant le guide
+
 - Les strings : String::from(), &str ou format!() ? 
 
 - la distinction pile et tas - je n'avais pas de connaissance de ces principes en venant de PHP et JS
@@ -21,3 +23,7 @@
 - gestion des erreurs : pas le réflexion d'utiliser Option à la place de null
 
 - confusion entre mod, use, crate
+
+## En Code
+
+Les putains de lifetime !

@@ -2,12 +2,13 @@
 
 ## Déclarer une structure
 
-Une structure est un type de donnée qui regroupe un ensemble de champs dont chaque type est spécifié. On peut également y attacher des **méthodes**.
+Une structure est un type de donnée qui regroupe un ensemble de champs, dont chaque type est spécifié. On peut également y attacher des **méthodes**.
 
-Voici comment déclarer une structure simple:
+Voici comment déclarer une structure simple. On utilise le **PascalCase** pour le nommage des structures, au lieu de la **snake_case** habituelle.
 
 ```rust
-// le trait debug est optionnel : il permet d'afficher notre structure avec println!
+// le trait debug est optionnel : il permettra d'afficher
+// une instance de notre structure avec `println!`
 #[derive(Debug)]
 struct User {
     name: String,
@@ -15,27 +16,62 @@ struct User {
     age: u8,
     active: bool,
 }
-```
 
-:::tip NOTE
-On utilise le **PascalCase** pour le nommage des structures, au lieu de la **snake_case** habituelle. Example : `AuthenticatedUser`.
-::: 
-
-Créer une instance de la structure et afficher la valeur de ses champs:
-
-```rust
+// Créer une instance de la structure
 fn main() {
     let yann = User {
         name: String::from("Yann"),
-        email: String::from("yann@yineo.fr"),
+        email: String::from("email@email.fr"),
         age: 35,
         active: true,
     };
+    // afficher la valeur d'un champ
     println!("age : {}", yann.age);
+    // afficher toute l'instance
     println!("debug : {:#?}", yann)
-
 }
 ```
+
+## Structure unitaires et `tuple struct`
+
+Les structures sont souvent utilisées de deux autres manière qu'il est bon de savoir repérer pour la suite.
+
+On peut déclarer une structure sans aucun champ, on l'appelle *structure unitaire* (unit struct). Exemple :
+
+```rust
+struct User;
+```
+
+On peut aussi créer des `tuple struct`, qui sont au final simplement des `tuple` nommés.
+
+```rust
+// suppose qu'on veuille répresenter un point par
+// ses coordonnées x et y avec un tuple struct:
+#[derive(Debug)]
+struct Point(i32, i32);
+
+fn main() {
+  let point = Point(0, 10);
+  // on accède aux valeurs de la même manière qu'avec un tuple classique
+  println!("{}", point.0);
+  println!("{}", point.1);
+  // affiche : Point(0, 10)
+  println!("{:?}", point)
+}
+```
+
+Cela permet d'éclairer la syntaxe **énumération** en Rust, qui sont composés des 3 types de structures qu'on vient de voir. La seule différence c'est que le mot clef `struct` n'est pas utilisé pour déclarer une énumération:
+
+```rust
+enum Message {
+    Quit, // structure unitaire
+    Move { x: i32, y: i32 }, // structure classique
+    Write(String), // tuple struct
+    ChangeColor(i32, i32, i32), // tuple struct
+}
+```
+
+## structure mutables
 
 Pour que les valeurs soient mutables, il faut rendre **toute** l'instance mutable avec le mot clef **mut** lors de l'instanciation de la structure.
 
@@ -43,7 +79,7 @@ Pour que les valeurs soient mutables, il faut rendre **toute** l'instance mutabl
 // ajout du mot clef mut à l'instanciation
 let mut yann = User {
     name: String::from("Yann"),
-    email: String::from("yann@yineo.fr"),
+    email: String::from("email@email.fr"),
     age: 35,
     active: true,
 };
@@ -55,11 +91,11 @@ yann.active = false;
 println!("debug : {:#?}", yann);
 ```
 
-:::warning NOTA BENE
+:::tip NOTE
 **Toute** l'instance doit être mutable, Rust n'autorise pas seulement certains champs à être mutables.
 :::
 
-On peut utiliser la notation abrégée pour instancier des champs dans build_user, pour éliminer les redondances comme `name: name`. La fonction ci-dessous nous permet d'instancier une structure avec des valeurs par défaut et tire parti de la notation abrégée:
+On peut utiliser des fonctions pour construire des instances avec des valeurs par défaut.
 
 ```rust
 fn build_user(name: String, email: String) -> User {
@@ -74,16 +110,16 @@ fn build_user(name: String, email: String) -> User {
 }
 ```
 
-Il est possible d'instancier une structure en se basant sur les valeurs d'une autre instance. On peut ainsi redéfinir uniquement certaines valeurs et laisse l'instance de base. 
+Il est possible d'instancier une structure en se basant sur les valeurs d'une autre instance. On peut ainsi redéfinir uniquement certaines valeurs :
 
 ```rust
 fn main() {
     let yann = build_user(String::from("yann"), String::from("yann@yineo.fr"));
     let roger = User {
+      // ces valeurs écrasent celle de l'instance "yann"
         name: String::from("Roger"),
         email: String::from("roger@roger.fr"),
-        // L'instance de base, elle doit toujours être en dernier.
-        // Les valeurs ci-dessus écrasent celles de "yann".
+        // l'instance de base ( toujours en dernier )
         ..yann
     };
     println!("debug : {:#?}", roger);
