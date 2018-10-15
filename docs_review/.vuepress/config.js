@@ -5,6 +5,7 @@ config.themeConfig.sidebar = [
   {
     title: "Variables et fonctions",
     children: [
+      '/variables/type-de-donnees',
       '/variables/structure',
     ]
   }
