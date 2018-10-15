@@ -17,11 +17,11 @@ yarn run review
 Afficher la doc publiée sur https://larouille.github.io/ avec hot-reloading :
 
 ```sh
-yarn run dev
+yarn run public
 ```
 
 Afficher les docs en cours de rédactions
 
 ```sh
-yarn run review
+yarn run draft
 ```
