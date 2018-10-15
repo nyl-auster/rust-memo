@@ -3,8 +3,9 @@
     "vuepress": "1.0.0-alpha.4"
   },
   "scripts": {
-    "dev": "vuepress dev docs",
+    "published": "vuepress dev docs",
     "draft": "vuepress dev docs_draft",
+    "review": "vuepress dev docs_review",
     "docs:build": "vuepress build docs",
     "deploy": "./deploy.sh"
   }
