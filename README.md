@@ -8,13 +8,20 @@ Vuepress est installé pour rédiger la doc puis l'afficher ensuite sur larouill
 yarn install
 ```
 
-Afficher la doc validée avec hot-reloading :
+Afficher la doc à relire avant publication
+
+```sh
+yarn run review
+```
+
+Afficher la doc publiée sur https://larouille.github.io/ avec hot-reloading :
 
 ```sh
 yarn run dev
 ```
 
-Afficher la doc en cours de rédaction
+Afficher les docs en cours de rédactions
+
 ```sh
-yarn run draft
+yarn run review
 ```
