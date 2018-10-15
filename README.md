@@ -1,4 +1,4 @@
-# Guide en français sur certains principes de Rust - 🚨 EN COURS DE REDACTION !
+# Guide en français sur Rust - WIP 🚨
 
 ## Getting started
 
