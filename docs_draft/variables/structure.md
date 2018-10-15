@@ -199,10 +199,12 @@ Une fonction associée ne dépend **pas** des valeurs de l'instance, on l'appell
 Rectangle::square(10);
 ```
 
-On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment ! C'est une fonction associée de la structure `String`. Et `String` est en réalité une structure dont la déclaration est la suivante :
+On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment ! `String` est une structure Rust, est `from` une fonction associée de la structure `String`. Voici à quoi ressemble la déclaration de la structure `String`:
 
 ```rust
 pub struct String {
     vec: Vec<u8>,
 }
 ```
+
+Elle contient un unique champ `vec` qu représente une collection (*Vec*) d'octets, dont chacun représentera un caractère UTF-8.
