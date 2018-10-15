@@ -25,7 +25,6 @@ config.themeConfig.sidebar = [
   {
     title: "Variables et fonctions",
     children: [
-      '/variables/type-de-donnees',
       '/variables/declarer-une-variable',
       '/variables/reference',
       '/variables/primitifs-atomiques',
