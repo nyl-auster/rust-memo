@@ -11,17 +11,17 @@ yarn install
 Afficher la doc à relire avant publication
 
 ```sh
-yarn run review
+yarn review
 ```
 
 Afficher la doc publiée sur https://larouille.github.io/ avec hot-reloading :
 
 ```sh
-yarn run public
+yarn public
 ```
 
 Afficher les docs en cours de rédactions
 
 ```sh
-yarn run draft
+yarn draft
 ```
