@@ -37,19 +37,17 @@ fn main() {
 }
 ```
 
-## Structure unitaires et `tuple struct`
+## `unit struct` et `tuple struct`
 
 Les structures sont souvent utilisées de deux autres manières qu'il est bon de savoir reconnaître.
 
-On peut déclarer une structure sans aucun champ, on l'appelle *structure unitaire* (unit struct).
+On peut déclarer une structure sans aucun champ, on l'appelle alors *structure unitaire* (unit struct).
 
 ```rust
 struct User;
 ```
 
-On peut aussi créer des `tuple struct`, qui fonctionnent exactement comme les `tuple`, si ce n'est qu'ils ont un nom. 
-
-Supposons qu'on veuille réprésenter un point avec des coordonnées x et y à l'aide d'un *tuple struct* :
+On peut aussi créer des `tuple struct`, qui fonctionnent exactement comme les `tuple`, si ce n'est qu'ils ont un nom. Supposons par exemple qu'on veuille réprésenter un point avec des coordonnées `x` et `y`; on pourrait utiliser un `tuple struct` :
 
 ```rust
 #[derive(Debug)]
@@ -68,7 +66,7 @@ fn main() {
 }
 ```
 
-Les *structures unitaires* et *structures tuple* permettent de comprendre la syntaxe des indispensables **énumération** en Rust, qui sont composés des 3 types de structures que l'on vient de voir. La seule différence c'est que le mot clef `struct` n'est pas utilisé pour déclarer une énumération:
+Les *structures unitaires* et *structures tuple* permettent de comprendre la syntaxe des indispensables **énumération** en Rust, qui sont composés des 3 types de structures que l'on vient de voir. La seule différence c'est que le mot clef `struct` n'est pas utilisé pour déclarer une *variante* d'une énumération:
 
 ```rust
 enum Message {
@@ -151,7 +149,7 @@ debug : User {
 
 Une **méthode** est une fonction attachée à une structure, qui recoit automatiquement **&self** en premier argument; qui est **l'instance de la structure**.
 
-Pour ajouter une méthode, il faut créer un bloc **impl**. Voici comment définir une méthode "area" sur une structure "Rectangle", qui calculera l'aire de l'instance du Rectangle.
+Pour ajouter une méthode, il faut créer un bloc **impl**. Voici comment définir une méthode `area` sur une structure `Rectangle`, qui calculera l'aire de l'instance du Rectangle.
 
 ```rust
 #[derive(Debug)]
@@ -168,7 +166,7 @@ impl Rectangle {
 }
 ```
 
-On peut ensuite appelé notre _méthode_ area() sur une **instance** de _Rectangle_:
+Créons une **instance** de notre structure _Rectangle_ sur laquelle on peut ensuite appeler notre _méthode_ `area` :
 
 ```rust
 let my_rectangle = Rectangle {
@@ -180,7 +178,7 @@ let area_with_struct = my_rectangle.area();
 
 ## Les fonctions associées
 
-Les fonctions associées sont tout simplement des méthodes qui ne prennent **pas** `&self` en premier paramètre :
+Les fonctions associées sont tout simplement des méthodes qui ne prennent **pas** `&self` en premier paramètre.
 
 ```rust
 impl Rectangle {
@@ -193,13 +191,13 @@ impl Rectangle {
 }
 ```
 
-Une fonction associée ne dépend **pas** des valeurs de l'instance, on l'appellera donc de la manière suivante :
+Une fonction associée ne dépend **pas** des valeurs de l'instance : on l'appelle sans créer d'instance :
 
 ```rust
 Rectangle::square(10);
 ```
 
-On sait maintenant d'où provient la notation `String::from("hello")` vu précédemment ! `String` est une structure Rust, est `from` une fonction associée de la structure `String`. Voici à quoi ressemble la déclaration de la structure `String`:
+On en sait maintenant assez pour comprendre la notation `String::from("hello")` vu précédemment : `String` est une structure Rust, est `from` une fonction associée de la structure `String`. Voici à quoi ressemble la déclaration de la structure `String`:
 
 ```rust
 pub struct String {
