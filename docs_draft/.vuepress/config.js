@@ -25,6 +25,7 @@ config.themeConfig.sidebar = [
   {
     title: "Variables et fonctions",
     children: [
+      '/variables/resume',
       '/variables/declarer-une-variable',
       '/variables/reference',
       '/variables/primitifs-atomiques',
