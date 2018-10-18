@@ -34,7 +34,6 @@ config.themeConfig.sidebar = [
       '/variables/structure',
       '/variables/enumeration',
       '/variables/collections',
-      '/variables/autres-types',
       '/variables/debogguer-une-variable',
       '/variables/duree-de-vie-des-variables'
     ]
