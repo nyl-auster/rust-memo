@@ -10,11 +10,11 @@ Le mot-clef `let` permet de déclarer une variable.
 let message = "Hello";
 ```
 
-`let` fait trois choses:
+`let` fait trois choses :
 
 - il lie le nom (ici `message`) à un emplacement mémoire de l'ordinateur
-- il inscrit une valeur d'initialisation dans cet emplacement mémoire: `yann`
-- il donne un **type** à la variable. Si le type n'est pas précisé, il est *inféré*. Ci-dessus, le type inféré est `&str`.
+- il inscrit une valeur d'initialisation dans cet emplacement mémoire : `hello`
+- il donne un **type** à la variable. Si le type n'est pas précisé, il est *inféré*. Ci-dessus, le type inféré est `&str`
 
 :::tip NOTE
 En Rust on utilise toujours le type de casse **snake_case** pour nommer les variables et les fonctions.
@@ -22,7 +22,7 @@ En Rust on utilise toujours le type de casse **snake_case** pour nommer les vari
 
 ## Typage des variables
 
-En Rust, une variable est toujours typée, que ce soit de manière *implicite* ou *explicite*.  On parle d'*inférence de type* pour désigner le fait que Rust soit capable de donner un type par défaut à une variable quand on ne précise pas explicitement le type souhaitée.
+En Rust, une variable est toujours typée, que ce soit de manière *implicite* ou *explicite*.  On parle d'*inférence de type* pour désigner le fait que Rust soit capable de donner un type par défaut à une variable quand on ne précise pas explicitement le type souhaité.
 
 Pour expliciter le type d'une variable, il faut utiliser deux points `:` suivi du type désiré :
 
@@ -58,14 +58,14 @@ Il est possible de déclarer plusieurs variables avec un seul `let` en utilisant
 ```
 
 :::tip NOTE
-Il s'agit en réalité d'une *déstructuration* (à gauche) d'un type *tuple* ( à droite) que nous verrons plus loin.
+Il s'agit en réalité d'une *déstructuration* (à gauche) d'un type *tuple* (à droite) que nous verrons plus loin.
 :::
 
 ## const
 
 Le mot clef `const` permet, curieusement, de créer une constante. Contrairement à `let` :
 
-- il peut être utilisé dans la portée globale.
+- il peut être utilisé dans la portée globale
 - le type est obligatoire
 
 ```rust
@@ -90,9 +90,9 @@ fn main() {
 
 ## Immutabilité par défaut
 
-Dans la plupart des langages, un programme peut modifier la valeur de n'importe quelle variable. Cependant, modifier l'état d'un variable change l'état d'un programme et peut donc causer un bogue. En revanche, lire une variable est une opération sûre et sans effet secondaire, car cela ne change pas l'état du programme. C'est pourquoi en Rust, les variables sont immutables par défaut.
+Dans la plupart des langages, un programme peut modifier la valeur de n'importe quelle variable. Cependant, modifier l'état d'une variable change l'état d'un programme et peut donc causer un bogue. En revanche, lire une variable est une opération sûre et sans effet secondaire, car cela ne change pas l'état du programme. C'est pourquoi en Rust, les variables sont immutables par défaut.
 
-Il faut utiliser le mot-clef **mut** pour rendre une variable _mutable_:
+Il faut utiliser le mot-clef **mut** pour rendre une variable _mutable_ :
 
 ```rust
 fn main() {

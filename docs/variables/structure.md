@@ -4,12 +4,12 @@
 
 ## Déclarer une structure
 
-Une structure est un type de donnée incontournable qui regroupe un ensemble de champs, dont chaque type est spécifié. On peut également y attacher des **méthodes**.
+Une structure est un type de données incontournable qui regroupe un ensemble de champs, dont chaque type est spécifié. On peut également y attacher des **méthodes**.
 
-Voici comment déclarer une structure classique. On utilise le **PascalCase** pour le nommage des structures, au lieu de la **snake_case** habituelle.
+Voici comment déclarer une structure classique. On utilise le **PascalCase** pour le nommage des structures, au lieu de la **snake_case** habituelle :
 
 ```rust
-// le trait debug est optionnel: il permet d'afficher
+// le trait debug est optionnel : il permet d'afficher
 // une instance de notre structure avec `println!`
 #[derive(Debug)]
 struct User {
@@ -20,7 +20,7 @@ struct User {
 }
 ```
 
-Pour utiliser concrètement une structure, on doit créer une *instance*:
+Pour utiliser concrètement une structure, on doit créer une *instance* :
 
 ```rust
 fn main() {
@@ -49,7 +49,7 @@ On peut déclarer une structure sans aucun champ, on l'appelle alors *structure 
 struct User;
 ```
 
-On peut aussi créer des `tuple struct`, qui fonctionnent exactement comme les `tuple`, si ce n'est qu'ils ont un nom. Supposons par exemple qu'on veuille réprésenter un point avec des coordonnées `x` et `y`; on pourrait utiliser un `tuple struct` :
+On peut aussi créer des `tuple struct`, qui fonctionnent exactement comme les `tuple`, si ce n'est qu'ils ont un nom pour pouvoir être réutilisés. Supposons par exemple qu'on veuille réprésenter un point avec des coordonnées `x` et `y` ; on pourrait utiliser un `tuple struct` :
 
 ```rust
 #[derive(Debug)]
@@ -68,7 +68,7 @@ fn main() {
 }
 ```
 
-Les *structures unitaires* et *structures tuple* permettent de comprendre la syntaxe des indispensables **énumération** en Rust, qui sont composés des 3 types de structures que l'on vient de voir. La seule différence c'est que le mot clef `struct` n'est pas utilisé pour déclarer une *variante* d'une énumération:
+Les *structures unitaires* et *structures tuple* permettent de comprendre la syntaxe des indispensables **énumération** en Rust, qui sont composées des 3 types de structures que l'on vient de voir. La seule différence est que le mot clef `struct` n'est pas utilisé pour déclarer une *variante* d'une énumération :
 
 ```rust
 enum Message {
@@ -92,7 +92,7 @@ let mut yann = User {
 };
 ```
 
-Muter les variables est désormais possible
+Muter les variables est désormais possible :
 
 ```rust
 yann.age = 43;
@@ -105,7 +105,7 @@ println!("debug : {:#?}", yann);
 **Tous** les champs de l'instance deviennent mutables, Rust n'autorise pas seulement certains champs à être mutables.
 :::
 
-On peut utiliser des fonctions pour construire des instances avec des valeurs par défaut.
+On peut utiliser des fonctions pour construire des instances avec des valeurs par défaut :
 
 ```rust
 fn build_user(name: String, email: String) -> User {
@@ -149,9 +149,9 @@ debug : User {
 
 ## Implémenter une méthode sur la structure
 
-Une **méthode** est une fonction attachée à une structure, qui recoit automatiquement **&self** en premier argument; qui est **l'instance de la structure**.
+Une **méthode** est une fonction attachée à une structure, qui recoit automatiquement **&self** en premier argument ; qui est **l'instance de la structure**.
 
-Pour ajouter une méthode, il faut créer un bloc **impl**. Voici comment définir une méthode `area` sur une structure `Rectangle`, qui calculera l'aire de l'instance du Rectangle.
+Pour ajouter une méthode, il faut créer un bloc **impl**. Voici comment définir une méthode `area` sur une structure `Rectangle`, qui calculera l'aire de l'instance du Rectangle :
 
 ```rust
 #[derive(Debug)]
@@ -193,13 +193,13 @@ impl Rectangle {
 }
 ```
 
-Une fonction associée ne dépend **pas** des valeurs de l'instance : on l'appelle sans créer d'instance :
+Une fonction associée ne dépend **pas** des valeurs de l'instance : on l'appelle sans créer d'instance.
 
 ```rust
 Rectangle::square(10);
 ```
 
-On en sait maintenant assez pour comprendre la notation `String::from("hello")` vu précédemment : `String` est une structure Rust, est `from` une fonction associée de la structure `String`. Voici à quoi ressemble la déclaration de la structure `String`:
+On en sait maintenant assez pour comprendre la notation `String::from("hello")` vu précédemment : `String` est une structure Rust, et `from` une fonction associée de la structure `String`. Voici à quoi ressemble la déclaration de la structure `String` :
 
 ```rust
 pub struct String {
@@ -207,4 +207,4 @@ pub struct String {
 }
 ```
 
-Elle contient un unique champ `vec` qu représente une collection (*Vec*) d'octets, dont chacun représentera un caractère UTF-8.
+Elle contient un unique champ `vec` qui représente une collection (*Vec*) d'octets, dont chacun représentera un caractère UTF-8.

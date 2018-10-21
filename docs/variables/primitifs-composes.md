@@ -6,7 +6,7 @@ Les types composés peuvent regrouper plusieurs valeurs dans un seul type. Rust 
 
 ## tuple
 
-Créer un tuple composé de différents _types primitifs_:
+Créer un tuple composé de différents _types primitifs_ :
 
 ```rust
 let tup: (i32, f64, u8, String) = (500, 6.4, 1, String::from("Hello"));
@@ -42,7 +42,7 @@ let ids: [i32; 5] = [12, 16, 23, 15, 99];
 println!("{}", ids[4]);
 ```
 
-L'inférence de type nous permet d'écrire plus simplement:
+L'inférence de type nous permet d'écrire plus simplement :
 
 ```rust
 let ids = [12, 16, 23, 15, 99];
@@ -52,5 +52,5 @@ println!("{}", ids[4]);
 ```
 
 :::warning NOTA BENE
-**les arrays ont une longueur fixe !**: une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
+**les arrays ont une longueur fixe** : une fois déclaré, leur taille ne peut pas s'agrandir ou se réduire. On verra plus tard le type **vectors** dont la taille peut varier dynamiquement.
 :::
