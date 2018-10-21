@@ -10,7 +10,7 @@ module.exports = {
   themeConfig: {
     lastUpdated: true, // string | boolean
     nav: [
-      { text: "S'abonner", link: 'http://eepurl.com/dJuW3I' },
+      { text: "Souscrivez un abonnement", link: 'http://eepurl.com/dJuW3I' },
       { text: "Twitter", link: 'https://twitter.com/@yineofr' },
       { text: 'Contact', link: 'https://yineo.fr/contact' },
     ]

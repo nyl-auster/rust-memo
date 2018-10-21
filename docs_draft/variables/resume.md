@@ -1,7 +1,8 @@
 # Resumé
 
-le mot clef `let` permet de déclarer une variable.
-Les variables sont **immutables** par défaut. Il faut ajouter le mot clef `mut` pour rendre une variable mutable.
+- le mot clef `let` permet de déclarer une variable.
+- Les variables sont **immutables** par défaut. Il faut ajouter le mot clef `mut` pour rendre une variable mutable.
+- Rust est capable d'inférer le type de la variable
 
 ```Rust
 // entier

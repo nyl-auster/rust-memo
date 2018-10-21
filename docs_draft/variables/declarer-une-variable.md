@@ -1,41 +1,37 @@
 # Déclarer des variables
 
-## Qu'est ce qu'une variable ?
-
-Pour fonctionner, notre programme a besoin de stocker des valeurs dans la mémoire de l'ordinateur. Chacune de ces valeurs possède une **adresse** mémoire qui nous permet d'y accéder en lecture ou écriture. Une adresse mémoire ressemblera par exemple à :`0x7ffee458816c`.
-
-Une *variable* permet de nommer un espace mémoire et de pouvoir y accéder en lecture ou écriture via le nom choisi. Un peu comme un nom de domaine est lié à une adresse IP. De cette manière, au lieu d'avoir à écrire `0x7ffee458816c` dans notre programme pour accéder au contenu de cet emplacement mémoire, on pourra écrire simplement un identifiant de notre choix, tel que `name`.
-
 ## let
 
-C'est le mot-clef `let` qui permet de déclarer une variable. On entendra souvent parler de *variable binding* (liaison de variable) pour indiquer que `let` permet de **lier un nom à une valeur** de la mémoire.
+Le mot-clef `let` permet de déclarer une variable.
 
 ```rust
-let name = "Yann";
+let message = "Hello";
 ```
 
-Ci-dessus, le mot-clef  `let` fait trois choses:
+`let` fait trois choses:
 
-- il lie le nom à un emplacement mémoire: `name`
-- il inscrit une valeur d'initialisation dans cet emplacement mémoire: *yann*
-- il donne un type à la variable. Si il n'est pas donné, il l'infère. Ci-dessus, le type inféré est `&str`.
+- il lie le nom (ici `message`) à un emplacement mémoire de l'ordinateur
+- il inscrit une valeur d'initialisation dans cet emplacement mémoire: `yann`
+- il donne un **type** à la variable. Si le type n'est pas précisé, il est *inféré*. Ci-dessus, le type inféré est `&str`.
 
 :::tip NOTE
-En Rust on utilise toujour le type de casse **snake_case** pour nommer variables et fonctions, sauf pour le type de donnée [struct](./structure.html).
+En Rust on utilise toujours le type de casse **snake_case** pour nommer les variables et les fonctions.
 :::
 
-Déclaration d'un entier stocké sur 32 bits, en déclarant explicitement le type
+## Typage des variables
+
+En Rust, une variable est toujours typée, que ce soit de manière *implicite* ou *explicite*.  On parle d'*inférence de type* pour désigner le fait que Rust soit capable de donner un type par défaut à une variable quand on ne précise pas explicitement le type souhaitée.
+
+Pour expliciter le type d'une variable, il faut utiliser deux points `:` suivi du type désiré :
 
 ```rust
-let my_variable :i32 = 67;
+let message :&str = "Hello";
+
+// ... est équivalent à :
+let message = "Hello";
 ```
 
-```rust
-// Rust infère qu'il s'agit ici d'un entier et donne par défault le type i32
-let my_variable = 67;
-// Rust infère qu'il s'agit d'un booléen
-let my_boolean = true
-```
+## Shadowing
 
 Il est possible "d'éclipser" (*shadow*) une variable en ré-utilisant le mot clef `let` avec le même nom de variable.
 
@@ -49,19 +45,23 @@ fn main() {
 }
 ```
 
-On peut aussi lier plusieurs variables en une seul fois avec la syntaxe suivante :
+## Déclarer plusieurs variables en une seule fois
+
+Il est possible de déclarer plusieurs variables avec un seul `let` en utilisant la syntaxe suivante :
 
 ```rust
-  let (x, y, z) = (1, 2.0, "Hello, world");
+  let (x, y, z) = (1, 2.0, "Hello");
+  println!("{}, {}, {}", x, y, z);
+  // affiche : 1, 2, Hello
 ```
 
-:::tip Note
-La partie gauche de l'assignation est un type de donnée nommé `tuple`, la partie gauche permet de *déstructurer* ce `tuple`
+:::tip NOTE
+Il s'agit en réalité d'une *déstructuration* (à gauche) d'un type *tuple* ( à droite) que nous verrons plus loin.
 :::
 
 ## const
 
-Le mot clef `const` permet de créer une constante. Contrairement à `let` :
+Le mot clef `const` permet, curieusement, de créer une constante. Contrairement à `let` :
 
 - il peut être utilisé dans la portée globale.
 - le type est obligatoire
@@ -88,28 +88,9 @@ fn main() {
 
 ## Immutabilité par défaut
 
-Dans la plupart des langages, un programme peut modifier la valeur de n'importe quelle variable. Cependant, modifier l'état d'un variable change l'état d'un programme et peut donc causer un bogue. En revanche, lire une variable est une opération sûre et sans effet secondaires, car cela ne change pas l'état du programme. **C'est pourquoi en Rust, les variables sont immutables par défaut**.
+Dans la plupart des langages, un programme peut modifier la valeur de n'importe quelle variable. Cependant, modifier l'état d'un variable change l'état d'un programme et peut donc causer un bogue. En revanche, lire une variable est une opération sûre et sans effet secondaire, car cela ne change pas l'état du programme. C'est pourquoi en Rust, les variables sont immutables par défaut.
 
-```rust
-fn main() {
-  // `x` is immutable
-  let x = 1;
-  // `y` is immutable
-  let y;
-  // `z` is mutable
-  let mut z = 1;
-  // Error: `x` is immutable
-  x = 1;
-  // OK: initialize `y`
-  y = 1;
-  // Error: `y` is immutable
-  y = 1;
-  // OK: `z` is mutable
-  z = 2;
-}
-```
-
-Il faut obligatoirement utiliser le mot-clef **mut** pour rendre une variable _mutable_.
+Il faut utiliser le mot-clef **mut** pour rendre une variable _mutable_:
 
 ```rust
 fn main() {
@@ -118,14 +99,14 @@ fn main() {
 }
 ```
 
-## Emplacement mémoire sur la pile ou le tas.
-
-Par défaut en Rust, la valeur d'une variable est stockée sur la **pile**. Pour allouer une valeur dans la mémoire du **tas**, il faut utiliser explicitement le type de donnée `Box`.
+En revanche, le code ci-dessous, qui modifie `x` alors que la variable n'est pas déclarée comme étant mutable, provoquera une erreur du compilateur.
 
 ```rust
-// sera stockée dans la mémoire du tas et non dans la pile
-let five = Box::new(5);
+fn main() {
+  let x = 1;  
+  // `x` est déclaré implicitement comme immutable
+
+  x = 1;
+  // Erreur: `x` est immutable
+}
 ```
-
-La `Box` est la forme la plus élementaire en Rust pour créer un pointeur sur la pile vers notre valeur stockée dans le tas.
-
