@@ -1,5 +1,7 @@
 # Organiser son code en modules
 
+<Avertissement />
+
 Rust nous permet d'organiser très facilement notre code et ses fichiers grâce à son puissant système de  *modules*. Les modules nous permettent :
 
 - d'organiser notre code en fichiers et dossiers

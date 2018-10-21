@@ -1,4 +1,4 @@
-# Rust depuis zéro - version 0.1
+# Rust depuis zéro
 
 <Avertissement />
 
