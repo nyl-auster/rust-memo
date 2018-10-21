@@ -2,18 +2,18 @@
 
 <Avertissement />
 
-Il existe quatre types scalaires de données. Un type scalaire représente une données _atomique_ par opposition à des types composés - comme des types listant plusieurs valeurs tels que _array_, _tuple_ ou _String_ (une String étant une liste de _caractères_ )
+Un type scalaire représente une donnée _atomique_ par opposition à des types composés - comme des types listant plusieurs valeurs tels que _array_, _tuple_ ou _String_ (une String étant une liste de _caractères_). Il existe quatre types scalaires de données :
 
 - Entier
 - Nombre à virgule flottante
-- Booléens
+- Booléen
 - Caractère
 
 ## Entier
 
 ```rust
 let y: u8 = 142;  // type entier non-signé 8 bits
-let x = 142; // Rust infère le type i32 par défault
+let x = 142; // Rust infère le type i32 par défaut
 ```
 
 | longueur | signé | non-signé | en décimal signé                                                | en décimal non-signé                  |
@@ -29,14 +29,14 @@ isize et usize dépendent du type d'ordinateur sur lequel tourne le programme : 
 :::
 
 :::tip NOTE
-Les entiers sont par défault du type i32 parce que c'est généralement le type le plus performant.
+Les entiers sont par défaut du type i32 parce que c'est généralement le type le plus performant.
 :::
 
 ## Nombre à virgule flottante
 
 ```rust
 let y: f32 = 142.567890; // flottant 32 bits
-let x = 2.0; // Rust infère le type f64 par défault
+let x = 2.0; // Rust infère le type f64 par défaut
 ```
 
 | longueur | notation |
@@ -44,7 +44,7 @@ let x = 2.0; // Rust infère le type f64 par défault
 | 32-bits  | f32      |
 | 64-bits  | f64      |
 
-> 💡 Le type par défaut est _f64_ parce que sur les CPUs moderne, il est quasimenet aussi rapidement que _f32_ mais offre bien plus de précisions.
+> 💡 Le type par défaut est _f64_ parce que sur les CPUs modernes, il est quasiment aussi rapide que _f32_ mais offre bien plus de précisions.
 
 ## Booléen
 
@@ -62,5 +62,5 @@ let heart_eyed_cat = '😻';
 ```
 
 :::tip NOTE
-Le type caractère est spécifié avec des guillemets simples tandis que les chaîne de caractères sont spécifiées avec des guillemets doubles.
+Le type caractère est spécifié avec des guillemets simples tandis que les chaînes de caractères sont spécifiées avec des guillemets doubles.
 :::
