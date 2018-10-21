@@ -8,10 +8,10 @@ config.themeConfig.sidebar = [
       '/variables/type-de-donnees',
       '/variables/declarer-une-variable',
       '/variables/primitifs-atomiques',
-      '/variables/primitifs-composes',
-      '/variables/debogguer-une-variable',
       '/variables/operations-mathematiques',
+      '/variables/primitifs-composes',
       '/variables/structure',
+      '/variables/debogguer-une-variable',
     ]
   },
   {
