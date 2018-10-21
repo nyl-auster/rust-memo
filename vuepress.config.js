@@ -2,7 +2,7 @@
  * Cette config est commune à tous les dossiers docs_xxxx 
  */
 module.exports = {
-  title: 'Rust depuis zéro',
+  title: 'Rust depuis zéro - ⚠️ ️️version 0.1',
   description: 'Rust depuis zéro',
   markdown: {
     lineNumbers: true
