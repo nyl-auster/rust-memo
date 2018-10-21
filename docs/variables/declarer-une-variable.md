@@ -1,5 +1,7 @@
 # Déclarer des variables
 
+<Avertissement />
+
 ## let
 
 Le mot-clef `let` permet de déclarer une variable.

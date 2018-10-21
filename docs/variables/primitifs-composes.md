@@ -1,5 +1,7 @@
 # Types primitifs composés
 
+<Avertissement />
+
 Les types composés peuvent regrouper plusieurs valeurs dans un seul type. Rust propose deux types composés primitifs : les **tuples** et les **arrays**.
 
 ## tuple

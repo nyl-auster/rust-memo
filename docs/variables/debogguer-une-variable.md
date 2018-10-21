@@ -1,4 +1,6 @@
-# Déboguer les variables avec les placeholders de "println!" 💡
+# Déboguer les variables avec les placeholders de "println!" 
+
+<Avertissement />
 
 ## afficher une vartaible avec println! et ses formatteurs
 

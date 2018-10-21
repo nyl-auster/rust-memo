@@ -1,5 +1,7 @@
 # Opérations arithmétiques
 
+<Avertissement />
+
 ```rust
 // addition
 let sum = 5 + 10;

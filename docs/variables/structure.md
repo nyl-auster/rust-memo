@@ -1,5 +1,7 @@
 # Structures - Créer des types personnalisés avec `struct`
 
+<Avertissement />
+
 ## Déclarer une structure
 
 Une structure est un type de donnée incontournable qui regroupe un ensemble de champs, dont chaque type est spécifié. On peut également y attacher des **méthodes**.

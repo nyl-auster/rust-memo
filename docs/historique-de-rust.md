@@ -1,5 +1,7 @@
 # Historique de Rust
 
+<Avertissement />
+
 Rust est un language crée par [Mozilla Research](https://research.mozilla.org/). Une partie de leur travail consiste à travailler sur un navigateur internet nouvelle génération : c'est le le projet [Servo](<https://fr.wikipedia.org/wiki/Servo_(moteur_de_rendu)>)
 
 Une partie de la question posée par Servo est : si on écrit aujourd'hui le coeur d'un nouveau navigateur en prenant en compte les expériences passées, en quel language faut-il le faire ?

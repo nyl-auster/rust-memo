@@ -1,5 +1,7 @@
 # Les types de données
 
+<Avertissement />
+
 ## Qu'est ce qu'un type de donnée ?
 
 En programmation, quand on déclare une variable, elle toujours d'un certain **type** : il peut s'agir d'un _booléen_, d'un _nombre_, ou d'une _chaîne de caractères_... Mais aussi de types plus complexes comme des *tableaux*, des *collections*, des *objets* ... C'est ce qu'on désigne par **types de données**.
