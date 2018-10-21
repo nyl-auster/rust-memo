@@ -11,7 +11,7 @@ module.exports = {
     lastUpdated: true, // string | boolean
     nav: [
       { text: "Souscrivez un abonnement", link: 'http://eepurl.com/dJuW3I' },
-      { text: "Twitter", link: 'https://twitter.com/@yineofr' },
+      { text: "Twitter", link: 'https://twitter.com/@yann_yinn' },
       { text: 'Contact', link: 'https://yineo.fr/contact' },
     ]
   },
